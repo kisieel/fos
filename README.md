@@ -1,2 +1,2 @@
-# fos
+# FOS
 Fishing Operating System
