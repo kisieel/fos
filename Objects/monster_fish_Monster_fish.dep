@@ -1,0 +1,47 @@
+Dependencies for Project 'monster_fish', Target 'Monster_fish': (DO NOT MODIFY !)
+F (.\dev\startup_stm32l1xx_md.s)(0x558D5D80)(--cpu Cortex-M3 --pd "__EVAL SETA 1" -g --apcs=interwork -I C:\Users\Oshel\Documents\fos\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32L1xx_DFP\1.0.2\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include--pd "__UVISION_VERSION SETA 515" --pd "STM32L1XX_MD SETA 1"--list .\listings\startup_stm32l1xx_md.lst --xref -o .\objects\startup_stm32l1xx_md.o --depend .\objects\startup_stm32l1xx_md.d)
+F (.\dev\stm32l1xx.h)(0x55ACF9F9)()
+F (.\dev\system_stm32l1xx.c)(0x558FF69E)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork --split_sections -I.\dev -I.\inc -I.\src-I C:\Users\Oshel\Documents\fos\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32L1xx_DFP\1.0.2\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="515" -DSTM32L1XX_MD -DSTM32L1XX_MD-o .\objects\system_stm32l1xx.o --omf_browse .\objects\system_stm32l1xx.crf --depend .\objects\system_stm32l1xx.d)
+I (dev\stm32l1xx.h)(0x55ACF9F9)
+I (C:\Keil_v5\ARM\CMSIS\Include\core_cm3.h)(0x55099E74)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x54C2A828)
+I (C:\Keil_v5\ARM\CMSIS\Include\core_cmInstr.h)(0x55099E74)
+I (C:\Keil_v5\ARM\CMSIS\Include\core_cmFunc.h)(0x55099E74)
+I (dev\system_stm32l1xx.h)(0x558FF69E)
+F (.\dev\system_stm32l1xx.h)(0x558FF69E)()
+F (.\inc\EEPROM.h)(0x55AD7E9A)()
+F (.\inc\RFM69W.h)(0x55A9183A)()
+F (.\inc\USART.h)(0x55A8FAAD)()
+F (.\src\EEPROM.c)(0x55AD7E33)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork --split_sections -I.\dev -I.\inc -I.\src-I C:\Users\Oshel\Documents\fos\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32L1xx_DFP\1.0.2\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="515" -DSTM32L1XX_MD -DSTM32L1XX_MD-o .\objects\eeprom.o --omf_browse .\objects\eeprom.crf --depend .\objects\eeprom.d)
+I (.\dev\stm32l1xx.h)(0x55ACF9F9)
+I (C:\Keil_v5\ARM\CMSIS\Include\core_cm3.h)(0x55099E74)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x54C2A828)
+I (C:\Keil_v5\ARM\CMSIS\Include\core_cmInstr.h)(0x55099E74)
+I (C:\Keil_v5\ARM\CMSIS\Include\core_cmFunc.h)(0x55099E74)
+I (.\dev\system_stm32l1xx.h)(0x558FF69E)
+I (.\inc\EEPROM.h)(0x55AD7E9A)
+F (.\src\main.c)(0x55A9183A)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork --split_sections -I.\dev -I.\inc -I.\src-I C:\Users\Oshel\Documents\fos\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32L1xx_DFP\1.0.2\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="515" -DSTM32L1XX_MD -DSTM32L1XX_MD-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
+I (.\dev\stm32l1xx.h)(0x55ACF9F9)
+I (C:\Keil_v5\ARM\CMSIS\Include\core_cm3.h)(0x55099E74)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x54C2A828)
+I (C:\Keil_v5\ARM\CMSIS\Include\core_cmInstr.h)(0x55099E74)
+I (C:\Keil_v5\ARM\CMSIS\Include\core_cmFunc.h)(0x55099E74)
+I (.\dev\system_stm32l1xx.h)(0x558FF69E)
+I (.\inc\RFM69W.h)(0x55A9183A)
+I (.\inc\USART.h)(0x55A8FAAD)
+F (.\src\RFM69W.c)(0x55A9183A)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork --split_sections -I.\dev -I.\inc -I.\src-I C:\Users\Oshel\Documents\fos\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32L1xx_DFP\1.0.2\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="515" -DSTM32L1XX_MD -DSTM32L1XX_MD-o .\objects\rfm69w.o --omf_browse .\objects\rfm69w.crf --depend .\objects\rfm69w.d)
+I (.\inc\RFM69W.h)(0x55A9183A)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x54C2A828)
+I (.\dev\stm32l1xx.h)(0x55ACF9F9)
+I (C:\Keil_v5\ARM\CMSIS\Include\core_cm3.h)(0x55099E74)
+I (C:\Keil_v5\ARM\CMSIS\Include\core_cmInstr.h)(0x55099E74)
+I (C:\Keil_v5\ARM\CMSIS\Include\core_cmFunc.h)(0x55099E74)
+I (.\dev\system_stm32l1xx.h)(0x558FF69E)
+F (.\src\USART.c)(0x55A9135C)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork --split_sections -I.\dev -I.\inc -I.\src-I C:\Users\Oshel\Documents\fos\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32L1xx_DFP\1.0.2\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="515" -DSTM32L1XX_MD -DSTM32L1XX_MD-o .\objects\usart.o --omf_browse .\objects\usart.crf --depend .\objects\usart.d)
+I (.\dev\stm32l1xx.h)(0x55ACF9F9)
+I (C:\Keil_v5\ARM\CMSIS\Include\core_cm3.h)(0x55099E74)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x54C2A828)
+I (C:\Keil_v5\ARM\CMSIS\Include\core_cmInstr.h)(0x55099E74)
+I (C:\Keil_v5\ARM\CMSIS\Include\core_cmFunc.h)(0x55099E74)
+I (.\dev\system_stm32l1xx.h)(0x558FF69E)
+I (.\inc\USART.h)(0x55A8FAAD)
