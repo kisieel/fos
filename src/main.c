@@ -1,6 +1,13 @@
 #include "stm32l1xx.h"
 #include "RFM69W.h"
 #include "USART.h"
+#include "EEPROM.h"
+#include "KEY.h"
+#include "MENU.h"
+
+volatile unsigned int PSC = 1;
+
+void SYS_TICK_init(void);
 
 int main()
 {
@@ -20,4 +27,17 @@ int main()
 	for(;;) {
 		
 	}
+}
+
+void SysTick_Handler(void)
+{
+	
+}
+
+void SYS_TICK_init(void)
+{                                                              
+	SysTick->CTRL |= SysTick_CTRL_TICKINT;
+	SysTick->LOAD = 9000000/PSC;
+	SysTick->CTRL |= SysTick_CTRL_ENABLE;
+	NVIC_SetPriority(SysTick_IRQn, 1);
 }

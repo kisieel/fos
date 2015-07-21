@@ -7,3 +7,6 @@
 .\objects\main.o: .\dev\system_stm32l1xx.h
 .\objects\main.o: .\inc\RFM69W.h
 .\objects\main.o: .\inc\USART.h
+.\objects\main.o: .\inc\EEPROM.h
+.\objects\main.o: .\inc\KEY.h
+.\objects\main.o: .\inc\MENU.h
