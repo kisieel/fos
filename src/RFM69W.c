@@ -76,10 +76,39 @@ void SPI1_IRQHandler()
 	}
 }
 
+void EXTI15_10_IRQHandler()
+{
+	if (EXTI->PR & EXTI_PR_PR10) {
+		
+		EXTI->PR |= EXTI_PR_PR10;
+	}
+}
+
 void RFM69W_GPIO_init(void)
 {
-	RCC->AHBENR |= RCC_AHBENR_GPIOBEN;                // Clock for GPIOB 
-		
+	RCC->AHBENR |= RCC_AHBENR_GPIOBEN                 // Clock for GPIOB 
+               | RCC_AHBENR_GPIOAEN;                // Clock for GPIOA
+	
+	// RFM69_WAKE_uC as a DIO0 pin in RFM69W module
+	// PA10 input floating in module
+	
+	GPIOA->MODER &= ~GPIO_MODER_MODER10;              // Input mode
+	GPIOA->PUPDR &= ~GPIO_PUPDR_PUPDR10;              // No pull-up/pull-down (floating)
+	
+	SYSCFG->EXTICR[2] |= SYSCFG_EXTICR3_EXTI10_PA;    // A block for EXTI10
+	EXTI->IMR |= EXTI_IMR_MR10;                       // Input line 10 selection (unmasking)
+	EXTI->RTSR |= EXTI_RTSR_TR10;                     // Rising edge selection
+	NVIC_SetPriority(EXTI15_10_IRQn, 0);              // Priority set to 0
+	NVIC_EnableIRQ(EXTI15_10_IRQn);                   // Interrupt enable
+	
+	// RFM69_Reset_uC as a RST pin in RFM69W module
+	// PA9 in module
+	
+	GPIOA->MODER |= GPIO_MODER_MODER9_0;              // General purpose output mode
+	GPIOA->OSPEEDR &= ~(GPIO_OSPEEDER_OSPEEDR9);      // Very low speed 400 kHz
+	GPIOA->OTYPER &= ~GPIO_OTYPER_IDR_9;              // Push-pull
+	GPIOA->PUPDR &= ~GPIO_PUPDR_PUPDR9;               // No pull-up/pull-down (floating)
+	
 	// SPI SCK/MISO/MOSI/CS = PB3/PB4/PB5/PA15 pin configuration as (according to RM0008 document)
 	// (SCK)  alternate function push-pull
 	// (MISO) input pull-up, 
@@ -93,7 +122,7 @@ void RFM69W_GPIO_init(void)
 	                | GPIO_OSPEEDER_OSPEEDR5_0;
 	GPIOB->OTYPER &= ~(GPIO_OTYPER_ODR_3              // Push-pull
 	                 | GPIO_OTYPER_ODR_5);
-	GPIOB->PUPDR &= ~(GPIO_PUPDR_PUPDR3               // No pull-up/pull down
+	GPIOB->PUPDR &= ~(GPIO_PUPDR_PUPDR3               // No pull-up/pull down (floating)
 	                | GPIO_PUPDR_PUPDR5);
 	GPIOB->AFR[0] |= (GPIO_AFRL_AFRL3 | (5 << 4*3))   // AF5 - SPI1 SCK/MOSI
 	               | (GPIO_AFRL_AFRL5 | (5 << 4*5));
@@ -106,7 +135,7 @@ void RFM69W_GPIO_init(void)
 	GPIOA->MODER |= GPIO_MODER_MODER15_0;             // General purpose output mode
 	GPIOA->OSPEEDR &= ~(GPIO_OSPEEDER_OSPEEDR15);     // Very low speed 400 kHz
 	GPIOA->OTYPER &= ~GPIO_OTYPER_IDR_15;             // Push-pull
-	GPIOA->PUPDR &= ~GPIO_PUPDR_PUPDR15;              // No pull-up/pull-down
+	GPIOA->PUPDR &= ~GPIO_PUPDR_PUPDR15;              // No pull-up/pull-down (floating)
 	
 	RFM69W_CS_UP;                                     // CS up
 }

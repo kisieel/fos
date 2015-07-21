@@ -452,6 +452,26 @@
               <FileType>5</FileType>
               <FilePath>.\inc\USART.h</FilePath>
             </File>
+            <File>
+              <FileName>KEY.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\inc\KEY.h</FilePath>
+            </File>
+            <File>
+              <FileName>MENU.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\inc\MENU.h</FilePath>
+            </File>
+            <File>
+              <FileName>LOW_MODE.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\inc\LOW_MODE.h</FilePath>
+            </File>
+            <File>
+              <FileName>RTC.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\inc\RTC.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -476,6 +496,26 @@
               <FileName>USART.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\src\USART.c</FilePath>
+            </File>
+            <File>
+              <FileName>KEY.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\KEY.c</FilePath>
+            </File>
+            <File>
+              <FileName>MENU.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\MENU.c</FilePath>
+            </File>
+            <File>
+              <FileName>LOW_MODE.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\LOW_MODE.c</FilePath>
+            </File>
+            <File>
+              <FileName>RTC.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\RTC.c</FilePath>
             </File>
           </Files>
         </Group>
