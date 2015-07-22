@@ -419,14 +419,14 @@ void GPIO_config(uint8_t BLOCK, uint8_t PIN, uint8_t MODE, uint8_t PULL, uint8_t
 			if (MODE == GPIO_MODE_AF) {
 				if (PIN < 8) {
 					// Reset AF
-					GPIO->AFR[0] |= ((0x0F << PIN * 4) | (0x00 << PIN * 4));
+					GPIO->AFR[0] &= ~((0x0F << PIN * 4));
 					// Set AF
-					GPIO->AFR[0] |= ((0x0F << PIN * 4) | (AF << PIN * 4));
+					GPIO->AFR[0] |= (AF << PIN * 4);
 				} else {
 					// Reset AF
-					GPIO->AFR[1] |= ((0x0F << (PIN - 8) * 4) | (0x00 << (PIN - 8) * 4));
+					GPIO->AFR[1] &= ~((0x0F << (PIN - 8) * 4));
 					// Set AF
-					GPIO->AFR[1] |= ((0x0F << (PIN - 8) * 4) | (AF << (PIN - 8) * 4));
+					GPIO->AFR[1] |= (AF << (PIN - 8) * 4);
 				}
 			}
 		}
