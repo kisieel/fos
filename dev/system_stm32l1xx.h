@@ -75,9 +75,51 @@ extern uint32_t SystemCoreClock;          /*!< System Clock Frequency (Core Cloc
 /** @addtogroup STM32L1xx_System_Exported_Functions
   * @{
   */
-  
+
+#define GPIO_MODE_Input      0x00
+#define GPIO_MODE_GP         0x01
+#define GPIO_MODE_AF         0x02
+#define GPIO_MODE_Analog     0x03
+
+#define GPIO_TYPE_Pushpull   0x00
+#define GPIO_TYPE_Opendrain  0x01
+
+#define GPIO_SPEED_400k      0x00
+#define GPIO_SPEED_2M        0x01
+#define GPIO_SPEED_10M       0x02
+#define GPIO_SPEED_40M       0x03
+
+#define GPIO_PULL_Floating   0x00
+#define GPIO_PULL_Pullup     0x01
+#define GPIO_PULL_Pulldown   0x02
+
+#define GPIO_AF_AF0          0x00
+#define GPIO_AF_AF1          0x01
+#define GPIO_AF_AF2          0x02
+#define GPIO_AF_AF3          0x03
+#define GPIO_AF_AF4          0x04
+#define GPIO_AF_AF5          0x05
+#define GPIO_AF_AF6          0x06
+#define GPIO_AF_AF7          0x07
+#define GPIO_AF_AF8          0x08
+#define GPIO_AF_AF9          0x09
+#define GPIO_AF_AF10         0x0A
+#define GPIO_AF_AF11         0x0B
+#define GPIO_AF_AF12         0x0C
+#define GPIO_AF_AF13         0x0D
+#define GPIO_AF_AF14         0x0E
+#define GPIO_AF_AF15         0x0F
+
 extern void SystemInit(void);
 extern void SystemCoreClockUpdate(void);
+extern void GPIO_config(unsigned char BLOCK, 
+	                      unsigned char PIN,
+                        unsigned char MODE,
+												unsigned char PULL,
+												unsigned char TYPE,
+												unsigned char SPEED,
+												unsigned char AF);
+
 /**
   * @}
   */

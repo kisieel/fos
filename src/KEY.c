@@ -92,6 +92,10 @@ static unsigned short
 void KEY_init(void)
 {
 	RCC->APB1ENR |= RCC_APB1ENR_TIM6EN;
+	RCC->AHBENR |= RCC_AHBENR_GPIOAEN;
+	
+	GPIO_config(0x0A, 1, GPIO_MODE_Input, GPIO_PULL_Floating, 0, 0, 0);
+	GPIO_config(0x0A, 2, GPIO_MODE_Input, GPIO_PULL_Floating, 0, 0, 0);
 	
 	TIM6->ARR = 10000;
 	TIM6->PSC = 32;

@@ -7,6 +7,8 @@
 ".\objects\usart.o"
 ".\objects\key.o"
 ".\objects\menu.o"
+".\objects\low_mode.o"
+".\objects\rtc.o"
 --ro-base 0x08000000 --entry 0x08000000 --rw-base 0x20000000 --entry Reset_Handler --first __Vectors --strict --summary_stderr --info summarysizes --map --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers
 --list ".\Listings\monster_fish.map" -o .\Objects\monster_fish.axf

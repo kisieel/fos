@@ -366,8 +366,72 @@ static void SetSysClock(void)
 }
 
 /**
-  * @}
+  * @brief  Configures IO lanes
+  * @note   If desired mode is Analog or Input then SPEED, TYPE and AF parameters can
+  *         can be omitted (value equal to 0). If desired mode is General Purpose
+            (GP) then AF parameter can be omitted. Parameter BLOCK is used to define 
+            which block (A, B, C, ...) will be modified. It is selectable by entering 
+            0x0A (for A block), 0x0B (for B block) and so on. In system_stm32l1xx.h 
+            there are all needed deinitions which starts with #define GPIO_ ...
+  * @param  BLOCK - which block
+            PIN - which pin
+            MODE - what mode
+            TYPE - what type
+            SPEED - what speed
+            PULL - what pull
+            AF - what alternate function
+  * @retval None
   */
+
+void GPIO_config(uint8_t BLOCK, uint8_t PIN, uint8_t MODE, uint8_t PULL, uint8_t TYPE, uint8_t SPEED, uint8_t AF)
+{
+	GPIO_TypeDef *GPIO;
+	
+	switch (BLOCK) {
+		case 0x0A:
+			GPIO = (GPIO_TypeDef *) GPIOA_BASE;
+			break;
+		case 0x0B:
+			GPIO = (GPIO_TypeDef *) GPIOB_BASE;
+			break;
+		case 0x0C:
+			GPIO = (GPIO_TypeDef *) GPIOC_BASE;
+			break;
+	}
+	
+	// Reset Input, GP, AF, Analog
+	GPIO->MODER   &= ~(0x03 << (PIN * 2));
+	GPIO->PUPDR   &= ~(0x03 << (PIN * 2));
+	
+	// Set Input, GP, AF, Analog
+	GPIO->MODER   |= (MODE  << (PIN * 2));
+	if (MODE == GPIO_MODE_GP || MODE == GPIO_MODE_AF || MODE == GPIO_MODE_Input) {		
+		// Set Input, GP, AF
+		GPIO->PUPDR   |= (PULL  << (PIN * 2));
+		if (MODE == GPIO_MODE_GP || MODE == GPIO_MODE_AF) {
+			// Reset GP, AF 
+			GPIO->OTYPER  &= ~(0x01 <<  PIN * 2);
+			GPIO->OSPEEDR &= ~(0x03 << (PIN * 2));
+			// Set GP, AF
+			GPIO->OTYPER  |= (TYPE  <<  PIN);
+			GPIO->OSPEEDR |= (SPEED << (PIN * 2));
+			
+			if (MODE == GPIO_MODE_AF) {
+				if (PIN < 8) {
+					// Reset AF
+					GPIO->AFR[0] |= ((0x0F << PIN * 4) | (0x00 << PIN * 4));
+					// Set AF
+					GPIO->AFR[0] |= ((0x0F << PIN * 4) | (AF << PIN * 4));
+				} else {
+					// Reset AF
+					GPIO->AFR[1] |= ((0x0F << (PIN - 8) * 4) | (0x00 << (PIN - 8) * 4));
+					// Set AF
+					GPIO->AFR[1] |= ((0x0F << (PIN - 8) * 4) | (AF << (PIN - 8) * 4));
+				}
+			}
+		}
+	}
+}
 
 /**
   * @}

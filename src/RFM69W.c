@@ -91,6 +91,7 @@ void RFM69W_GPIO_init(void)
 	
 	// RFM69_WAKE_uC as a DIO0 pin in RFM69W module
 	// PA10 input floating in module
+//	GPIO_config(0x0A, 10, GPIO_MODE_Input, GPIO_PULL_Floating, 0, 0, 0);
 	
 	GPIOA->MODER &= ~GPIO_MODER_MODER10;              // Input mode
 	GPIOA->PUPDR &= ~GPIO_PUPDR_PUPDR10;              // No pull-up/pull-down (floating)
@@ -103,6 +104,7 @@ void RFM69W_GPIO_init(void)
 	
 	// RFM69_Reset_uC as a RST pin in RFM69W module
 	// PA9 in module
+//	GPIO_config(0x0A, 9, GPIO_MODE_GP, GPIO_PULL_Floating, GPIO_TYPE_Pushpull, GPIO_SPEED_400k, 0);
 	
 	GPIOA->MODER |= GPIO_MODER_MODER9_0;              // General purpose output mode
 	GPIOA->OSPEEDR &= ~(GPIO_OSPEEDER_OSPEEDR9);      // Very low speed 400 kHz
@@ -116,6 +118,9 @@ void RFM69W_GPIO_init(void)
 	// (CS)   general purpose push-pull.
 	
 	// SCK and MOSI configuration:
+//	GPIO_config(0x0B, 3, GPIO_MODE_AF, GPIO_TYPE_Pushpull, GPIO_SPEED_2M, GPIO_PULL_Floating, GPIO_AF_AF5);
+//	GPIO_config(0x0B, 5, GPIO_MODE_AF, GPIO_TYPE_Pushpull, GPIO_SPEED_2M, GPIO_PULL_Floating, GPIO_AF_AF5);
+	
 	GPIOB->MODER |= GPIO_MODER_MODER3_1               // SCK, MOSI alternate function mode
 	              | GPIO_MODER_MODER5_1;
 	GPIOB->OSPEEDR |= GPIO_OSPEEDER_OSPEEDR3_0        // SCK, MOSI low speed 2MHz
@@ -128,10 +133,14 @@ void RFM69W_GPIO_init(void)
 	               | (GPIO_AFRL_AFRL5 | (5 << 4*5));
 	
 	// MISO confuguration:
+//	GPIO_config(0x0B, 4, GPIO_MODE_Input, GPIO_PULL_Pullup, 0, 0, 0);
+	
 	GPIOB->MODER &= ~(GPIO_MODER_MODER4);             // MISO input mode
 	GPIOB->PUPDR |= GPIO_PUPDR_PUPDR4_0;              // MISO pull-up
 	
 	// CS configuration:
+//	GPIO_config(0x0A, 15, GPIO_MODE_GP, GPIO_PULL_Floating, GPIO_TYPE_Pushpull, GPIO_SPEED_400k, 0);
+	
 	GPIOA->MODER |= GPIO_MODER_MODER15_0;             // General purpose output mode
 	GPIOA->OSPEEDR &= ~(GPIO_OSPEEDER_OSPEEDR15);     // Very low speed 400 kHz
 	GPIOA->OTYPER &= ~GPIO_OTYPER_IDR_15;             // Push-pull
