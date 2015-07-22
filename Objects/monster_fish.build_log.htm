@@ -8,34 +8,35 @@ Project File Date:  07/22/2015
 
 <h2>Output:</h2>
 Build target 'Monster_fish'
-compiling RFM69W.c...
+compiling main.c...
 .\inc\RFM69W.h(1472): warning:  #1-D: last line of file ends without a newline
   #endif
-src\RFM69W.c(179): warning:  #1-D: last line of file ends without a newline
+.\inc\KEY.h(32): warning:  #1-D: last line of file ends without a newline
+  #endif  
+.\inc\MENU.h(21): warning:  #1-D: last line of file ends without a newline
+  #endif
+src\main.c(64): warning:  #1-D: last line of file ends without a newline
   }
-src\RFM69W.c: 2 warnings, 0 errors
+src\main.c: 4 warnings, 0 errors
 linking...
-Program Size: Code=2280 RO-data=300 RW-data=64 ZI-data=1664  
+Program Size: Code=1928 RO-data=300 RW-data=64 ZI-data=1704  
 FromELF: creating hex file...
-".\Objects\monster_fish.axf" - 0 Error(s), 2 Warning(s).
+".\Objects\monster_fish.axf" - 0 Error(s), 4 Warning(s).
 Load "C:\\Users\\Oshel\\Documents\\fos\\Objects\\monster_fish.axf" 
 Erase Done.
 Programming Done.
 Verify OK.
 Application running ...
-ing:  #1-D: last line of file ends without a newline
-  }
-src\RFM69W.c: 2 warnings, 0 errors
-linking...
-Program Size: Code=2280 RO-data=300 RW-data=64 ZI-data=1664  
-FromELF: creating hex file...
-".\Objects\monster_fish.axf" - 0 Error(s), 6 Warning(s).
-Load "C:\\Users\\Oshel\\Documents\\fos\\Objects\\monster_fish.axf" 
+ been cancelled
+shel\\Documents\\fos\\Objects\\monster_fish.axf" 
 Erase Done.
 Programming Done.
 Verify OK.
 Application running ...
-e ends without a newline
+ors
+compiling USART.c...
+compiling KEY.c...
+.\inc\KEY.h(32): warning:  #1-D: last line of file ends without a newline
   #endif  
 src\KEY.c: 1 warning, 0 errors
 compiling MENU.c...
@@ -55,15 +56,8 @@ compiling RTC.c...
   #endif
 src\RTC.c: 1 warning, 0 errors
 linking...
-Program Size: Code=2032 RO-data=300 RW-data=64 ZI-data=1664  
-FromELF: creating hex file...
-".\Objects\monster_fish.axf" - 0 Error(s), 13 Warning(s).
-Load "C:\\Users\\Oshel\\Documents\\fos\\Objects\\monster_fish.axf" 
-Erase Failed!
-Internal command error
-Error: Flash Download failed  -  "Cortex-M3"
-Load "C:\\Users\\Oshel\\Documents\\fos\\Objects\\monster_fish.axf" 
-Erase Done.
-Programming Done.
-Verify OK.
-Application running ...
+.\Objects\monster_fish.axf: Error: L6218E: Undefined symbol USART_write (referred from usart.o).
+Not enough information to list image symbols.
+Finished: 1 information, 0 warning and 1 error messages.
+".\Objects\monster_fish.axf" - 1 Error(s), 13 Warning(s).
+Target not created
