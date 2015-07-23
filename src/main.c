@@ -4,6 +4,7 @@
 #include "EEPROM.h"
 #include "KEY.h"
 #include "MENU.h"
+#include "FLOAT.h"
 
 void SYS_TICK_init(void);
 
@@ -35,6 +36,8 @@ PB13 - BUZ_tone
 
 int main()
 {
+	char buf[100];
+	
 	// Keep power supply
 	RCC->AHBENR |= RCC_AHBENR_GPIOAEN;            // Clock for GPIOA
 	GPIO_config(0x0A, 0, GPIO_MODE_GP, GPIO_PULL_Floating, GPIO_TYPE_Pushpull, GPIO_SPEED_400k, 0);

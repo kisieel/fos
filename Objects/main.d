@@ -10,3 +10,4 @@
 .\objects\main.o: .\inc\EEPROM.h
 .\objects\main.o: .\inc\KEY.h
 .\objects\main.o: .\inc\MENU.h
+.\objects\main.o: .\inc\FLOAT.h

@@ -7,19 +7,23 @@ void EEPROM_unlock(void);
 void EEPROM_lock(void);
 void EEPROM_option_unlock(void);
 void EEPROM_option_lock(void);
-void EEPROM_32_erase(unsigned int);
-void EEPROM_64_erase(unsigned int);
-void EEPROM_64_write(unsigned int, unsigned long int);
-void EEPROM_32_fast_write(unsigned int, unsigned int);
-void EEPROM_32_write(unsigned int, unsigned int);
-void EEPROM_16_fast_write(unsigned int, unsigned short int);
-void EEPROM_16_write(unsigned int, unsigned short int);
-void EEPROM_8_fast_write(unsigned int, unsigned char);
-void EEPROM_8_write(unsigned int, unsigned char);
 
-unsigned long int EEPROM_64_read(unsigned int);
-unsigned int EEPROM_32_read(unsigned int);
-unsigned short int EEPROM_16_read(unsigned int);
-unsigned char EEPROM_8_read(unsigned int);
+void EEPROM_64_erase(unsigned int ADDRESS);
+void EEPROM_32_erase(unsigned int ADDRESS);
+
+void EEPROM_64_write(unsigned int ADDRESS, uint64_t DATA);
+void EEPROM_32_write(unsigned int ADDRESS, unsigned int DATA);
+void EEPROM_16_write(unsigned int ADDRESS, unsigned short int DATA);
+void EEPROM_8_write(unsigned int ADDRESS, unsigned char DATA);
+
+void EEPROM_32_fast_write(unsigned int ADDRESS, unsigned int DATA);
+void EEPROM_16_fast_write(unsigned int ADDRESS, unsigned short int DATA);
+void EEPROM_8_fast_write(unsigned int ADDRESS, unsigned char DATA);
+
+
+uint64_t EEPROM_64_read(unsigned int ADDRESS);
+unsigned int EEPROM_32_read(unsigned int ADDRESS);
+unsigned short int EEPROM_16_read(unsigned int ADDRESS);
+unsigned char EEPROM_8_read(unsigned int ADDRESS);
 
 #endif

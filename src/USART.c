@@ -55,7 +55,7 @@ void USART_send(char * text)
 {
 	while (*text != '\0')
 	{
-		USART_write(*text);
+		while(!(USART_write(*text)));
 		text++;
 	}
 }
