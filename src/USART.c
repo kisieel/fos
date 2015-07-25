@@ -1,6 +1,15 @@
 #include "stm32l1xx.h"
 #include "USART.h"
 
+// Private functions
+unsigned char USART_write(char);
+void USART_putchar(char);
+// End of private functions
+
+typedef struct {
+	uint8_t data;
+} USART_Queue;
+
 volatile struct {
 	USART_Queue buffer[USART_FIFO_size];
 	uint8_t head;
@@ -51,7 +60,7 @@ void USART1_IRQHandler(void)
 	}
 }
 
-void USART_send(char * text)
+void _USART_send(char * text)
 {
 	while (*text != '\0')
 	{
@@ -60,7 +69,7 @@ void USART_send(char * text)
 	}
 }
 
-void USART_init(void)
+void _USART_init(void)
 {
 	RCC->AHBENR |= RCC_AHBENR_GPIOBEN;                  // Clock for GPIOB 
 	RCC->APB2ENR |= RCC_APB2ENR_USART1EN;               // Clock for USART1

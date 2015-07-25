@@ -9,65 +9,102 @@ Project File Date:  07/22/2015
 <h2>Output:</h2>
 Build target 'Monster_fish'
 compiling main.c...
-.\inc\RFM69W.h(1472): warning:  #1-D: last line of file ends without a newline
-  #endif
-.\inc\KEY.h(32): warning:  #1-D: last line of file ends without a newline
-  #endif  
-.\inc\MENU.h(21): warning:  #1-D: last line of file ends without a newline
-  #endif
-src\main.c(39): warning:  #177-D: variable "buf" was declared but never referenced
-        char buf[100];
-src\main.c(67): warning:  #1-D: last line of file ends without a newline
-  }
-src\main.c: 5 warnings, 0 errors
+src\main.c(40): warning:  #177-D: variable "buf" was declared but never referenced
+        uint8_t buf[10];
+src\main.c: 1 warning, 0 errors
+compiling MENU.c...
 linking...
-Program Size: Code=1928 RO-data=300 RW-data=64 ZI-data=1704  
+Program Size: Code=3668 RO-data=300 RW-data=84 ZI-data=1732  
 FromELF: creating hex file...
-".\Objects\monster_fish.axf" - 0 Error(s), 5 Warning(s).
-OK.
-Application running ...
-a=1832  
+".\Objects\monster_fish.axf" - 0 Error(s), 1 Warning(s).
+without a newline
+  }
+src\RFM69W.c: 2 warnings, 0 errors
+compiling KEY.c...
+compiling MENU.c...
+src\MENU.c(99): warning:  #1-D: last line of file ends without a newline
+  }
+src\MENU.c: 1 warning, 0 errors
+linking...
+Program Size: Code=3708 RO-data=300 RW-data=84 ZI-data=1732  
 FromELF: creating hex file...
-".\Objects\monster_fish.axf" - 0 Error(s), 6 Warning(s).
+".\Objects\monster_fish.axf" - 0 Error(s), 4 Warning(s).
+ #1-D: last line of file ends without a newline
+  }
+src\MENU.c: 3 warnings, 0 errors
+linking...
+Program Size: Code=2692 RO-data=300 RW-data=64 ZI-data=1728  
+FromELF: creating hex file...
+".\Objects\monster_fish.axf" - 0 Error(s), 8 Warning(s).
+rs
+compiling USART.c...
+linking...
+Program Size: Code=2692 RO-data=300 RW-data=64 ZI-data=1728  
+FromELF: creating hex file...
+".\Objects\monster_fish.axf" - 0 Error(s), 9 Warning(s).
+ART.c...
+linking...
+Program Size: Code=2692 RO-data=300 RW-data=64 ZI-data=1728  
+FromELF: creating hex file...
+".\Objects\monster_fish.axf" - 0 Error(s), 11 Warning(s).
+69W.c(57): error:  #159: declaration is incompatible with previous "RFM69W_FIFO_fill" (declared at line 44)
+  void RFM69W_FIFO_fill(uint8_t INDEX, uint8_t TYPE, uint8_t ADDRESS, uint8_t DATA)
+src\RFM69W.c(173): warning:  #1-D: last line of file ends without a newline
+  }
+src\RFM69W.c: 4 warnings, 2 errors
+".\Objects\monster_fish.axf" - 2 Error(s), 11 Warning(s).
+Target not created
+  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "char *"
+        USART_send(buf);
+src\main.c(95): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "char *"
+        dbl2stri(buf, FIFO_buf[5], 0);
+src\main.c(96): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "char *"
+        USART_send(buf);
+src\main.c(41): warning:  #177-D: variable "dummy" was declared but never referenced
+        uint16_t dummy;
+src\main.c(114): warning:  #1-D: last line of file ends without a newline
+  }
+src\main.c: 18 warnings, 0 errors
+linking...
+Program Size: Code=5104 RO-data=368 RW-data=80 ZI-data=1880  
+FromELF: creating hex file...
+".\Objects\monster_fish.axf" - 0 Error(s), 18 Warning(s).
 Load "C:\\Users\\Oshel\\Documents\\fos\\Objects\\monster_fish.axf" 
 Erase Done.
 Programming Done.
 Verify OK.
 Application running ...
-g(s).
-Target not created
-nings, 0 errors
-".\Objects\monster_fish.axf" - 1 Error(s), 7 Warning(s).
-Target not created
-#endif
-src\main.c(70): warning:  #1-D: last line of file ends without a newline
+l\\Documents\\fos\\Objects\\monster_fish.axf" 
+Erase Done.
+Programming Done.
+Verify OK.
+Application running ...
+Load "C:\\Users\\Oshel\\Documents\\fos\\Objects\\monster_fish.axf" 
+Erase Done.
+Programming Done.
+Verify OK.
+Application running ...
+67-D: argument of type "uint8_t *" is incompatible with parameter of type "char *"
+        dbl2stri(buf, FIFO_buf[9], 0);
+src\main.c(80): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "char *"
+        USART_send(buf);
+src\main.c(97): warning:  #1-D: last line of file ends without a newline
   }
-src\main.c: 4 warnings, 0 errors
-".\Objects\monster_fish.axf" - 3 Error(s), 5 Warning(s).
-Target not created
- 5 errors
-compiling main.c...
-.\inc\RFM69W.h(1472): warning:  #1-D: last line of file ends without a newline
-  #endif
-.\inc\KEY.h(32): warning:  #1-D: last line of file ends without a newline
-  #endif  
-.\inc\MENU.h(21): warning:  #1-D: last line of file ends without a newline
-  #endif
-src\main.c(70): warning:  #1-D: last line of file ends without a newline
-  }
-src\main.c: 4 warnings, 0 errors
-compiling USART.c...
-".\Objects\monster_fish.axf" - 5 Error(s), 5 Warning(s).
-Target not created
-get not created
-too few arguments in function call
-  }
-src\main.c(53): error:  #18: expected a ")"
-  }
-src\main.c(53): error:  #65: expected a ";"
-  }
-src\main.c(66): warning:  #1-D: last line of file ends without a newline
-  }
-src\main.c: 5 warnings, 4 errors
-".\Objects\monster_fish.axf" - 9 Error(s), 6 Warning(s).
-Target not created
+src\main.c: 24 warnings, 0 errors
+linking...
+Program Size: Code=5164 RO-data=364 RW-data=80 ZI-data=1840  
+FromELF: creating hex file...
+".\Objects\monster_fish.axf" - 0 Error(s), 24 Warning(s).
+Load "C:\\Users\\Oshel\\Documents\\fos\\Objects\\monster_fish.axf" 
+Erase Done.
+Programming Done.
+Verify OK.
+Application running ...
+ 
+FromELF: creating hex file...
+".\Objects\monster_fish.axf" - 0 Error(s), 26 Warning(s).
+Load "C:\\Users\\Oshel\\Documents\\fos\\Objects\\monster_fish.axf" 
+Erase Done.
+Programming Done.
+Verify OK.
+Application running ...

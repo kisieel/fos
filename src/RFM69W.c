@@ -1,24 +1,51 @@
 #include "RFM69W.h"
+#include "USART.h"
 #include "stm32l1xx.h"
+
+#define RFM69W_CS_UP    GPIOA->ODR |= GPIO_ODR_ODR_15;
+#define RFM69W_CS_DOWN  GPIOA->ODR &= ~GPIO_ODR_ODR_15;
+
+// Private functions
+void RFM69W_SPI_init(void);
+void RFM69W_GPIO_init(void);
+void RFM69W_REG_init(void);
+
+void RFM69W_FIFO_fill(unsigned char INDEX, unsigned char TYPE, unsigned char ADDRESS, unsigned char DATA);
+unsigned char RFM69W_SPI_write(unsigned char TYPE, unsigned char ADDRESS, unsigned char DATA);
+// End of private functions
+
+typedef struct {
+	uint16_t data;
+	uint8_t type;
+	uint8_t flag;
+} RFM69W_Queue;
 
 volatile struct {
 	RFM69W_Queue buffer[RFM69W_FIFO_size];
-	uint8_t actual;
 	uint8_t head;
 	uint8_t tail;
 } RFM69W_FIFO;
 
-void RFM69W_SPI_send(unsigned char TYPE, unsigned char ADDRESS, unsigned char DATA)
-{
+void _RFM69W_send(uint8_t TYPE, uint8_t ADDRESS, uint8_t DATA)
+{	
 	if (TYPE == RFM69W_write)
-		while (!(RFM69W_SPI_write(RFM69W_write, ADDRESS)));
+		while (!(RFM69W_SPI_write(RFM69W_write, ADDRESS, DATA)));
 	else
-		while (!(RFM69W_SPI_write(RFM69W_write_ad, ADDRESS)));
-	while (!(RFM69W_SPI_write(TYPE, DATA)));
+		while (!(RFM69W_SPI_write(RFM69W_read, ADDRESS, DATA)));
+	
+	// Check if FIFO is empty
+	if ((RFM69W_FIFO.tail == (RFM69W_FIFO.head + 1)) || ((RFM69W_FIFO.tail == 0) && (RFM69W_FIFO.head == RFM69W_FIFO_size))) {
+		
+		SPI1->CR1 |= SPI_CR1_SPE;
+		RFM69W_CS_DOWN;
+		SPI1->DR = RFM69W_FIFO.buffer[RFM69W_FIFO.head].data;
+	}
 }
 
-uint8_t RFM69W_SPI_write(unsigned char TYPE, unsigned char DATA) 
+uint8_t RFM69W_SPI_write(uint8_t TYPE, uint8_t ADDRESS, uint8_t DATA) 
 {
+	__disable_irq();
+	// Check if FIFO is full
 	if (RFM69W_FIFO.tail == (RFM69W_FIFO_size - 1)) {
 		if (RFM69W_FIFO.head == 0) 
 			return 0;
@@ -27,54 +54,66 @@ uint8_t RFM69W_SPI_write(unsigned char TYPE, unsigned char DATA)
 			return 0;
 	}
 	
-	RFM69W_FIFO_fill(RFM69W_FIFO.tail, TYPE, DATA);
-
-	if (RFM69W_FIFO.tail == RFM69W_FIFO.head)
-		SPI1->DR = RFM69W_FIFO.buffer[RFM69W_FIFO.head].data;
+	// If FIFO is not full, fill the TAIL buffer
+	RFM69W_FIFO_fill(RFM69W_FIFO.tail, TYPE, ADDRESS, DATA);
 	
+	// Increment TAIL
 	if ((RFM69W_FIFO.tail + 1) == RFM69W_FIFO_size) {
 		RFM69W_FIFO.tail = 0;
-		RFM69W_FIFO.buffer[0].type_prev = RFM69W_FIFO.buffer[RFM69W_FIFO_size - 1].type;
 	} else {
 		RFM69W_FIFO.tail++;
-		RFM69W_FIFO.buffer[RFM69W_FIFO.tail].type_prev = RFM69W_FIFO.buffer[RFM69W_FIFO.tail - 1].type;
 	}
+	__enable_irq();
 	
 	return 1;
 }
 
-void RFM69W_FIFO_fill(unsigned char INDEX, unsigned char TYPE, unsigned char DATA)
+void RFM69W_FIFO_fill(uint8_t INDEX, uint8_t TYPE, uint8_t ADDRESS, uint8_t DATA)
 {
-	if (TYPE == RFM69W_write | TYPE == RFM69W_write_ad) {
-		RFM69W_FIFO.buffer[INDEX].type = RFM69W_write;
-		if (TYPE == RFM69W_write)
-			DATA |= 0x80;
-	} else {
-		RFM69W_FIFO.buffer[INDEX].type = RFM69W_read; 
+	// Set the flag 
+	RFM69W_FIFO.buffer[INDEX].flag = 1;
+	
+	switch (TYPE) {
+		case RFM69W_write:
+			RFM69W_FIFO.buffer[INDEX].type = RFM69W_write;
+			RFM69W_FIFO.buffer[INDEX].data = ((ADDRESS | 0x80) << 8 ) | DATA;
+			break;
+		case RFM69W_read:
+			RFM69W_FIFO.buffer[INDEX].type = RFM69W_read;
+			RFM69W_FIFO.buffer[INDEX].data = (ADDRESS << 8 ) | DATA;
+			break;
 	}
-	RFM69W_FIFO.buffer[INDEX].data = DATA;
+	
 }
 
 void SPI1_IRQHandler()
 {
+	uint16_t buffer;
+	
 	if (SPI1->SR & SPI_SR_RXNE) {
-		if (RFM69W_FIFO.buffer[RFM69W_FIFO.head].type_prev == RFM69W_read) {
-			// cos przyszlo co trzeba obsluzyc, wyslij raport
+		RFM69W_CS_UP;
+		buffer = SPI1->DR;
+		
+		if (RFM69W_FIFO.buffer[RFM69W_FIFO.head].type == RFM69W_address_read) {
+			// Incomming handle
 		}
-		SPI1->SR &= ~(SPI_SR_RXNE);
-	}
-	if (SPI1->SR & SPI_SR_TXE) {
+		
 		if ((RFM69W_FIFO.head + 1) == RFM69W_FIFO_size)
 			RFM69W_FIFO.head = 0;
 		else
 			RFM69W_FIFO.head++;
 		
-		if (RFM69W_FIFO.head == RFM69W_FIFO.tail)
+		if (RFM69W_FIFO.head == RFM69W_FIFO.tail) {
+			while (SPI1->SR & SPI_SR_BSY);
+			RFM69W_CS_UP;
+			SPI1->CR1 &= ~SPI_CR1_SPE;
+		} else {
+			RFM69W_CS_DOWN;
 			SPI1->DR = RFM69W_FIFO.buffer[RFM69W_FIFO.head].data;
-		
-		SPI1->SR &= ~(SPI_SR_TXE);
+		}
 	}
 }
+
 
 void EXTI15_10_IRQHandler()
 {
@@ -114,7 +153,7 @@ void RFM69W_GPIO_init(void)
 	GPIO_config(0x0B, 5, GPIO_MODE_AF, GPIO_PULL_Floating, GPIO_TYPE_Pushpull, GPIO_SPEED_2M, GPIO_AF_AF5);
 	
 	// MISO confuguration:
-	GPIO_config(0x0B, 4, GPIO_MODE_Input, GPIO_PULL_Pullup, 0, 0, 0);
+	GPIO_config(0x0B, 4, GPIO_MODE_AF, GPIO_PULL_Floating, GPIO_TYPE_Pushpull, GPIO_SPEED_2M, GPIO_AF_AF5);
 	
 	// CS configuration:
 	GPIO_config(0x0A, 15, GPIO_MODE_GP, GPIO_PULL_Floating, GPIO_TYPE_Pushpull, GPIO_SPEED_400k, 0);
@@ -128,15 +167,14 @@ void RFM69W_SPI_init(void)
 	
 	SPI1->CR1 |= SPI_CR1_BR_2                       // Prescaler: 32, 32 MHz/32 = 1 MHz
 	           | SPI_CR1_MSTR                       // Master mode
-						 | SPI_CR1_SSM;                       // Software slave managment
+	           | SPI_CR1_DFF
+						 | SPI_CR1_SSM                        // Software slave managment
+	           | SPI_CR1_SSI;
 	
-	SPI1->CR2 |= SPI_CR2_TXEIE                      // Transmit interrupt enable
-	          | SPI_CR2_RXNEIE                      // Receive interrupt enable
-	          | SPI_CR2_SSOE;                       // 
+//	SPI1->CR1 |= SPI_CR1_SPE;
+	SPI1->CR2 |= SPI_CR2_RXNEIE;                    // Receive interrupt enable
 	
 	NVIC_EnableIRQ(SPI1_IRQn);
-	
-	SPI1->CR1 |= SPI_CR1_SPE;                       // SPI enable
 }
 
 void RFM69W_REG_init(void)
@@ -144,7 +182,7 @@ void RFM69W_REG_init(void)
 	
 }
 
-void RFM69W_init(void)
+void _RFM69W_init(void)
 {
 	RFM69W_GPIO_init();
 	RFM69W_SPI_init();

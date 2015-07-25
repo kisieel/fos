@@ -6,14 +6,9 @@
 #define USART_FREE   0
 #define USART_NOFREE 1
 
-typedef struct {
-	uint8_t data;
-} USART_Queue;
-
-void USART_init(void);
-
-unsigned char USART_write(char);
-void USART_putchar(char);
-void USART_send(char *);
+// Public functions
+void _USART_init(void);
+void _USART_send(char *);
+// End of public functions
 
 #endif

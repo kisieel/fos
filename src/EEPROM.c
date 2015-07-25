@@ -19,6 +19,15 @@ for fast/normal operations.
 
 */
 
+#define EEPROM_BASE           ((uint32_t)0x08080000) /*!< EEPROM base address in the alias region */
+
+// Private functions
+void EEPROM_unlock(void);
+void EEPROM_lock(void);
+void EEPROM_option_unlock(void);
+void EEPROM_option_lock(void);
+// End of private functions
+
 void EEPROM_unlock(void)
 {
 	FLASH->PEKEYR = (unsigned int)0x89ABCDEF;
@@ -44,7 +53,7 @@ void EEPROM_option_lock(void)
 	FLASH->PECR |= FLASH_PECR_OPTLOCK;
 }
 
-void EEPROM_64_erase(unsigned int ADDRESS)
+void _EEPROM_64_erase(unsigned int ADDRESS)
 {
 	// Page 19
 	unsigned int *ptr;
@@ -65,7 +74,7 @@ void EEPROM_64_erase(unsigned int ADDRESS)
 	__enable_irq();
 }
 
-void EEPROM_32_erase(unsigned int ADDRESS)
+void _EEPROM_32_erase(unsigned int ADDRESS)
 {
 	// Page 18
 	unsigned int *ptr;
@@ -80,7 +89,7 @@ void EEPROM_32_erase(unsigned int ADDRESS)
 	__enable_irq();
 }
 
-void EEPROM_64_write(unsigned int ADDRESS, uint64_t DATA)
+void _EEPROM_64_write(unsigned int ADDRESS, uint64_t DATA)
 {
 	// Page 21
 	unsigned int *ptr;
@@ -101,7 +110,7 @@ void EEPROM_64_write(unsigned int ADDRESS, uint64_t DATA)
 	__enable_irq();
 }
 
-void EEPROM_32_write(unsigned int ADDRESS, unsigned int DATA)
+void _EEPROM_32_write(unsigned int ADDRESS, unsigned int DATA)
 {
 	// Page 22
 	unsigned int *ptr;
@@ -117,7 +126,7 @@ void EEPROM_32_write(unsigned int ADDRESS, unsigned int DATA)
 	__enable_irq();
 }
 
-void EEPROM_16_write(unsigned int ADDRESS, unsigned short int DATA)
+void _EEPROM_16_write(unsigned int ADDRESS, unsigned short int DATA)
 {
 	// Page 23
 	unsigned short int *ptr;
@@ -133,7 +142,7 @@ void EEPROM_16_write(unsigned int ADDRESS, unsigned short int DATA)
 	__enable_irq();
 }
 
-void EEPROM_8_write(unsigned int ADDRESS, unsigned char DATA)
+void _EEPROM_8_write(unsigned int ADDRESS, unsigned char DATA)
 {
 	// Page 24
 	unsigned char *ptr;
@@ -149,7 +158,7 @@ void EEPROM_8_write(unsigned int ADDRESS, unsigned char DATA)
 	__enable_irq();
 }
 
-void EEPROM_32_fast_write(unsigned int ADDRESS, unsigned int DATA)
+void _EEPROM_32_fast_write(unsigned int ADDRESS, unsigned int DATA)
 {
 	// Page 22
 	unsigned int *ptr;
@@ -165,7 +174,7 @@ void EEPROM_32_fast_write(unsigned int ADDRESS, unsigned int DATA)
 	__enable_irq();
 }
 
-void EEPROM_16_fast_write(unsigned int ADDRESS, unsigned short int DATA)
+void _EEPROM_16_fast_write(unsigned int ADDRESS, unsigned short int DATA)
 {
 	// Page 23
 	unsigned short int *ptr;
@@ -181,7 +190,7 @@ void EEPROM_16_fast_write(unsigned int ADDRESS, unsigned short int DATA)
 	__enable_irq();
 }
 
-void EEPROM_8_fast_write(unsigned int ADDRESS, unsigned char DATA)
+void _EEPROM_8_fast_write(unsigned int ADDRESS, unsigned char DATA)
 {
 	// Page 24
 	unsigned char *ptr;
@@ -197,7 +206,7 @@ void EEPROM_8_fast_write(unsigned int ADDRESS, unsigned char DATA)
 	__enable_irq();
 }
 
-uint64_t EEPROM_64_read(unsigned int ADDRESS)
+uint64_t _EEPROM_64_read(unsigned int ADDRESS)
 {
 	unsigned long int *ptr;
 	ptr = (unsigned long int *)(EEPROM_BASE + ADDRESS);
@@ -205,7 +214,7 @@ uint64_t EEPROM_64_read(unsigned int ADDRESS)
 	return *ptr;
 }
 
-unsigned int EEPROM_32_read(unsigned int ADDRESS)
+unsigned int _EEPROM_32_read(unsigned int ADDRESS)
 {
 	unsigned int *ptr;
 	ptr = (unsigned int *)(EEPROM_BASE + ADDRESS);
@@ -213,7 +222,7 @@ unsigned int EEPROM_32_read(unsigned int ADDRESS)
 	return *ptr;
 }
 
-unsigned short int EEPROM_16_read(unsigned int ADDRESS)
+unsigned short int _EEPROM_16_read(unsigned int ADDRESS)
 {
 	unsigned short int *ptr;
 	ptr = (unsigned short int *)(EEPROM_BASE + ADDRESS);
@@ -221,7 +230,7 @@ unsigned short int EEPROM_16_read(unsigned int ADDRESS)
 	return *ptr;
 }
 
-unsigned char EEPROM_8_read(unsigned int ADDRESS)
+unsigned char _EEPROM_8_read(unsigned int ADDRESS)
 {
 	unsigned char *ptr;
 	ptr = (unsigned char *)(EEPROM_BASE + ADDRESS);

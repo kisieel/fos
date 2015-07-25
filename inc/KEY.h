@@ -29,4 +29,4 @@ void KeybLock( void );
 void KeybSetAutoRepeatTimes( unsigned short * AutoRepeatTab );
 void KeybProc( void );
 
-#endif  
+#endif

@@ -1,4 +1,5 @@
 #include "stm32l1xx.h"
+
 #include "RFM69W.h"
 #include "USART.h"
 #include "EEPROM.h"
@@ -35,19 +36,22 @@ PB13 - BUZ_tone
 */
 
 int main()
-{
-	char buf[100];
-	
+{	
+	uint8_t buf[10];
 	// Keep power supply
 	RCC->AHBENR |= RCC_AHBENR_GPIOAEN;            // Clock for GPIOA
 	GPIO_config(0x0A, 0, GPIO_MODE_GP, GPIO_PULL_Floating, GPIO_TYPE_Pushpull, GPIO_SPEED_400k, 0);
 	GPIOA->BSRRL |= GPIO_BSRR_BS_0;               // Output 1
 	
-	// USART1_init: PB6/7:TX/RX, 19.2 kbps, 8 bit, no parity, 1 stop bit
-	USART_init();
+	_MENU_init();
+	_USART_init();
+	_RFM69W_init();
 	
-	//RFM69W_init: 
-//	RFM69W_init();
+//	SYS_TICK_init();
+	
+	_RFM69W_send(RFM69W_read, 0x18, 0x00);
+	_RFM69W_send(RFM69W_read, 0x19, 0x00);
+	
 	for(;;) {
 		
 	}
@@ -55,13 +59,12 @@ int main()
 
 void SysTick_Handler(void)
 {
-	
 }
 
 void SYS_TICK_init(void)
 {                                                              
 	SysTick->CTRL |= SysTick_CTRL_TICKINT;
-	SysTick->LOAD = 9000000/1;
+	SysTick->LOAD = 9000000/4;
 	SysTick->CTRL |= SysTick_CTRL_ENABLE;
 	NVIC_SetPriority(SysTick_IRQn, 1);
 }

@@ -30,10 +30,6 @@ typedef  unsigned int   uint ;
 
 static uint use_leading_plus = 0 ;
 
-uint fixed_overrun = 0 ;
-int last_bad_char = 0 ;
-uint invalid_char = 0 ;
-
 static const double round_nums[8] = {
    0.5,
    0.05,

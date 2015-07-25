@@ -6,31 +6,18 @@
 #define OUR_REG_DEFINE
 //#define LAB_REG_DEFINE
 
-#define RFM69W_FIFO_size    4
+// Minimum size: 3
+#define RFM69W_FIFO_size    10
 
-typedef struct {
-	uint8_t data;
-	uint8_t type;
-	uint8_t type_prev;
-	uint8_t flag;
-} RFM69W_Queue;
+#define RFM69W_address_write 3  
+#define RFM69W_address_read  2  
+#define RFM69W_write         1
+#define RFM69W_read          0
 
-#define RFM69W_write_ad 2   
-#define RFM69W_write    1
-#define RFM69W_read     0
-
-#define RFM69W_CS_UP    GPIOA->BSRRH |= GPIO_BSRR_BS_15;
-#define RFM69W_CS_DOWN  GPIOA->BSRRH |= GPIO_BSRR_BR_15;
-
-void RFM69W_init(void);
-
-void RFM69W_SPI_init(void);
-void RFM69W_GPIO_init(void);
-void RFM69W_REG_init(void);
-
-void RFM69W_FIFO_fill(unsigned char INDEX, unsigned char TYPE, unsigned char DATA);
-unsigned char RFM69W_SPI_write(unsigned char TYPE, unsigned char DATA);
-void RFM69W_SPI_send(unsigned char TYPE, unsigned char ADDRESS, unsigned char DATA);
+// Public functions
+void _RFM69W_init(void);
+void _RFM69W_send(unsigned char TYPE, unsigned char ADDRESS, unsigned char DATA);
+// End of public functions
 
 #ifdef LAB_REG_DEFINE
 
