@@ -7,104 +7,104 @@ C:\Users\Oshel\Documents\fos\monster_fish.uvprojx
 Project File Date:  07/22/2015
 
 <h2>Output:</h2>
-Build target 'Monster_fish'
-compiling main.c...
-src\main.c(40): warning:  #177-D: variable "buf" was declared but never referenced
-        uint8_t buf[10];
-src\main.c: 1 warning, 0 errors
-compiling MENU.c...
-linking...
-Program Size: Code=3668 RO-data=300 RW-data=84 ZI-data=1732  
-FromELF: creating hex file...
-".\Objects\monster_fish.axf" - 0 Error(s), 1 Warning(s).
-without a newline
+Rebuild target 'Monster_fish'
+assembling startup_stm32l1xx_md.s...
+compiling system_stm32l1xx.c...
+compiling EEPROM.c...
+src\EEPROM.c(239): warning:  #1-D: last line of file ends without a newline
   }
-src\RFM69W.c: 2 warnings, 0 errors
+src\EEPROM.c: 1 warning, 0 errors
+compiling main.c...
+src\main.c(40): warning:  #177-D: variable "i" was declared but never referenced
+        int i;
+src\main.c(41): warning:  #177-D: variable "buf" was declared but never referenced
+        uint8_t buf[10];
+src\main.c: 2 warnings, 0 errors
+compiling RFM69W.c...
+src\RFM69W.c(144): warning:  #550-D: variable "buffer" was set but never used
+        uint16_t buffer;
+src\RFM69W.c: 1 warning, 0 errors
+compiling USART.c...
 compiling KEY.c...
 compiling MENU.c...
-src\MENU.c(99): warning:  #1-D: last line of file ends without a newline
-  }
-src\MENU.c: 1 warning, 0 errors
+compiling LOW_MODE.c...
+.\inc\LOW_MODE.h(6): warning:  #1-D: last line of file ends without a newline
+  #endif
+src\LOW_MODE.c: 1 warning, 0 errors
+compiling RTC.c...
+.\inc\RTC.h(6): warning:  #1-D: last line of file ends without a newline
+  #endif
+src\RTC.c: 1 warning, 0 errors
+compiling FLOAT.c...
 linking...
-Program Size: Code=3708 RO-data=300 RW-data=84 ZI-data=1732  
+Program Size: Code=3524 RO-data=300 RW-data=80 ZI-data=1832  
 FromELF: creating hex file...
-".\Objects\monster_fish.axf" - 0 Error(s), 4 Warning(s).
- #1-D: last line of file ends without a newline
-  }
-src\MENU.c: 3 warnings, 0 errors
-linking...
-Program Size: Code=2692 RO-data=300 RW-data=64 ZI-data=1728  
-FromELF: creating hex file...
-".\Objects\monster_fish.axf" - 0 Error(s), 8 Warning(s).
-rs
-compiling USART.c...
-linking...
-Program Size: Code=2692 RO-data=300 RW-data=64 ZI-data=1728  
-FromELF: creating hex file...
-".\Objects\monster_fish.axf" - 0 Error(s), 9 Warning(s).
-ART.c...
-linking...
-Program Size: Code=2692 RO-data=300 RW-data=64 ZI-data=1728  
-FromELF: creating hex file...
-".\Objects\monster_fish.axf" - 0 Error(s), 11 Warning(s).
-69W.c(57): error:  #159: declaration is incompatible with previous "RFM69W_FIFO_fill" (declared at line 44)
-  void RFM69W_FIFO_fill(uint8_t INDEX, uint8_t TYPE, uint8_t ADDRESS, uint8_t DATA)
-src\RFM69W.c(173): warning:  #1-D: last line of file ends without a newline
-  }
-src\RFM69W.c: 4 warnings, 2 errors
-".\Objects\monster_fish.axf" - 2 Error(s), 11 Warning(s).
+".\Objects\monster_fish.axf" - 0 Error(s), 6 Warning(s).
+</pre>
+</body>
+</html>
+ic volatile int16_t RSSI;                    // most accurate RSSI during reception (closest to the reception)
+src\main.c(40): warning:  #177-D: variable "i" was declared but never referenced
+        int i;
+src\main.c(41): warning:  #177-D: variable "buf" was declared but never referenced
+        uint8_t buf[10];
+src\main.c: 2 warnings, 8 errors
+compiling RFM69W.c...
+.\inc\RFM69W.h(26): error:  #81: more than one storage class may not be specified
+  extern static volatile uint8_t DATA[61];                // recv/xmit buf, including header & crc bytes
+.\inc\RFM69W.h(27): error:  #81: more than one storage class may not be specified
+  extern static volatile uint8_t DATALEN;
+.\inc\RFM69W.h(28): error:  #81: more than one storage class may not be specified
+  extern static volatile uint8_t SENDERID;
+.\inc\RFM69W.h(29): error:  #81: more than one storage class may not be specified
+  extern static volatile uint8_t TARGETID;                // should match _address
+.\inc\RFM69W.h(30): error:  #81: more than one storage class may not be specified
+  extern static volatile uint8_t PAYLOADLEN;
+.\inc\RFM69W.h(31): error:  #81: more than one storage class may not be specified
+  extern static volatile uint8_t ACK_REQUESTED;
+.\inc\RFM69W.h(32): error:  #81: more than one storage class may not be specified
+  extern static volatile uint8_t ACK_RECEIVED;            // should be polled immediately after sending a packet with ACK request
+.\inc\RFM69W.h(33): error:  #81: more than one storage class may not be specified
+  extern static volatile int16_t RSSI;                    // most accurate RSSI during reception (closest to the reception)
+src\RFM69W.c(50): error:  #147: declaration is incompatible with "volatile uint8_t DATA[61]" (declared at line 26 of ".\inc\RFM69W.h")
+  static uint8_t DATA[61];                // recv/xmit buf, including header & crc bytes
+src\RFM69W.c(51): error:  #147: declaration is incompatible with "volatile uint8_t DATALEN" (declared at line 27 of ".\inc\RFM69W.h")
+  static uint8_t DATALEN;
+src\RFM69W.c(143): warning:  #550-D: variable "buffer" was set but never used
+        uint16_t buffer;
+src\RFM69W.c(50): warning:  #177-D: variable "DATA" was declared but never referenced
+  static uint8_t DATA[61];                // recv/xmit buf, including header & crc bytes
+src\RFM69W.c(51): warning:  #177-D: variable "DATALEN" was declared but never referenced
+  static uint8_t DATALEN;
+src\RFM69W.c: 3 warnings, 10 errors
+".\Objects\monster_fish.axf" - 18 Error(s), 5 Warning(s).
 Target not created
-  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "char *"
-        USART_send(buf);
-src\main.c(95): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "char *"
-        dbl2stri(buf, FIFO_buf[5], 0);
-src\main.c(96): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "char *"
-        USART_send(buf);
-src\main.c(41): warning:  #177-D: variable "dummy" was declared but never referenced
-        uint16_t dummy;
-src\main.c(114): warning:  #1-D: last line of file ends without a newline
-  }
-src\main.c: 18 warnings, 0 errors
-linking...
-Program Size: Code=5104 RO-data=368 RW-data=80 ZI-data=1880  
-FromELF: creating hex file...
-".\Objects\monster_fish.axf" - 0 Error(s), 18 Warning(s).
-Load "C:\\Users\\Oshel\\Documents\\fos\\Objects\\monster_fish.axf" 
-Erase Done.
-Programming Done.
-Verify OK.
-Application running ...
-l\\Documents\\fos\\Objects\\monster_fish.axf" 
-Erase Done.
-Programming Done.
-Verify OK.
-Application running ...
-Load "C:\\Users\\Oshel\\Documents\\fos\\Objects\\monster_fish.axf" 
-Erase Done.
-Programming Done.
-Verify OK.
-Application running ...
-67-D: argument of type "uint8_t *" is incompatible with parameter of type "char *"
-        dbl2stri(buf, FIFO_buf[9], 0);
-src\main.c(80): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "char *"
-        USART_send(buf);
-src\main.c(97): warning:  #1-D: last line of file ends without a newline
-  }
-src\main.c: 24 warnings, 0 errors
-linking...
-Program Size: Code=5164 RO-data=364 RW-data=80 ZI-data=1840  
-FromELF: creating hex file...
-".\Objects\monster_fish.axf" - 0 Error(s), 24 Warning(s).
-Load "C:\\Users\\Oshel\\Documents\\fos\\Objects\\monster_fish.axf" 
-Erase Done.
-Programming Done.
-Verify OK.
-Application running ...
- 
-FromELF: creating hex file...
-".\Objects\monster_fish.axf" - 0 Error(s), 26 Warning(s).
-Load "C:\\Users\\Oshel\\Documents\\fos\\Objects\\monster_fish.axf" 
-Erase Done.
-Programming Done.
-Verify OK.
-Application running ...
+a type specifier
+        GPIO_config(0x0A, 15, GPIO_MODE_GP, GPIO_PULL_Floating, GPIO_TYPE_Pushpull, GPIO_SPEED_400k, 0);
+src\RFM69W.c(215): error:  #79: expected a type specifier
+        GPIO_config(0x0A, 15, GPIO_MODE_GP, GPIO_PULL_Floating, GPIO_TYPE_Pushpull, GPIO_SPEED_400k, 0);
+src\RFM69W.c(215): error:  #79: expected a type specifier
+        GPIO_config(0x0A, 15, GPIO_MODE_GP, GPIO_PULL_Floating, GPIO_TYPE_Pushpull, GPIO_SPEED_400k, 0);
+src\RFM69W.c(215): error:  #79: expected a type specifier
+        GPIO_config(0x0A, 15, GPIO_MODE_GP, GPIO_PULL_Floating, GPIO_TYPE_Pushpull, GPIO_SPEED_400k, 0);
+src\RFM69W.c(215): error:  #79: expected a type specifier
+        GPIO_config(0x0A, 15, GPIO_MODE_GP, GPIO_PULL_Floating, GPIO_TYPE_Pushpull, GPIO_SPEED_400k, 0);
+src\RFM69W.c(215): error:  #79: expected a type specifier
+        GPIO_config(0x0A, 15, GPIO_MODE_GP, GPIO_PULL_Floating, GPIO_TYPE_Pushpull, GPIO_SPEED_400k, 0);
+src\RFM69W.c(215): warning:  #77-D: this declaration has no storage class or type specifier
+        GPIO_config(0x0A, 15, GPIO_MODE_GP, GPIO_PULL_Floating, GPIO_TYPE_Pushpull, GPIO_SPEED_400k, 0);
+src\RFM69W.c(217): error:  #18: expected a ")"
+        RFM69W_CS_UP;                                     // CS up
+src\RFM69W.c(217): error:  #79: expected a type specifier
+        RFM69W_CS_UP;                                     // CS up
+src\RFM69W.c(217): error:  #101: "GPIO_TypeDef" has already been declared in the current scope
+        RFM69W_CS_UP;                                     // CS up
+src\RFM69W.c(217): error:  #141-D: unnamed prototyped parameters not allowed when body is present
+        RFM69W_CS_UP;                                     // CS up
+src\RFM69W.c(217): error:  #130: expected a "{"
+        RFM69W_CS_UP;                                     // CS up
+src\RFM69W.c(238): warning:  #177-D: variable "CONFIG" was declared but never referenced
+        const uint8_t CONFIG[][2] =
+src\RFM69W.c: 6 warnings, 28 errors
+".\Objects\monster_fish.axf" - 28 Error(s), 6 Warning(s).
+Target not created

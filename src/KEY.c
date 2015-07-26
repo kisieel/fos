@@ -89,7 +89,7 @@ static unsigned short
 // przerwania.
 // ***********************************************************************
 
-void KEY_init(void)
+void _KEY_init(void)
 {
 	RCC->APB1ENR |= RCC_APB1ENR_TIM6EN;
 	RCC->AHBENR |= RCC_AHBENR_GPIOAEN;
@@ -106,11 +106,11 @@ void KEY_init(void)
 	TIM6->CR1 |= TIM_CR1_CEN;
 }
 
-void TIM4_IRQHandler()
+void TIM6_IRQHandler()
 {
-	if (TIM4->SR & TIM_SR_UIF) {
+	if (TIM6->SR & TIM_SR_UIF) {
 		KeybProc();
-		TIM4->SR &= ~(TIM_SR_UIF);
+		TIM6->SR &= ~(TIM_SR_UIF);
 	}
 }
 

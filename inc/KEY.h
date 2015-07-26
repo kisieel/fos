@@ -18,7 +18,7 @@
 
 #define KBD_DEFAULT_ART	((void *)0)
 
-void KEY_init(void);
+void _KEY_init(void);
 
 void ClrKeyb( int lock );
 unsigned int GetKeys( void );

@@ -464,6 +464,11 @@
               <FileType>5</FileType>
               <FilePath>.\inc\RTC.h</FilePath>
             </File>
+            <File>
+              <FileName>FLOAT.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\inc\FLOAT.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -508,6 +513,11 @@
               <FileName>RTC.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\src\RTC.c</FilePath>
+            </File>
+            <File>
+              <FileName>FLOAT.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\FLOAT.c</FilePath>
             </File>
           </Files>
         </Group>

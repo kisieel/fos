@@ -41,7 +41,7 @@ static const double round_nums[8] = {
    0.00000005
 } ;
 
-void dbl2stri(char *outbfr, double dbl, unsigned dec_digits)
+void _dbl2stri(char *outbfr, double dbl, unsigned dec_digits)
 {
    static char local_bfr[128] ;
    char *output = (outbfr == 0) ? local_bfr : outbfr ;
