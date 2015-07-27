@@ -6,45 +6,12 @@
 //#define OUR_REG_DEFINE
 #define LAB_REG_DEFINE
 
-// Minimum size: 3
-#define RFM69W_FIFO_size     20
-
-#define RFM69W_write         1
-#define RFM69W_read          0
-
 // Public functions
-void _RFM69W_init(void);
-void _RFM69W_send(unsigned char TYPE, unsigned char ADDRESS, unsigned char DATA);
-uint16_t _RFM69W_send_poll(uint8_t TYPE, uint8_t ADDRESS, uint8_t DATA);
 
-void _RFM69W_setMode(uint8_t newMode);
 // End of public functions
 
 
 #ifdef LAB_REG_DEFINE
-
-extern volatile uint8_t DATA[61];                // recv/xmit buf, including header & crc bytes
-extern volatile uint8_t DATALEN;
-extern volatile uint8_t SENDERID;
-extern volatile uint8_t TARGETID;                // should match _address
-extern volatile uint8_t PAYLOADLEN;
-extern volatile uint8_t ACK_REQUESTED;
-extern volatile uint8_t ACK_RECEIVED;            // should be polled immediately after sending a packet with ACK request
-extern volatile int16_t RSSI;                    // most accurate RSSI during reception (closest to the reception)
-
-extern volatile uint8_t _RFM69W_powerLevel;
-
-#define GATEWAYID              1
-#define NODEID                 133
-#define NETWORKID              100
-#define FREQUENCY              RF69_868MHZ
-#define ENCRYPTKEY             "FishingMonsters!" // Has to be same 16 characters/bytes on all nodes, not more not less!
-
-#define RF69_MODE_SLEEP   0 // XTAL OFF
-#define RF69_MODE_STANDBY 1 // XTAL ON
-#define RF69_MODE_SYNTH   2 // PLL ON
-#define RF69_MODE_RX      3 // RX MODE
-#define RF69_MODE_TX      4 // TX MODE
 
 #define REG_FIFO          0x00
 #define REG_OPMODE        0x01

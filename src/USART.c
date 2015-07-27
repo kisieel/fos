@@ -1,5 +1,6 @@
 #include "stm32l1xx.h"
 #include "USART.h"
+#include "FLOAT.h"
 
 // Private functions
 unsigned char USART_write(char);
@@ -15,6 +16,22 @@ volatile struct {
 	uint8_t head;
 	uint8_t tail;
 } USART_FIFO;
+
+void _USART_write_buf(uint32_t DATA, uint8_t TYPE)
+{
+	uint8_t buf[20];
+	
+	if (TYPE == DEC) {
+		_dbl2stri(buf, DATA, 0);
+		_USART_send(buf);
+		return;
+	}
+	
+	if (TYPE == BIN) {
+		_dbl2stri(buf, _decimal_binary(DATA), 0);
+		_USART_send(buf);
+	}
+}
 
 unsigned char USART_write(char DATA) 
 {

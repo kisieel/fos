@@ -49,7 +49,7 @@ int main()
 //	_KEY_init();
 //	_MENU_init();
 	_USART_init();
-	_RFM69W_init();
+	RFM69W_init();
 	
 //	_RFM69W_send(RFM69W_write, REG_AESKEY1, key[0]);
 //	_RFM69W_send(RFM69W_write, REG_AESKEY2, key[1]);

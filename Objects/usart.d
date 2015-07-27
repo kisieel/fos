@@ -6,3 +6,4 @@
 .\objects\usart.o: C:\Keil_v5\ARM\PACK\ARM\CMSIS\3.20.4\CMSIS\Include\core_cmFunc.h
 .\objects\usart.o: .\dev\system_stm32l1xx.h
 .\objects\usart.o: .\inc\USART.h
+.\objects\usart.o: .\inc\FLOAT.h

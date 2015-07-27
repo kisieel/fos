@@ -3,6 +3,7 @@
 
 // Public functions
 void _dbl2stri(char *, double, unsigned);
+int _decimal_binary(int);
 // End of public functions
 
 #endif
