@@ -8,113 +8,66 @@ Project File Date:  07/26/2015
 
 <h2>Output:</h2>
 Build target 'Monster_fish'
-compiling main.c...
-src\main.c(52): warning:  #223-D: function "RFM69W_init" declared implicitly
-        RFM69W_init();
-src\main.c(40): warning:  #177-D: variable "i" was declared but never referenced
-        int i;
-src\main.c(41): warning:  #177-D: variable "buf" was declared but never referenced
-        uint8_t buf[10];
-src\main.c: 3 warnings, 0 errors
-linking...
-.\Objects\monster_fish.axf: Error: L6218E: Undefined symbol RFM69W_SPI_send_pool (referred from rfm69w.o).
-Not enough information to list image symbols.
-Finished: 1 information, 0 warning and 1 error messages.
-".\Objects\monster_fish.axf" - 1 Error(s), 3 Warning(s).
-Target not created
-</pre>
-</body>
-</html>
-W_SPI_send_pool(RFM69W_write, REG_NODEADRS, RFM69W_address);
-src\RFM69W.c(289): warning:  #223-D: function "RFM69W_SPI_send_pool" declared implicitly
-    RFM69W_SPI_send_pool(RFM69W_write, REG_SYNCVALUE2, networkID);
-src\RFM69W.c(304): warning:  #223-D: function "RFM69W_SPI_send_pool" declared implicitly
-    RFM69W_SPI_send_pool(RFM69W_write, REG_PALEVEL, (RFM69W_SPI_send_poll(RFM69W_read, REG_PALEVEL, 0x00) & 0xE0) | RFM69W_powerLevel);
-src\RFM69W.c(327): warning:  #223-D: function "RFM69W_SPI_send_pool" declared implicitly
-    RFM69W_SPI_send_pool(RFM69W_write, REG_PACKETCONFIG2, (RFM69W_SPI_send_poll(RFM69W_read, REG_PACKETCONFIG2, 0x00) & 0xFB) | RF_PACKET2_RXRESTART); 
-src\RFM69W.c(394): warning:  #223-D: function "RFM69W_SPI_send_pool" declared implicitly
-    RFM69W_SPI_send_pool(RFM69W_write, REG_PACKETCONFIG2, (RFM69W_SPI_send_poll(RFM69W_read, REG_PACKETCONFIG2, 0x00) & 0xFB) | RF_PACKET2_RXRESTART);
-src\RFM69W.c(419): warning:  #223-D: function "RFM69W_SPI_send_pool" declared implicitly
-        RFM69W_SPI_send_pool(RFM69W_write, REG_DIOMAPPING1, RF_DIOMAPPING1_DIO0_00);
-src\RFM69W.c(514): warning:  #223-D: function "RFM69W_SPI_send_pool" declared implicitly
-      RFM69W_SPI_send_pool(RFM69W_write, REG_PACKETCONFIG2, (RFM69W_SPI_send_poll(RFM69W_read, REG_PACKETCONFIG2, 0x00) & 0xFB) | RF_PACKET2_RXRESTART);
-src\RFM69W.c(558): warning:  #223-D: function "RFM69W_SPI_send_pool" declared implicitly
-                        RFM69W_SPI_send_pool(RFM69W_write, REG_AESKEY1 + i, key[i]);
-src\RFM69W.c(561): warning:  #223-D: function "RFM69W_SPI_send_pool" declared implicitly
-        RFM69W_SPI_send_pool(RFM69W_write, REG_PACKETCONFIG2, (RFM69W_SPI_send_poll(RFM69W_read, REG_PACKETCONFIG2, 0x00) & 0xFE) | (key ? 1 : 0));
-src\RFM69W.c(573): warning:  #223-D: function "RFM69W_SPI_send_pool" declared implicitly
-      RFM69W_SPI_send_pool(RFM69W_write, REG_RSSICONFIG, RF_RSSI_START);
-src\RFM69W.c(598): warning:  #223-D: function "RFM69W_SPI_send_pool" declared implicitly
-    RFM69W_SPI_send_pool(RFM69W_write, REG_OCP, _isRFM69HW ? RF_OCP_OFF : RF_OCP_ON);
-src\RFM69W.c(610): warning:  #223-D: function "RFM69W_SPI_send_pool" declared implicitly
-    RFM69W_SPI_send_pool(RFM69W_write, REG_TESTPA1, onOff ? 0x5D : 0x55);
-src\RFM69W.c(639): warning:  #223-D: function "RFM69W_SPI_send_pool" declared implicitly
-    RFM69W_SPI_send_pool(RFM69W_write, REG_OSC1, RF_OSC1_RCCAL_START);
-src\RFM69W.c(660): warning:  #940-D: missing return statement at end of non-void function "milis"
-  }
-src\RFM69W.c(696): warning:  #111-D: statement is unreachable
-                        break;
-src\RFM69W.c(800): warning:  #550-D: variable "buffer" was set but never used
+compiling RFM69W.c...
+src\RFM69W.c(806): warning:  #550-D: variable "buffer" was set but never used
         uint16_t buffer;
-src\RFM69W.c: 19 warnings, 0 errors
+src\RFM69W.c: 1 warning, 0 errors
 linking...
-.\Objects\monster_fish.axf: Error: L6218E: Undefined symbol _RFM69W_init (referred from main.o).
+Program Size: Code=3964 RO-data=300 RW-data=76 ZI-data=1828  
+FromELF: creating hex file...
+".\Objects\monster_fish.axf" - 0 Error(s), 1 Warning(s).
+ZI-data=1828  
+FromELF: creating hex file...
+".\Objects\monster_fish.axf" - 0 Error(s), 2 Warning(s).
+28  
+FromELF: creating hex file...
+".\Objects\monster_fish.axf" - 0 Error(s), 3 Warning(s).
+69W_SPI_send_pool(RFM69W_write, REG_NODEADRS, RFM69W_address);
+src\RFM69W.c(295): warning:  #223-D: function "RFM69W_SPI_send_pool" declared implicitly
+    RFM69W_SPI_send_pool(RFM69W_write, REG_SYNCVALUE2, networkID);
+src\RFM69W.c(310): warning:  #223-D: function "RFM69W_SPI_send_pool" declared implicitly
+    RFM69W_SPI_send_pool(RFM69W_write, REG_PALEVEL, (RFM69W_SPI_send_poll(RFM69W_read, REG_PALEVEL, 0x00) & 0xE0) | RFM69W_powerLevel);
+src\RFM69W.c(333): warning:  #223-D: function "RFM69W_SPI_send_pool" declared implicitly
+    RFM69W_SPI_send_pool(RFM69W_write, REG_PACKETCONFIG2, (RFM69W_SPI_send_poll(RFM69W_read, REG_PACKETCONFIG2, 0x00) & 0xFB) | RF_PACKET2_RXRESTART); 
+src\RFM69W.c(400): warning:  #223-D: function "RFM69W_SPI_send_pool" declared implicitly
+    RFM69W_SPI_send_pool(RFM69W_write, REG_PACKETCONFIG2, (RFM69W_SPI_send_poll(RFM69W_read, REG_PACKETCONFIG2, 0x00) & 0xFB) | RF_PACKET2_RXRESTART);
+src\RFM69W.c(425): warning:  #223-D: function "RFM69W_SPI_send_pool" declared implicitly
+        RFM69W_SPI_send_pool(RFM69W_write, REG_DIOMAPPING1, RF_DIOMAPPING1_DIO0_00);
+src\RFM69W.c(520): warning:  #223-D: function "RFM69W_SPI_send_pool" declared implicitly
+      RFM69W_SPI_send_pool(RFM69W_write, REG_PACKETCONFIG2, (RFM69W_SPI_send_poll(RFM69W_read, REG_PACKETCONFIG2, 0x00) & 0xFB) | RF_PACKET2_RXRESTART);
+src\RFM69W.c(564): warning:  #223-D: function "RFM69W_SPI_send_pool" declared implicitly
+                        RFM69W_SPI_send_pool(RFM69W_write, REG_AESKEY1 + i, key[i]);
+src\RFM69W.c(567): warning:  #223-D: function "RFM69W_SPI_send_pool" declared implicitly
+        RFM69W_SPI_send_pool(RFM69W_write, REG_PACKETCONFIG2, (RFM69W_SPI_send_poll(RFM69W_read, REG_PACKETCONFIG2, 0x00) & 0xFE) | (key ? 1 : 0));
+src\RFM69W.c(579): warning:  #223-D: function "RFM69W_SPI_send_pool" declared implicitly
+      RFM69W_SPI_send_pool(RFM69W_write, REG_RSSICONFIG, RF_RSSI_START);
+src\RFM69W.c(604): warning:  #223-D: function "RFM69W_SPI_send_pool" declared implicitly
+    RFM69W_SPI_send_pool(RFM69W_write, REG_OCP, _isRFM69HW ? RF_OCP_OFF : RF_OCP_ON);
+src\RFM69W.c(616): warning:  #223-D: function "RFM69W_SPI_send_pool" declared implicitly
+    RFM69W_SPI_send_pool(RFM69W_write, REG_TESTPA1, onOff ? 0x5D : 0x55);
+src\RFM69W.c(645): warning:  #223-D: function "RFM69W_SPI_send_pool" declared implicitly
+    RFM69W_SPI_send_pool(RFM69W_write, REG_OSC1, RF_OSC1_RCCAL_START);
+src\RFM69W.c(666): warning:  #940-D: missing return statement at end of non-void function "milis"
+  }
+src\RFM69W.c(702): warning:  #111-D: statement is unreachable
+                        break;
+src\RFM69W.c(806): warning:  #550-D: variable "buffer" was set but never used
+        uint16_t buffer;
+src\RFM69W.c: 18 warnings, 0 errors
+linking...
+.\Objects\monster_fish.axf: Error: L6218E: Undefined symbol RFM69W_REG_init (referred from rfm69w.o).
 .\Objects\monster_fish.axf: Error: L6218E: Undefined symbol RFM69W_SPI_send_pool (referred from rfm69w.o).
 Not enough information to list image symbols.
 Finished: 1 information, 0 warning and 2 error messages.
-".\Objects\monster_fish.axf" - 2 Error(s), 19 Warning(s).
+".\Objects\monster_fish.axf" - 2 Error(s), 18 Warning(s).
 Target not created
- Warning(s).
+r_fish.axf" - 1 Error(s), 19 Warning(s).
 Target not created
-694): warning:  #111-D: statement is unreachable
-                        break;
-src\RFM69W.c(798): warning:  #550-D: variable "buffer" was set but never used
-        uint16_t buffer;
-src\RFM69W.c: 19 warnings, 6 errors
-".\Objects\monster_fish.axf" - 6 Error(s), 19 Warning(s).
+rror: L6218E: Undefined symbol RFM69W_SPI_send_pool (referred from rfm69w.o).
+Not enough information to list image symbols.
+Finished: 1 information, 0 warning and 1 error messages.
+".\Objects\monster_fish.axf" - 1 Error(s), 21 Warning(s).
 Target not created
-G_TESTPA1, onOff ? 0x5D : 0x55);
-src\RFM69W.c(618): error:  #254: type name is not allowed
-    for (uint8_t regAddr = 1; regAddr <= 0x4F; regAddr++) {
-src\RFM69W.c(618): error:  #65: expected a ";"
-    for (uint8_t regAddr = 1; regAddr <= 0x4F; regAddr++) {
-src\RFM69W.c(618): error:  #20: identifier "regAddr" is undefined
-    for (uint8_t regAddr = 1; regAddr <= 0x4F; regAddr++) {
-src\RFM69W.c(635): warning:  #223-D: function "RFM69W_SPI_send_pool" declared implicitly
-    RFM69W_SPI_send_pool(RFM69W_write, REG_OSC1, RF_OSC1_RCCAL_START);
-src\RFM69W.c(656): warning:  #940-D: missing return statement at end of non-void function "milis"
-  }
-src\RFM69W.c(692): warning:  #111-D: statement is unreachable
-                        break;
-src\RFM69W.c(796): warning:  #550-D: variable "buffer" was set but never used
-        uint16_t buffer;
-src\RFM69W.c: 19 warnings, 12 errors
-compiling USART.c...
-src\USART.c(25): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "char *"
-                _dbl2stri(buf, DATA, 0);
-src\USART.c(26): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "char *"
-                _USART_send(buf);
-src\USART.c(31): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "char *"
-                _dbl2stri(buf, _decimal_binary(DATA), 0);
-src\USART.c(32): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "char *"
-                _USART_send(buf);
-src\USART.c: 4 warnings, 0 errors
-".\Objects\monster_fish.axf" - 12 Error(s), 26 Warning(s).
-Target not created
-rc\USART.c(11): warning:  #177-D: variable "data" was declared but never referenced
-        uint8_t data;
-src\USART.c(12): error:  #77-D: this declaration has no storage class or type specifier
-  } USART_Queue;
-src\USART.c(15): error:  #757: variable "USART_Queue" is not a type name
-        USART_Queue buffer[USART_FIFO_size];
-src\USART.c(25): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "char *"
-                _dbl2stri(buf, DATA, 0);
-src\USART.c(26): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "char *"
-                _USART_send(buf);
-src\USART.c(31): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "char *"
-                _dbl2stri(buf, _decimal_binary(DATA), 0);
-src\USART.c(32): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "char *"
-                _USART_send(buf);
-src\USART.c: 7 warnings, 4 errors
-".\Objects\monster_fish.axf" - 18 Error(s), 30 Warning(s).
+and 1 error messages.
+".\Objects\monster_fish.axf" - 1 Error(s), 22 Warning(s).
 Target not created

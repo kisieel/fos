@@ -8,6 +8,8 @@
 
 // Public functions
 
+extern void     RFM69W_init(void);
+
 // End of public functions
 
 

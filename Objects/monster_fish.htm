@@ -3,11 +3,11 @@
 <title>Static Call Graph - [.\Objects\monster_fish.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Objects\monster_fish.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5040049: Last Updated: Sun Jul 26 13:31:44 2015
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5040049: Last Updated: Mon Jul 27 16:17:10 2015
 <BR><P>
-<H3>Maximum Stack Usage =        128 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
+<H3>Maximum Stack Usage =         92 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
-__rt_entry_main &rArr; main &rArr; _RFM69W_init &rArr; RFM69W_REG_init &rArr; RFM69W_encrypt &rArr; _RFM69W_setMode &rArr; _RFM69W_send &rArr; RFM69W_SPI_write &rArr; RFM69W_FIFO_fill
+__rt_entry_main &rArr; main &rArr; RFM69W_init &rArr; RFM69W_REG_init &rArr; RFM69W_encrypt &rArr; RFM69W_setMode &rArr; RFM69W_SPI_send_poll
 <P>
 <H3>
 Functions with no stack information
@@ -107,9 +107,9 @@ Global Symbols
 <BR><BR>[Calls]<UL><LI><a href="#[45]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_entry
 </UL>
 
-<P><STRONG><a name="[67]"></a>__scatterload_rt2_thumb_only</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __scatter.o(!!!scatter), UNUSED)
+<P><STRONG><a name="[68]"></a>__scatterload_rt2_thumb_only</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __scatter.o(!!!scatter), UNUSED)
 
-<P><STRONG><a name="[68]"></a>__scatterload_null</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __scatter.o(!!!scatter), UNUSED)
+<P><STRONG><a name="[69]"></a>__scatterload_null</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __scatter.o(!!!scatter), UNUSED)
 
 <P><STRONG><a name="[47]"></a>__scatterload_copy</STRONG> (Thumb, 26 bytes, Stack size unknown bytes, __scatter_copy.o(!!handler_copy), UNUSED)
 <BR><BR>[Calls]<UL><LI><a href="#[47]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__scatterload_copy
@@ -117,74 +117,74 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[47]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__scatterload_copy
 </UL>
 
-<P><STRONG><a name="[69]"></a>__scatterload_zeroinit</STRONG> (Thumb, 28 bytes, Stack size unknown bytes, __scatter_zi.o(!!handler_zi), UNUSED)
+<P><STRONG><a name="[6a]"></a>__scatterload_zeroinit</STRONG> (Thumb, 28 bytes, Stack size unknown bytes, __scatter_zi.o(!!handler_zi), UNUSED)
 
 <P><STRONG><a name="[4b]"></a>__rt_lib_init</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit.o(.ARM.Collect$$libinit$$00000000))
 <BR><BR>[Called By]<UL><LI><a href="#[4a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_entry_li
 </UL>
 
-<P><STRONG><a name="[6a]"></a>__rt_lib_init_alloca_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$0000002C))
+<P><STRONG><a name="[6b]"></a>__rt_lib_init_alloca_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$0000002C))
 
-<P><STRONG><a name="[6b]"></a>__rt_lib_init_argv_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$0000002A))
+<P><STRONG><a name="[6c]"></a>__rt_lib_init_argv_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$0000002A))
 
-<P><STRONG><a name="[6c]"></a>__rt_lib_init_atexit_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000019))
+<P><STRONG><a name="[6d]"></a>__rt_lib_init_atexit_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000019))
 
-<P><STRONG><a name="[6d]"></a>__rt_lib_init_clock_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$0000001F))
+<P><STRONG><a name="[6e]"></a>__rt_lib_init_clock_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$0000001F))
 
-<P><STRONG><a name="[6e]"></a>__rt_lib_init_cpp_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000030))
+<P><STRONG><a name="[6f]"></a>__rt_lib_init_cpp_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000030))
 
-<P><STRONG><a name="[6f]"></a>__rt_lib_init_exceptions_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$0000002E))
+<P><STRONG><a name="[70]"></a>__rt_lib_init_exceptions_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$0000002E))
 
-<P><STRONG><a name="[70]"></a>__rt_lib_init_fp_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000002))
+<P><STRONG><a name="[71]"></a>__rt_lib_init_fp_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000002))
 
-<P><STRONG><a name="[71]"></a>__rt_lib_init_fp_trap_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$0000001D))
+<P><STRONG><a name="[72]"></a>__rt_lib_init_fp_trap_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$0000001D))
 
-<P><STRONG><a name="[72]"></a>__rt_lib_init_getenv_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000021))
+<P><STRONG><a name="[73]"></a>__rt_lib_init_getenv_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000021))
 
-<P><STRONG><a name="[73]"></a>__rt_lib_init_heap_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000008))
+<P><STRONG><a name="[74]"></a>__rt_lib_init_heap_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000008))
 
-<P><STRONG><a name="[74]"></a>__rt_lib_init_lc_collate_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$0000000F))
+<P><STRONG><a name="[75]"></a>__rt_lib_init_lc_collate_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$0000000F))
 
-<P><STRONG><a name="[75]"></a>__rt_lib_init_lc_ctype_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000011))
+<P><STRONG><a name="[76]"></a>__rt_lib_init_lc_ctype_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000011))
 
-<P><STRONG><a name="[76]"></a>__rt_lib_init_lc_monetary_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000013))
+<P><STRONG><a name="[77]"></a>__rt_lib_init_lc_monetary_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000013))
 
-<P><STRONG><a name="[77]"></a>__rt_lib_init_lc_numeric_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000015))
+<P><STRONG><a name="[78]"></a>__rt_lib_init_lc_numeric_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000015))
 
-<P><STRONG><a name="[78]"></a>__rt_lib_init_lc_time_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000017))
+<P><STRONG><a name="[79]"></a>__rt_lib_init_lc_time_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000017))
 
-<P><STRONG><a name="[79]"></a>__rt_lib_init_rand_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$0000000C))
+<P><STRONG><a name="[7a]"></a>__rt_lib_init_rand_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$0000000C))
 
-<P><STRONG><a name="[7a]"></a>__rt_lib_init_return</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000031))
+<P><STRONG><a name="[7b]"></a>__rt_lib_init_return</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000031))
 
-<P><STRONG><a name="[7b]"></a>__rt_lib_init_signal_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$0000001B))
+<P><STRONG><a name="[7c]"></a>__rt_lib_init_signal_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$0000001B))
 
-<P><STRONG><a name="[7c]"></a>__rt_lib_init_stdio_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000023))
+<P><STRONG><a name="[7d]"></a>__rt_lib_init_stdio_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000023))
 
-<P><STRONG><a name="[7d]"></a>__rt_lib_init_user_alloc_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$0000000A))
+<P><STRONG><a name="[7e]"></a>__rt_lib_init_user_alloc_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$0000000A))
 
 <P><STRONG><a name="[50]"></a>__rt_lib_shutdown</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libshutdown.o(.ARM.Collect$$libshutdown$$00000000))
 <BR><BR>[Called By]<UL><LI><a href="#[4f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_exit_ls
 </UL>
 
-<P><STRONG><a name="[7e]"></a>__rt_lib_shutdown_fp_trap_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libshutdown2.o(.ARM.Collect$$libshutdown$$00000006))
+<P><STRONG><a name="[7f]"></a>__rt_lib_shutdown_fp_trap_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libshutdown2.o(.ARM.Collect$$libshutdown$$00000006))
 
-<P><STRONG><a name="[7f]"></a>__rt_lib_shutdown_heap_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libshutdown2.o(.ARM.Collect$$libshutdown$$0000000E))
+<P><STRONG><a name="[80]"></a>__rt_lib_shutdown_heap_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libshutdown2.o(.ARM.Collect$$libshutdown$$0000000E))
 
-<P><STRONG><a name="[80]"></a>__rt_lib_shutdown_return</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libshutdown2.o(.ARM.Collect$$libshutdown$$0000000F))
+<P><STRONG><a name="[81]"></a>__rt_lib_shutdown_return</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libshutdown2.o(.ARM.Collect$$libshutdown$$0000000F))
 
-<P><STRONG><a name="[81]"></a>__rt_lib_shutdown_signal_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libshutdown2.o(.ARM.Collect$$libshutdown$$00000009))
+<P><STRONG><a name="[82]"></a>__rt_lib_shutdown_signal_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libshutdown2.o(.ARM.Collect$$libshutdown$$00000009))
 
-<P><STRONG><a name="[82]"></a>__rt_lib_shutdown_stdio_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libshutdown2.o(.ARM.Collect$$libshutdown$$00000003))
+<P><STRONG><a name="[83]"></a>__rt_lib_shutdown_stdio_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libshutdown2.o(.ARM.Collect$$libshutdown$$00000003))
 
-<P><STRONG><a name="[83]"></a>__rt_lib_shutdown_user_alloc_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libshutdown2.o(.ARM.Collect$$libshutdown$$0000000B))
+<P><STRONG><a name="[84]"></a>__rt_lib_shutdown_user_alloc_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libshutdown2.o(.ARM.Collect$$libshutdown$$0000000B))
 
 <P><STRONG><a name="[45]"></a>__rt_entry</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rtentry.o(.ARM.Collect$$rtentry$$00000000))
-<BR><BR>[Called By]<UL><LI><a href="#[42]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__main
-<LI><a href="#[46]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__scatterload_rt2
+<BR><BR>[Called By]<UL><LI><a href="#[46]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__scatterload_rt2
+<LI><a href="#[42]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__main
 </UL>
 
-<P><STRONG><a name="[84]"></a>__rt_entry_presh_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rtentry2.o(.ARM.Collect$$rtentry$$00000002))
+<P><STRONG><a name="[85]"></a>__rt_entry_presh_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rtentry2.o(.ARM.Collect$$rtentry$$00000002))
 
 <P><STRONG><a name="[48]"></a>__rt_entry_sh</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rtentry4.o(.ARM.Collect$$rtentry$$00000004))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8 + Unknown Stack Size
@@ -197,17 +197,17 @@ Global Symbols
 <BR><BR>[Calls]<UL><LI><a href="#[4b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_lib_init
 </UL>
 
-<P><STRONG><a name="[85]"></a>__rt_entry_postsh_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rtentry2.o(.ARM.Collect$$rtentry$$00000009))
+<P><STRONG><a name="[86]"></a>__rt_entry_postsh_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rtentry2.o(.ARM.Collect$$rtentry$$00000009))
 
 <P><STRONG><a name="[4c]"></a>__rt_entry_main</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rtentry2.o(.ARM.Collect$$rtentry$$0000000D))
-<BR><BR>[Stack]<UL><LI>Max Depth = 128 + Unknown Stack Size
-<LI>Call Chain = __rt_entry_main &rArr; main &rArr; _RFM69W_init &rArr; RFM69W_REG_init &rArr; RFM69W_encrypt &rArr; _RFM69W_setMode &rArr; _RFM69W_send &rArr; RFM69W_SPI_write &rArr; RFM69W_FIFO_fill
+<BR><BR>[Stack]<UL><LI>Max Depth = 92 + Unknown Stack Size
+<LI>Call Chain = __rt_entry_main &rArr; main &rArr; RFM69W_init &rArr; RFM69W_REG_init &rArr; RFM69W_encrypt &rArr; RFM69W_setMode &rArr; RFM69W_SPI_send_poll
 </UL>
 <BR>[Calls]<UL><LI><a href="#[4d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 <LI><a href="#[4e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;exit
 </UL>
 
-<P><STRONG><a name="[86]"></a>__rt_entry_postli_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rtentry2.o(.ARM.Collect$$rtentry$$0000000C))
+<P><STRONG><a name="[87]"></a>__rt_entry_postli_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rtentry2.o(.ARM.Collect$$rtentry$$0000000C))
 
 <P><STRONG><a name="[54]"></a>__rt_exit</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rtexit.o(.ARM.Collect$$rtexit$$00000000))
 <BR><BR>[Called By]<UL><LI><a href="#[4e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;exit
@@ -217,7 +217,7 @@ Global Symbols
 <BR><BR>[Calls]<UL><LI><a href="#[50]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_lib_shutdown
 </UL>
 
-<P><STRONG><a name="[87]"></a>__rt_exit_prels_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rtexit2.o(.ARM.Collect$$rtexit$$00000002))
+<P><STRONG><a name="[88]"></a>__rt_exit_prels_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rtexit2.o(.ARM.Collect$$rtexit$$00000002))
 
 <P><STRONG><a name="[51]"></a>__rt_exit_exit</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rtexit2.o(.ARM.Collect$$rtexit$$00000004))
 <BR><BR>[Calls]<UL><LI><a href="#[52]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sys_exit
@@ -412,25 +412,25 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[49]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__user_setup_stackheap
 </UL>
 
-<P><STRONG><a name="[88]"></a>__use_two_region_memory</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, heapauxi.o(.text), UNUSED)
+<P><STRONG><a name="[89]"></a>__use_two_region_memory</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, heapauxi.o(.text), UNUSED)
 
 <P><STRONG><a name="[1]"></a>__rt_heap_escrow</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, heapauxi.o(.text), UNUSED)
 
 <P><STRONG><a name="[0]"></a>__rt_heap_expand</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, heapauxi.o(.text), UNUSED)
 
-<P><STRONG><a name="[89]"></a>__user_libspace</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, libspace.o(.text), UNUSED)
+<P><STRONG><a name="[8a]"></a>__user_libspace</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, libspace.o(.text), UNUSED)
 
 <P><STRONG><a name="[53]"></a>__user_perproc_libspace</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, libspace.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[49]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__user_setup_stackheap
 </UL>
 
-<P><STRONG><a name="[8a]"></a>__user_perthread_libspace</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, libspace.o(.text), UNUSED)
+<P><STRONG><a name="[8b]"></a>__user_perthread_libspace</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, libspace.o(.text), UNUSED)
 
-<P><STRONG><a name="[8b]"></a>__I$use$semihosting</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, use_no_semi.o(.text), UNUSED)
+<P><STRONG><a name="[8c]"></a>__I$use$semihosting</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, use_no_semi.o(.text), UNUSED)
 
-<P><STRONG><a name="[8c]"></a>__use_no_semihosting_swi</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, use_no_semi.o(.text), UNUSED)
+<P><STRONG><a name="[8d]"></a>__use_no_semihosting_swi</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, use_no_semi.o(.text), UNUSED)
 
-<P><STRONG><a name="[8d]"></a>__semihosting_library_function</STRONG> (Thumb, 0 bytes, Stack size 8 bytes, indicate_semi.o(.text), UNUSED)
+<P><STRONG><a name="[8e]"></a>__semihosting_library_function</STRONG> (Thumb, 0 bytes, Stack size 8 bytes, indicate_semi.o(.text), UNUSED)
 
 <P><STRONG><a name="[49]"></a>__user_setup_stackheap</STRONG> (Thumb, 74 bytes, Stack size 8 bytes, sys_stackheap_outer.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8 + Unknown Stack Size
@@ -457,27 +457,31 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[56]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GetKeybSample
 </UL>
-<BR>[Called By]<UL><LI><a href="#[57]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;KeybProc
+<BR>[Called By]<UL><LI><a href="#[58]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;KeybProc
 </UL>
 
-<P><STRONG><a name="[3a]"></a>EXTI15_10_IRQHandler</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, rfm69w.o(i.EXTI15_10_IRQHandler))
+<P><STRONG><a name="[3a]"></a>EXTI15_10_IRQHandler</STRONG> (Thumb, 30 bytes, Stack size 4 bytes, rfm69w.o(i.EXTI15_10_IRQHandler))
+<BR><BR>[Stack]<UL><LI>Max Depth = 44<LI>Call Chain = EXTI15_10_IRQHandler &rArr; RFM69W_interruptHandler &rArr; RFM69W_receiveBegin &rArr; RFM69W_setMode &rArr; RFM69W_SPI_send_poll
+</UL>
+<BR>[Calls]<UL><LI><a href="#[57]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RFM69W_interruptHandler
+</UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32l1xx_md.o(RESET)
 </UL>
-<P><STRONG><a name="[59]"></a>GPIO_config</STRONG> (Thumb, 342 bytes, Stack size 28 bytes, system_stm32l1xx.o(i.GPIO_config))
+<P><STRONG><a name="[5a]"></a>GPIO_config</STRONG> (Thumb, 342 bytes, Stack size 28 bytes, system_stm32l1xx.o(i.GPIO_config))
 <BR><BR>[Stack]<UL><LI>Max Depth = 28<LI>Call Chain = GPIO_config
 </UL>
-<BR>[Called By]<UL><LI><a href="#[5a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RFM69W_REG_init
-<LI><a href="#[58]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RFM69W_GPIO_init
-<LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_USART_init
+<BR>[Called By]<UL><LI><a href="#[5b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RFM69W_REG_init
+<LI><a href="#[59]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RFM69W_GPIO_init
+<LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_USART_init
 <LI><a href="#[4d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
 <P><STRONG><a name="[56]"></a>GetKeybSample</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, key.o(i.GetKeybSample))
-<BR><BR>[Called By]<UL><LI><a href="#[57]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;KeybProc
+<BR><BR>[Called By]<UL><LI><a href="#[58]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;KeybProc
 <LI><a href="#[55]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ClrKeyb
 </UL>
 
-<P><STRONG><a name="[57]"></a>KeybProc</STRONG> (Thumb, 138 bytes, Stack size 4 bytes, key.o(i.KeybProc))
+<P><STRONG><a name="[58]"></a>KeybProc</STRONG> (Thumb, 138 bytes, Stack size 4 bytes, key.o(i.KeybProc))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = KeybProc &rArr; ClrKeyb
 </UL>
 <BR>[Calls]<UL><LI><a href="#[56]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GetKeybSample
@@ -486,32 +490,25 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[3d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM6_IRQHandler
 </UL>
 
-<P><STRONG><a name="[63]"></a>RFM69W_FIFO_fill</STRONG> (Thumb, 60 bytes, Stack size 12 bytes, rfm69w.o(i.RFM69W_FIFO_fill))
-<BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = RFM69W_FIFO_fill
-</UL>
-<BR>[Called By]<UL><LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RFM69W_SPI_write
-</UL>
-
-<P><STRONG><a name="[58]"></a>RFM69W_GPIO_init</STRONG> (Thumb, 140 bytes, Stack size 16 bytes, rfm69w.o(i.RFM69W_GPIO_init))
+<P><STRONG><a name="[59]"></a>RFM69W_GPIO_init</STRONG> (Thumb, 142 bytes, Stack size 16 bytes, rfm69w.o(i.RFM69W_GPIO_init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 44<LI>Call Chain = RFM69W_GPIO_init &rArr; GPIO_config
 </UL>
-<BR>[Calls]<UL><LI><a href="#[59]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_config
+<BR>[Calls]<UL><LI><a href="#[5a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_config
 </UL>
-<BR>[Called By]<UL><LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_RFM69W_init
+<BR>[Called By]<UL><LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RFM69W_init
 </UL>
 
-<P><STRONG><a name="[5a]"></a>RFM69W_REG_init</STRONG> (Thumb, 422 bytes, Stack size 32 bytes, rfm69w.o(i.RFM69W_REG_init))
-<BR><BR>[Stack]<UL><LI>Max Depth = 104<LI>Call Chain = RFM69W_REG_init &rArr; RFM69W_encrypt &rArr; _RFM69W_setMode &rArr; _RFM69W_send &rArr; RFM69W_SPI_write &rArr; RFM69W_FIFO_fill
+<P><STRONG><a name="[5b]"></a>RFM69W_REG_init</STRONG> (Thumb, 424 bytes, Stack size 32 bytes, rfm69w.o(i.RFM69W_REG_init))
+<BR><BR>[Stack]<UL><LI>Max Depth = 68<LI>Call Chain = RFM69W_REG_init &rArr; RFM69W_encrypt &rArr; RFM69W_setMode &rArr; RFM69W_SPI_send_poll
 </UL>
-<BR>[Calls]<UL><LI><a href="#[5f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_RFM69W_setMode
-<LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_RFM69W_send_poll
-<LI><a href="#[5b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_RFM69W_send
+<BR>[Calls]<UL><LI><a href="#[5f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RFM69W_setMode
 <LI><a href="#[5e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RFM69W_setHighPower
 <LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RFM69W_encrypt
+<LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RFM69W_SPI_send_poll
 <LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NVIC_EnableIRQ
-<LI><a href="#[59]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_config
+<LI><a href="#[5a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_config
 </UL>
-<BR>[Called By]<UL><LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_RFM69W_init
+<BR>[Called By]<UL><LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RFM69W_init
 </UL>
 
 <P><STRONG><a name="[61]"></a>RFM69W_SPI_init</STRONG> (Thumb, 36 bytes, Stack size 8 bytes, rfm69w.o(i.RFM69W_SPI_init))
@@ -519,37 +516,93 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NVIC_EnableIRQ
 </UL>
-<BR>[Called By]<UL><LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_RFM69W_init
+<BR>[Called By]<UL><LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RFM69W_init
 </UL>
 
-<P><STRONG><a name="[62]"></a>RFM69W_SPI_write</STRONG> (Thumb, 106 bytes, Stack size 16 bytes, rfm69w.o(i.RFM69W_SPI_write))
-<BR><BR>[Stack]<UL><LI>Max Depth = 28<LI>Call Chain = RFM69W_SPI_write &rArr; RFM69W_FIFO_fill
+<P><STRONG><a name="[63]"></a>RFM69W_SPI_send_8poll</STRONG> (Thumb, 98 bytes, Stack size 0 bytes, rfm69w.o(i.RFM69W_SPI_send_8poll))
+<BR><BR>[Called By]<UL><LI><a href="#[57]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RFM69W_interruptHandler
 </UL>
-<BR>[Calls]<UL><LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RFM69W_FIFO_fill
+
+<P><STRONG><a name="[5c]"></a>RFM69W_SPI_send_poll</STRONG> (Thumb, 284 bytes, Stack size 8 bytes, rfm69w.o(i.RFM69W_SPI_send_poll))
+<BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = RFM69W_SPI_send_poll
 </UL>
-<BR>[Called By]<UL><LI><a href="#[5b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_RFM69W_send
+<BR>[Called By]<UL><LI><a href="#[5f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RFM69W_setMode
+<LI><a href="#[5e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RFM69W_setHighPower
+<LI><a href="#[64]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RFM69W_receiveBegin
+<LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RFM69W_readRSSI
+<LI><a href="#[57]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RFM69W_interruptHandler
+<LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RFM69W_encrypt
+<LI><a href="#[5b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RFM69W_REG_init
 </UL>
 
 <P><STRONG><a name="[5d]"></a>RFM69W_encrypt</STRONG> (Thumb, 76 bytes, Stack size 16 bytes, rfm69w.o(i.RFM69W_encrypt))
-<BR><BR>[Stack]<UL><LI>Max Depth = 72<LI>Call Chain = RFM69W_encrypt &rArr; _RFM69W_setMode &rArr; _RFM69W_send &rArr; RFM69W_SPI_write &rArr; RFM69W_FIFO_fill
+<BR><BR>[Stack]<UL><LI>Max Depth = 36<LI>Call Chain = RFM69W_encrypt &rArr; RFM69W_setMode &rArr; RFM69W_SPI_send_poll
 </UL>
-<BR>[Calls]<UL><LI><a href="#[5f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_RFM69W_setMode
-<LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_RFM69W_send_poll
-<LI><a href="#[5b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_RFM69W_send
+<BR>[Calls]<UL><LI><a href="#[5f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RFM69W_setMode
+<LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RFM69W_SPI_send_poll
 </UL>
-<BR>[Called By]<UL><LI><a href="#[5a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RFM69W_REG_init
+<BR>[Called By]<UL><LI><a href="#[5b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RFM69W_REG_init
+</UL>
+
+<P><STRONG><a name="[62]"></a>RFM69W_init</STRONG> (Thumb, 22 bytes, Stack size 8 bytes, rfm69w.o(i.RFM69W_init))
+<BR><BR>[Stack]<UL><LI>Max Depth = 76<LI>Call Chain = RFM69W_init &rArr; RFM69W_REG_init &rArr; RFM69W_encrypt &rArr; RFM69W_setMode &rArr; RFM69W_SPI_send_poll
+</UL>
+<BR>[Calls]<UL><LI><a href="#[61]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RFM69W_SPI_init
+<LI><a href="#[5b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RFM69W_REG_init
+<LI><a href="#[59]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RFM69W_GPIO_init
+</UL>
+<BR>[Called By]<UL><LI><a href="#[4d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+</UL>
+
+<P><STRONG><a name="[57]"></a>RFM69W_interruptHandler</STRONG> (Thumb, 276 bytes, Stack size 12 bytes, rfm69w.o(i.RFM69W_interruptHandler))
+<BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = RFM69W_interruptHandler &rArr; RFM69W_receiveBegin &rArr; RFM69W_setMode &rArr; RFM69W_SPI_send_poll
+</UL>
+<BR>[Calls]<UL><LI><a href="#[5f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RFM69W_setMode
+<LI><a href="#[64]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RFM69W_receiveBegin
+<LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RFM69W_readRSSI
+<LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RFM69W_SPI_send_poll
+<LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RFM69W_SPI_send_8poll
+</UL>
+<BR>[Called By]<UL><LI><a href="#[3a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EXTI15_10_IRQHandler
+</UL>
+
+<P><STRONG><a name="[65]"></a>RFM69W_readRSSI</STRONG> (Thumb, 58 bytes, Stack size 12 bytes, rfm69w.o(i.RFM69W_readRSSI))
+<BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = RFM69W_readRSSI &rArr; RFM69W_SPI_send_poll
+</UL>
+<BR>[Calls]<UL><LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RFM69W_SPI_send_poll
+</UL>
+<BR>[Called By]<UL><LI><a href="#[57]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RFM69W_interruptHandler
+</UL>
+
+<P><STRONG><a name="[64]"></a>RFM69W_receiveBegin</STRONG> (Thumb, 92 bytes, Stack size 8 bytes, rfm69w.o(i.RFM69W_receiveBegin))
+<BR><BR>[Stack]<UL><LI>Max Depth = 28<LI>Call Chain = RFM69W_receiveBegin &rArr; RFM69W_setMode &rArr; RFM69W_SPI_send_poll
+</UL>
+<BR>[Calls]<UL><LI><a href="#[5f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RFM69W_setMode
+<LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RFM69W_SPI_send_poll
+</UL>
+<BR>[Called By]<UL><LI><a href="#[57]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RFM69W_interruptHandler
 </UL>
 
 <P><STRONG><a name="[5e]"></a>RFM69W_setHighPower</STRONG> (Thumb, 72 bytes, Stack size 12 bytes, rfm69w.o(i.RFM69W_setHighPower))
-<BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = RFM69W_setHighPower &rArr; _RFM69W_send &rArr; RFM69W_SPI_write &rArr; RFM69W_FIFO_fill
+<BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = RFM69W_setHighPower &rArr; RFM69W_SPI_send_poll
 </UL>
-<BR>[Calls]<UL><LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_RFM69W_send_poll
-<LI><a href="#[5b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_RFM69W_send
+<BR>[Calls]<UL><LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RFM69W_SPI_send_poll
 </UL>
-<BR>[Called By]<UL><LI><a href="#[5a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RFM69W_REG_init
+<BR>[Called By]<UL><LI><a href="#[5b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RFM69W_REG_init
 </UL>
 
-<P><STRONG><a name="[35]"></a>SPI1_IRQHandler</STRONG> (Thumb, 172 bytes, Stack size 0 bytes, rfm69w.o(i.SPI1_IRQHandler))
+<P><STRONG><a name="[5f]"></a>RFM69W_setMode</STRONG> (Thumb, 208 bytes, Stack size 12 bytes, rfm69w.o(i.RFM69W_setMode))
+<BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = RFM69W_setMode &rArr; RFM69W_SPI_send_poll
+</UL>
+<BR>[Calls]<UL><LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RFM69W_SPI_send_poll
+</UL>
+<BR>[Called By]<UL><LI><a href="#[64]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RFM69W_receiveBegin
+<LI><a href="#[57]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RFM69W_interruptHandler
+<LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RFM69W_encrypt
+<LI><a href="#[5b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RFM69W_REG_init
+</UL>
+
+<P><STRONG><a name="[35]"></a>SPI1_IRQHandler</STRONG> (Thumb, 178 bytes, Stack size 0 bytes, rfm69w.o(i.SPI1_IRQHandler))
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32l1xx_md.o(RESET)
 </UL>
 <P><STRONG><a name="[11]"></a>SysTick_Handler</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, main.o(i.SysTick_Handler))
@@ -558,74 +611,34 @@ Global Symbols
 <P><STRONG><a name="[3f]"></a>SystemInit</STRONG> (Thumb, 88 bytes, Stack size 8 bytes, system_stm32l1xx.o(i.SystemInit))
 <BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = SystemInit &rArr; SetSysClock
 </UL>
-<BR>[Calls]<UL><LI><a href="#[64]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SetSysClock
+<BR>[Calls]<UL><LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SetSysClock
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32l1xx_md.o(.text)
 </UL>
 <P><STRONG><a name="[3d]"></a>TIM6_IRQHandler</STRONG> (Thumb, 30 bytes, Stack size 4 bytes, key.o(i.TIM6_IRQHandler))
 <BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = TIM6_IRQHandler &rArr; KeybProc &rArr; ClrKeyb
 </UL>
-<BR>[Calls]<UL><LI><a href="#[57]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;KeybProc
+<BR>[Calls]<UL><LI><a href="#[58]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;KeybProc
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32l1xx_md.o(RESET)
 </UL>
 <P><STRONG><a name="[37]"></a>USART1_IRQHandler</STRONG> (Thumb, 114 bytes, Stack size 0 bytes, usart.o(i.USART1_IRQHandler))
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32l1xx_md.o(RESET)
 </UL>
-<P><STRONG><a name="[65]"></a>_RFM69W_init</STRONG> (Thumb, 22 bytes, Stack size 8 bytes, rfm69w.o(i._RFM69W_init))
-<BR><BR>[Stack]<UL><LI>Max Depth = 112<LI>Call Chain = _RFM69W_init &rArr; RFM69W_REG_init &rArr; RFM69W_encrypt &rArr; _RFM69W_setMode &rArr; _RFM69W_send &rArr; RFM69W_SPI_write &rArr; RFM69W_FIFO_fill
-</UL>
-<BR>[Calls]<UL><LI><a href="#[61]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RFM69W_SPI_init
-<LI><a href="#[5a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RFM69W_REG_init
-<LI><a href="#[58]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RFM69W_GPIO_init
-</UL>
-<BR>[Called By]<UL><LI><a href="#[4d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
-</UL>
-
-<P><STRONG><a name="[5b]"></a>_RFM69W_send</STRONG> (Thumb, 132 bytes, Stack size 16 bytes, rfm69w.o(i._RFM69W_send))
-<BR><BR>[Stack]<UL><LI>Max Depth = 44<LI>Call Chain = _RFM69W_send &rArr; RFM69W_SPI_write &rArr; RFM69W_FIFO_fill
-</UL>
-<BR>[Calls]<UL><LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RFM69W_SPI_write
-</UL>
-<BR>[Called By]<UL><LI><a href="#[5f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_RFM69W_setMode
-<LI><a href="#[5e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RFM69W_setHighPower
-<LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RFM69W_encrypt
-<LI><a href="#[5a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RFM69W_REG_init
-</UL>
-
-<P><STRONG><a name="[5c]"></a>_RFM69W_send_poll</STRONG> (Thumb, 150 bytes, Stack size 8 bytes, rfm69w.o(i._RFM69W_send_poll))
-<BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = _RFM69W_send_poll
-</UL>
-<BR>[Called By]<UL><LI><a href="#[5f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_RFM69W_setMode
-<LI><a href="#[5e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RFM69W_setHighPower
-<LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RFM69W_encrypt
-<LI><a href="#[5a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RFM69W_REG_init
-</UL>
-
-<P><STRONG><a name="[5f]"></a>_RFM69W_setMode</STRONG> (Thumb, 208 bytes, Stack size 12 bytes, rfm69w.o(i._RFM69W_setMode))
-<BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = _RFM69W_setMode &rArr; _RFM69W_send &rArr; RFM69W_SPI_write &rArr; RFM69W_FIFO_fill
-</UL>
-<BR>[Calls]<UL><LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_RFM69W_send_poll
-<LI><a href="#[5b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_RFM69W_send
-</UL>
-<BR>[Called By]<UL><LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RFM69W_encrypt
-<LI><a href="#[5a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RFM69W_REG_init
-</UL>
-
-<P><STRONG><a name="[66]"></a>_USART_init</STRONG> (Thumb, 168 bytes, Stack size 24 bytes, usart.o(i._USART_init))
+<P><STRONG><a name="[67]"></a>_USART_init</STRONG> (Thumb, 168 bytes, Stack size 24 bytes, usart.o(i._USART_init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 52<LI>Call Chain = _USART_init &rArr; GPIO_config
 </UL>
-<BR>[Calls]<UL><LI><a href="#[59]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_config
+<BR>[Calls]<UL><LI><a href="#[5a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_config
 </UL>
 <BR>[Called By]<UL><LI><a href="#[4d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
 <P><STRONG><a name="[4d]"></a>main</STRONG> (Thumb, 58 bytes, Stack size 16 bytes, main.o(i.main))
-<BR><BR>[Stack]<UL><LI>Max Depth = 128<LI>Call Chain = main &rArr; _RFM69W_init &rArr; RFM69W_REG_init &rArr; RFM69W_encrypt &rArr; _RFM69W_setMode &rArr; _RFM69W_send &rArr; RFM69W_SPI_write &rArr; RFM69W_FIFO_fill
+<BR><BR>[Stack]<UL><LI>Max Depth = 92<LI>Call Chain = main &rArr; RFM69W_init &rArr; RFM69W_REG_init &rArr; RFM69W_encrypt &rArr; RFM69W_setMode &rArr; RFM69W_SPI_send_poll
 </UL>
-<BR>[Calls]<UL><LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_USART_init
-<LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_RFM69W_init
-<LI><a href="#[59]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_config
+<BR>[Calls]<UL><LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_USART_init
+<LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RFM69W_init
+<LI><a href="#[5a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_config
 </UL>
 <BR>[Called By]<UL><LI><a href="#[4c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_entry_main
 </UL>
@@ -633,7 +646,7 @@ Global Symbols
 <H3>
 Local Symbols
 </H3>
-<P><STRONG><a name="[64]"></a>SetSysClock</STRONG> (Thumb, 258 bytes, Stack size 12 bytes, system_stm32l1xx.o(i.SetSysClock))
+<P><STRONG><a name="[66]"></a>SetSysClock</STRONG> (Thumb, 258 bytes, Stack size 12 bytes, system_stm32l1xx.o(i.SetSysClock))
 <BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = SetSysClock
 </UL>
 <BR>[Called By]<UL><LI><a href="#[3f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SystemInit
@@ -641,7 +654,7 @@ Local Symbols
 
 <P><STRONG><a name="[60]"></a>NVIC_EnableIRQ</STRONG> (Thumb, 22 bytes, Stack size 0 bytes, rfm69w.o(i.NVIC_EnableIRQ))
 <BR><BR>[Called By]<UL><LI><a href="#[61]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RFM69W_SPI_init
-<LI><a href="#[5a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RFM69W_REG_init
+<LI><a href="#[5b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RFM69W_REG_init
 </UL>
 <P>
 <H3>
