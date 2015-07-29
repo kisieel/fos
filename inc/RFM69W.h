@@ -6,9 +6,14 @@
 //#define OUR_REG_DEFINE
 #define LAB_REG_DEFINE
 
+#define RFM69W_write            1
+#define RFM69W_read             0
+
 // Public functions
 
 extern void     RFM69W_init(void);
+extern uint32_t RFM69W_getFrequency(void);
+extern uint32_t milis(uint8_t onOff);
 
 // End of public functions
 

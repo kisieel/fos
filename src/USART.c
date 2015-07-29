@@ -2,7 +2,16 @@
 #include "USART.h"
 #include "FLOAT.h"
 
+#define USART_FIFO_size  50
+
+#define USART_FREE   0
+#define USART_NOFREE 1
+
 // Private functions
+void USART_init(void);
+void USART_send(char *);
+void USART_write_buf(uint32_t DATA, uint8_t TYPE);
+
 unsigned char USART_write(char);
 void USART_putchar(char);
 // End of private functions
@@ -17,23 +26,23 @@ volatile struct {
 	uint8_t tail;
 } USART_FIFO;
 
-void _USART_write_buf(uint32_t DATA, uint8_t TYPE)
+void USART_write_buf(uint32_t DATA, uint8_t TYPE)
 {
-	uint8_t buf[20];
+	uint8_t buf[25];
 	
 	if (TYPE == DEC) {
 		_dbl2stri(buf, DATA, 0);
-		_USART_send(buf);
+		USART_send(buf);
 		return;
 	}
 	
 	if (TYPE == BIN) {
 		_dbl2stri(buf, _decimal_binary(DATA), 0);
-		_USART_send(buf);
+		USART_send(buf);
 	}
 }
 
-unsigned char USART_write(char DATA) 
+uint8_t USART_write(char DATA) 
 {
 	if (USART_FIFO.tail == (USART_FIFO_size - 1)) {
 		if (USART_FIFO.head == 0) 
@@ -77,7 +86,7 @@ void USART1_IRQHandler(void)
 	}
 }
 
-void _USART_send(char * text)
+void USART_send(char * text)
 {
 	while (*text != '\0')
 	{
@@ -86,7 +95,7 @@ void _USART_send(char * text)
 	}
 }
 
-void _USART_init(void)
+void USART_init(void)
 {
 	RCC->AHBENR |= RCC_AHBENR_GPIOBEN;                  // Clock for GPIOB 
 	RCC->APB2ENR |= RCC_APB2ENR_USART1EN;               // Clock for USART1

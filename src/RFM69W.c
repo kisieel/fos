@@ -34,11 +34,11 @@
 // Minimum size: 3
 #define RFM69W_FIFO_size        20
 
-#define RFM69W_CS_UP            __enable_irq();  GPIOA->ODR |= GPIO_ODR_ODR_15; 
-#define RFM69W_CS_DOWN          __disable_irq(); GPIOA->ODR &= ~GPIO_ODR_ODR_15;
+#define RFM69W_CS_UP            GPIOA->ODR |= GPIO_ODR_ODR_15; SPI1->CR1 &= ~SPI_CR1_SPE; __enable_irq();
+#define RFM69W_CS_DOWN          __disable_irq(); SPI1->CR1 |= SPI_CR1_SPE; GPIOA->ODR &= ~GPIO_ODR_ODR_15;
 
-#define RFM69W_write            1
-#define RFM69W_read             0
+//#define RFM69W_write            1
+//#define RFM69W_read             0
 
 // Private functions
 
@@ -71,6 +71,8 @@ void     RFM69W_setHighPower(uint8_t onOff);
 void     RFM69W_setHighPowerRegs(uint8_t onOff);
 void     RFM69W_readAllRegs(void);
 void     RFM69W_rcCalibration(void);
+void     RFM69W_listenModeON(void);
+void     RFM69W_listenModeOFF(void);
 
 uint32_t milis(uint8_t onOff);
 	
@@ -140,31 +142,64 @@ uint8_t RFM69W_REG_init(uint8_t freqBand, uint8_t nodeID, uint8_t networkID)
 	while
 		(RFM69W_SPI_send_poll(RFM69W_read, REG_SYNCVALUE1, 0x00) != 0x55);
 	
+	//
 	RFM69W_SPI_send_poll(RFM69W_write, REG_OPMODE, RF_OPMODE_SEQUENCER_ON | RF_OPMODE_LISTEN_OFF | RF_OPMODE_STANDBY);
+	//
 	RFM69W_SPI_send_poll(RFM69W_write, REG_DATAMODUL, RF_DATAMODUL_DATAMODE_PACKET | RF_DATAMODUL_MODULATIONTYPE_FSK | RF_DATAMODUL_MODULATIONSHAPING_00);
+	// default: 4.8 KBPS
 	RFM69W_SPI_send_poll(RFM69W_write, REG_BITRATEMSB, RF_BITRATEMSB_55555);
+	// default: 4.8 KBPS
 	RFM69W_SPI_send_poll(RFM69W_write, REG_BITRATELSB, RF_BITRATELSB_55555);
+	// default: 5KHz, (FDEV + BitRate / 2 <= 500KHz)
 	RFM69W_SPI_send_poll(RFM69W_write, REG_FDEVMSB, RF_FDEVMSB_50000);
+	// default: 5KHz, (FDEV + BitRate / 2 <= 500KHz)
 	RFM69W_SPI_send_poll(RFM69W_write, REG_FDEVLSB, RF_FDEVLSB_50000);
-	RFM69W_SPI_send_poll(RFM69W_write, REG_FRFMSB, RF69_868MHZ);
-	RFM69W_SPI_send_poll(RFM69W_write, REG_FRFMID, RF69_868MHZ);
-	RFM69W_SPI_send_poll(RFM69W_write, REG_FRFLSB, RF69_868MHZ);
+	// 868 MHz
+	RFM69W_SPI_send_poll(RFM69W_write, REG_FRFMSB, RF_FRFMSB_868);
+	// 868 MHz
+	RFM69W_SPI_send_poll(RFM69W_write, REG_FRFMID, RF_FRFMID_868);
+	// 868 MHz
+	RFM69W_SPI_send_poll(RFM69W_write, REG_FRFLSB, RF_FRFLSB_868);
+	// looks like PA1 and PA2 are not implemented on RFM69W, hence the max output power is 13dBm
+  // +17dBm and +20dBm are possible on RFM69HW
+  // +13dBm formula: Pout = -18 + OutputPower (with PA0 or PA1**)
+  // +17dBm formula: Pout = -14 + OutputPower (with PA1 and PA2)**
+  // +20dBm formula: Pout = -11 + OutputPower (with PA1 and PA2)** and high power PA settings (section 3.3.7 in datasheet)
 //	RFM69W_SPI_send_poll(RFM69W_write, REG_PALEVEL, RF_PALEVEL_PA0_ON | RF_PALEVEL_PA1_OFF | RF_PALEVEL_PA2_OFF | RF_PALEVEL_OUTPUTPOWER_11111);
+	//  over current protection (default is 95mA)
 //	RFM69W_SPI_send_poll(RFM69W_write, REG_OCP, RF_OCP_ON | RF_OCP_TRIM_95);
+	// RXBW defaults are { REG_RXBW, RF_RXBW_DCCFREQ_010 | RF_RXBW_MANT_24 | RF_RXBW_EXP_5} (RxBw: 10.4KHz)
+	// for BR-19200 { REG_RXBW, RF_RXBW_DCCFREQ_010 | RF_RXBW_MANT_24 | RF_RXBW_EXP_3 },
 	RFM69W_SPI_send_poll(RFM69W_write, REG_RXBW, RF_RXBW_DCCFREQ_010 | RF_RXBW_MANT_16 | RF_RXBW_EXP_2);
+	// DIO0 is the only IRQ we're using
 	RFM69W_SPI_send_poll(RFM69W_write, REG_DIOMAPPING1, RF_DIOMAPPING1_DIO0_01);
+	// DIO5 ClkOut disable for power saving
 	RFM69W_SPI_send_poll(RFM69W_write, REG_DIOMAPPING2, RF_DIOMAPPING2_CLKOUT_OFF);
+	// writing to this bit ensures that the FIFO & status flags are reset
 	RFM69W_SPI_send_poll(RFM69W_write, REG_IRQFLAGS2, RF_IRQFLAGS2_FIFOOVERRUN);
+	// must be set to dBm = (-Sensitivity / 2), default is 0xE4 = 228 so -114dBm
 	RFM69W_SPI_send_poll(RFM69W_write, REG_RSSITHRESH, 220);
+	//  default 3 preamble bytes 0xAAAAAA
 //	RFM69W_SPI_send_poll(RFM69W_write, REG_PREAMBLELSB, RF_PREAMBLESIZE_LSB_VALUE);
+	//
 	RFM69W_SPI_send_poll(RFM69W_write, REG_SYNCCONFIG, RF_SYNC_ON | RF_SYNC_FIFOFILL_AUTO | RF_SYNC_SIZE_2 | RF_SYNC_TOL_0);
+	// attempt to make this compatible with sync1 byte of RFM12B lib
 	RFM69W_SPI_send_poll(RFM69W_write, REG_SYNCVALUE1, 0x2D);
+	// NETWORK ID
 	RFM69W_SPI_send_poll(RFM69W_write, REG_SYNCVALUE2, NETWORKID);
+	//
 	RFM69W_SPI_send_poll(RFM69W_write, REG_PACKETCONFIG1, RF_PACKET1_FORMAT_VARIABLE | RF_PACKET1_DCFREE_OFF | RF_PACKET1_CRC_ON | RF_PACKET1_CRCAUTOCLEAR_ON | RF_PACKET1_ADRSFILTERING_OFF);
+	// in variable length mode: the max frame size, not used in TX
 	RFM69W_SPI_send_poll(RFM69W_write, REG_PAYLOADLENGTH, 66);
+	// turned off because we're not using address filtering
 //	RFM69W_SPI_send_poll(RFM69W_write, REG_NODEADRS, NODEID);
+	// TX on FIFO not empty
 	RFM69W_SPI_send_poll(RFM69W_write, REG_FIFOTHRESH, RF_FIFOTHRESH_TXSTART_FIFONOTEMPTY | RF_FIFOTHRESH_VALUE);
+	// RXRESTARTDELAY must match transmitter PA ramp-down time (bitrate dependent)
 	RFM69W_SPI_send_poll(RFM69W_write, REG_PACKETCONFIG2, RF_PACKET2_RXRESTARTDELAY_2BITS | RF_PACKET2_AUTORXRESTART_ON | RF_PACKET2_AES_OFF);
+	// RXRESTARTDELAY must match transmitter PA ramp-down time (bitrate dependent)
+//	RFM69W_SPI_send_poll(RFM69W_write, REG_PACKETCONFIG2, RF_PACKET2_RXRESTARTDELAY_NONE | RF_PACKET2_AUTORXRESTART_ON | RF_PACKET2_AES_OFF);
+	// run DAGC continuously in RX mode for Fading Margin Improvement, recommended default for AfcLowBetaOn=0
 	RFM69W_SPI_send_poll(RFM69W_write, REG_TESTDAGC, RF_DAGC_IMPROVED_LOWBETA0);	
 	
 	// Encryption is persistent between resets and can trip you up during debugging.
@@ -198,7 +233,7 @@ uint8_t RFM69W_REG_init(uint8_t freqBand, uint8_t nodeID, uint8_t networkID)
   */
 uint32_t RFM69W_getFrequency(void)
 {
-  return RF69_FSTEP * (((uint32_t) RFM69W_SPI_send_poll(RFM69W_read, REG_FRFMSB, 00) << 16) + ((uint16_t) RFM69W_SPI_send_poll(RFM69W_read, REG_FRFMID, 0x00) << 8) + RFM69W_SPI_send_poll(RFM69W_read, REG_FRFLSB, 0x00));
+  return RF69_FSTEP * (((uint32_t) RFM69W_SPI_send_poll(RFM69W_read, REG_FRFMSB, 0x00) << 16) + ((uint16_t) RFM69W_SPI_send_poll(RFM69W_read, REG_FRFMID, 0x00) << 8) + RFM69W_SPI_send_poll(RFM69W_read, REG_FRFLSB, 0x00));
 }
 
 /**
@@ -224,7 +259,8 @@ void RFM69W_setFrequency(uint32_t freqHz)
   if (oldMode == RF69_MODE_TX)
     RFM69W_setMode(RF69_MODE_RX);
 	
-  freqHz /= RF69_FSTEP; // divide down by FSTEP to get FRF
+	// Divide down by FSTEP to get FRF
+  freqHz /= RF69_FSTEP;
    RFM69W_SPI_send_poll(RFM69W_write, REG_FRFMSB, freqHz >> 16);
    RFM69W_SPI_send_poll(RFM69W_write, REG_FRFMID, freqHz >> 8);
    RFM69W_SPI_send_poll(RFM69W_write, REG_FRFLSB, freqHz);
@@ -261,7 +297,7 @@ void RFM69W_setMode(uint8_t newMode)
       break;
   }
 	
-	// W are using packet mode, so this check is not really needed but
+	// We are using packet mode, so this check is not really needed but
   // waiting for mode ready is necessary when going from sleep because
 	// the FIFO may not be immediately available from previous mode.
 	// Wait for ModeReady.
@@ -434,19 +470,24 @@ void RFM69W_sendFrame(uint8_t toAddress, const void* buffer, uint8_t bufferSize,
     CTLbyte = 0x40;
 
 	// Write to FIFO
-	RFM69W_SPI_send_poll(RFM69W_write, REG_FIFO, bufferSize + 3);
-	RFM69W_SPI_send_poll(RFM69W_write, REG_FIFO, toAddress);
-	RFM69W_SPI_send_poll(RFM69W_write, REG_FIFO, RFM69W_address);
-	RFM69W_SPI_send_poll(RFM69W_write, REG_FIFO, CTLbyte);
+	RFM69W_CS_DOWN;
+	RFM69W_SPI_send_8poll(REG_FIFO | 0x80);
+	RFM69W_SPI_send_8poll(bufferSize + 3);
+	RFM69W_SPI_send_8poll(toAddress);
+	RFM69W_SPI_send_8poll(RFM69W_address);
+	RFM69W_SPI_send_8poll(CTLbyte);
 
   for (i = 0; i < bufferSize; i++)
-    RFM69W_SPI_send_poll(RFM69W_write, REG_FIFO, (((uint8_t*) buffer)[i]));
+		RFM69W_SPI_send_8poll((((uint8_t*) buffer)[i]));
 
+	RFM69W_CS_UP;
+	
 	// No need to wait for transmit mode to be ready since its handled by the radio
   RFM69W_setMode(RF69_MODE_TX);
   txStart = milis(1);
 	// Wait for DIO0 to turn HIGH signalling transmission finish
   while ((GPIOA->IDR & GPIO_IDR_IDR_10) == 0 && milis(1) - txStart < RF69_TX_LIMIT_MS);
+	milis(0);
 	// wait for ModeReady
   // while (readReg(REG_IRQFLAGS2) & RF_IRQFLAGS2_PACKETSENT == 0x00); 
   RFM69W_setMode(RF69_MODE_STANDBY);
@@ -560,8 +601,12 @@ void RFM69W_encrypt(const char* key)
 	RFM69W_setMode(RF69_MODE_STANDBY);
 	
   if (key != 0) {
+		RFM69W_CS_DOWN;
+		RFM69W_SPI_send_8poll(REG_AESKEY1 | 0x80);
 		for (i = 0; i < 16; i++)
-			RFM69W_SPI_send_poll(RFM69W_write, REG_AESKEY1 + i, key[i]);
+			RFM69W_SPI_send_8poll(key[i]);
+		RFM69W_CS_UP;
+		SPI1->CR1 &= ~SPI_CR1_SPE;
   }
 	
 	RFM69W_SPI_send_poll(RFM69W_write, REG_PACKETCONFIG2, (RFM69W_SPI_send_poll(RFM69W_read, REG_PACKETCONFIG2, 0x00) & 0xFE) | (key ? 1 : 0));
@@ -628,12 +673,12 @@ void RFM69W_readAllRegs(void)
   for (regAddr = 1; regAddr <= 0x4F; regAddr++) {
 		regVal = RFM69W_SPI_send_poll(RFM69W_read, regAddr, 0x00);
 		
-		_USART_write_buf(regAddr, DEC);
-		_USART_send("\t");
-    _USART_write_buf(regVal, DEC);
-    _USART_send("\t");
-    _USART_write_buf(regVal, BIN);
-		_USART_send("\n");
+		USART_write_buf(regAddr, DEC);
+		USART_send("\t");
+    USART_write_buf(regVal, DEC);
+    USART_send("\t");
+    USART_write_buf(regVal, BIN);
+		USART_send("\n");
   }
 }
 
@@ -652,18 +697,44 @@ void RFM69W_rcCalibration(void)
 uint32_t milis(uint8_t onOff)
 {
 	if (onOff) {
-		if (TIM5->CR1 & TIM_CR1_CEN) {
-			return TIM5->CNT;
+		if (TIM11->CR1 & TIM_CR1_CEN) {
+			return TIM11->CNT;
 		} else {
-			TIM5->PSC = 32000;
-			TIM5->ARR = 0xFFFFFFFF;
-			TIM5->CR1 |= TIM_CR1_CEN;
+			RCC->APB2ENR |= RCC_APB2ENR_TIM11EN;
+			TIM11->PSC = 32000 - 1;
+			TIM11->ARR = 0xFFFFFFFF;
+			TIM11->CR1 |= TIM_CR1_CEN;
 			return 0;
 		}
 	} else {
-		TIM5->CR1 &= ~TIM_CR1_CEN;
+		TIM11->CR1 &= ~TIM_CR1_CEN;
 		return 1;
 	}
+}
+
+/**
+  * @note 
+  */
+void RFM69W_listenModeON(void)
+{
+	RFM69W_setMode(RF69_MODE_STANDBY);
+	
+	// RSSI and SyncAddressMatch criteria, 64 us RX resolution, 4.1 ms Idle resolution
+	// End: Module stays in Rx mode. Listen mode stops and must be disabled (RFM69W_listenModeOFF must be called)
+	RFM69W_SPI_send_poll(RFM69W_write, REG_LISTEN1, RF_LISTEN1_CRITERIA_RSSIANDSYNC | RF_LISTEN1_RESOL_RX_64 | RF_LISTEN1_RESOL_IDLE_4100 | RF_LISTEN1_END_00);
+	// Idle time ~100 ms = 4.1 ms * 24
+	RFM69W_SPI_send_poll(RFM69W_write, REG_LISTEN2, 24);
+	// RX time ~10 ms = 64 us * 156
+	RFM69W_SPI_send_poll(RFM69W_write, REG_LISTEN3, 156);
+	RFM69W_SPI_send_poll(RFM69W_write, REG_OPMODE, RF_OPMODE_LISTEN_ON);
+}
+
+void RFM69W_listenModeOFF(void)
+{
+	RFM69W_SPI_send_poll(RFM69W_write, REG_OPMODE, RF_OPMODE_LISTENABORT | RF_OPMODE_RECEIVER);
+	RFM69W_SPI_send_poll(RFM69W_write, REG_OPMODE, RF_OPMODE_RECEIVER);
+	// Wait for ModeReady
+	while ((RFM69W_SPI_send_poll(RFM69W_read, REG_IRQFLAGS1, 0x00) & RF_IRQFLAGS1_MODEREADY) == 0x00);
 }
 
 /**
@@ -681,7 +752,6 @@ uint16_t RFM69W_SPI_send_poll(uint8_t TYPE, uint8_t ADDRESS, uint8_t DATA)
 {
 	switch (TYPE) {
 		case RFM69W_read:
-			SPI1->CR1 |= SPI_CR1_SPE;
 			RFM69W_CS_DOWN;
 			
 			while(!(SPI1->SR & SPI_SR_TXE));
@@ -697,11 +767,9 @@ uint16_t RFM69W_SPI_send_poll(uint8_t TYPE, uint8_t ADDRESS, uint8_t DATA)
 			while(SPI1->SR & SPI_SR_BSY);
 			
 			RFM69W_CS_UP;
-			SPI1->CR1 &= ~SPI_CR1_SPE;
 			
 			return DATA;
 		case RFM69W_write:
-			SPI1->CR1 |= SPI_CR1_SPE;
 			RFM69W_CS_DOWN;
 		
 			while(!(SPI1->SR & SPI_SR_TXE));
@@ -713,10 +781,8 @@ uint16_t RFM69W_SPI_send_poll(uint8_t TYPE, uint8_t ADDRESS, uint8_t DATA)
 			while(SPI1->SR & SPI_SR_BSY);
 			
 			RFM69W_CS_UP;
-			SPI1->CR1 &= ~SPI_CR1_SPE;
 			break;
 	}
-	return 0;
 }
 
 /**
@@ -726,16 +792,14 @@ uint8_t RFM69W_SPI_send_8poll(uint8_t DATA)
 {
 	// 8 bit data frame
 	SPI1->CR1 &= ~SPI_CR1_DFF;
-	SPI1->CR1 |= ~SPI_CR1_SPE;
-	
-	while(!(SPI1->SR & SPI_SR_TXE));
+
+	while(SPI1->SR & SPI_SR_BSY);
 	SPI1->DR = DATA;
 	
 	while(!(SPI1->SR & SPI_SR_RXNE));
 	DATA = SPI1->DR;
 	
 	while(SPI1->SR & SPI_SR_BSY);
-	SPI1->CR1 &= ~SPI_CR1_SPE;
 	// Back to 16 bit data frame
 	SPI1->CR1 |= SPI_CR1_DFF;
 	

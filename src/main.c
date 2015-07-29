@@ -38,7 +38,7 @@ PB13 - BUZ_tone
 int main()
 {	
 	int i;
-	uint8_t buf[10];
+	uint8_t buf[20];
 //	const char* key = "sampleEncryptKey";
 
 	// Keep power supply
@@ -48,55 +48,12 @@ int main()
 	
 //	_KEY_init();
 //	_MENU_init();
-	_USART_init();
+	USART_init();
 	RFM69W_init();
+	SYS_TICK_init();
 	
-//	_RFM69W_send(RFM69W_write, REG_AESKEY1, key[0]);
-//	_RFM69W_send(RFM69W_write, REG_AESKEY2, key[1]);
-//	_RFM69W_send(RFM69W_write, REG_AESKEY3, key[2]);
-//	_RFM69W_send(RFM69W_write, REG_AESKEY4, key[3]);
-//	_RFM69W_send(RFM69W_write, REG_AESKEY5, key[4]);
-//	_RFM69W_send(RFM69W_write, REG_AESKEY6, key[5]);
-//	_RFM69W_send(RFM69W_write, REG_AESKEY7, key[6]);
-//	_RFM69W_send(RFM69W_write, REG_AESKEY8, key[7]);
-//	_RFM69W_send(RFM69W_write, REG_AESKEY9, key[8]);
-//	_RFM69W_send(RFM69W_write, REG_AESKEY10, key[9]);
-//	
-//	if (key != 0) {
-//		for (i = 0; i < 16; i++)
-//			_RFM69W_send(RFM69W_write, REG_AESKEY1 + i, key[i]);
-//  }
-	
-//	_RFM69W_send(RFM69W_write, 0x18, 0x00);
-//	_RFM69W_send(RFM69W_write, 0x18, 0x00);
-//	_RFM69W_send(RFM69W_write, 0x18, 0x00);
-//	_RFM69W_send(RFM69W_write, 0x18, 0x00);
-//	_RFM69W_send(RFM69W_write, 0x18, 0x00);
-//	
-//	for (i = 1000000; i>1; i--);
-//	
-//	_RFM69W_send(RFM69W_write, 0x18, 0x00);
-//	_RFM69W_send(RFM69W_write, 0x18, 0x00);
-//	_RFM69W_send(RFM69W_write, 0x18, 0x00);
-//	_RFM69W_send(RFM69W_write, 0x18, 0x00);
-//	_RFM69W_send(RFM69W_write, 0x18, 0x00);
-	
-//		_RFM69W_send(RFM69W_write, 0x18, 0x00);
-//	_RFM69W_send(RFM69W_write, 0x18, 0x00);
-//		_RFM69W_send(RFM69W_write, 0x18, 0x00);
-//	_RFM69W_send(RFM69W_write, 0x18, 0x00);
-//		_RFM69W_send(RFM69W_write, 0x18, 0x00);
-//	_RFM69W_send(RFM69W_write, 0x18, 0x00);
-//	SYS_TICK_init();
-//	_dbl2stri(buf, _RFM69W_send_poll(RFM69W_read, 0x18, 0x00), 0);
-//	_USART_send(buf);
-//	_dbl2stri(buf, _RFM69W_send_poll(RFM69W_read, 0x18, 0x00), 0);
-//	_USART_send(buf);
-//	_dbl2stri(buf, _RFM69W_send_poll(RFM69W_read, 0x18, 0x00), 0);
-//	_USART_send(buf);
-//	_dbl2stri(buf, _RFM69W_send_poll(RFM69W_read, 0x18, 0x00), 0);
-//	_USART_send(buf);
-	
+//	milis(1);
+		
 	for(;;) {
 		
 	}
@@ -104,12 +61,14 @@ int main()
 
 void SysTick_Handler(void)
 {
+	USART_write_buf(milis(1), DEC);
+	USART_send("\n");
 }
 
 void SYS_TICK_init(void)
 {                                                              
 	SysTick->CTRL |= SysTick_CTRL_TICKINT;
-	SysTick->LOAD = 9000000/4;
+	SysTick->LOAD = 9000000/2;
 	SysTick->CTRL |= SysTick_CTRL_ENABLE;
 	NVIC_SetPriority(SysTick_IRQn, 1);
 }

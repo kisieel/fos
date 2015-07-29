@@ -22,16 +22,33 @@ for fast/normal operations.
 #define EEPROM_BASE           ((uint32_t)0x08080000) /*!< EEPROM base address in the alias region */
 
 // Private functions
-void EEPROM_unlock(void);
-void EEPROM_lock(void);
-void EEPROM_option_unlock(void);
-void EEPROM_option_lock(void);
+void     EEPROM_64_erase(uint32_t ADDRESS);
+void     EEPROM_32_erase(uint32_t ADDRESS);
+
+void     EEPROM_64_write(uint32_t ADDRESS, uint64_t DATA);
+void     EEPROM_32_write(uint32_t ADDRESS, uint32_t DATA);
+void     EEPROM_16_write(uint32_t ADDRESS, uint16_t DATA);
+void     EEPROM_8_write(uint32_t ADDRESS, uint8_t DATA);
+
+void     EEPROM_32_fast_write(uint32_t ADDRESS, uint32_t DATA);
+void     EEPROM_16_fast_write(uint32_t ADDRESS, uint16_t DATA);
+void     EEPROM_8_fast_write(uint32_t ADDRESS, uint8_t DATA);
+
+uint64_t EEPROM_64_read(uint32_t ADDRESS);
+uint32_t EEPROM_32_read(uint32_t ADDRESS);
+uint16_t EEPROM_16_read(uint32_t ADDRESS);
+uint8_t  EEPROM_8_read(uint32_t ADDRESS);
+
+void     EEPROM_unlock(void);
+void     EEPROM_lock(void);
+void     EEPROM_option_unlock(void);
+void     EEPROM_option_lock(void);
 // End of private functions
 
 void EEPROM_unlock(void)
 {
-	FLASH->PEKEYR = (unsigned int)0x89ABCDEF;
-	FLASH->PEKEYR = (unsigned int)0x02030405;
+	FLASH->PEKEYR = (uint32_t)0x89ABCDEF;
+	FLASH->PEKEYR = (uint32_t)0x02030405;
 	
 	while(FLASH->PECR & FLASH_PECR_PELOCK);
 }
@@ -44,8 +61,8 @@ void EEPROM_lock(void)
 void EEPROM_option_unlock(void)
 {
 	EEPROM_unlock();
-	FLASH->OPTKEYR = (unsigned int)0xFBEAD9C8;
-	FLASH->OPTKEYR = (unsigned int)0x24252627;
+	FLASH->OPTKEYR = (uint32_t)0xFBEAD9C8;
+	FLASH->OPTKEYR = (uint32_t)0x24252627;
 }
 
 void EEPROM_option_lock(void)
@@ -53,11 +70,11 @@ void EEPROM_option_lock(void)
 	FLASH->PECR |= FLASH_PECR_OPTLOCK;
 }
 
-void _EEPROM_64_erase(unsigned int ADDRESS)
+void _EEPROM_64_erase(uint32_t ADDRESS)
 {
 	// Page 19
-	unsigned int *ptr;
-	ptr = (unsigned int *)(EEPROM_BASE + ADDRESS);
+	uint32_t *ptr;
+	ptr = (uint32_t *)(EEPROM_BASE + ADDRESS);
 	
 	__disable_irq();
 	EEPROM_unlock();
@@ -65,35 +82,35 @@ void _EEPROM_64_erase(unsigned int ADDRESS)
 	FLASH->PECR |= FLASH_PECR_DATA;
 	while(FLASH->SR & FLASH_SR_BSY);
 	
-	*ptr = (unsigned int)0x00000000;
+	*ptr = (uint32_t)0x00000000;
 	ptr += 4;
 	while(FLASH->SR & FLASH_SR_BSY);
-	*ptr = (unsigned int)0x00000000;
+	*ptr = (uint32_t)0x00000000;
 	while(FLASH->SR & FLASH_SR_BSY);
 	FLASH->PECR |= FLASH_PECR_PELOCK;
 	__enable_irq();
 }
 
-void _EEPROM_32_erase(unsigned int ADDRESS)
+void _EEPROM_32_erase(uint32_t ADDRESS)
 {
 	// Page 18
-	unsigned int *ptr;
-	ptr = (unsigned int *)(EEPROM_BASE + ADDRESS);
+	uint32_t *ptr;
+	ptr = (uint32_t *)(EEPROM_BASE + ADDRESS);
 	
 	__disable_irq();
 	EEPROM_unlock();
 	
-	*ptr = (unsigned int)0x00000000;
+	*ptr = (uint32_t)0x00000000;
 	while(FLASH->SR & FLASH_SR_BSY);
 	FLASH->PECR |= FLASH_PECR_PELOCK;
 	__enable_irq();
 }
 
-void _EEPROM_64_write(unsigned int ADDRESS, uint64_t DATA)
+void _EEPROM_64_write(uint32_t ADDRESS, uint64_t DATA)
 {
 	// Page 21
-	unsigned int *ptr;
-	ptr = (unsigned int *)(EEPROM_BASE + ADDRESS);
+	uint32_t *ptr;
+	ptr = (uint32_t *)(EEPROM_BASE + ADDRESS);
 	
 	__disable_irq();
 	EEPROM_unlock();
@@ -101,139 +118,139 @@ void _EEPROM_64_write(unsigned int ADDRESS, uint64_t DATA)
 	FLASH->PECR |= FLASH_PECR_DATA;
 	while(FLASH->SR & FLASH_SR_BSY);
 	
-	*ptr = (unsigned int)(DATA & 0x00000000FFFFFFFF);
+	*ptr = (uint32_t)(DATA & 0x00000000FFFFFFFF);
 	ptr += 4;
 	while(FLASH->SR & FLASH_SR_BSY);
-	*ptr = (unsigned int)((DATA & 0xFFFFFFFF00000000) >> 32);
+	*ptr = (uint32_t)((DATA & 0xFFFFFFFF00000000) >> 32);
 	while(FLASH->SR & FLASH_SR_BSY);
 	FLASH->PECR |= FLASH_PECR_PELOCK;
 	__enable_irq();
 }
 
-void _EEPROM_32_write(unsigned int ADDRESS, unsigned int DATA)
+void _EEPROM_32_write(uint32_t ADDRESS, uint32_t DATA)
 {
 	// Page 22
-	unsigned int *ptr;
-	ptr = (unsigned int *)(EEPROM_BASE + ADDRESS);
+	uint32_t *ptr;
+	ptr = (uint32_t *)(EEPROM_BASE + ADDRESS);
 	
 	__disable_irq();
 	EEPROM_unlock();
 	FLASH->PECR |= FLASH_PECR_FTDW;
 	
-	*ptr = (unsigned int)DATA;
+	*ptr = (uint32_t)DATA;
 	while(FLASH->SR & FLASH_SR_BSY);
 	FLASH->PECR |= FLASH_PECR_PELOCK;
 	__enable_irq();
 }
 
-void _EEPROM_16_write(unsigned int ADDRESS, unsigned short int DATA)
+void _EEPROM_16_write(uint32_t ADDRESS, uint16_t DATA)
 {
 	// Page 23
-	unsigned short int *ptr;
-	ptr = (unsigned short int *)(EEPROM_BASE + ADDRESS);
+	uint16_t *ptr;
+	ptr = (uint16_t *)(EEPROM_BASE + ADDRESS);
 	
 	__disable_irq();
 	EEPROM_unlock();
 	FLASH->PECR |= FLASH_PECR_FTDW;
 	
-	*ptr = (unsigned short int)DATA;
+	*ptr = (uint16_t)DATA;
 	while(FLASH->SR & FLASH_SR_BSY);
 	FLASH->PECR |= FLASH_PECR_PELOCK;
 	__enable_irq();
 }
 
-void _EEPROM_8_write(unsigned int ADDRESS, unsigned char DATA)
+void _EEPROM_8_write(uint32_t ADDRESS, uint8_t DATA)
 {
 	// Page 24
-	unsigned char *ptr;
-	ptr = (unsigned char *)(EEPROM_BASE + ADDRESS);
+	uint8_t *ptr;
+	ptr = (uint8_t *)(EEPROM_BASE + ADDRESS);
 	
 	__disable_irq();
 	EEPROM_unlock();
 	FLASH->PECR |= FLASH_PECR_FTDW;
 	
-	*ptr = (unsigned char)DATA;
+	*ptr = (uint8_t)DATA;
 	while(FLASH->SR & FLASH_SR_BSY);
 	FLASH->PECR |= FLASH_PECR_PELOCK;
 	__enable_irq();
 }
 
-void _EEPROM_32_fast_write(unsigned int ADDRESS, unsigned int DATA)
+void _EEPROM_32_fast_write(uint32_t ADDRESS, uint32_t DATA)
 {
 	// Page 22
-	unsigned int *ptr;
-	ptr = (unsigned int *)(EEPROM_BASE + ADDRESS);
+	uint32_t *ptr;
+	ptr = (uint32_t *)(EEPROM_BASE + ADDRESS);
 	
 	__disable_irq();
 	EEPROM_unlock();
 	FLASH->PECR &= ~(FLASH_PECR_FTDW);
 	
-	*ptr = (unsigned int)DATA;
+	*ptr = (uint32_t)DATA;
 	while(FLASH->SR & FLASH_SR_BSY);
 	FLASH->PECR |= FLASH_PECR_PELOCK;
 	__enable_irq();
 }
 
-void _EEPROM_16_fast_write(unsigned int ADDRESS, unsigned short int DATA)
+void _EEPROM_16_fast_write(uint32_t ADDRESS, uint16_t DATA)
 {
 	// Page 23
-	unsigned short int *ptr;
-	ptr = (unsigned short int *)(EEPROM_BASE + ADDRESS);
+	uint16_t *ptr;
+	ptr = (uint16_t *)(EEPROM_BASE + ADDRESS);
 	
 	__disable_irq();
 	EEPROM_unlock();
 	FLASH->PECR &= ~(FLASH_PECR_FTDW);
 	
-	*ptr = (unsigned short int)DATA;
+	*ptr = (uint16_t)DATA;
 	while(FLASH->SR & FLASH_SR_BSY);
 	FLASH->PECR |= FLASH_PECR_PELOCK;
 	__enable_irq();
 }
 
-void _EEPROM_8_fast_write(unsigned int ADDRESS, unsigned char DATA)
+void _EEPROM_8_fast_write(uint32_t ADDRESS, uint8_t DATA)
 {
 	// Page 24
-	unsigned char *ptr;
-	ptr = (unsigned char *)(EEPROM_BASE + ADDRESS);
+	uint8_t *ptr;
+	ptr = (uint8_t *)(EEPROM_BASE + ADDRESS);
 	
 	__disable_irq();
 	EEPROM_unlock();
 	FLASH->PECR &= ~(FLASH_PECR_FTDW);
 	
-	*ptr = (unsigned char)DATA;
+	*ptr = (uint8_t)DATA;
 	while(FLASH->SR & FLASH_SR_BSY);
 	FLASH->PECR |= FLASH_PECR_PELOCK;
 	__enable_irq();
 }
 
-uint64_t _EEPROM_64_read(unsigned int ADDRESS)
+uint64_t _EEPROM_64_read(uint32_t ADDRESS)
 {
-	unsigned long int *ptr;
-	ptr = (unsigned long int *)(EEPROM_BASE + ADDRESS);
+	uint64_t *ptr;
+	ptr = (uint64_t *)(EEPROM_BASE + ADDRESS);
 	
 	return *ptr;
 }
 
-unsigned int _EEPROM_32_read(unsigned int ADDRESS)
+uint32_t _EEPROM_32_read(uint32_t ADDRESS)
 {
-	unsigned int *ptr;
-	ptr = (unsigned int *)(EEPROM_BASE + ADDRESS);
+	uint32_t *ptr;
+	ptr = (uint32_t *)(EEPROM_BASE + ADDRESS);
 	
 	return *ptr;
 }
 
-unsigned short int _EEPROM_16_read(unsigned int ADDRESS)
+uint16_t _EEPROM_16_read(uint32_t ADDRESS)
 {
-	unsigned short int *ptr;
-	ptr = (unsigned short int *)(EEPROM_BASE + ADDRESS);
+	uint16_t *ptr;
+	ptr = (uint16_t *)(EEPROM_BASE + ADDRESS);
 	
 	return *ptr;
 }
 
-unsigned char _EEPROM_8_read(unsigned int ADDRESS)
+uint8_t _EEPROM_8_read(uint32_t ADDRESS)
 {
-	unsigned char *ptr;
-	ptr = (unsigned char *)(EEPROM_BASE + ADDRESS);
+	uint8_t *ptr;
+	ptr = (uint8_t *)(EEPROM_BASE + ADDRESS);
 	
 	return *ptr;
 }
