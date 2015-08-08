@@ -46,6 +46,8 @@ int main()
 	GPIO_config(0x0A, 0, GPIO_MODE_GP, GPIO_PULL_Floating, GPIO_TYPE_Pushpull, GPIO_SPEED_400k, 0);
 	GPIOA->BSRRL |= GPIO_BSRR_BS_0;               // Output 1
 	
+	
+	
 //	_KEY_init();
 //	_MENU_init();
 	USART_init();
@@ -61,8 +63,8 @@ int main()
 
 void SysTick_Handler(void)
 {
-	USART_write_buf(milis(1), DEC);
-	USART_send("\n");
+//	USART_write_buf(milis(1), DEC);
+//	USART_send("\n");
 }
 
 void SYS_TICK_init(void)

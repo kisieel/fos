@@ -1,88 +1,76 @@
 Dependencies for Project 'monster_fish', Target 'Monster_fish': (DO NOT MODIFY !)
-F (.\dev\startup_stm32l1xx_md.s)(0x558D5D80)(--cpu Cortex-M3 --pd "__EVAL SETA 1" -g --apcs=interwork -I C:\Users\Oshel\Documents\fos\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32L1xx_DFP\1.0.2\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include--pd "__UVISION_VERSION SETA 515" --pd "STM32L1XX_MD SETA 1"--list .\listings\startup_stm32l1xx_md.lst --xref -o .\objects\startup_stm32l1xx_md.o --depend .\objects\startup_stm32l1xx_md.d)
-F (.\dev\stm32l1xx.h)(0x55ACF9F9)()
-F (.\dev\system_stm32l1xx.c)(0x55AFD468)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork --split_sections -I.\dev -I.\inc -I.\src-I C:\Users\Oshel\Documents\fos\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32L1xx_DFP\1.0.2\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="515" -DSTM32L1XX_MD -DSTM32L1XX_MD-o .\objects\system_stm32l1xx.o --omf_browse .\objects\system_stm32l1xx.crf --depend .\objects\system_stm32l1xx.d)
-I (dev\stm32l1xx.h)(0x55ACF9F9)
-I (C:\Keil_v5\ARM\CMSIS\Include\core_cm3.h)(0x55099E74)
+F (.\dev\startup_stm32l1xx_md.s)(0x55B87AD8)(--cpu Cortex-M3 --pd "__EVAL SETA 1" -g --apcs=interwork -I C:\Users\Synergia\Desktop\fos-RFM69W\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32L1xx_DFP\1.0.2\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include--pd "__UVISION_VERSION SETA 515" --pd "STM32L1XX_MD SETA 1"--list .\listings\startup_stm32l1xx_md.lst --xref -o .\objects\startup_stm32l1xx_md.o --depend .\objects\startup_stm32l1xx_md.d)
+F (.\dev\stm32l1xx.h)(0x55B87AD8)()
+F (.\dev\system_stm32l1xx.c)(0x55B87AD8)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork --split_sections -I.\dev -I.\inc -I.\src-I C:\Users\Synergia\Desktop\fos-RFM69W\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32L1xx_DFP\1.0.2\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="515" -DSTM32L1XX_MD -DSTM32L1XX_MD-o .\objects\system_stm32l1xx.o --omf_browse .\objects\system_stm32l1xx.crf --depend .\objects\system_stm32l1xx.d)
+I (dev\stm32l1xx.h)(0x55B87AD8)
+I (C:\Keil_v5\ARM\CMSIS\Include\core_cm3.h)(0x537353B7)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x54C2A828)
-I (C:\Keil_v5\ARM\CMSIS\Include\core_cmInstr.h)(0x55099E74)
-I (C:\Keil_v5\ARM\CMSIS\Include\core_cmFunc.h)(0x55099E74)
-I (dev\system_stm32l1xx.h)(0x55AFD466)
-F (.\dev\system_stm32l1xx.h)(0x55AFD466)()
-F (.\inc\EEPROM.h)(0x55AD7E9A)()
-F (.\inc\RFM69W.h)(0x55A9183A)()
-F (.\inc\USART.h)(0x55AFE07A)()
-F (.\inc\KEY.h)(0x55AE5293)()
-F (.\inc\MENU.h)(0x55AE52B2)()
-F (.\inc\LOW_MODE.h)(0x55AE5E05)()
-F (.\inc\RTC.h)(0x55AE5E01)()
-F (.\src\EEPROM.c)(0x55AD7E33)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork --split_sections -I.\dev -I.\inc -I.\src-I C:\Users\Oshel\Documents\fos\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32L1xx_DFP\1.0.2\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="515" -DSTM32L1XX_MD -DSTM32L1XX_MD-o .\objects\eeprom.o --omf_browse .\objects\eeprom.crf --depend .\objects\eeprom.d)
-I (.\dev\stm32l1xx.h)(0x55ACF9F9)
-I (C:\Keil_v5\ARM\CMSIS\Include\core_cm3.h)(0x55099E74)
+I (dev\system_stm32l1xx.h)(0x55B87AD8)
+F (.\dev\system_stm32l1xx.h)(0x55B87AD8)()
+F (.\inc\EEPROM.h)(0x55B87AD8)()
+F (.\inc\RFM69W.h)(0x55B87AD8)()
+F (.\inc\USART.h)(0x55B87AD8)()
+F (.\inc\KEY.h)(0x55B87AD8)()
+F (.\inc\MENU.h)(0x55B87AD8)()
+F (.\inc\LOW_MODE.h)(0x55B87AD8)()
+F (.\inc\RTC.h)(0x55B87AD8)()
+F (.\inc\FLOAT.h)(0x55B87AD8)()
+F (.\src\EEPROM.c)(0x55B87AD8)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork --split_sections -I.\dev -I.\inc -I.\src-I C:\Users\Synergia\Desktop\fos-RFM69W\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32L1xx_DFP\1.0.2\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="515" -DSTM32L1XX_MD -DSTM32L1XX_MD-o .\objects\eeprom.o --omf_browse .\objects\eeprom.crf --depend .\objects\eeprom.d)
+I (.\dev\stm32l1xx.h)(0x55B87AD8)
+I (C:\Keil_v5\ARM\CMSIS\Include\core_cm3.h)(0x537353B7)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x54C2A828)
-I (C:\Keil_v5\ARM\CMSIS\Include\core_cmInstr.h)(0x55099E74)
-I (C:\Keil_v5\ARM\CMSIS\Include\core_cmFunc.h)(0x55099E74)
-I (.\dev\system_stm32l1xx.h)(0x55AFD466)
-I (.\inc\EEPROM.h)(0x55AD7E9A)
-F (.\src\main.c)(0x55AFD478)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork --split_sections -I.\dev -I.\inc -I.\src-I C:\Users\Oshel\Documents\fos\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32L1xx_DFP\1.0.2\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="515" -DSTM32L1XX_MD -DSTM32L1XX_MD-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
-I (.\dev\stm32l1xx.h)(0x55ACF9F9)
-I (C:\Keil_v5\ARM\CMSIS\Include\core_cm3.h)(0x55099E74)
+I (.\dev\system_stm32l1xx.h)(0x55B87AD8)
+I (.\inc\EEPROM.h)(0x55B87AD8)
+F (.\src\main.c)(0x55C5E0A6)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork --split_sections -I.\dev -I.\inc -I.\src-I C:\Users\Synergia\Desktop\fos-RFM69W\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32L1xx_DFP\1.0.2\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="515" -DSTM32L1XX_MD -DSTM32L1XX_MD-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
+I (.\dev\stm32l1xx.h)(0x55B87AD8)
+I (C:\Keil_v5\ARM\CMSIS\Include\core_cm3.h)(0x537353B7)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x54C2A828)
-I (C:\Keil_v5\ARM\CMSIS\Include\core_cmInstr.h)(0x55099E74)
-I (C:\Keil_v5\ARM\CMSIS\Include\core_cmFunc.h)(0x55099E74)
-I (.\dev\system_stm32l1xx.h)(0x55AFD466)
-I (.\inc\RFM69W.h)(0x55A9183A)
-I (.\inc\USART.h)(0x55AFE07A)
-I (.\inc\EEPROM.h)(0x55AD7E9A)
-I (.\inc\KEY.h)(0x55AE5293)
-I (.\inc\MENU.h)(0x55AE52B2)
-F (.\src\RFM69W.c)(0x55AFD45C)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork --split_sections -I.\dev -I.\inc -I.\src-I C:\Users\Oshel\Documents\fos\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32L1xx_DFP\1.0.2\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="515" -DSTM32L1XX_MD -DSTM32L1XX_MD-o .\objects\rfm69w.o --omf_browse .\objects\rfm69w.crf --depend .\objects\rfm69w.d)
-I (.\inc\RFM69W.h)(0x55A9183A)
+I (.\dev\system_stm32l1xx.h)(0x55B87AD8)
+I (.\inc\RFM69W.h)(0x55B87AD8)
+I (.\inc\USART.h)(0x55B87AD8)
+I (.\inc\EEPROM.h)(0x55B87AD8)
+I (.\inc\KEY.h)(0x55B87AD8)
+I (.\inc\MENU.h)(0x55B87AD8)
+I (.\inc\FLOAT.h)(0x55B87AD8)
+F (.\src\RFM69W.c)(0x55C60794)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork --split_sections -I.\dev -I.\inc -I.\src-I C:\Users\Synergia\Desktop\fos-RFM69W\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32L1xx_DFP\1.0.2\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="515" -DSTM32L1XX_MD -DSTM32L1XX_MD-o .\objects\rfm69w.o --omf_browse .\objects\rfm69w.crf --depend .\objects\rfm69w.d)
+I (.\inc\RFM69W.h)(0x55B87AD8)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x54C2A828)
-I (.\dev\stm32l1xx.h)(0x55ACF9F9)
-I (C:\Keil_v5\ARM\CMSIS\Include\core_cm3.h)(0x55099E74)
-I (C:\Keil_v5\ARM\CMSIS\Include\core_cmInstr.h)(0x55099E74)
-I (C:\Keil_v5\ARM\CMSIS\Include\core_cmFunc.h)(0x55099E74)
-I (.\dev\system_stm32l1xx.h)(0x55AFD466)
-F (.\src\USART.c)(0x55AFE098)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork --split_sections -I.\dev -I.\inc -I.\src-I C:\Users\Oshel\Documents\fos\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32L1xx_DFP\1.0.2\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="515" -DSTM32L1XX_MD -DSTM32L1XX_MD-o .\objects\usart.o --omf_browse .\objects\usart.crf --depend .\objects\usart.d)
-I (.\dev\stm32l1xx.h)(0x55ACF9F9)
-I (C:\Keil_v5\ARM\CMSIS\Include\core_cm3.h)(0x55099E74)
+I (.\inc\USART.h)(0x55B87AD8)
+I (.\inc\FLOAT.h)(0x55B87AD8)
+I (.\dev\stm32l1xx.h)(0x55B87AD8)
+I (C:\Keil_v5\ARM\CMSIS\Include\core_cm3.h)(0x537353B7)
+I (.\dev\system_stm32l1xx.h)(0x55B87AD8)
+F (.\src\USART.c)(0x55B87AD8)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork --split_sections -I.\dev -I.\inc -I.\src-I C:\Users\Synergia\Desktop\fos-RFM69W\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32L1xx_DFP\1.0.2\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="515" -DSTM32L1XX_MD -DSTM32L1XX_MD-o .\objects\usart.o --omf_browse .\objects\usart.crf --depend .\objects\usart.d)
+I (.\dev\stm32l1xx.h)(0x55B87AD8)
+I (C:\Keil_v5\ARM\CMSIS\Include\core_cm3.h)(0x537353B7)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x54C2A828)
-I (C:\Keil_v5\ARM\CMSIS\Include\core_cmInstr.h)(0x55099E74)
-I (C:\Keil_v5\ARM\CMSIS\Include\core_cmFunc.h)(0x55099E74)
-I (.\dev\system_stm32l1xx.h)(0x55AFD466)
-I (.\inc\USART.h)(0x55AFE07A)
-F (.\src\KEY.c)(0x55AFD51B)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork --split_sections -I.\dev -I.\inc -I.\src-I C:\Users\Oshel\Documents\fos\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32L1xx_DFP\1.0.2\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="515" -DSTM32L1XX_MD -DSTM32L1XX_MD-o .\objects\key.o --omf_browse .\objects\key.crf --depend .\objects\key.d)
-I (.\dev\stm32l1xx.h)(0x55ACF9F9)
-I (C:\Keil_v5\ARM\CMSIS\Include\core_cm3.h)(0x55099E74)
+I (.\dev\system_stm32l1xx.h)(0x55B87AD8)
+I (.\inc\USART.h)(0x55B87AD8)
+I (.\inc\FLOAT.h)(0x55B87AD8)
+F (.\src\KEY.c)(0x55B87AD8)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork --split_sections -I.\dev -I.\inc -I.\src-I C:\Users\Synergia\Desktop\fos-RFM69W\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32L1xx_DFP\1.0.2\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="515" -DSTM32L1XX_MD -DSTM32L1XX_MD-o .\objects\key.o --omf_browse .\objects\key.crf --depend .\objects\key.d)
+I (.\dev\stm32l1xx.h)(0x55B87AD8)
+I (C:\Keil_v5\ARM\CMSIS\Include\core_cm3.h)(0x537353B7)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x54C2A828)
-I (C:\Keil_v5\ARM\CMSIS\Include\core_cmInstr.h)(0x55099E74)
-I (C:\Keil_v5\ARM\CMSIS\Include\core_cmFunc.h)(0x55099E74)
-I (.\dev\system_stm32l1xx.h)(0x55AFD466)
-I (.\inc\KEY.h)(0x55AE5293)
-F (.\src\MENU.c)(0x55AE52B2)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork --split_sections -I.\dev -I.\inc -I.\src-I C:\Users\Oshel\Documents\fos\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32L1xx_DFP\1.0.2\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="515" -DSTM32L1XX_MD -DSTM32L1XX_MD-o .\objects\menu.o --omf_browse .\objects\menu.crf --depend .\objects\menu.d)
+I (.\dev\system_stm32l1xx.h)(0x55B87AD8)
+I (.\inc\KEY.h)(0x55B87AD8)
+F (.\src\MENU.c)(0x55B87AD8)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork --split_sections -I.\dev -I.\inc -I.\src-I C:\Users\Synergia\Desktop\fos-RFM69W\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32L1xx_DFP\1.0.2\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="515" -DSTM32L1XX_MD -DSTM32L1XX_MD-o .\objects\menu.o --omf_browse .\objects\menu.crf --depend .\objects\menu.d)
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x54C2A828)
-I (.\dev\stm32l1xx.h)(0x55ACF9F9)
-I (C:\Keil_v5\ARM\CMSIS\Include\core_cm3.h)(0x55099E74)
+I (.\dev\stm32l1xx.h)(0x55B87AD8)
+I (C:\Keil_v5\ARM\CMSIS\Include\core_cm3.h)(0x537353B7)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x54C2A828)
-I (C:\Keil_v5\ARM\CMSIS\Include\core_cmInstr.h)(0x55099E74)
-I (C:\Keil_v5\ARM\CMSIS\Include\core_cmFunc.h)(0x55099E74)
-I (.\dev\system_stm32l1xx.h)(0x55AFD466)
-I (.\inc\MENU.h)(0x55AE52B2)
-I (.\inc\KEY.h)(0x55AE5293)
-F (.\src\LOW_MODE.c)(0x55AE5E04)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork --split_sections -I.\dev -I.\inc -I.\src-I C:\Users\Oshel\Documents\fos\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32L1xx_DFP\1.0.2\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="515" -DSTM32L1XX_MD -DSTM32L1XX_MD-o .\objects\low_mode.o --omf_browse .\objects\low_mode.crf --depend .\objects\low_mode.d)
-I (.\dev\stm32l1xx.h)(0x55ACF9F9)
-I (C:\Keil_v5\ARM\CMSIS\Include\core_cm3.h)(0x55099E74)
+I (.\dev\system_stm32l1xx.h)(0x55B87AD8)
+I (.\inc\MENU.h)(0x55B87AD8)
+I (.\inc\KEY.h)(0x55B87AD8)
+F (.\src\LOW_MODE.c)(0x55B87AD8)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork --split_sections -I.\dev -I.\inc -I.\src-I C:\Users\Synergia\Desktop\fos-RFM69W\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32L1xx_DFP\1.0.2\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="515" -DSTM32L1XX_MD -DSTM32L1XX_MD-o .\objects\low_mode.o --omf_browse .\objects\low_mode.crf --depend .\objects\low_mode.d)
+I (.\dev\stm32l1xx.h)(0x55B87AD8)
+I (C:\Keil_v5\ARM\CMSIS\Include\core_cm3.h)(0x537353B7)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x54C2A828)
-I (C:\Keil_v5\ARM\CMSIS\Include\core_cmInstr.h)(0x55099E74)
-I (C:\Keil_v5\ARM\CMSIS\Include\core_cmFunc.h)(0x55099E74)
-I (.\dev\system_stm32l1xx.h)(0x55AFD466)
-I (.\inc\LOW_MODE.h)(0x55AE5E05)
-F (.\src\RTC.c)(0x55AE7486)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork --split_sections -I.\dev -I.\inc -I.\src-I C:\Users\Oshel\Documents\fos\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32L1xx_DFP\1.0.2\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="515" -DSTM32L1XX_MD -DSTM32L1XX_MD-o .\objects\rtc.o --omf_browse .\objects\rtc.crf --depend .\objects\rtc.d)
-I (.\dev\stm32l1xx.h)(0x55ACF9F9)
-I (C:\Keil_v5\ARM\CMSIS\Include\core_cm3.h)(0x55099E74)
+I (.\dev\system_stm32l1xx.h)(0x55B87AD8)
+I (.\inc\LOW_MODE.h)(0x55B87AD8)
+F (.\src\RTC.c)(0x55B87AD8)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork --split_sections -I.\dev -I.\inc -I.\src-I C:\Users\Synergia\Desktop\fos-RFM69W\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32L1xx_DFP\1.0.2\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="515" -DSTM32L1XX_MD -DSTM32L1XX_MD-o .\objects\rtc.o --omf_browse .\objects\rtc.crf --depend .\objects\rtc.d)
+I (.\dev\stm32l1xx.h)(0x55B87AD8)
+I (C:\Keil_v5\ARM\CMSIS\Include\core_cm3.h)(0x537353B7)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x54C2A828)
-I (C:\Keil_v5\ARM\CMSIS\Include\core_cmInstr.h)(0x55099E74)
-I (C:\Keil_v5\ARM\CMSIS\Include\core_cmFunc.h)(0x55099E74)
-I (.\dev\system_stm32l1xx.h)(0x55AFD466)
-I (.\inc\RTC.h)(0x55AE5E01)
+I (.\dev\system_stm32l1xx.h)(0x55B87AD8)
+I (.\inc\RTC.h)(0x55B87AD8)
+F (.\src\FLOAT.c)(0x55B87AD8)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork --split_sections -I.\dev -I.\inc -I.\src-I C:\Users\Synergia\Desktop\fos-RFM69W\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32L1xx_DFP\1.0.2\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="515" -DSTM32L1XX_MD -DSTM32L1XX_MD-o .\objects\float.o --omf_browse .\objects\float.crf --depend .\objects\float.d)

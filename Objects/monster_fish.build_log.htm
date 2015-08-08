@@ -2,57 +2,49 @@
 <body>
 <pre>
 <h1>µVision Build Log</h1>
+<h2>Tool Versions:</h2>
+IDE-Version: µVision V5.15
+Copyright (C) 2015 ARM Ltd and ARM Germany GmbH. All rights reserved.
+License Information: Synergia Politechnika Wroc³awska, None, LIC=----
+ 
+Tool Versions:
+Toolchain:       MDK-Lite  Version: 5.15.0
+Toolchain Path:  C:\Keil_v5\ARM\ARMCC\Bin
+C Compiler:      Armcc.exe V5.05 update 2 (build 169)
+Assembler:       Armasm.exe V5.05 update 2 (build 169)
+Linker/Locator:  ArmLink.exe V5.05 update 2 (build 169)
+Library Manager: ArmAr.exe V5.05 update 2 (build 169)
+Hex Converter:   FromElf.exe V5.05 update 2 (build 169)
+CPU DLL:         SARMCM3.DLL V5.15.0
+Dialog DLL:      DCM.DLL V1.13.2.0
+Target DLL:      STLink\ST-LINKIII-KEIL_SWO.dll V2.0.15.0_KEIL
+Dialog DLL:      TCM.DLL V1.14.5.0
+ 
 <h2>Project:</h2>
-C:\Users\Oshel\Documents\fos\monster_fish.uvprojx
-Project File Date:  07/26/2015
+C:\Users\Synergia\Desktop\fos-RFM69W\monster_fish.uvprojx
+Project File Date:  07/29/2015
 
 <h2>Output:</h2>
-Rebuild target 'Monster_fish'
-assembling startup_stm32l1xx_md.s...
-compiling system_stm32l1xx.c...
-compiling EEPROM.c...
-src\EEPROM.c(256): warning:  #1-D: last line of file ends without a newline
-  }
-src\EEPROM.c: 1 warning, 0 errors
-compiling main.c...
-src\main.c(40): warning:  #177-D: variable "i" was declared but never referenced
-        int i;
-src\main.c(41): warning:  #177-D: variable "buf" was declared but never referenced
-        uint8_t buf[20];
-src\main.c: 2 warnings, 0 errors
+*** Using Compiler 'V5.05 update 2 (build 169)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
+Build target 'Monster_fish'
 compiling RFM69W.c...
-src\RFM69W.c(786): warning:  #940-D: missing return statement at end of non-void function "RFM69W_SPI_send_poll"
+src\RFM69W.c(427): warning:  #177-D: variable "txStart" was declared but never referenced
+        uint32_t txStart;
+src\RFM69W.c(756): warning:  #940-D: missing return statement at end of non-void function "RFM69W_SPI_send_poll"
   }
-src\RFM69W.c(870): warning:  #550-D: variable "buffer" was set but never used
+src\RFM69W.c(840): warning:  #550-D: variable "buffer" was set but never used
         uint16_t buffer;
-src\RFM69W.c: 2 warnings, 0 errors
-compiling USART.c...
-src\USART.c(34): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "char *"
-                _dbl2stri(buf, DATA, 0);
-src\USART.c(35): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "char *"
-                USART_send(buf);
-src\USART.c(40): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "char *"
-                _dbl2stri(buf, _decimal_binary(DATA), 0);
-src\USART.c(41): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "char *"
-                USART_send(buf);
-src\USART.c: 4 warnings, 0 errors
-compiling KEY.c...
-compiling MENU.c...
-compiling LOW_MODE.c...
-.\inc\LOW_MODE.h(6): warning:  #1-D: last line of file ends without a newline
-  #endif
-src\LOW_MODE.c: 1 warning, 0 errors
-compiling RTC.c...
-.\inc\RTC.h(6): warning:  #1-D: last line of file ends without a newline
-  #endif
-src\RTC.c: 1 warning, 0 errors
-compiling FLOAT.c...
+src\RFM69W.c: 3 warnings, 0 errors
 linking...
-Program Size: Code=6644 RO-data=364 RW-data=80 ZI-data=1960  
+Program Size: Code=6952 RO-data=368 RW-data=80 ZI-data=1960  
 FromELF: creating hex file...
-".\Objects\monster_fish.axf" - 0 Error(s), 11 Warning(s).
-bjects\monster_fish.axf: Error: L6218E: Undefined symbol _USART_write_buf (referred from main.o).
-Not enough information to list image symbols.
-Finished: 1 information, 0 warning and 3 error messages.
-".\Objects\monster_fish.axf" - 3 Error(s), 13 Warning(s).
-Target not created
+".\Objects\monster_fish.axf" - 0 Error(s), 3 Warning(s).
+
+<h2>Collection of Component include folders:</h2>
+  C:\Users\Synergia\Desktop\fos-RFM69W\RTE
+  C:\Keil_v5\ARM\PACK\Keil\STM32L1xx_DFP\1.0.2\Device\Include
+
+<h2>Collection of Component Files used:</h2>
+</pre>
+</body>
+</html>
