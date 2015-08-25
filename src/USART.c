@@ -2,7 +2,7 @@
 #include "USART.h"
 #include "FLOAT.h"
 
-#define USART_FIFO_size  50
+#define USART_FIFO_size  1000
 
 #define USART_FREE   0
 #define USART_NOFREE 1
@@ -79,11 +79,11 @@ void USART1_IRQHandler(void)
 		USART1->SR &= ~(USART_SR_TC);
 	}
 	
-	if (USART1->SR & USART_SR_RXNE) {
-		
-		
-		USART1->SR &= ~(USART_SR_RXNE);
-	}
+//	if (USART1->SR & USART_SR_RXNE) {
+//		
+//		
+//		USART1->SR &= ~(USART_SR_RXNE);
+//	}
 }
 
 void USART_send(char * text)
@@ -103,16 +103,16 @@ void USART_init(void)
 	GPIO_config(0x0B, 6, GPIO_MODE_AF, GPIO_PULL_Floating, GPIO_TYPE_Pushpull, GPIO_SPEED_400k, GPIO_AF_AF7);
 	GPIO_config(0x0B, 7, GPIO_MODE_AF, GPIO_PULL_Floating, GPIO_TYPE_Pushpull, GPIO_SPEED_400k, GPIO_AF_AF7);
 	
-	USART1->BRR = (SystemCoreClock / 19200);            // Baudrate = (sysclock/baudrate)
+	USART1->BRR = (SystemCoreClock / 115200);            // Baudrate = (sysclock/baudrate)
 	
 	USART1->CR1 |= USART_CR1_UE                         // USART enable
 	             | USART_CR1_TE                         // Transmit enable
 	             | USART_CR1_RE                         // Receive enable
-							 | USART_CR1_RXNEIE
+//							 | USART_CR1_RXNEIE
 							 | USART_CR1_TCIE;
 	
 	NVIC_EnableIRQ(USART1_IRQn);
-	NVIC_SetPriority(USART1_IRQn, 1);
+	NVIC_SetPriority(USART1_IRQn, 0);
 	
 	USART_FIFO.head = 0;
 }

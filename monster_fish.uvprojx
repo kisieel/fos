@@ -477,6 +477,11 @@
               <FileType>5</FileType>
               <FilePath>.\inc\FLOAT.h</FilePath>
             </File>
+            <File>
+              <FileName>SYS_TICK.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\inc\SYS_TICK.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -526,6 +531,11 @@
               <FileName>FLOAT.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\src\FLOAT.c</FilePath>
+            </File>
+            <File>
+              <FileName>SYS_TICK.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\SYS_TICK.c</FilePath>
             </File>
           </Files>
         </Group>

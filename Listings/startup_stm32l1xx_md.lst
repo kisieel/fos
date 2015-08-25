@@ -484,10 +484,10 @@ ARM Macro Assembler    Page 8
               00000000 
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M3 --apcs=interw
 ork --depend=.\objects\startup_stm32l1xx_md.d -o.\objects\startup_stm32l1xx_md.
-o -IC:\Users\Synergia\Desktop\fos-RFM69W\RTE -IC:\Keil_v5\ARM\PACK\Keil\STM32L1
-xx_DFP\1.0.2\Device\Include -IC:\Keil_v5\ARM\CMSIS\Include --predefine="__EVAL 
-SETA 1" --predefine="__UVISION_VERSION SETA 515" --predefine="STM32L1XX_MD SETA
- 1" --list=.\listings\startup_stm32l1xx_md.lst dev\startup_stm32l1xx_md.s
+o -IC:\Users\Maciek\Documents\fos\RTE -IC:\Keil_v5\ARM\PACK\Keil\STM32L1xx_DFP\
+1.0.2\Device\Include -IC:\Keil_v5\ARM\CMSIS\Include --predefine="__EVAL SETA 1"
+ --predefine="__UVISION_VERSION SETA 515" --predefine="STM32L1XX_MD SETA 1" --l
+ist=.\listings\startup_stm32l1xx_md.lst dev\startup_stm32l1xx_md.s
 
 
 

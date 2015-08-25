@@ -13,7 +13,7 @@
 
 extern void     RFM69W_init(void);
 extern uint32_t RFM69W_getFrequency(void);
-extern uint16_t milis(uint8_t onOff);
+extern uint32_t milis(uint8_t onOff);
 
 // End of public functions
 

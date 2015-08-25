@@ -6,8 +6,11 @@
 #include "KEY.h"
 #include "MENU.h"
 #include "FLOAT.h"
+#include "SYS_TICK.h"
 
-void SYS_TICK_init(void);
+#define MMIO16(addr)  (*(volatile uint16_t *)(addr))
+#define MMIO32(addr)  (*(volatile uint32_t *)(addr))
+#define U_ID          0x1FF80050
 
 /*
 V  0.2
@@ -37,40 +40,25 @@ PB13 - BUZ_tone
 
 int main()
 {	
-	int i;
 	uint8_t buf[20];
+	uint32_t i;
 //	const char* key = "sampleEncryptKey";
 
 	// Keep power supply
 	RCC->AHBENR |= RCC_AHBENR_GPIOAEN;            // Clock for GPIOA
 	GPIO_config(0x0A, 0, GPIO_MODE_GP, GPIO_PULL_Floating, GPIO_TYPE_Pushpull, GPIO_SPEED_400k, 0);
 	GPIOA->BSRRL |= GPIO_BSRR_BS_0;               // Output 1
-	
-	
-	
+
+	SYS_TICK_init();
 //	_KEY_init();
 //	_MENU_init();
 	USART_init();
-	RFM69W_init();
-	SYS_TICK_init();
 	
-//	milis(1);
-		
+//	USART_send("START\n");
+	
+	RFM69W_init();
+
+	
 	for(;;) {
-		
 	}
-}
-
-void SysTick_Handler(void)
-{
-//	USART_write_buf(milis(1), DEC);
-//	USART_send("\n");
-}
-
-void SYS_TICK_init(void)
-{                                                              
-	SysTick->CTRL |= SysTick_CTRL_TICKINT;
-	SysTick->LOAD = 9000000/2;
-	SysTick->CTRL |= SysTick_CTRL_ENABLE;
-	NVIC_SetPriority(SysTick_IRQn, 1);
 }
