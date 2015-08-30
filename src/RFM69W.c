@@ -1,32 +1,20 @@
-#include "stm32l1xx.h"
-#include "RFM69W.h"
-#include "USART.h"
-#include "FLOAT.h"
-#include "SYS_TICK.h"
+#include "main.h"
 
-// Comment following line if you don't want to receive USART messages
-#define USART_debug            1
-
-// Definitions for geting device electronic sgnature
-// Usage: A = MMIO32(U_ID); B = MMIO32(U_ID + 0x04); C = MMIO32(U_ID + 0x14)
-#define MMIO32(addr)  (*(volatile uint32_t *)(addr))
-#define U_ID          0x1FF80050
+#define NODEID                  0x12
+#define NETWORKID               100
+#define ENCRYPTKEY              "FishingMonsters!" // Has to be same 16 characters/bytes on all nodes, not more not less!
 
 // Available frequency bands
-#define RF69_868MHZ            86
+#define RF69_868MHZ             86
+#define FREQUENCY               RF69_868MHZ
+#define RF69_BROADCAST_ADDR     255
 
-#define RF69_MAX_DATA_LEN      61
-#define NODEID                 0x12
-#define NETWORKID              100
-#define FREQUENCY              RF69_868MHZ
-#define ENCRYPTKEY             "FishingMonsters!" // Has to be same 16 characters/bytes on all nodes, not more not less!
+#define RF69_MAX_DATA_LEN       61
+#define RF69_CSMA_LIMIT_MS      1000
+#define RF69_TX_LIMIT_MS        1000
+#define CSMA_LIMIT              -90 // upper RX signal sensitivity threshold in dBm for carrier sense access
 
-#define RF69_CSMA_LIMIT_MS     1000
-#define RF69_TX_LIMIT_MS       1000
-#define CSMA_LIMIT             -90 // upper RX signal sensitivity threshold in dBm for carrier sense access
-
-#define RF69_FSTEP             61.03515625 // == FXOSC / 2^19 = 32MHz / 2^19 (p13 in datasheet)
-#define RF69_BROADCAST_ADDR    255
+#define RF69_FSTEP              61.03515625 // == FXOSC / 2^19 = 32MHz / 2^19 (p13 in datasheet)
 
 #define RF69_MODE_SLEEP         0  // XTAL OFF
 #define RF69_MODE_STANDBY       1  // XTAL ON
@@ -34,13 +22,47 @@
 #define RF69_MODE_RX            3  // RX MODE
 #define RF69_MODE_TX            4  // TX MODE
 
+#define DIO0                    0
+#define DIO1                    1
+#define DIO2                    2
+#define DIO3                    3
+#define DIO4                    4
+#define DIO5                    5
+
 #define true                    1
 #define false                   0
 
+//             DIO_0               DIO_1     DIO_2        DIO_3       DIO_4     DIO_5 
+// Mapping     00/01               11        00           10          01        11
+// SLEEP       -/-                 -         FifoNotEmpty -           -         Mode_Ready               
+// STANDBY     -/-                 -         FifoNotEmpty -           -         Mode_Ready               
+// FS          -/-                 PllLock   FifoNotEmpty -           -         Mode_Ready               
+// RX          CrcOk/PayloadReady  Timeout   FifoNotEmpty SyncAddress RSSI      Mode_Ready               
+// TX          PacketSent/TxReady  PllLock   FifoNotEmpty -           TxReady   Mode_Ready  
+
 // IO FLAG checks
-#define MODE_READY_CHECK        !(GPIOA->IDR & GPIO_IDR_IDR_10)
-#define PACKET_SENT_CHECK       !(GPIOA->IDR & GPIO_IDR_IDR_10)
-#define PAYLOAD_READY_CHECK     PACKET_SENT_CHECK
+
+// DIO0
+#define PacketSent_Check       !(GPIOC->IDR & GPIO_IDR_IDR_13)
+#define CrcOk_Check            PacketSent_Check
+#define PayloadReady_Check     PacketSent_Check
+
+// DIO1
+#define PllLock_Check          !(GPIOB->IDR & GPIO_IDR_IDR_11)
+#define Timeout_Check          PllLock_Check
+
+// DIO2
+#define FifoNotEmpty_Check     !(GPIOB->IDR & GPIO_IDR_IDR_12)
+
+// DIO3
+#define SyncAddress_Check      !(GPIOB->IDR & GPIO_IDR_IDR_14)
+
+// DIO4
+#define TxReady_Check          !(GPIOB->IDR & GPIO_IDR_IDR_15)
+#define RSSI_Check             TxReady_Check
+
+//DIO5
+#define ModeReady_Check        !(GPIOA->IDR & GPIO_IDR_IDR_8)
 
 // Minimum size: 3
 #define RFM69W_FIFO_size        20
@@ -66,16 +88,16 @@ void     RFM69W_sendACK(const void* buffer, uint8_t bufferSize);
 uint8_t  RFM69W_sendWithRetry(uint8_t toAddress, const void* buffer, uint8_t bufferSize, uint8_t retries, uint8_t retryWaitTime);
 void     RFM69W_send(uint8_t toAddress, const void* buffer, uint8_t bufferSize, uint8_t requestACK);
 uint8_t  RFM69W_canSend(void);
-void     RFM69W_sendFrame(uint8_t toAddress, const void* buffer, uint8_t bufferSize, uint8_t requestACK, uint8_t sendACK);
+uint8_t  RFM69W_sendFrame(uint8_t toAddress, const void* buffer, uint8_t bufferSize, uint8_t requestACK, uint8_t sendACK);
 
 void     EXTI15_10_IRQHandler(void);
 void     RFM69W_interruptHandler(void);
 void     RFM69W_receiveBegin(void);
 
 int16_t  RFM69W_readRSSI(uint8_t forceTrigger);
-void     RFM69W_setHighPower(uint8_t onOff);
 void     RFM69W_readAllRegs(void);
 void     RFM69W_setMode(uint8_t newMode);
+void     RFM69W_setMap(uint8_t DIO, uint8_t MAP);
 void     RFM69W_encrypt(const char* key);
 void     RFM69W_reset(void);
 
@@ -90,6 +112,9 @@ uint8_t  RFM69W_SPI_send_8poll(uint8_t DATA);
 uint16_t RFM69W_SPI_send_poll(uint8_t TYPE, uint8_t ADDRESS, uint8_t DATA);
 void     RFM69W_SPI_send(uint8_t TYPE, uint8_t ADDRESS, uint8_t DATA);
 uint8_t  RFM69W_SPI_write(uint8_t TYPE, uint8_t ADDRESS, uint8_t DATA);
+
+void RFM69W_SPI_set_bit(uint8_t ADDRESS, uint8_t BITS);
+void RFM69W_SPI_clear_bit(uint8_t ADDRESS, uint8_t BITS);
 
 void     RFM69W_GPIO_init(void);
 void     RFM69W_SPI_init(void);
@@ -109,16 +134,20 @@ volatile struct {
 	uint8_t tail;
 } RFM69W_FIFO;
 
-volatile uint8_t RFM69W_address;
+typedef struct {
+	uint8_t Data[RF69_MAX_DATA_LEN];        // recv/xmit buf, including header & crc bytes
+	uint8_t DataLen;
+	uint8_t SenderID;
+	uint8_t TargetID;                       // should match _address
+	uint8_t PayloadLen;
+	uint8_t ACK_Requested;
+	uint8_t ACK_Received;                   // should be polled immediately after sending a packet with ACK request
+	int16_t RSSI;                           // most accurate RSSI during reception (closest to the reception)
+	uint8_t RFM69W_Address;
+} RFM69W;
 
-volatile uint8_t DATA[RF69_MAX_DATA_LEN]; // recv/xmit buf, including header & crc bytes
-volatile uint8_t DATALEN;
-volatile uint8_t SENDERID;
-volatile uint8_t TARGETID;                // should match _address
-volatile uint8_t PAYLOADLEN;
-volatile uint8_t ACK_REQUESTED;
-volatile uint8_t ACK_RECEIVED;            // should be polled immediately after sending a packet with ACK request
-volatile int16_t RSSI;                    // most accurate RSSI during reception (closest to the reception)
+volatile RFM69W RFM69W_Data;
+
 
 // End of Private variables
 
@@ -136,6 +165,7 @@ volatile int16_t RSSI;                    // most accurate RSSI during reception
 uint8_t RFM69W_REG_init(void)
 {
 	uint8_t buf[10];
+	uint32_t i;
 	
 	RFM69W_reset();
 	
@@ -186,31 +216,74 @@ uint8_t RFM69W_REG_init(void)
 	// RXBW defaults are { REG_RXBW, RF_RXBW_DCCFREQ_010 | RF_RXBW_MANT_24 | RF_RXBW_EXP_5} (RxBw: 10.4KHz)
 	// for BR-19200 { REG_RXBW, RF_RXBW_DCCFREQ_010 | RF_RXBW_MANT_24 | RF_RXBW_EXP_3 },
 	RFM69W_SPI_send_poll(RFM69W_write, REG_RXBW, RF_RXBW_DCCFREQ_010 | RF_RXBW_MANT_16 | RF_RXBW_EXP_2);
-	
+
+//             DIO_0               DIO_1     DIO_2        DIO_3       DIO_4     DIO_5 
+// Mapping     00/01               11        00           10          01        11
+// SLEEP       -/-                 -         FifoNotEmpty -           -         Mode_Ready               
+// STANDBY     -/-                 -         FifoNotEmpty -           -         Mode_Ready               
+// FS          -/-                 PllLock   FifoNotEmpty -           -         Mode_Ready               
+// RX          CrcOk/PayloadReady  Timeout   FifoNotEmpty SyncAddress RSSI      Mode_Ready               
+// TX          PacketSent/TxReady  PllLock   FifoNotEmpty -           TxReady   Mode_Ready               
+
 	// DIO0 is the only IRQ we're using
-	RFM69W_SPI_send_poll(RFM69W_write, REG_DIOMAPPING1, RF_DIOMAPPING1_DIO0_01);
-	// DIO5 ClkOut disable for power saving
-	RFM69W_SPI_send_poll(RFM69W_write, REG_DIOMAPPING2, RF_DIOMAPPING2_CLKOUT_OFF);
-	// DIO5 ModeReady
-	RFM69W_SPI_send_poll(RFM69W_write, REG_DIOMAPPING2, RF_DIOMAPPING2_DIO5_11);
+	RFM69W_SPI_send_poll(RFM69W_write, REG_DIOMAPPING1, RF_DIOMAPPING1_DIO0_01 
+	                                                  | RF_DIOMAPPING1_DIO1_01
+																										| RF_DIOMAPPING1_DIO2_00
+																										| RF_DIOMAPPING1_DIO3_10);
+																										
+	RFM69W_SPI_send_poll(RFM69W_write, REG_DIOMAPPING2, RF_DIOMAPPING2_DIO4_01
+	                                                  | RF_DIOMAPPING2_CLKOUT_OFF
+																										| RF_DIOMAPPING2_DIO5_11);
+	
+	// DIO0 RFM69_WAKE_uC init
+	GPIO_config(0x0C, 13, GPIO_MODE_Input, GPIO_PULL_Pullup, 0, 0, 0);
+	
+	RCC->APB2ENR |= RCC_APB2ENR_SYSCFGEN;
+	SYSCFG->EXTICR[3] |= SYSCFG_EXTICR4_EXTI13_PC;    // C block for EXTI13
+	EXTI->IMR |= EXTI_IMR_MR13;                       // Input line 13 selection (unmasking)
+	EXTI->RTSR |= EXTI_RTSR_TR13;                     // Rising edge selection
+	NVIC_SetPriority(EXTI15_10_IRQn, 1);              // Priority set to 0
+	NVIC_EnableIRQ(EXTI15_10_IRQn);                   // Interrupt enable
+	
+	// DIO1 ModeReady init
+	GPIO_config(0x0B, 11, GPIO_MODE_Input, GPIO_PULL_Pullup, 0, 0, 0);
+	
+	// DIO2 ModeReady init
+	GPIO_config(0x0B, 12, GPIO_MODE_Input, GPIO_PULL_Pullup, 0, 0, 0);
+	
+	// DIO3 ModeReady init
+	GPIO_config(0x0B, 14, GPIO_MODE_Input, GPIO_PULL_Pullup, 0, 0, 0);
+	
+	// DIO4 ModeReady init
+	GPIO_config(0x0B, 15, GPIO_MODE_Input, GPIO_PULL_Pullup, 0, 0, 0);
+	
+	// DIO5 ModeReady init
+	GPIO_config(0x0A, 8, GPIO_MODE_Input, GPIO_PULL_Pullup, 0, 0, 0);	
 	
 	// writing to this bit ensures that the FIFO & status flags are reset
 	RFM69W_SPI_send_poll(RFM69W_write, REG_IRQFLAGS2, RF_IRQFLAGS2_FIFOOVERRUN);
+	
 	// must be set to dBm = (-Sensitivity / 2), default is 0xE4 = 228 so -114dBm
 	RFM69W_SPI_send_poll(RFM69W_write, REG_RSSITHRESH, 220);
+	
 	//  default 3 preamble bytes 0xAAAAAA
 //	RFM69W_SPI_send_poll(RFM69W_write, REG_PREAMBLELSB, RF_PREAMBLESIZE_LSB_VALUE);
+
 	//
 	RFM69W_SPI_send_poll(RFM69W_write, REG_SYNCCONFIG, RF_SYNC_ON | RF_SYNC_FIFOFILL_AUTO | RF_SYNC_SIZE_2 | RF_SYNC_TOL_0);
+	
 	// attempt to make this compatible with sync1 byte of RFM12B lib
 	RFM69W_SPI_send_poll(RFM69W_write, REG_SYNCVALUE1, 0x2D);
+	
 	// NETWORK ID
 	RFM69W_SPI_send_poll(RFM69W_write, REG_SYNCVALUE2, NETWORKID);
+	
 	//
 	RFM69W_SPI_send_poll(RFM69W_write, REG_PACKETCONFIG1, RF_PACKET1_FORMAT_VARIABLE | RF_PACKET1_DCFREE_OFF | RF_PACKET1_CRC_ON | RF_PACKET1_CRCAUTOCLEAR_ON | RF_PACKET1_ADRSFILTERING_OFF);
 	
 	// in variable length mode: the max frame size, not used in TX
 	RFM69W_SPI_send_poll(RFM69W_write, REG_PAYLOADLENGTH, 66);
+	
 	// turned off because we're not using address filtering
 //	RFM69W_SPI_send_poll(RFM69W_write, REG_NODEADRS, NODEID);
 	
@@ -229,13 +302,13 @@ uint8_t RFM69W_REG_init(void)
   // Disable it during initialization so we always start from a known state.
 	RFM69W_encrypt(ENCRYPTKEY);
 	
-	// Called regardless if it's a RFM69W or RFM69HW
-	RFM69W_setHighPower(0);
-	RFM69W_setMode(RF69_MODE_STANDBY);
+	// Over current protection off
+	RFM69W_SPI_send_poll(RFM69W_write, REG_OCP, RF_OCP_OFF);
 	
-	// Wait for ModeReady
-//	while (MODE_READY_CHECK);
-	while ((RFM69W_SPI_send_poll(RFM69W_read, REG_IRQFLAGS1, 0x00) & RF_IRQFLAGS1_MODEREADY) == 0x00);
+	// Enable P0 only
+  RFM69W_SPI_send_poll(RFM69W_write, REG_PALEVEL, RF_PALEVEL_PA0_ON | RF_PALEVEL_PA1_OFF | RF_PALEVEL_PA2_OFF | 31);
+	
+	RFM69W_setMode(RF69_MODE_STANDBY);
   
 	// RSSI and SyncAddressMatch criteria, 64 us RX resolution, 4.1 ms Idle resolution
 	// End: Module stays in Rx mode. Listen mode stops and must be disabled (RFM69W_listenModeOFF must be called)
@@ -245,103 +318,86 @@ uint8_t RFM69W_REG_init(void)
 	// RX time ~10 ms = 64 us * 156
 	RFM69W_SPI_send_poll(RFM69W_write, REG_LISTEN3, 156);
 	
-	// DIO0 RFM69_WAKE_uC init
-	GPIO_config(0x0A, 10, GPIO_MODE_Input, GPIO_PULL_Pullup, 0, 0, 0);
-	
-	SYSCFG->EXTICR[2] |= SYSCFG_EXTICR3_EXTI10_PA;    // A block for EXTI10
-	EXTI->IMR |= EXTI_IMR_MR10;                       // Input line 10 selection (unmasking)
-	EXTI->RTSR |= EXTI_RTSR_TR10;                     // Rising edge selection
-	NVIC_SetPriority(EXTI15_10_IRQn, 1);              // Priority set to 0
-	NVIC_EnableIRQ(EXTI15_10_IRQn);                   // Interrupt enable
-	
-	// DIO5 ModeReady init
-	GPIO_config(0x0A, 8, GPIO_MODE_Input, GPIO_PULL_Pullup, 0, 0, 0);
-	
-  RFM69W_address = NODEID;
+  RFM69W_Data.RFM69W_Address = NODEID;
 	
 	RFM69W_listenModeON();
-//	
+	
 //	buf[0] = 'L';
 //	buf[1] = 'O';
 //	buf[2] = 'L';
 //	
-//	RFM69W_sendWithRetry(0x12, buf, 3, 10, 3);
+//	RFM69W_sendWithRetry(0x12, buf, 3, 10, 20);
 
 	return true;
 }
 
 /**
-  * @note 
-  */
-void EXTI15_10_IRQHandler(void)
-{
-	uint8_t mode;
-	if (EXTI->PR & EXTI_PR_PR10) {
-		mode = RFM69W_SPI_send_poll(RFM69W_read, REG_OPMODE, 0x00);
-		
-		// Check if the interrupt is trigered by PacketSent (RF_OPMODE_TRANSMITTER)
-		if ((mode & RF_OPMODE_MODEMASK) == RF_OPMODE_TRANSMITTER) {
-//			RFM69W_listenModeON();
-		}
-		
-		// Check if the interrupt is trigered by PayloadReady (RF_OPMODE_RECEIVER)
-		if ((mode & RF_OPMODE_MODEMASK) == RF_OPMODE_RECEIVER) {
-			// Turn listen mode off and enters standby mode
-			RFM69W_listenModeOFF();
-			
-			// Clears all data
-			RFM69W_receiveBegin();
-			
-			// Receives msg
-			RFM69W_interruptHandler();
-			
-			// Handles data
-			if (ACK_REQUESTED)
-				RFM69W_sendACK(0, 0);
-			
-			if (!ACK_RECEIVED) {
-#ifdef USART_debug
-				USART_send("ACK_received.\n");
-#endif
-//				_PacketInterpreter();
-			}
-			
-			RFM69W_listenModeON();
-		}
-		
-		EXTI->PR |= EXTI_PR_PR10;
-	}
-}
-
-/**
-  * @note 
+  * @note Function reads mode register, clears it's 3 bits and sets new 3 ones
   */
 void RFM69W_setMode(uint8_t newMode)
 {
   switch (newMode) {
     case RF69_MODE_TX:
-			RFM69W_SPI_send_poll(RFM69W_write, REG_OPMODE, (RFM69W_SPI_send_poll(RFM69W_read, REG_OPMODE, 0x00) & 0xE3) | RF_OPMODE_TRANSMITTER);
+			RFM69W_SPI_send_poll(RFM69W_write, REG_OPMODE ,(RFM69W_SPI_send_poll(RFM69W_read, REG_OPMODE, 0x00) & ~RF_OPMODE_MODEMASK) | RF_OPMODE_TRANSMITTER);
       break;
     case RF69_MODE_RX:
-			RFM69W_SPI_send_poll(RFM69W_write, REG_OPMODE, (RFM69W_SPI_send_poll(RFM69W_read, REG_OPMODE, 0x00) & 0xE3) | RF_OPMODE_RECEIVER);
+			RFM69W_SPI_send_poll(RFM69W_write, REG_OPMODE ,(RFM69W_SPI_send_poll(RFM69W_read, REG_OPMODE, 0x00) & ~RF_OPMODE_MODEMASK) | RF_OPMODE_RECEIVER);
       break;
     case RF69_MODE_SYNTH:
-			RFM69W_SPI_send_poll(RFM69W_write, REG_OPMODE, (RFM69W_SPI_send_poll(RFM69W_read, REG_OPMODE, 0x00) & 0xE3) | RF_OPMODE_SYNTHESIZER);
+			RFM69W_SPI_send_poll(RFM69W_write, REG_OPMODE ,(RFM69W_SPI_send_poll(RFM69W_read, REG_OPMODE, 0x00) & ~RF_OPMODE_MODEMASK) | RF_OPMODE_SYNTHESIZER);
       break;
     case RF69_MODE_STANDBY:
-			RFM69W_SPI_send_poll(RFM69W_write, REG_OPMODE, (RFM69W_SPI_send_poll(RFM69W_read, REG_OPMODE, 0x00) & 0xE3) | RF_OPMODE_STANDBY);
+			RFM69W_SPI_send_poll(RFM69W_write, REG_OPMODE ,(RFM69W_SPI_send_poll(RFM69W_read, REG_OPMODE, 0x00) & ~RF_OPMODE_MODEMASK) | RF_OPMODE_STANDBY);
       break;
     case RF69_MODE_SLEEP:
-			RFM69W_SPI_send_poll(RFM69W_write, REG_OPMODE, (RFM69W_SPI_send_poll(RFM69W_read, REG_OPMODE, 0x00) & 0xE3) | RF_OPMODE_SLEEP);
+			RFM69W_SPI_send_poll(RFM69W_write, REG_OPMODE ,(RFM69W_SPI_send_poll(RFM69W_read, REG_OPMODE, 0x00) & ~RF_OPMODE_MODEMASK) | RF_OPMODE_SLEEP);
       break;
   }
 	
-	// We are using packet mode, so this check is not really needed but
-  // waiting for mode ready is necessary when going from sleep because
-	// the FIFO may not be immediately available from previous mode.
-	// Wait for ModeReady.
-	while (newMode == RF69_MODE_SLEEP && (RFM69W_SPI_send_poll(RFM69W_read, REG_IRQFLAGS1, 0x00) & RF_IRQFLAGS1_MODEREADY) == 0x00);
-//	while (newMode == RF69_MODE_SLEEP && MODE_READY_CHECK);
+	while (newMode == RF69_MODE_SLEEP && ModeReady_Check);
+}
+
+/**
+  * @note Function reads map register, clears it's 2 bits and sets new 2 ones
+  */
+void RFM69W_setMap(uint8_t DIO, uint8_t MAP)
+{
+	switch (DIO) {
+		case DIO0:
+			RFM69W_SPI_send_poll(RFM69W_write, REG_DIOMAPPING1 ,(RFM69W_SPI_send_poll(RFM69W_read, REG_DIOMAPPING1, 0x00) & ~RF_DIOMAPPING1_DIO0_11) | MAP);
+			break;
+		case DIO1:
+			RFM69W_SPI_send_poll(RFM69W_write, REG_DIOMAPPING1 ,(RFM69W_SPI_send_poll(RFM69W_read, REG_DIOMAPPING1, 0x00) & ~RF_DIOMAPPING1_DIO1_11) | MAP);
+			break;
+		case DIO2:
+			RFM69W_SPI_send_poll(RFM69W_write, REG_DIOMAPPING1 ,(RFM69W_SPI_send_poll(RFM69W_read, REG_DIOMAPPING1, 0x00) & ~RF_DIOMAPPING1_DIO2_11) | MAP);
+			break;
+		case DIO3:
+			RFM69W_SPI_send_poll(RFM69W_write, REG_DIOMAPPING1 ,(RFM69W_SPI_send_poll(RFM69W_read, REG_DIOMAPPING1, 0x00) & ~RF_DIOMAPPING1_DIO3_11) | MAP);
+			break;
+		case DIO4:
+			RFM69W_SPI_send_poll(RFM69W_write, REG_DIOMAPPING2 ,(RFM69W_SPI_send_poll(RFM69W_read, REG_DIOMAPPING2, 0x00) & ~RF_DIOMAPPING2_DIO4_11) | MAP);			
+			break;
+		case DIO5:
+			RFM69W_SPI_send_poll(RFM69W_write, REG_DIOMAPPING2 ,(RFM69W_SPI_send_poll(RFM69W_read, REG_DIOMAPPING2, 0x00) & ~RF_DIOMAPPING2_DIO5_11) | MAP);
+			break;
+	}
+}
+
+/**
+  * @note Should be polled immediately after sending a packet with ACK request.
+  */
+uint8_t RFM69W_ACKReceived(uint8_t fromNodeID) 
+{
+  if ((RFM69W_Data.SenderID == fromNodeID) && RFM69W_Data.ACK_Received) {
+#ifdef USART_debug
+    USART_send("ACK_received from: ");
+		USART_write_buf(fromNodeID, DEC);
+		USART_send("\n");
+#endif
+		return true;
+	}
+  return false;
 }
 
 /**
@@ -357,16 +413,32 @@ uint8_t RFM69W_sendWithRetry(uint8_t toAddress, const void* buffer, uint8_t buff
 	uint8_t i;
 	uint32_t sentTime;
 	
+	RFM69W_listenModeOFF();
+	RFM69W_setMode(RF69_MODE_STANDBY);
+	
   for (i = 0; i <= retries; i++) {
     RFM69W_send(toAddress, buffer, bufferSize, 1);
+		
+		// Enter to RX mode to get ACK
+		RFM69W_setMode(RF69_MODE_RX);
+		// Change interrupt source to PayloadReady
+		RFM69W_setMap(DIO0, RF_DIOMAPPING1_DIO0_01);
+		
     sentTime = SYS_TICK_timeOut(0, 0);
+		
 		while (SYS_TICK_timeOut(1, sentTime) < retryWaitTime) {
+			// Waiting for ACK
 			if (RFM69W_ACKReceived(toAddress)) {
+				// ACK received- back to Standby
+				RFM69W_setMode(RF69_MODE_STANDBY);
 				return true;
 			}
 		}
+		
+		RFM69W_setMode(RF69_MODE_STANDBY);
 	}
 	
+	// Sending failed- back to the receiving mode and return 0
 	RFM69W_listenModeON();
 	
 	return false;
@@ -379,7 +451,7 @@ void RFM69W_send(uint8_t toAddress, const void* buffer, uint8_t bufferSize, uint
 {
 	uint32_t timeOut;
 	// Avoid RX deadlocks
-  RFM69W_SPI_send_poll(RFM69W_write, REG_PACKETCONFIG2, (RFM69W_SPI_send_poll(RFM69W_read, REG_PACKETCONFIG2, 0x00) & 0xFB) | RF_PACKET2_RXRESTART); 
+	RFM69W_SPI_set_bit(REG_PACKETCONFIG2, RF_PACKET2_RXRESTART);
 	
 	timeOut = SYS_TICK_timeOut(0, 0);
 	while (!RFM69W_canSend() && SYS_TICK_timeOut(1, timeOut) < RF69_CSMA_LIMIT_MS);
@@ -394,25 +466,9 @@ uint8_t RFM69W_canSend(void)
 {
 	// If signal stronger than -100dBm is detected assume channel activity
 	// Check if module is in RX mode- it means the module isnt in idle mode and it received some msg
-  if (!((RFM69W_SPI_send_poll(RFM69W_read,  REG_OPMODE, 0x00) & RF_OPMODE_RECEIVER) == RF_OPMODE_RECEIVER) && RFM69W_readRSSI(false) < CSMA_LIMIT)
-    return true;
-  return false;
-}
-
-/**
-  * @note Should be polled immediately after sending a packet with ACK request.
-  */
-uint8_t RFM69W_ACKReceived(uint8_t fromNodeID) 
-{
-  if ((SENDERID == fromNodeID) && ACK_RECEIVED) {
-#ifdef USART_debug
-    USART_send("ACK_received from:\n\t");
-		USART_write_buf(fromNodeID, DEC);
-		USART_send("\n\n");
-#endif
+	if (!((RFM69W_SPI_send_poll(RFM69W_read,  REG_OPMODE, 0x00) & RF_OPMODE_RECEIVER) == RF_OPMODE_RECEIVER) && RFM69W_readRSSI(false) < CSMA_LIMIT)
 		return true;
-	}
-  return false;
+	return false;
 }
 
 /**
@@ -420,13 +476,13 @@ uint8_t RFM69W_ACKReceived(uint8_t fromNodeID)
   */
 void RFM69W_sendACK(const void* buffer, uint8_t bufferSize) 
 {
-  uint8_t sender = SENDERID;
+	uint8_t sender = RFM69W_Data.SenderID;
 	// Save payload received RSSI value
-  int16_t _RSSI = RSSI;
+	int16_t _RSSI = RFM69W_Data.RSSI;
 	
 	// Avoid RX deadlocks
-  RFM69W_SPI_send_poll(RFM69W_write, REG_PACKETCONFIG2, (RFM69W_SPI_send_poll(RFM69W_read, REG_PACKETCONFIG2, 0x00) & 0xFB) | RF_PACKET2_RXRESTART);
-  
+	RFM69W_SPI_set_bit(REG_PACKETCONFIG2, RF_PACKET2_RXRESTART);
+	
 	RFM69W_sendFrame(sender, buffer, bufferSize, false, true);
 #ifdef USART_debug
 	USART_send("ACK_sent to: ");
@@ -434,23 +490,22 @@ void RFM69W_sendACK(const void* buffer, uint8_t bufferSize)
 	USART_send("\n");
 #endif
   // Restore payload RSSI
-	RSSI = _RSSI; 
+	RFM69W_Data.RSSI = _RSSI; 
 }
 
 /**
   * @note Internal function
   */
-void RFM69W_sendFrame(uint8_t toAddress, const void* buffer, uint8_t bufferSize, uint8_t requestACK, uint8_t sendACK)
+uint8_t RFM69W_sendFrame(uint8_t toAddress, const void* buffer, uint8_t bufferSize, uint8_t requestACK, uint8_t sendACK)
 {
-  uint8_t CTLbyte = 0x00; 
+  uint8_t CTLbyte, cnt, result; 
 	uint32_t txStart;
-	uint8_t i;
 	
 	// Turn off receiver to prevent reception while filling FIFO
-	RFM69W_listenModeOFF();
+	RFM69W_setMode(RF69_MODE_STANDBY);
 	
 	// DIO0 is "Packet Sent"
-	RFM69W_SPI_send_poll(RFM69W_write, REG_DIOMAPPING1, RF_DIOMAPPING1_DIO0_00);
+	RFM69W_setMap(DIO0, RF_DIOMAPPING1_DIO0_00);
 	
   if (bufferSize > RF69_MAX_DATA_LEN)
 		bufferSize = RF69_MAX_DATA_LEN;
@@ -466,33 +521,94 @@ void RFM69W_sendFrame(uint8_t toAddress, const void* buffer, uint8_t bufferSize,
 	RFM69W_SPI_send_8poll(REG_FIFO | 0x80);
 	RFM69W_SPI_send_8poll(bufferSize + 3);
 	RFM69W_SPI_send_8poll(toAddress);
-	RFM69W_SPI_send_8poll(RFM69W_address);
+	RFM69W_SPI_send_8poll(RFM69W_Data.RFM69W_Address);
 	RFM69W_SPI_send_8poll(CTLbyte);
 
-  for (i = 0; i < bufferSize; i++)
-		RFM69W_SPI_send_8poll((((uint8_t*) buffer)[i]));
+  for (cnt = 0; cnt < bufferSize; cnt++)
+		RFM69W_SPI_send_8poll((((uint8_t*) buffer)[cnt]));
 
 	RFM69W_CS_UP;
 	
-	// No need to wait for transmit mode to be ready since its handled by the radio
   RFM69W_setMode(RF69_MODE_TX);
   txStart = SYS_TICK_timeOut(0, 0);
-	// Wait for DIO0 to turn HIGH signalling transmission finish
-//  while (((GPIOA->IDR & GPIO_IDR_IDR_10) == 0) && (SYS_TICK_timeOut(1, txStart) < RF69_TX_LIMIT_MS));
-	// wait for ModeReady
-  while (((RFM69W_SPI_send_poll(RFM69W_read, REG_IRQFLAGS2, 0x00) & RF_IRQFLAGS2_PACKETSENT) == 0x00) && SYS_TICK_timeOut(1, txStart) < RF69_TX_LIMIT_MS); 
-  RFM69W_setMode(RF69_MODE_STANDBY);
+	
+	// Wait for DIO0 to turn HIGH signalling transmission finish	
+  while (PacketSent_Check && SYS_TICK_timeOut(1, txStart) < RF69_TX_LIMIT_MS); 
+	
+	// Checks if packet was sent correctly
+	if (!PacketSent_Check) {
 #ifdef USART_debug
 	USART_send("Packet sent to: ");
 	USART_write_buf(toAddress, DEC);
 	USART_send(" from: ");
-	USART_write_buf(RFM69W_address, DEC);
+	USART_write_buf(RFM69W_Data.RFM69W_Address, DEC);
 	USART_send(" with ");
 	USART_write_buf(bufferSize, DEC);
-	USART_send(" bytes and ");
-	USART_write_buf(CTLbyte, BIN);
-	USART_send(" control byte.\n");
+	USART_send(" bytes. ");
+	if (sendACK)
+		USART_send("It sends ACK.\n");
+	if (requestACK)
+		USART_send("It requests ACK.\n");
 #endif
+		result = true;
+	}
+	else {
+#ifdef USART_debug
+	USART_send("Packet sending timed out.\n");
+#endif
+		result = false;
+	}
+	
+  RFM69W_setMode(RF69_MODE_STANDBY);
+	
+
+	
+	return result;
+}
+
+/**
+  * @note 
+  */
+void EXTI15_10_IRQHandler(void)
+{
+	uint8_t mode;
+	
+	if (EXTI->PR & EXTI_PR_PR13) {
+		mode = RFM69W_SPI_send_poll(RFM69W_read, REG_OPMODE, 0x00);
+		
+		// Check if the interrupt is trigered by PacketSent (RF_OPMODE_TRANSMITTER)
+		if ((mode & RF_OPMODE_MODEMASK) == RF_OPMODE_TRANSMITTER) {
+#ifdef USART_debug
+				USART_send("Packet sent.\n");
+#endif
+		}
+		
+		// Check if the interrupt is trigered by PayloadReady (RF_OPMODE_RECEIVER)
+		if ((mode & RF_OPMODE_MODEMASK) == RF_OPMODE_RECEIVER) {
+			// Turn listen mode off and enters standby mode
+			RFM69W_listenModeOFF();
+			
+			// Clears all data
+			RFM69W_receiveBegin();
+			
+			// Receives msg
+			RFM69W_interruptHandler();
+			
+			// Handles data
+			if (RFM69W_Data.ACK_Requested)
+				RFM69W_sendACK(0, 0);
+			
+			if (!RFM69W_Data.ACK_Received) {
+#ifdef USART_debug
+				USART_send("Interprates as:\n");
+#endif
+			}
+			
+			RFM69W_listenModeON();
+		}
+		
+		EXTI->PR |= EXTI_PR_PR13;
+	}
 }
 
 /**
@@ -505,39 +621,42 @@ void RFM69W_interruptHandler(void)
 	
 	RFM69W_CS_DOWN;
 	RFM69W_SPI_send_8poll(REG_FIFO & 0x7F);
-	PAYLOADLEN = RFM69W_SPI_send_8poll(0x00);
-	TARGETID = RFM69W_SPI_send_8poll(0x00);
-	DATALEN = PAYLOADLEN - 3;
-	SENDERID = RFM69W_SPI_send_8poll(0x00);
+	RFM69W_Data.PayloadLen = RFM69W_SPI_send_8poll(0x00);
+	RFM69W_Data.TargetID = RFM69W_SPI_send_8poll(0x00);
+	RFM69W_Data.DataLen = RFM69W_Data.PayloadLen - 3;
+	RFM69W_Data.SenderID = RFM69W_SPI_send_8poll(0x00);
 	CTLbyte = RFM69W_SPI_send_8poll(0x00);
 
 	// Extract ACK-received flag
-	ACK_RECEIVED = CTLbyte & 0x80;
+	RFM69W_Data.ACK_Received = CTLbyte & 0x80;
 	// Extract ACK-requested flag
-	ACK_REQUESTED = CTLbyte & 0x40; 
+	RFM69W_Data.ACK_Requested = CTLbyte & 0x40; 
 
-	for (i = 0; i < DATALEN; i++)
-		DATA[i] = RFM69W_SPI_send_8poll(0x00);
+	for (i = 0; i < RFM69W_Data.DataLen; i++)
+		RFM69W_Data.Data[i] = RFM69W_SPI_send_8poll(0x00);
 	
 	// Add null at end of string
-	if (DATALEN < RF69_MAX_DATA_LEN)
-		DATA[DATALEN] = 0; 
+	if (RFM69W_Data.DataLen < RF69_MAX_DATA_LEN)
+		RFM69W_Data.Data[RFM69W_Data.DataLen] = 0; 
 	
 	RFM69W_CS_UP;
 	
-  RSSI = RFM69W_readRSSI(false);
+  RFM69W_Data.RSSI = RFM69W_readRSSI(false);
+	
 #ifdef USART_debug
 	USART_send("Packet received from: ");
-	USART_write_buf(SENDERID, DEC);
+	USART_write_buf(RFM69W_Data.SenderID, DEC);
 	USART_send(" to: ");
-	USART_write_buf(TARGETID, DEC);
+	USART_write_buf(RFM69W_Data.TargetID, DEC);
 	USART_send(" with ");
-	USART_write_buf(DATALEN, DEC);
-	USART_send(" bytes ");
-	USART_write_buf(CTLbyte, BIN);
-	USART_send(" control byte and ");
-	USART_write_buf(RSSI, DEC);
-	USART_send(" RSSI.\n");
+	USART_write_buf(RFM69W_Data.DataLen, DEC);
+	USART_send(" bytes and ");
+	USART_write_buf(RFM69W_Data.RSSI, DEC);
+	USART_send(" RSSI. ");
+	if (RFM69W_Data.ACK_Received)
+		USART_send("ACK received.\n");
+	if (RFM69W_Data.ACK_Requested)
+		USART_send("It requests ACK.\n");
 #endif
 }
 
@@ -546,17 +665,17 @@ void RFM69W_interruptHandler(void)
   */
 void RFM69W_receiveBegin(void) 
 {
-	DATALEN = 0;
-	SENDERID = 0;
-	TARGETID = 0;
-	PAYLOADLEN = 0;
-	ACK_REQUESTED = 0;
-	ACK_RECEIVED = 0;
-	RSSI = 0;
+	RFM69W_Data.DataLen = 0;
+	RFM69W_Data.SenderID = 0;
+	RFM69W_Data.TargetID = 0;
+	RFM69W_Data.PayloadLen = 0;
+	RFM69W_Data.ACK_Requested = 0;
+	RFM69W_Data.ACK_Received = 0;
+	RFM69W_Data.RSSI = 0;
   
 	// Avoid RX deadlocks
 	if (RFM69W_SPI_send_poll(RFM69W_read, REG_IRQFLAGS2, 0x00) & RF_IRQFLAGS2_PAYLOADREADY)
-		RFM69W_SPI_send_poll(RFM69W_write, REG_PACKETCONFIG2, (RFM69W_SPI_send_poll(RFM69W_read, REG_PACKETCONFIG2, 0x00) & 0xFB) | RF_PACKET2_RXRESTART);
+		RFM69W_SPI_set_bit(REG_PACKETCONFIG2, RF_PACKET2_RXRESTART);
 }
 
 /**
@@ -579,7 +698,8 @@ void RFM69W_encrypt(const char* key)
 		SPI1->CR1 &= ~SPI_CR1_SPE;
   }
 	
-	RFM69W_SPI_send_poll(RFM69W_write, REG_PACKETCONFIG2, (RFM69W_SPI_send_poll(RFM69W_read, REG_PACKETCONFIG2, 0x00) & 0xFE) | (key ? 1 : 0));
+	// Turns AES ON if key > 0
+	RFM69W_SPI_set_bit(REG_PACKETCONFIG2, (key ? 1 : 0));
 }
 
 /**
@@ -591,7 +711,7 @@ int16_t RFM69W_readRSSI(uint8_t forceTrigger)
 	
   if (forceTrigger) {
 		// RSSI trigger not needed if DAGC is in continuous mode
-    RFM69W_SPI_send_poll(RFM69W_write, REG_RSSICONFIG, RF_RSSI_START);
+		RFM69W_SPI_set_bit(REG_RSSICONFIG, RF_RSSI_START);
 		// Wait for RSSI_Ready
     while ((RFM69W_SPI_send_poll(RFM69W_read, REG_RSSICONFIG, 0x00) & RF_RSSI_DONE) == 0x00); 
   }
@@ -600,18 +720,6 @@ int16_t RFM69W_readRSSI(uint8_t forceTrigger)
   rssi >>= 1;
 	
   return rssi;
-}
-
-/**
-  * @note 
-  */
-void RFM69W_setHighPower(uint8_t _isRFM69HW)
-{
-  RFM69W_SPI_send_poll(RFM69W_write, REG_OCP, _isRFM69HW ? RF_OCP_OFF : RF_OCP_ON);
-  if (_isRFM69HW) // turning ON
-    RFM69W_SPI_send_poll(RFM69W_write, REG_PALEVEL, (RFM69W_SPI_send_poll(RFM69W_read, REG_PALEVEL, 0x00) & 0x1F) | RF_PALEVEL_PA1_ON | RF_PALEVEL_PA2_ON); // enable P1 & P2 amplifier stages
-  else
-    RFM69W_SPI_send_poll(RFM69W_write, REG_PALEVEL, RF_PALEVEL_PA0_ON | RF_PALEVEL_PA1_OFF | RF_PALEVEL_PA2_OFF | 31); // enable P0 only
 }
 
 /**
@@ -643,20 +751,22 @@ void RFM69W_readAllRegs(void)
 void RFM69W_listenModeON(void)
 {
 	RFM69W_setMode(RF69_MODE_STANDBY);
-	RFM69W_SPI_send_poll(RFM69W_write, REG_OPMODE, (RFM69W_SPI_send_poll(RFM69W_read, REG_OPMODE, 0x00) & 0xBF) | RF_OPMODE_LISTEN_ON);
+	RFM69W_SPI_send_poll(RFM69W_write, REG_OPMODE, RF_OPMODE_LISTEN_ON);
 #ifdef USART_debug
-	USART_send("Listen mode ON.\n\n");
+	USART_send("Listen mode ON.\n");
 #endif
 }
 
 void RFM69W_listenModeOFF(void)
 {
-	RFM69W_SPI_send_poll(RFM69W_write, REG_OPMODE, (RFM69W_SPI_send_poll(RFM69W_read, REG_OPMODE, 0x00) & 0x83) | RF_OPMODE_LISTENABORT | RF_OPMODE_STANDBY);
-	RFM69W_SPI_send_poll(RFM69W_write, REG_OPMODE, (RFM69W_SPI_send_poll(RFM69W_read, REG_OPMODE, 0x00) & 0xE3) | RF_OPMODE_STANDBY);
-	// Wait for ModeReady
-	while ((RFM69W_SPI_send_poll(RFM69W_read, REG_IRQFLAGS1, 0x00) & RF_IRQFLAGS1_MODEREADY) == 0x00);
+	RFM69W_SPI_send_poll(RFM69W_write, REG_OPMODE, RF_OPMODE_LISTENABORT | RF_OPMODE_STANDBY);
+	RFM69W_SPI_send_poll(RFM69W_write, REG_OPMODE, RF_OPMODE_STANDBY);
+	
+	while(!((RFM69W_SPI_send_poll(RFM69W_read, REG_OPMODE, 0x00) & RF_OPMODE_MODEMASK) == RF_OPMODE_STANDBY)) {
+		RFM69W_SPI_send_poll(RFM69W_write, REG_OPMODE, RF_OPMODE_STANDBY);
+	}
 #ifdef USART_debug
-	USART_send("Listen mode OFF.\n\n");
+	USART_send("Listen mode OFF.\n");
 #endif
 }
 
@@ -676,6 +786,10 @@ void RFM69W_reset(void)
 	// Wait min 5 ms
 	timeOut = SYS_TICK_timeOut(0, 0);
 	while (SYS_TICK_timeOut(1, timeOut) < 5);
+	
+#ifdef USART_debug
+	USART_send("RFM69W reset done.\n");
+#endif
 }
 
 /**
@@ -685,6 +799,24 @@ void RFM69W_reset(void)
   *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *
   *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  * 
   */
+
+/**
+  * @note 
+  */
+
+void RFM69W_SPI_set_bit(uint8_t ADDRESS, uint8_t BITS)
+{
+	RFM69W_SPI_send_poll(RFM69W_write, ADDRESS, RFM69W_SPI_send_poll(RFM69W_read, ADDRESS, 0x00) | BITS);
+}
+
+/**
+  * @note 
+  */
+
+void RFM69W_SPI_clear_bit(uint8_t ADDRESS, uint8_t BITS)
+{
+	RFM69W_SPI_send_poll(RFM69W_write, ADDRESS, RFM69W_SPI_send_poll(RFM69W_read, ADDRESS, 0x00) & ~BITS);
+}
 
 /**
   * @note 

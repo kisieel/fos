@@ -172,12 +172,12 @@
             <UseExternalTool>0</UseExternalTool>
             <RunIndependent>0</RunIndependent>
             <UpdateFlashBeforeDebugging>1</UpdateFlashBeforeDebugging>
-            <Capability>0</Capability>
-            <DriverSelection>-1</DriverSelection>
+            <Capability>1</Capability>
+            <DriverSelection>4096</DriverSelection>
           </Flash1>
           <bUseTDR>1</bUseTDR>
           <Flash2>BIN\UL2CM3.DLL</Flash2>
-          <Flash3></Flash3>
+          <Flash3>"" ()</Flash3>
           <Flash4></Flash4>
           <pFcarmOut></pFcarmOut>
           <pFcarmGrp></pFcarmGrp>
@@ -482,6 +482,16 @@
               <FileType>5</FileType>
               <FilePath>.\inc\SYS_TICK.h</FilePath>
             </File>
+            <File>
+              <FileName>HALL.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\inc\HALL.h</FilePath>
+            </File>
+            <File>
+              <FileName>main.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\inc\main.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -536,6 +546,11 @@
               <FileName>SYS_TICK.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\src\SYS_TICK.c</FilePath>
+            </File>
+            <File>
+              <FileName>HALL.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\HALL.c</FilePath>
             </File>
           </Files>
         </Group>

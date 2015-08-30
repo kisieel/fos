@@ -1,16 +1,4 @@
-#include "stm32l1xx.h"
-
-#include "RFM69W.h"
-#include "USART.h"
-#include "EEPROM.h"
-#include "KEY.h"
-#include "MENU.h"
-#include "FLOAT.h"
-#include "SYS_TICK.h"
-
-#define MMIO16(addr)  (*(volatile uint16_t *)(addr))
-#define MMIO32(addr)  (*(volatile uint32_t *)(addr))
-#define U_ID          0x1FF80050
+#include "main.h"
 
 /*
 V  0.2
@@ -50,15 +38,22 @@ int main()
 	GPIOA->BSRRL |= GPIO_BSRR_BS_0;               // Output 1
 
 	SYS_TICK_init();
-//	_KEY_init();
-//	_MENU_init();
+	KEY_init();
+	MENU_init();
 	USART_init();
-	
-//	USART_send("START\n");
-	
-	RFM69W_init();
+	HALL_init(); // Honeywell	recommends	allowing	10	µs	for	output	voltage	to	stabilize	after	supply	voltage	has	reached	its	final	rated	value.
 
+#ifdef USART_debug
+	USART_send("Peripherals initialized.\n");
+#endif
 	
+//	RFM69W_init();
+
+#ifdef USART_debug
+	USART_send("External devices initialized.\n");
+#endif
+
 	for(;;) {
+		_actual->menu_fun(GetKeys());
 	}
 }

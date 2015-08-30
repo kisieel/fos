@@ -89,7 +89,7 @@ static unsigned short
 // przerwania.
 // ***********************************************************************
 
-void _KEY_init(void)
+void KEY_init(void)
 {
 	RCC->APB1ENR |= RCC_APB1ENR_TIM6EN;
 	RCC->AHBENR |= RCC_AHBENR_GPIOAEN;
@@ -123,8 +123,8 @@ void TIM6_IRQHandler()
 unsigned int
 GetKeybSample( void )
 {	
-  return ~(((GPIOA->IDR & GPIO_IDR_IDR_1) >> 1) 
-		     | ((GPIOA->IDR & GPIO_IDR_IDR_2) >> 1)) & ANYKEY;   
+  return (((GPIOA->IDR & GPIO_IDR_IDR_1) >> 1) 
+		    | ((GPIOA->IDR & GPIO_IDR_IDR_2) >> 1)) & ANYKEY;   
 }
 
 // ***********************************************************************

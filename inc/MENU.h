@@ -12,12 +12,8 @@ typedef struct _menuitem
 
 extern MENU *_actual;
 
-void _MENU_init(void);
+void MENU_init(void);
 
-// 0 level
-void _menu_1_fun(unsigned int);
-void _menu_2_fun(unsigned int);
-void _menu_3_fun(unsigned int);
-void _menu_4_fun(unsigned int);
+
 
 #endif

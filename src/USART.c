@@ -2,6 +2,9 @@
 #include "USART.h"
 #include "FLOAT.h"
 
+//#define USART_INTERRUPT  1
+#define USART_POOLING    1
+
 #define USART_FIFO_size  1000
 
 #define USART_FREE   0
@@ -40,6 +43,12 @@ void USART_write_buf(uint32_t DATA, uint8_t TYPE)
 		_dbl2stri(buf, _decimal_binary(DATA), 0);
 		USART_send(buf);
 	}
+}
+
+void USART_putchar(char ch)
+{
+	while(!(USART1->SR & USART_SR_TXE));
+  USART1->DR = ch;
 }
 
 uint8_t USART_write(char DATA) 
@@ -90,7 +99,12 @@ void USART_send(char * text)
 {
 	while (*text != '\0')
 	{
-		while(!(USART_write(*text)));
+#ifdef USART_INTERRUPT
+//		while(!(USART_write(*text)));
+#endif
+#ifdef USART_POOLING
+		USART_putchar(*text);
+#endif 
 		text++;
 	}
 }
@@ -108,11 +122,17 @@ void USART_init(void)
 	USART1->CR1 |= USART_CR1_UE                         // USART enable
 	             | USART_CR1_TE                         // Transmit enable
 	             | USART_CR1_RE                         // Receive enable
-//							 | USART_CR1_RXNEIE
+#ifdef USART_POOLING
+		;
+#endif
+#ifdef USART_INTERRUPT
+							 | USART_CR1_RXNEIE
 							 | USART_CR1_TCIE;
+
 	
 	NVIC_EnableIRQ(USART1_IRQn);
 	NVIC_SetPriority(USART1_IRQn, 0);
 	
 	USART_FIFO.head = 0;
+#endif
 }

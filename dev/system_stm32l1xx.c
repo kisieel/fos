@@ -389,12 +389,15 @@ void GPIO_config(uint8_t BLOCK, uint8_t PIN, uint8_t MODE, uint8_t PULL, uint8_t
 	
 	switch (BLOCK) {
 		case 0x0A:
+			RCC->AHBENR |= RCC_AHBENR_GPIOAEN;
 			GPIO = (GPIO_TypeDef *) GPIOA_BASE;
 			break;
 		case 0x0B:
+			RCC->AHBENR |= RCC_AHBENR_GPIOBEN;
 			GPIO = (GPIO_TypeDef *) GPIOB_BASE;
 			break;
 		case 0x0C:
+			RCC->AHBENR |= RCC_AHBENR_GPIOCEN;
 			GPIO = (GPIO_TypeDef *) GPIOC_BASE;
 			break;
 	}

@@ -1,0 +1,16 @@
+.\objects\hall.o: src\HALL.c
+.\objects\hall.o: .\inc\main.h
+.\objects\hall.o: .\dev\stm32l1xx.h
+.\objects\hall.o: C:\Keil_v5\ARM\CMSIS\Include\core_cm3.h
+.\objects\hall.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects\hall.o: C:\Keil_v5\ARM\CMSIS\Include\core_cmInstr.h
+.\objects\hall.o: C:\Keil_v5\ARM\CMSIS\Include\core_cmFunc.h
+.\objects\hall.o: .\dev\system_stm32l1xx.h
+.\objects\hall.o: .\inc\RFM69W.h
+.\objects\hall.o: .\inc\USART.h
+.\objects\hall.o: .\inc\EEPROM.h
+.\objects\hall.o: .\inc\KEY.h
+.\objects\hall.o: .\inc\MENU.h
+.\objects\hall.o: .\inc\HALL.h
+.\objects\hall.o: .\inc\SYS_TICK.h
+.\objects\hall.o: .\inc\FLOAT.h
