@@ -7,9 +7,9 @@ uint32_t _milis;
 
 void SysTick_Handler(void)
 {
-	if (_milis == 0xFFFFFFFF)
-		_milis = 0;
-	else
+//	if (_milis == 0xFFFFFFFF)
+//		_milis = 0;
+//	else
 		_milis++;
 }
 

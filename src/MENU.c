@@ -1,8 +1,7 @@
 #include <stdlib.h>
 #include "stm32l1xx.h"
 
-#include "MENU.h"
-#include "KEY.h"
+#include "main.h"
 
 MENU *_1_menu;
 MENU *_2_menu;
@@ -57,10 +56,12 @@ void menu_1_fun(unsigned int key)
 {
 	switch (key) {
 		case (KEY_1):
+			_BUZZER_single_beep();
 			ClrKeyb( KBD_LOCK );
 			_actual = _actual->next;
 			break;
 		case (KEY_2):
+			_BUZZER_single_beep();
 			ClrKeyb( KBD_LOCK );
 			break;
 	}
@@ -71,10 +72,12 @@ void menu_2_fun(unsigned int key)
 {
 	switch (key) {
 		case (KEY_1):
+			_BUZZER_single_beep();
 			ClrKeyb( KBD_LOCK );
 			_actual = _actual->next;
 			break;
 		case (KEY_2):
+			_BUZZER_single_beep();
 			ClrKeyb( KBD_LOCK );
 			break;
 	}
@@ -85,10 +88,12 @@ void menu_3_fun(unsigned int key)
 {
 	switch (key) {
 		case (KEY_1):
+			_BUZZER_single_beep();
 			ClrKeyb( KBD_LOCK );
 			_actual = _actual->next;
 			break;
 		case (KEY_2):
+			_BUZZER_single_beep();
 			ClrKeyb( KBD_LOCK );
 			break;
 	}
@@ -99,10 +104,12 @@ void menu_4_fun(unsigned int key)
 {
 	switch (key) {
 		case (KEY_1):
+			_BUZZER_single_beep();
 			ClrKeyb( KBD_LOCK );
 			_actual = _actual->next;
 			break;
 		case (KEY_2):
+			_BUZZER_single_beep();
 			ClrKeyb( KBD_LOCK );
 			break;
 	}

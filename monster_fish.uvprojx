@@ -492,6 +492,16 @@
               <FileType>5</FileType>
               <FilePath>.\inc\main.h</FilePath>
             </File>
+            <File>
+              <FileName>BUZZER.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\inc\BUZZER.h</FilePath>
+            </File>
+            <File>
+              <FileName>LED.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\inc\LED.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -551,6 +561,16 @@
               <FileName>HALL.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\src\HALL.c</FilePath>
+            </File>
+            <File>
+              <FileName>BUZZER.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\BUZZER.c</FilePath>
+            </File>
+            <File>
+              <FileName>LED.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\LED.c</FilePath>
             </File>
           </Files>
         </Group>

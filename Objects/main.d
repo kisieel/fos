@@ -13,4 +13,6 @@
 .\objects\main.o: .\inc\MENU.h
 .\objects\main.o: .\inc\HALL.h
 .\objects\main.o: .\inc\SYS_TICK.h
+.\objects\main.o: .\inc\BUZZER.h
+.\objects\main.o: .\inc\LED.h
 .\objects\main.o: .\inc\FLOAT.h

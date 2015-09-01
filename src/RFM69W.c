@@ -1014,7 +1014,7 @@ void RFM69W_SPI_init(void)
 //	SPI1->CR1 |= SPI_CR1_SPE;
 //	SPI1->CR2 |= SPI_CR2_RXNEIE;                    // Receive interrupt enable
 	
-	NVIC_EnableIRQ(SPI1_IRQn);
+//	NVIC_EnableIRQ(SPI1_IRQn);
 }
 
 /**

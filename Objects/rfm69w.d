@@ -13,4 +13,6 @@
 .\objects\rfm69w.o: .\inc\MENU.h
 .\objects\rfm69w.o: .\inc\HALL.h
 .\objects\rfm69w.o: .\inc\SYS_TICK.h
+.\objects\rfm69w.o: .\inc\BUZZER.h
+.\objects\rfm69w.o: .\inc\LED.h
 .\objects\rfm69w.o: .\inc\FLOAT.h
