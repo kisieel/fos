@@ -1,7 +1,6 @@
 #include "BUZZER.h"
 #include "stm32l1xx.h"
 
-
 volatile struct beep_struct beep;
 volatile struct music_library_struct music;
 volatile struct alarm_struct alarm;
@@ -19,7 +18,6 @@ void BUZZER_GPIO_init(void)
 
 	GPIOB->AFR[1] |= (GPIO_AFRH_AFRH13 & (3 << 4*5));
 }
-
 
 void BUZZER_PWM_init(void)
 {
@@ -64,8 +62,6 @@ void DAC_LOGIC_init(void)
 	DAC->CR |= DAC_CR_EN1;		// DAC enable
 }
 
-
-
 void BUZZER_reset_timer(void)
 {
 	BUZZER_mode = 0;	
@@ -105,13 +101,13 @@ void _BUZZER_alarm_stop(void)
 {
 	BUZZER_reset_timer();
 }
+
 void _BUZZER_play_music(uint8_t music_number)
 {
 	BUZZER_mode = buzzer_mode_melody;
 	music.current_music_number = music_number;
 	TIM3->CR1 |= TIM_CR1_CEN;
 }
-
 
 void _BUZZER_beep_change(uint16_t length, uint16_t volume, uint16_t tone)
 {
@@ -126,8 +122,6 @@ void _BUZZER_single_beep(void)
 	BUZZER_mode = buzzer_mode_beep;
 	TIM3->CR1 |= TIM_CR1_CEN;		
 }
-
-
 
 void _BUZZER_init(void)
 {
@@ -164,9 +158,6 @@ void _BUZZER_init(void)
 	
 	vol_mid;
 }
-
-
-
 
 void TIM3_IRQHandler(void)
 {

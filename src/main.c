@@ -45,6 +45,8 @@ PB15 - RFM69 DIO4
 PC13 - RFM69 DIO0 Wake uC
 */
 
+SystemType System;
+
 int main()
 {	
 	uint8_t buf[20];
@@ -63,6 +65,8 @@ int main()
 //	USART_init();
 //	HALL_init(); // Honeywell	recommends	allowing	10	µs	for	output	voltage	to	stabilize	after	supply	voltage	has	reached	its	final	rated	value.
 
+
+	
 #ifdef USART_debug
 	USART_send("Peripherals initialized.\n");
 #endif
@@ -73,7 +77,11 @@ int main()
 //	_LED_init();
 //	_LED_off();
 //	animate_mode[0] = animate_mode_1;
-	
+
+//	Czytanie z EEPROMA wartosci do struktury System
+//	Ustawienie przeczytanego koloru na diodzie, niekoniecznie w tm miejscu bo po intro:
+//	_LED_set_color_index(4, System.ActColor);
+
 #ifdef USART_debug
 	USART_send("External devices initialized.\n");
 #endif
@@ -87,6 +95,8 @@ int main()
 //	
 //	_BUZZER_play_music(0);
 
+	
+	
 	for(;;) {
 		_actual->menu_fun(GetKeys());
 //		i = SYS_TICK_timeOut(0,0);

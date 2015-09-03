@@ -56,13 +56,18 @@ void menu_1_fun(unsigned int key)
 {
 	switch (key) {
 		case (KEY_1):
-			_BUZZER_single_beep();
+			
 			ClrKeyb( KBD_LOCK );
 			_actual = _actual->next;
 			break;
 		case (KEY_2):
+			
+			ClrKeyb( KBD_LOCK );
+			break;
+		case (KEY_3):
 			_BUZZER_single_beep();
 			ClrKeyb( KBD_LOCK );
+			_actual = _actual->next;
 			break;
 	}
 }
@@ -74,11 +79,16 @@ void menu_2_fun(unsigned int key)
 		case (KEY_1):
 			_BUZZER_single_beep();
 			ClrKeyb( KBD_LOCK );
-			_actual = _actual->next;
 			break;
 		case (KEY_2):
 			_BUZZER_single_beep();
 			ClrKeyb( KBD_LOCK );
+			break;
+		case (KEY_3):
+			_BUZZER_single_beep();
+			ClrKeyb( KBD_LOCK );
+			
+			_actual = _actual->next;
 			break;
 	}
 }
@@ -86,22 +96,37 @@ void menu_2_fun(unsigned int key)
 // Regulacja koloru diod
 void menu_3_fun(unsigned int key)
 {
+	uint8_t cnt;
+	
+	cnt = System.ActColor;
+	
 	switch (key) {
 		case (KEY_1):
 			_BUZZER_single_beep();
 			ClrKeyb( KBD_LOCK );
-			_actual = _actual->next;
+			cnt++;
+			System.ActColor = cnt;
+			_LED_set_color_index(4, cnt);
 			break;
 		case (KEY_2):
 			_BUZZER_single_beep();
 			ClrKeyb( KBD_LOCK );
+			cnt--;
+			System.ActColor = cnt;
+			_LED_set_color_index(4, cnt);
+			break;
+		case (KEY_3):
+			_BUZZER_single_beep();
+			ClrKeyb( KBD_LOCK );
+			_actual = _actual->next;
 			break;
 	}
 }
 
-// Tryb testowania zasiegu
+// Wybor animacji brania
 void menu_4_fun(unsigned int key)
 {
+	
 	switch (key) {
 		case (KEY_1):
 			_BUZZER_single_beep();
@@ -111,6 +136,11 @@ void menu_4_fun(unsigned int key)
 		case (KEY_2):
 			_BUZZER_single_beep();
 			ClrKeyb( KBD_LOCK );
+			break;
+		case (KEY_3):
+			_BUZZER_single_beep();
+			ClrKeyb( KBD_LOCK );
+			_actual = _actual->next;
 			break;
 	}
 }

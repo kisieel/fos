@@ -5,3 +5,14 @@
 .\objects\sys_tick.o: C:\Keil_v5\ARM\CMSIS\Include\core_cmInstr.h
 .\objects\sys_tick.o: C:\Keil_v5\ARM\CMSIS\Include\core_cmFunc.h
 .\objects\sys_tick.o: .\dev\system_stm32l1xx.h
+.\objects\sys_tick.o: .\inc\main.h
+.\objects\sys_tick.o: .\inc\RFM69W.h
+.\objects\sys_tick.o: .\inc\USART.h
+.\objects\sys_tick.o: .\inc\EEPROM.h
+.\objects\sys_tick.o: .\inc\KEY.h
+.\objects\sys_tick.o: .\inc\MENU.h
+.\objects\sys_tick.o: .\inc\HALL.h
+.\objects\sys_tick.o: .\inc\SYS_TICK.h
+.\objects\sys_tick.o: .\inc\BUZZER.h
+.\objects\sys_tick.o: .\inc\LED.h
+.\objects\sys_tick.o: .\inc\FLOAT.h

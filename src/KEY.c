@@ -91,28 +91,29 @@ static unsigned short
 
 void KEY_init(void)
 {
-	RCC->APB1ENR |= RCC_APB1ENR_TIM6EN;
+//	RCC->APB1ENR |= RCC_APB1ENR_TIM6EN;
 	RCC->AHBENR |= RCC_AHBENR_GPIOAEN;
 	
 	GPIO_config(0x0A, 1, GPIO_MODE_Input, GPIO_PULL_Floating, 0, 0, 0);
 	GPIO_config(0x0A, 2, GPIO_MODE_Input, GPIO_PULL_Floating, 0, 0, 0);
+	GPIO_config(0x0A, 3, GPIO_MODE_Input, GPIO_PULL_Floating, 0, 0, 0);
 	
-	TIM6->ARR = 10000;
-	TIM6->PSC = 32;
-	
-	TIM6->DIER |= TIM_DIER_UIE;
-	NVIC_EnableIRQ(TIM6_IRQn);
-	
-	TIM6->CR1 |= TIM_CR1_CEN;
+//	TIM6->ARR = 10000;
+//	TIM6->PSC = 32;
+//	
+//	TIM6->DIER |= TIM_DIER_UIE;
+//	NVIC_EnableIRQ(TIM6_IRQn);
+//	
+//	TIM6->CR1 |= TIM_CR1_CEN;
 }
 
-void TIM6_IRQHandler()
-{
-	if (TIM6->SR & TIM_SR_UIF) {
-		KeybProc();
-		TIM6->SR &= ~(TIM_SR_UIF);
-	}
-}
+//void TIM6_IRQHandler()
+//{
+//	if (TIM6->SR & TIM_SR_UIF) {
+//		KeybProc();
+//		TIM6->SR &= ~(TIM_SR_UIF);
+//	}
+//}
 
 // ***********************************************************************
 // Funkcja dostarczajaca surowy stan klawiatury.
@@ -124,7 +125,8 @@ unsigned int
 GetKeybSample( void )
 {	
   return (((GPIOA->IDR & GPIO_IDR_IDR_1) >> 1) 
-		    | ((GPIOA->IDR & GPIO_IDR_IDR_2) >> 1)) & ANYKEY;   
+		    | ((GPIOA->IDR & GPIO_IDR_IDR_2) >> 1)
+	      | ((GPIOA->IDR & GPIO_IDR_IDR_3) >> 1)) & ANYKEY;   
 }
 
 // ***********************************************************************

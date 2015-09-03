@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Objects\monster_fish.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Objects\monster_fish.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050169: Last Updated: Tue Sep 01 21:15:04 2015
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050169: Last Updated: Thu Sep 03 22:30:13 2015
 <BR><P>
 <H3>Maximum Stack Usage =         96 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -77,7 +77,7 @@ Function Pointers
  <LI><a href="#[2e]">TIM2_IRQHandler</a> from startup_stm32l1xx_md.o(.text) referenced from startup_stm32l1xx_md.o(RESET)
  <LI><a href="#[2f]">TIM3_IRQHandler</a> from buzzer.o(i.TIM3_IRQHandler) referenced from startup_stm32l1xx_md.o(RESET)
  <LI><a href="#[30]">TIM4_IRQHandler</a> from startup_stm32l1xx_md.o(.text) referenced from startup_stm32l1xx_md.o(RESET)
- <LI><a href="#[3d]">TIM6_IRQHandler</a> from key.o(i.TIM6_IRQHandler) referenced from startup_stm32l1xx_md.o(RESET)
+ <LI><a href="#[3d]">TIM6_IRQHandler</a> from startup_stm32l1xx_md.o(.text) referenced from startup_stm32l1xx_md.o(RESET)
  <LI><a href="#[3e]">TIM7_IRQHandler</a> from startup_stm32l1xx_md.o(.text) referenced from startup_stm32l1xx_md.o(RESET)
  <LI><a href="#[2b]">TIM9_IRQHandler</a> from startup_stm32l1xx_md.o(.text) referenced from startup_stm32l1xx_md.o(RESET)
  <LI><a href="#[37]">USART1_IRQHandler</a> from usart.o(i.USART1_IRQHandler) referenced from startup_stm32l1xx_md.o(RESET)
@@ -387,6 +387,9 @@ Global Symbols
 <P><STRONG><a name="[30]"></a>TIM4_IRQHandler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup_stm32l1xx_md.o(.text))
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32l1xx_md.o(RESET)
 </UL>
+<P><STRONG><a name="[3d]"></a>TIM6_IRQHandler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup_stm32l1xx_md.o(.text))
+<BR>[Address Reference Count : 1]<UL><LI> startup_stm32l1xx_md.o(RESET)
+</UL>
 <P><STRONG><a name="[3e]"></a>TIM7_IRQHandler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup_stm32l1xx_md.o(.text))
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32l1xx_md.o(RESET)
 </UL>
@@ -624,7 +627,7 @@ Global Symbols
 <LI><a href="#[53]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[68]"></a>GetKeybSample</STRONG> (Thumb, 22 bytes, Stack size 0 bytes, key.o(i.GetKeybSample))
+<P><STRONG><a name="[68]"></a>GetKeybSample</STRONG> (Thumb, 34 bytes, Stack size 0 bytes, key.o(i.GetKeybSample))
 <BR><BR>[Called By]<UL><LI><a href="#[72]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;KeybProc
 <LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ClrKeyb
 </UL>
@@ -633,7 +636,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[53]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[70]"></a>KEY_init</STRONG> (Thumb, 130 bytes, Stack size 16 bytes, key.o(i.KEY_init))
+<P><STRONG><a name="[70]"></a>KEY_init</STRONG> (Thumb, 76 bytes, Stack size 16 bytes, key.o(i.KEY_init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 44<LI>Call Chain = KEY_init &rArr; GPIO_config
 </UL>
 <BR>[Calls]<UL><LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_config
@@ -647,7 +650,7 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[68]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GetKeybSample
 <LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ClrKeyb
 </UL>
-<BR>[Called By]<UL><LI><a href="#[3d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM6_IRQHandler
+<BR>[Called By]<UL><LI><a href="#[11]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysTick_Handler
 </UL>
 
 <P><STRONG><a name="[73]"></a>MENU_init</STRONG> (Thumb, 180 bytes, Stack size 8 bytes, menu.o(i.MENU_init))
@@ -781,7 +784,11 @@ Global Symbols
 <LI><a href="#[29]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EXTI9_5_IRQHandler
 </UL>
 
-<P><STRONG><a name="[11]"></a>SysTick_Handler</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, sys_tick.o(i.SysTick_Handler))
+<P><STRONG><a name="[11]"></a>SysTick_Handler</STRONG> (Thumb, 42 bytes, Stack size 8 bytes, sys_tick.o(i.SysTick_Handler))
+<BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = SysTick_Handler &rArr; KeybProc &rArr; ClrKeyb
+</UL>
+<BR>[Calls]<UL><LI><a href="#[72]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;KeybProc
+</UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32l1xx_md.o(RESET)
 </UL>
 <P><STRONG><a name="[3f]"></a>SystemInit</STRONG> (Thumb, 88 bytes, Stack size 8 bytes, system_stm32l1xx.o(i.SystemInit))
@@ -798,13 +805,6 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 4<LI>Call Chain = TIM3_IRQHandler
 </UL>
 <BR>[Calls]<UL><LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BUZZER_reset_timer
-</UL>
-<BR>[Address Reference Count : 1]<UL><LI> startup_stm32l1xx_md.o(RESET)
-</UL>
-<P><STRONG><a name="[3d]"></a>TIM6_IRQHandler</STRONG> (Thumb, 30 bytes, Stack size 4 bytes, key.o(i.TIM6_IRQHandler))
-<BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = TIM6_IRQHandler &rArr; KeybProc &rArr; ClrKeyb
-</UL>
-<BR>[Calls]<UL><LI><a href="#[72]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;KeybProc
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32l1xx_md.o(RESET)
 </UL>
@@ -842,7 +842,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[52]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_entry_main
 </UL>
 
-<P><STRONG><a name="[41]"></a>menu_1_fun</STRONG> (Thumb, 50 bytes, Stack size 8 bytes, menu.o(i.menu_1_fun))
+<P><STRONG><a name="[41]"></a>menu_1_fun</STRONG> (Thumb, 70 bytes, Stack size 8 bytes, menu.o(i.menu_1_fun))
 <BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = menu_1_fun &rArr; ClrKeyb
 </UL>
 <BR>[Calls]<UL><LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_BUZZER_single_beep
@@ -850,7 +850,7 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> menu.o(i.MENU_init)
 </UL>
-<P><STRONG><a name="[42]"></a>menu_2_fun</STRONG> (Thumb, 50 bytes, Stack size 8 bytes, menu.o(i.menu_2_fun))
+<P><STRONG><a name="[42]"></a>menu_2_fun</STRONG> (Thumb, 68 bytes, Stack size 8 bytes, menu.o(i.menu_2_fun))
 <BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = menu_2_fun &rArr; ClrKeyb
 </UL>
 <BR>[Calls]<UL><LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_BUZZER_single_beep
@@ -858,7 +858,7 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> menu.o(i.MENU_init)
 </UL>
-<P><STRONG><a name="[43]"></a>menu_3_fun</STRONG> (Thumb, 50 bytes, Stack size 8 bytes, menu.o(i.menu_3_fun))
+<P><STRONG><a name="[43]"></a>menu_3_fun</STRONG> (Thumb, 68 bytes, Stack size 8 bytes, menu.o(i.menu_3_fun))
 <BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = menu_3_fun &rArr; ClrKeyb
 </UL>
 <BR>[Calls]<UL><LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_BUZZER_single_beep
@@ -866,7 +866,7 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> menu.o(i.MENU_init)
 </UL>
-<P><STRONG><a name="[44]"></a>menu_4_fun</STRONG> (Thumb, 50 bytes, Stack size 8 bytes, menu.o(i.menu_4_fun))
+<P><STRONG><a name="[44]"></a>menu_4_fun</STRONG> (Thumb, 78 bytes, Stack size 8 bytes, menu.o(i.menu_4_fun))
 <BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = menu_4_fun &rArr; ClrKeyb
 </UL>
 <BR>[Calls]<UL><LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_BUZZER_single_beep

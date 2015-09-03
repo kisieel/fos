@@ -10,6 +10,14 @@ volatile	uint32_t led_state[led_length];
 
 volatile uint8_t animate_mode[2];	//current [0]. old [1]
 
+volatile uint8_t led_colors[5][3] = {
+	{5, 5, 5},
+	{20, 20, 20},
+	{50, 50, 50},
+	{75, 75, 75},
+	{80, 80, 80}
+};
+
 volatile uint8_t _LED_dma_flag;
 volatile uint8_t _LED_refresh_flag;
 
@@ -109,7 +117,6 @@ void led_DMA_init(uint16_t mode)
 	
 }
 
-
 void DMA1_Channel2_IRQHandler(void)
 {
 	if(DMA1->ISR & DMA_ISR_TCIF2)
@@ -120,10 +127,6 @@ void DMA1_Channel2_IRQHandler(void)
 		TIM2->CR1 &= ~TIM_CR1_CEN;
 	}
 }
-
-
-
-
 
 void _LED_init(void)
 {
@@ -196,6 +199,10 @@ void LED_set_values(uint8_t led_number, uint8_t blue_set_temp, uint8_t red_set_t
 	led_state[led_number-1] = temp_state;
 }
 
+void _LED_set_color_list(uint8_t led_number, uint8_t index)
+{
+	_LED_set_color(led_number, led_colors[index][0], led_colors[index][1], led_colors[index][2]);
+}
 
 void _LED_set_color(uint8_t led_number, uint8_t blue, uint8_t red, uint8_t green)		// colors in %
 {
@@ -507,8 +514,6 @@ void wait_(uint32_t time)
 	uint32_t i = 0;
 	for(i=0; i<time; i++){}
 }
-
-
 
 uint8_t reverse(uint8_t b) {
    b = (b & 0xF0) >> 4 | (b & 0x0F) << 4;

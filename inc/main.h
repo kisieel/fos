@@ -20,3 +20,10 @@
 #define MMIO32(addr)            (*(volatile uint32_t *)(addr))
 #define U_ID                    0x1FF80050
 
+typedef struct {
+	uint8_t ActAnimation;
+	uint8_t ActTone;
+	uint8_t ActColor;
+} SystemType;
+
+extern SystemType System;

@@ -1,16 +1,20 @@
 #include "stm32l1xx.h"
+#include "main.h"
 
 #define MODE_DIFFERENCE    1
 #define MODE_CAPTURE       0
 
-uint32_t _milis;
+volatile uint32_t _milis;
+volatile uint8_t _cnt;
 
 void SysTick_Handler(void)
 {
-//	if (_milis == 0xFFFFFFFF)
-//		_milis = 0;
-//	else
-		_milis++;
+	_milis++;
+	_cnt++;
+	if (_cnt == 10) {
+		KeybProc();
+		_cnt = 0;
+	}
 }
 
 void SYS_TICK_init(void)
