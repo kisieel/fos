@@ -1,6 +1,4 @@
 #include <stdlib.h>
-#include "stm32l1xx.h"
-
 #include "main.h"
 
 MENU *_1_menu;
@@ -69,20 +67,20 @@ void MENU_init()
 	_6_menu->sub = NULL;
 	_6_menu->menu_fun = menu_6_fun;
 	
-	_7_menu->next = _8_menu;
+	_7_menu->next = _1_menu;
 	_7_menu->par = NULL;
 	_7_menu->sub = NULL;
 	_7_menu->menu_fun = menu_7_fun;
 	
-	_8_menu->next = _9_menu;
-	_8_menu->par = NULL;
-	_8_menu->sub = NULL;
-	_8_menu->menu_fun = menu_8_fun;
-	
-	_9_menu->next = _1_menu;
-	_9_menu->par = NULL;
-	_9_menu->sub = NULL;
-	_9_menu->menu_fun = menu_9_fun;
+//	_8_menu->next = _9_menu;
+//	_8_menu->par = NULL;
+//	_8_menu->sub = NULL;
+//	_8_menu->menu_fun = menu_8_fun;
+//	
+//	_9_menu->next = _1_menu;
+//	_9_menu->par = NULL;
+//	_9_menu->sub = NULL;
+//	_9_menu->menu_fun = menu_9_fun;
 	
 	_actual = _1_menu;
 }
@@ -90,6 +88,8 @@ void MENU_init()
 // Sygnalizacja brania- diody + buzzer
 void menu_1_fun(unsigned int key)
 {
+	HALL_Data.HuntTime = TRUE;
+	
 	switch (key) {
 //		case (KEY_1):
 //			
@@ -97,12 +97,15 @@ void menu_1_fun(unsigned int key)
 //			_actual = _actual->next;
 //			break;
 		case (KEY_2):
-			
 			ClrKeyb( KBD_LOCK );
 			break;
 		case (KEY_1):
 			_BUZZER_single_beep();
 			ClrKeyb( KBD_LOCK );
+		
+			_LED_set_color_list(4, 0);
+			_LED_on();
+			HALL_Data.HuntTime = FALSE;
 		
 			_actual = _actual->next;
 			break;
@@ -126,7 +129,7 @@ void menu_2_fun(unsigned int key)
 			ClrKeyb( KBD_LOCK );
 			
 			EEPROM_32_write(EEPROM_ConfAddress1, (EEPROM_32_read(EEPROM_ConfAddress1) & ~EEPROM_1_ActAnimation) | (System.ActAnimation << EEPROM_1_ActAnimationPosition));
-			_LED_set_color_list(4, 0);
+			_LED_set_color_list(4, 1);
 			_LED_on();
 		
 			_actual = _actual->next;
@@ -167,7 +170,7 @@ void menu_3_fun(unsigned int key)
 			ClrKeyb( KBD_LOCK );
 		
 			EEPROM_32_write(EEPROM_ConfAddress1, (EEPROM_32_read(EEPROM_ConfAddress1) & ~EEPROM_1_ActColor) | (System.ActColor << EEPROM_1_ActColorPosition));
-			_LED_set_color_list(4, 1);
+			_LED_set_color_list(4, 2);
 			_LED_on();
 		
 			_actual = _actual->next;
@@ -193,7 +196,7 @@ void menu_4_fun(unsigned int key)
 			ClrKeyb( KBD_LOCK );
 		
 			EEPROM_32_write(EEPROM_ConfAddress1, (EEPROM_32_read(EEPROM_ConfAddress1) & ~EEPROM_1_ActBrightness) | (System.ActBrightness << EEPROM_1_ActBrightnessPosition));
-			_LED_set_color_list(4, 2);
+			_LED_set_color_list(4, 3);
 			_LED_on();
 		
 			_actual = _actual->next;
@@ -232,7 +235,7 @@ void menu_5_fun(unsigned int key)
 			ClrKeyb( KBD_LOCK );
 		
 			EEPROM_32_write(EEPROM_ConfAddress1, (EEPROM_32_read(EEPROM_ConfAddress1) & ~EEPROM_1_ActAlarmTone) | (System.ActAlarmTone << EEPROM_1_ActAlarmTonePosition));
-			_LED_set_color_list(4, 3);
+			_LED_set_color_list(4, 4);
 			_LED_on();
 		
 			_actual = _actual->next;
@@ -271,7 +274,7 @@ void menu_6_fun(unsigned int key)
 			ClrKeyb( KBD_LOCK );
 		
 			EEPROM_32_write(EEPROM_ConfAddress1, (EEPROM_32_read(EEPROM_ConfAddress1) & ~EEPROM_1_ActAlarmVol) | (System.ActAlarmVol << EEPROM_1_ActAlarmVolPosition));
-			_LED_set_color_list(4, 4);
+			_LED_set_color_list(4, 5);
 			_LED_on();
 		
 			_actual = _actual->next;
@@ -310,7 +313,7 @@ void menu_7_fun(unsigned int key)
 			ClrKeyb( KBD_LOCK );
 		
 			EEPROM_32_write(EEPROM_ConfAddress1, (EEPROM_32_read(EEPROM_ConfAddress1) & ~EEPROM_1_ActAlarmTempo) | (System.ActAlarmTempo << EEPROM_1_ActAlarmTempoPosition));
-			_LED_set_color_list(4, 5);
+			_LED_set_color(4, 0, 0, 0);
 			_LED_on();
 			_BUZZER_alarm_stop();
 		

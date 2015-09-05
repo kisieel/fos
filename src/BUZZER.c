@@ -18,10 +18,10 @@ volatile uint8_t BUZZER_AlarmTones[buzzer_tones_qnt][2] = {
 
 volatile uint8_t BUZZER_AlarmVols[buzzer_vols_qnt] = {
 	0,
+	49,
 	50,
-	100,
-	150,
-	200,
+	52,
+	53,
 	255
 };
 

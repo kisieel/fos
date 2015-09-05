@@ -69,9 +69,7 @@ int main()
 	KEY_init();
 	MENU_init();
 	USART_init();
-//	HALL_init(); // Honeywell	recommends	allowing	10	µs	for	output	voltage	to	stabilize	after	supply	voltage	has	reached	its	final	rated	value.
-
-
+	HALL_init(); // Honeywell	recommends	allowing	10	µs	for	output	voltage	to	stabilize	after	supply	voltage	has	reached	its	final	rated	value.
 	
 #ifdef USART_debug
 	USART_send("Peripherals initialized.\n");
@@ -86,8 +84,14 @@ int main()
 	USART_send("External devices initialized.\n");
 #endif
 
+	// Enter System values
 	_LED_set_color_list(5, System.ActColor);
 	_LED_on();
+	_BUZZER_alarm_set_tone_list(System.ActAlarmTone);
+	_BUZZER_alarm_set_vol_list(System.ActAlarmVol);
+	_BUZZER_alarm_set_tempo_list(System.ActAlarmTempo);
+	BUZZER_reset_timer();
+	
 
 //	for(i=0; i<10;i++)
 //	{
