@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Objects\monster_fish.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Objects\monster_fish.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050169: Last Updated: Sat Sep 05 22:21:36 2015
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050169: Last Updated: Sat Sep 05 23:01:52 2015
 <BR><P>
 <H3>Maximum Stack Usage =        112 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -933,23 +933,25 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[8d]"></a>_LED_blink_off</STRONG> (Thumb, 34 bytes, Stack size 8 bytes, led.o(i._LED_blink_off))
-<BR><BR>[Stack]<UL><LI>Max Depth = 52<LI>Call Chain = _LED_blink_off &rArr; _LED_on &rArr; _LED_set
+<BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = _LED_blink_off &rArr; _LED_on &rArr; _LED_set
 </UL>
 <BR>[Calls]<UL><LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_LED_on
 </UL>
 <BR>[Called By]<UL><LI><a href="#[46]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;menu_6_fun
+<LI><a href="#[43]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;menu_3_fun
 </UL>
 
 <P><STRONG><a name="[8f]"></a>_LED_blink_on</STRONG> (Thumb, 122 bytes, Stack size 8 bytes, led.o(i._LED_blink_on))
-<BR><BR>[Stack]<UL><LI>Max Depth = 52<LI>Call Chain = _LED_blink_on &rArr; _LED_on &rArr; _LED_set
+<BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = _LED_blink_on &rArr; _LED_on &rArr; _LED_set
 </UL>
 <BR>[Calls]<UL><LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_LED_on
 <LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_LED_refresh
 </UL>
-<BR>[Called By]<UL><LI><a href="#[46]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;menu_6_fun
+<BR>[Called By]<UL><LI><a href="#[43]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;menu_3_fun
+<LI><a href="#[42]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;menu_2_fun
 </UL>
 
-<P><STRONG><a name="[91]"></a>_LED_change_brightness</STRONG> (Thumb, 304 bytes, Stack size 44 bytes, led.o(i._LED_change_brightness))
+<P><STRONG><a name="[91]"></a>_LED_change_brightness</STRONG> (Thumb, 196 bytes, Stack size 44 bytes, led.o(i._LED_change_brightness))
 <BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = _LED_change_brightness &rArr; LED_set_values
 </UL>
 <BR>[Calls]<UL><LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED_set_values
@@ -1005,7 +1007,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[8e]"></a>_LED_on</STRONG> (Thumb, 32 bytes, Stack size 4 bytes, led.o(i._LED_on))
-<BR><BR>[Stack]<UL><LI>Max Depth = 44<LI>Call Chain = _LED_on &rArr; _LED_set
+<BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = _LED_on &rArr; _LED_set
 </UL>
 <BR>[Calls]<UL><LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;led_timer_on
 <LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_LED_set
@@ -1026,8 +1028,8 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_LED_blink_on
 </UL>
 
-<P><STRONG><a name="[95]"></a>_LED_set</STRONG> (Thumb, 152 bytes, Stack size 40 bytes, led.o(i._LED_set))
-<BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = _LED_set
+<P><STRONG><a name="[95]"></a>_LED_set</STRONG> (Thumb, 210 bytes, Stack size 44 bytes, led.o(i._LED_set))
+<BR><BR>[Stack]<UL><LI>Max Depth = 44<LI>Call Chain = _LED_set
 </UL>
 <BR>[Calls]<UL><LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;reverse
 </UL>
@@ -1035,7 +1037,7 @@ Global Symbols
 <LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_LED_on
 </UL>
 
-<P><STRONG><a name="[a0]"></a>_LED_set_color</STRONG> (Thumb, 110 bytes, Stack size 32 bytes, led.o(i._LED_set_color))
+<P><STRONG><a name="[a0]"></a>_LED_set_color</STRONG> (Thumb, 82 bytes, Stack size 32 bytes, led.o(i._LED_set_color))
 <BR><BR>[Stack]<UL><LI>Max Depth = 52<LI>Call Chain = _LED_set_color &rArr; LED_set_values
 </UL>
 <BR>[Calls]<UL><LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED_set_values
@@ -1126,10 +1128,11 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> menu.o(i.MENU_init)
 </UL>
-<P><STRONG><a name="[42]"></a>menu_2_fun</STRONG> (Thumb, 88 bytes, Stack size 16 bytes, menu.o(i.menu_2_fun))
+<P><STRONG><a name="[42]"></a>menu_2_fun</STRONG> (Thumb, 98 bytes, Stack size 16 bytes, menu.o(i.menu_2_fun))
 <BR><BR>[Stack]<UL><LI>Max Depth = 84<LI>Call Chain = menu_2_fun &rArr; _LED_set_color_list &rArr; _LED_set_color &rArr; LED_set_values
 </UL>
-<BR>[Calls]<UL><LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_BUZZER_single_beep
+<BR>[Calls]<UL><LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_LED_blink_on
+<LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_BUZZER_single_beep
 <LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ClrKeyb
 <LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_LED_set_color_list
 <LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_LED_on
@@ -1138,10 +1141,12 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> menu.o(i.MENU_init)
 </UL>
-<P><STRONG><a name="[43]"></a>menu_3_fun</STRONG> (Thumb, 128 bytes, Stack size 16 bytes, menu.o(i.menu_3_fun))
+<P><STRONG><a name="[43]"></a>menu_3_fun</STRONG> (Thumb, 140 bytes, Stack size 16 bytes, menu.o(i.menu_3_fun))
 <BR><BR>[Stack]<UL><LI>Max Depth = 84<LI>Call Chain = menu_3_fun &rArr; _LED_set_color_list &rArr; _LED_set_color &rArr; LED_set_values
 </UL>
-<BR>[Calls]<UL><LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_BUZZER_single_beep
+<BR>[Calls]<UL><LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_LED_blink_on
+<LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_LED_blink_off
+<LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_BUZZER_single_beep
 <LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ClrKeyb
 <LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_LED_set_color_list
 <LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_LED_on
@@ -1176,11 +1181,10 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> menu.o(i.MENU_init)
 </UL>
-<P><STRONG><a name="[46]"></a>menu_6_fun</STRONG> (Thumb, 130 bytes, Stack size 16 bytes, menu.o(i.menu_6_fun))
+<P><STRONG><a name="[46]"></a>menu_6_fun</STRONG> (Thumb, 124 bytes, Stack size 16 bytes, menu.o(i.menu_6_fun))
 <BR><BR>[Stack]<UL><LI>Max Depth = 84<LI>Call Chain = menu_6_fun &rArr; _LED_set_color_list &rArr; _LED_set_color &rArr; LED_set_values
 </UL>
-<BR>[Calls]<UL><LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_LED_blink_on
-<LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_LED_blink_off
+<BR>[Calls]<UL><LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_LED_blink_off
 <LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_BUZZER_alarm_start
 <LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ClrKeyb
 <LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_LED_set_color_list

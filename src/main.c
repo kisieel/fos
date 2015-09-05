@@ -5,6 +5,7 @@ SysTick    - System timer
 SPI1       - RFM69
 EXTI_10_15 - RFM69 EXTI13
 EXTI_9_5   - HALL EXTI6
+TIM6       - HALL
 USART1     - USART
 TIM2       - LED
 TIM10      - LED
@@ -93,7 +94,7 @@ int main()
 	_BUZZER_alarm_set_tempo_list(System.ActAlarmTempo);
 	BUZZER_reset_timer();
 	
-
+//	_LED_blink_on(5);
 //	for(i=0; i<10;i++)
 //	{
 //		music.samples[0].tone[i] = temp_tone[i];
