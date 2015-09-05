@@ -284,7 +284,6 @@ uint32_t _LED_change_brightness(uint8_t led_n, uint8_t step, uint8_t direction)
 	uint8_t red_set = (uint8_t)((led_state[led_n - 1] >> color_red) & 0xFF);
 	uint8_t blue_set = (uint8_t)((led_state[led_n - 1] >> color_blue) & 0xFF);
 	uint8_t green_set = (uint8_t)((led_state[led_n - 1] >> color_green) & 0xFF);
-	//uint8_t change =  (uint8_t)(255*step/100);
 	uint8_t change = step;
 	if(direction == led_increment)
 	{
@@ -313,6 +312,17 @@ uint32_t _LED_change_brightness(uint8_t led_n, uint8_t step, uint8_t direction)
 		return return_value;
 }
 
+uint32_t _LED_change_brightness_all(uint8_t step, uint8_t direction)
+{
+	uint8_t led_number = 0;
+	
+	for(led_number = 1; led_number<=led_length; led_number++)
+	{
+		_LED_change_brightness(led_number, step, direction);
+	}
+	
+	return 0;
+}
 
 void led_refresh_timer_init(void)
 {

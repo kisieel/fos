@@ -59,6 +59,8 @@ void _LED_set_color(uint8_t led_number, uint8_t blue, uint8_t red, uint8_t green
 void _LED_set_color_list(uint8_t led_number, uint8_t index);
 uint8_t _LED_change_color(uint8_t led_number, uint8_t color, uint8_t step, uint8_t direction);
 uint32_t _LED_change_brightness(uint8_t led_number, uint8_t step, uint8_t direction);
+uint32_t _LED_change_brightness_all(uint8_t step, uint8_t direction);
+
 void _LED_refresh(uint16_t delay_ms);
 void _LED_animate(void);
 

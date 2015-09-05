@@ -97,7 +97,7 @@ void menu_1_fun(unsigned int key)
 //			_actual = _actual->next;
 //			break;
 		case (KEY_2):
-			
+			_BUZZER_single_beep();
 			ClrKeyb( KBD_LOCK );
 			break;
 		case (KEY_1):
@@ -332,11 +332,13 @@ void menu_8_fun(unsigned int key)
 		case (KEY_2):
 			_BUZZER_single_beep();
 			ClrKeyb( KBD_LOCK );
+			_LED_change_brightness_all(10,led_decrement);
+					_LED_on();
 			break;
 		case (KEY_1):
 			_BUZZER_single_beep();
 			ClrKeyb( KBD_LOCK );
-		
+			
 			_actual = _actual->next;
 		
 			break;
