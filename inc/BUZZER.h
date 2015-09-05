@@ -1,5 +1,14 @@
 #include "stm32l1xx.h"
 
+// Maximum number of alarm tones available to set
+#define buzzer_tones_qnt   6
+
+// Maximum number of alarm volumes available to set
+#define buzzer_vols_qnt    6
+
+// Maximum number of alarm tempos available to set
+#define buzzer_tempos_qnt  10
+
 #define vol_max 	DAC->DHR8R1 = 0xFF;	//vref * (dor/4095) = vout	
 #define vol_mid 	DAC->DHR8R1 = 47;	//vref * (dor/4095) = vout
 #define vol_min 	DAC->DHR8R1 = 44;	//vref * (dor/4095) = vout
@@ -27,9 +36,6 @@
 #define buzzer_mode_alarm			10
 #define buzzer_mode_melody		20
 #define buzzer_mode_beep			30
-
-//uint8_t temp_tone[10] = {CT,dT,CT,dT,CT,dT,CT,dT,CT,dT};
-//uint16_t temp_tempo[10] = {200,200,200,200,500,500,1000,500,500,500};
 
 struct music_struct
 {
@@ -76,6 +82,11 @@ void BUZZER_reset_timer(void);
 void _BUZZER_off(void);
 void _BUZZER_play_music(uint8_t music_number);
 void _BUZZER_alarm_stop(void);
+
+void _BUZZER_alarm_set_tone_list(uint8_t index);
+void _BUZZER_alarm_set_vol_list(uint8_t index);
+void _BUZZER_alarm_set_tempo_list(uint8_t index);
+
 void _BUZZER_alarm_start(void);
 void _BUZZER_single_beep(void);
 void _BUZZER_init(void);

@@ -7,6 +7,37 @@ volatile struct alarm_struct alarm;
 
 volatile uint8_t BUZZER_mode;
 
+volatile uint8_t BUZZER_AlarmTones[buzzer_tones_qnt][2] = {
+	{cT, eT},
+	{dT, fT},
+	{eT, gT},
+	{fT, aT},
+	{gT, bT},
+	{aT, CT},
+};
+
+volatile uint8_t BUZZER_AlarmVols[buzzer_vols_qnt] = {
+	0,
+	50,
+	100,
+	150,
+	200,
+	255
+};
+
+volatile uint16_t BUZZER_AlarmTempos[buzzer_tempos_qnt] = {
+	100,
+	200,
+	300,
+	400,
+	500,
+	600,
+	700,
+	800,
+	900,
+	1000
+};
+
 void BUZZER_GPIO_init(void)
 {
 	RCC->AHBENR |= RCC_AHBENR_GPIOBEN;                // Clock for GPIOB 
@@ -88,6 +119,21 @@ void _BUZZER_off(void)
 	vol_off;	
 }
 
+void _BUZZER_alarm_set_tone_list(uint8_t index)
+{
+	alarm.tone[0] = BUZZER_AlarmTones[index][0];
+	alarm.tone[1] = BUZZER_AlarmTones[index][1];
+}
+
+void _BUZZER_alarm_set_vol_list(uint8_t index)
+{
+	DAC->DHR8R1 = BUZZER_AlarmVols[index];
+}
+
+void _BUZZER_alarm_set_tempo_list(uint8_t index)
+{
+	TIM3->ARR = BUZZER_AlarmTempos[index];
+}
 
 void _BUZZER_alarm_start(void)
 {

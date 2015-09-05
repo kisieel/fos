@@ -49,9 +49,7 @@ SystemType System;
 
 int main()
 {	
-	uint8_t buf[20];
-//	uint32_t i;
-	uint8_t i,j = 0;
+	uint32_t buf;
 //	const char* key = "sampleEncryptKey";
 
 	// Keep power supply
@@ -59,10 +57,18 @@ int main()
 	GPIO_config(0x0A, 0, GPIO_MODE_GP, GPIO_PULL_Floating, GPIO_TYPE_Pushpull, GPIO_SPEED_400k, 0);
 	GPIOA->BSRRL |= GPIO_BSRR_BS_0;               // Output 1
 
+	buf = EEPROM_32_read(EEPROM_ConfAddress1);
+	System.ActAnimation= (buf & EEPROM_1_ActAnimation) >> EEPROM_1_ActAnimationPosition;
+	System.ActColor = (buf & EEPROM_1_ActColor) >> EEPROM_1_ActColorPosition;
+	System.ActBrightness = (buf & EEPROM_1_ActBrightness) >> EEPROM_1_ActBrightnessPosition;
+	System.ActAlarmTone = (buf & EEPROM_1_ActAlarmTone) >> EEPROM_1_ActAlarmTonePosition;
+	System.ActAlarmVol = (buf & EEPROM_1_ActAlarmVol) >> EEPROM_1_ActAlarmVolPosition;
+	System.ActAlarmTempo = (buf & EEPROM_1_ActAlarmTempo) >> EEPROM_1_ActAlarmTempoPosition;
+	
 	SYS_TICK_init();
 	KEY_init();
 	MENU_init();
-//	USART_init();
+	USART_init();
 //	HALL_init(); // Honeywell	recommends	allowing	10	µs	for	output	voltage	to	stabilize	after	supply	voltage	has	reached	its	final	rated	value.
 
 
@@ -73,18 +79,15 @@ int main()
 	
 //	RFM69W_init();
 	_BUZZER_init();
-	
-//	_LED_init();
-//	_LED_off();
-//	animate_mode[0] = animate_mode_1;
-
-//	Czytanie z EEPROMA wartosci do struktury System
-//	Ustawienie przeczytanego koloru na diodzie, niekoniecznie w tm miejscu bo po intro:
-//	_LED_set_color_index(4, System.ActColor);
+	_LED_init();
+	_LED_off();
 
 #ifdef USART_debug
 	USART_send("External devices initialized.\n");
 #endif
+
+	_LED_set_color_list(5, System.ActColor);
+	_LED_on();
 
 //	for(i=0; i<10;i++)
 //	{
@@ -95,14 +98,7 @@ int main()
 //	
 //	_BUZZER_play_music(0);
 
-	
-	
 	for(;;) {
 		_actual->menu_fun(GetKeys());
-//		i = SYS_TICK_timeOut(0,0);
-//		_LED_on();
-//		_LED_animate();
-//		while (SYS_TICK_timeOut(1, i) < 1000);
-		
 	}
 }

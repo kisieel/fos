@@ -1,6 +1,28 @@
 #ifndef __EEPROM_H
 #define __EEPROM_H
 
+#define EEPROM_ConfAddress1          0
+#define EEPROM_ConfAddress2          4
+#define EEPROM_ConfAddress3          8
+
+#define EEPROM_1_ActAnimation          0x0000000F
+#define EEPROM_1_ActAnimationPosition  0*4
+
+#define EEPROM_1_ActColor              0x000000F0
+#define EEPROM_1_ActColorPosition      1*4
+
+#define EEPROM_1_ActAlarmTone          0x00000F00
+#define EEPROM_1_ActAlarmTonePosition  2*4
+
+#define EEPROM_1_ActAlarmVol           0x0000F000
+#define EEPROM_1_ActAlarmVolPosition   3*4
+
+#define EEPROM_1_ActAlarmTempo         0x000F0000
+#define EEPROM_1_ActAlarmTempoPosition 4*4
+
+#define EEPROM_1_ActBrightness         0x00F00000
+#define EEPROM_1_ActBrightnessPosition 5*4
+
 // Public functions
 extern void     EEPROM_64_erase(uint32_t ADDRESS);
 extern void     EEPROM_32_erase(uint32_t ADDRESS);

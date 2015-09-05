@@ -70,7 +70,7 @@ void EEPROM_option_lock(void)
 	FLASH->PECR |= FLASH_PECR_OPTLOCK;
 }
 
-void _EEPROM_64_erase(uint32_t ADDRESS)
+void EEPROM_64_erase(uint32_t ADDRESS)
 {
 	// Page 19
 	uint32_t *ptr;
@@ -91,7 +91,7 @@ void _EEPROM_64_erase(uint32_t ADDRESS)
 	__enable_irq();
 }
 
-void _EEPROM_32_erase(uint32_t ADDRESS)
+void EEPROM_32_erase(uint32_t ADDRESS)
 {
 	// Page 18
 	uint32_t *ptr;
@@ -106,7 +106,7 @@ void _EEPROM_32_erase(uint32_t ADDRESS)
 	__enable_irq();
 }
 
-void _EEPROM_64_write(uint32_t ADDRESS, uint64_t DATA)
+void EEPROM_64_write(uint32_t ADDRESS, uint64_t DATA)
 {
 	// Page 21
 	uint32_t *ptr;
@@ -127,7 +127,7 @@ void _EEPROM_64_write(uint32_t ADDRESS, uint64_t DATA)
 	__enable_irq();
 }
 
-void _EEPROM_32_write(uint32_t ADDRESS, uint32_t DATA)
+void EEPROM_32_write(uint32_t ADDRESS, uint32_t DATA)
 {
 	// Page 22
 	uint32_t *ptr;
@@ -143,7 +143,7 @@ void _EEPROM_32_write(uint32_t ADDRESS, uint32_t DATA)
 	__enable_irq();
 }
 
-void _EEPROM_16_write(uint32_t ADDRESS, uint16_t DATA)
+void EEPROM_16_write(uint32_t ADDRESS, uint16_t DATA)
 {
 	// Page 23
 	uint16_t *ptr;
@@ -159,7 +159,7 @@ void _EEPROM_16_write(uint32_t ADDRESS, uint16_t DATA)
 	__enable_irq();
 }
 
-void _EEPROM_8_write(uint32_t ADDRESS, uint8_t DATA)
+void EEPROM_8_write(uint32_t ADDRESS, uint8_t DATA)
 {
 	// Page 24
 	uint8_t *ptr;
@@ -175,7 +175,7 @@ void _EEPROM_8_write(uint32_t ADDRESS, uint8_t DATA)
 	__enable_irq();
 }
 
-void _EEPROM_32_fast_write(uint32_t ADDRESS, uint32_t DATA)
+void EEPROM_32_fast_write(uint32_t ADDRESS, uint32_t DATA)
 {
 	// Page 22
 	uint32_t *ptr;
@@ -191,7 +191,7 @@ void _EEPROM_32_fast_write(uint32_t ADDRESS, uint32_t DATA)
 	__enable_irq();
 }
 
-void _EEPROM_16_fast_write(uint32_t ADDRESS, uint16_t DATA)
+void EEPROM_16_fast_write(uint32_t ADDRESS, uint16_t DATA)
 {
 	// Page 23
 	uint16_t *ptr;
@@ -207,7 +207,7 @@ void _EEPROM_16_fast_write(uint32_t ADDRESS, uint16_t DATA)
 	__enable_irq();
 }
 
-void _EEPROM_8_fast_write(uint32_t ADDRESS, uint8_t DATA)
+void EEPROM_8_fast_write(uint32_t ADDRESS, uint8_t DATA)
 {
 	// Page 24
 	uint8_t *ptr;
@@ -223,7 +223,7 @@ void _EEPROM_8_fast_write(uint32_t ADDRESS, uint8_t DATA)
 	__enable_irq();
 }
 
-uint64_t _EEPROM_64_read(uint32_t ADDRESS)
+uint64_t EEPROM_64_read(uint32_t ADDRESS)
 {
 	uint64_t *ptr;
 	ptr = (uint64_t *)(EEPROM_BASE + ADDRESS);
@@ -231,7 +231,7 @@ uint64_t _EEPROM_64_read(uint32_t ADDRESS)
 	return *ptr;
 }
 
-uint32_t _EEPROM_32_read(uint32_t ADDRESS)
+uint32_t EEPROM_32_read(uint32_t ADDRESS)
 {
 	uint32_t *ptr;
 	ptr = (uint32_t *)(EEPROM_BASE + ADDRESS);
@@ -239,7 +239,7 @@ uint32_t _EEPROM_32_read(uint32_t ADDRESS)
 	return *ptr;
 }
 
-uint16_t _EEPROM_16_read(uint32_t ADDRESS)
+uint16_t EEPROM_16_read(uint32_t ADDRESS)
 {
 	uint16_t *ptr;
 	ptr = (uint16_t *)(EEPROM_BASE + ADDRESS);
@@ -247,7 +247,7 @@ uint16_t _EEPROM_16_read(uint32_t ADDRESS)
 	return *ptr;
 }
 
-uint8_t _EEPROM_8_read(uint32_t ADDRESS)
+uint8_t EEPROM_8_read(uint32_t ADDRESS)
 {
 	uint8_t *ptr;
 	ptr = (uint8_t *)(EEPROM_BASE + ADDRESS);

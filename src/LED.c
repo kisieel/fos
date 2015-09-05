@@ -1,8 +1,6 @@
 #include "led.h"
 #include "stm32l1xx.h"
 
-
-
 volatile uint8_t i = 0;
 volatile uint16_t temp_value[led_bits];
 volatile uint16_t led[led_length*led_bits];
@@ -10,12 +8,20 @@ volatile	uint32_t led_state[led_length];
 
 volatile uint8_t animate_mode[2];	//current [0]. old [1]
 
-volatile uint8_t led_colors[5][3] = {
-	{5, 5, 5},
-	{20, 20, 20},
-	{50, 50, 50},
-	{75, 75, 75},
-	{80, 80, 80}
+// Blue, Red, Green
+volatile uint8_t led_colors[led_colors_qnt][3] = {
+	{255, 0, 0},     // Niebieski
+	{0, 255, 0},     // Czerwony
+	{0, 0, 255},     // Zielony
+	{0, 255, 255},   // Zolty
+	{255, 184, 3}    // Fioletowy
+};
+
+volatile uint8_t led_brightness[4] = {
+	0,
+	1,
+	2,
+	3
 };
 
 volatile uint8_t _LED_dma_flag;

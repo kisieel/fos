@@ -1,5 +1,8 @@
 #include "stm32l1xx.h"
 
+// Maximum number of colors available to set
+#define led_colors_qnt  5
+
 #define led_length			5
 #define led_bits				24
 #define led_select_all	200
@@ -53,7 +56,7 @@ void _LED_set(void);
 void _LED_on(void);
 void _LED_off(void);
 void _LED_set_color(uint8_t led_number, uint8_t blue, uint8_t red, uint8_t green);
-uint8_t _LED_set_color_index(uint8_t led_number, uint8_t index);
+void _LED_set_color_list(uint8_t led_number, uint8_t index);
 uint8_t _LED_change_color(uint8_t led_number, uint8_t color, uint8_t step, uint8_t direction);
 uint32_t _LED_change_brightness(uint8_t led_number, uint8_t step, uint8_t direction);
 void _LED_refresh(uint16_t delay_ms);

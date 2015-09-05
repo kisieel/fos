@@ -22,8 +22,11 @@
 
 typedef struct {
 	uint8_t ActAnimation;
-	uint8_t ActTone;
 	uint8_t ActColor;
+	uint8_t ActBrightness;
+	uint8_t ActAlarmTone;
+	uint8_t ActAlarmVol;
+	uint8_t ActAlarmTempo;	
 } SystemType;
 
 extern SystemType System;
