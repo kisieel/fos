@@ -139,7 +139,7 @@ void menu_2_fun(unsigned int key)
 
 // Regulacja koloru diody
 void menu_3_fun(unsigned int key)
-{	
+{		_LED_blink_on(5);		//sample of use
 	switch (key) {
 //		case (KEY_1):
 //			_BUZZER_single_beep();
@@ -168,7 +168,7 @@ void menu_3_fun(unsigned int key)
 		case (KEY_1):
 			_BUZZER_single_beep();
 			ClrKeyb( KBD_LOCK );
-		
+			_LED_blink_off(5);	
 			EEPROM_32_write(EEPROM_ConfAddress1, (EEPROM_32_read(EEPROM_ConfAddress1) & ~EEPROM_1_ActColor) | (System.ActColor << EEPROM_1_ActColorPosition));
 			_LED_set_color_list(4, 2);
 			_LED_on();
@@ -182,6 +182,7 @@ void menu_3_fun(unsigned int key)
 void menu_4_fun(unsigned int key)
 {
 	
+	_LED_blink_on(4);		//sample of use
 	switch (key) {
 //		case (KEY_1):
 //			_BUZZER_single_beep();
@@ -202,7 +203,7 @@ void menu_4_fun(unsigned int key)
 			break;
 		case (KEY_1):
 			ClrKeyb( KBD_LOCK );
-		
+			_LED_blink_off(4);	
 			EEPROM_32_write(EEPROM_ConfAddress1, (EEPROM_32_read(EEPROM_ConfAddress1) & ~EEPROM_1_ActBrightness) | (System.ActBrightness << EEPROM_1_ActBrightnessPosition));
 			_LED_set_color_list(4, 3);
 			_LED_on();
@@ -255,7 +256,6 @@ void menu_5_fun(unsigned int key)
 void menu_6_fun(unsigned int key)
 {
 	_BUZZER_alarm_start();
-	_LED_blink_on(4);		//sample of use
 	switch (key) {
 //		case (KEY_1):
 //			ClrKeyb( KBD_LOCK );

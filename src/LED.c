@@ -6,8 +6,8 @@ volatile uint16_t temp_value[led_bits];
 volatile uint16_t led[led_length*led_bits];
 volatile	uint32_t led_state[led_length];
 
-volatile uint32_t led_blink_led_state;
-volatile uint8_t led_blink_status;
+volatile uint8_t LED_blinking_state;
+volatile uint8_t led_blink_status[led_length];
 
 volatile uint8_t	led_brightness_coeff;
 
@@ -143,6 +143,8 @@ void DMA1_Channel2_IRQHandler(void)
 
 void _LED_init(void)
 {
+	uint8_t i = 0;
+	
 	led_gpio_init();
 	led_timer_init();
 	led_DMA_init(led_reset_state);
@@ -151,7 +153,11 @@ void _LED_init(void)
 	led_DMA_init(led_on_state);
 	led_refresh_timer_init();	
 	led_brightness_coeff = 100;
-	led_blink_status = led_blink_off;
+	
+	for(i = 0; i< led_length; i++)
+	{
+		led_blink_status[i] = led_blink_off;
+	}
 }
 
 void _LED_off(void)
@@ -185,22 +191,31 @@ void _LED_set(void)
 	while (_LED_dma_flag){};
 	for(j = 0; j<led_length; j ++)
 	{
-	red_s = reverse(((uint8_t)((led_state[j] >> color_red) & 0xFF)*led_brightness_coeff/100));
-	blue_s = reverse(((uint8_t)((led_state[j] >> color_blue) & 0xFF))*led_brightness_coeff/100);
-	green_s = reverse(((uint8_t)((led_state[j] >> color_green) & 0xFF)*led_brightness_coeff/100));
-	temp_state[j] = green_s<<16 | (red_s) <<8 | (blue_s);
-		
-		for(i = 0; i<led_bits; i++)
-		{
-			if(temp_state[j] & (1<<i))
-			{
-				led[24*(j)+i] = led_high;
-			}
-			else
-			{
-				led[24*(j)+i] = led_low;
-			}
+		if(led_blink_status[j] == led_blink_off || (LED_blinking_state == 1 && led_blink_status[j] == led_blink_on)  )
+		{		
+			red_s = reverse(((uint8_t)((led_state[j] >> color_red) & 0xFF)*led_brightness_coeff/100));
+			blue_s = reverse(((uint8_t)((led_state[j] >> color_blue) & 0xFF))*led_brightness_coeff/100);
+			green_s = reverse(((uint8_t)((led_state[j] >> color_green) & 0xFF)*led_brightness_coeff/100));
 		}
+		else if(LED_blinking_state == 0 && led_blink_status[j] == led_blink_on)  
+		{
+			red_s = 0;
+			blue_s = 0;
+			green_s = 0;
+		}
+			temp_state[j] = green_s<<16 | (red_s) <<8 | (blue_s);
+				
+				for(i = 0; i<led_bits; i++)
+				{
+					if(temp_state[j] & (1<<i))
+					{
+						led[24*(j)+i] = led_high;
+					}
+					else
+					{
+						led[24*(j)+i] = led_low;
+					}
+				}
 	}
 }
 
@@ -408,24 +423,15 @@ void led_refresh_timer_init(void)
 	
 }
 
-void _LED_blink_on(uint8_t led_number)		//start blinking
+void _LED_blink_on(uint8_t led_number)		//start blinking chuj ci w dupe i tak tego nie czytasz :)
 {
-	if(led_blink_status == led_blink_off)
+	if(led_blink_status[led_number-1] == led_blink_off)
 	{
-		led_blink_led_state = led_state[led_number-1];
-		led_blink_status = led_blink_on;
+		led_blink_status[led_number-1] = led_blink_on;
 		_LED_refresh_flag = 1;
 	}
-	else if(_LED_refresh_flag && led_blink_status == led_blink_on)
+	else if(_LED_refresh_flag && led_blink_status[led_number-1] == led_blink_on)
 	{
-		if(led_state[led_number-1] == 0)		//jesli jest off
-		{
-			led_state[led_number-1] = led_blink_led_state;
-		}
-		else if(led_state[led_number-1] == led_blink_led_state)
-		{
-			led_state[led_number-1] = 0;
-		}
 		_LED_refresh_flag = 0;
 		_LED_on();
 		_LED_refresh(400);
@@ -434,8 +440,7 @@ void _LED_blink_on(uint8_t led_number)		//start blinking
 
 void _LED_blink_off(uint8_t led_number)		// stop blinking
 {
-	led_state[led_number-1] = led_blink_led_state;
-	led_blink_status = led_blink_off;
+	led_blink_status[led_number-1] = led_blink_off;
 	_LED_on();
 	_LED_refresh_flag = 0;
 }
@@ -608,6 +613,7 @@ void TIM10_IRQHandler(void)
 	{
 		TIM10->SR &= ~TIM_SR_UIF; // clear UIF flag
 		_LED_refresh_flag = 1;		// set flag
+		LED_blinking_state = !LED_blinking_state;
 	}
 }
 
