@@ -129,7 +129,8 @@ void _BUZZER_alarm_set_tone_list(uint8_t index)
 
 void _BUZZER_alarm_set_vol_list(uint8_t index)
 {
-	DAC->DHR8R1 = BUZZER_AlarmVols[index];
+	alarm.volume = BUZZER_AlarmVols[index];
+	DAC->DHR8R1 = alarm.volume;
 }
 
 void _BUZZER_alarm_set_tempo_list(uint8_t index)
@@ -141,7 +142,8 @@ void _BUZZER_alarm_set_tempo_list(uint8_t index)
 void _BUZZER_alarm_start(void)
 {
 	BUZZER_mode = buzzer_mode_alarm;
-	TIM3->ARR = alarm.tempo;
+	DAC->DHR8R1 = alarm.volume;
+	TIM3->ARR = alarm.tempo;	
 	if(!(TIM9->CR1 &= TIM_CR1_CEN)){
 		TIM9->CR1 |= TIM_CR1_CEN;}
 	if(!(TIM3->CR1 &= TIM_CR1_CEN)){
@@ -171,6 +173,7 @@ void _BUZZER_beep_change(uint16_t length, uint16_t volume, uint16_t tone)
 void _BUZZER_single_beep(void)
 {
 	beep.beep_stop = 1;
+	DAC->DHR8R1 = beep.volume;
 	BUZZER_mode = buzzer_mode_beep;
 	TIM3->CR1 |= TIM_CR1_CEN;		
 }

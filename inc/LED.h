@@ -33,11 +33,19 @@
 
 #define led_limit_max 0x79
 
+
+#define led_blink_on 		10
+#define led_blink_off		20
+
 extern volatile uint16_t led_value[led_bits];
 extern volatile uint16_t led[led_length*led_bits];
 extern volatile	uint32_t led_state[led_length];
 extern volatile uint8_t animate_mode[2];	//current[0], old [1]
 
+extern volatile uint32_t led_blink_led_state;
+extern volatile uint8_t led_blink_status;
+
+extern volatile uint8_t	led_brightness_coeff;
 
 extern volatile uint8_t _LED_dma_flag;
 extern volatile uint8_t _LED_refresh_flag;
@@ -50,7 +58,6 @@ void led_bus_reset(void);
 void led_refresh_timer_init(void);
 void LED_set_values(uint8_t led_number, uint8_t blue_set, uint8_t red_set, uint8_t green_set);
 
-
 void _LED_init(void);
 void _LED_set(void);
 void _LED_on(void);
@@ -60,9 +67,13 @@ void _LED_set_color_list(uint8_t led_number, uint8_t index);
 uint8_t _LED_change_color(uint8_t led_number, uint8_t color, uint8_t step, uint8_t direction);
 uint32_t _LED_change_brightness(uint8_t led_number, uint8_t step, uint8_t direction);
 uint32_t _LED_change_brightness_perc(uint8_t led_n, uint8_t perc);
- 
 uint32_t _LED_change_brightness_all(uint8_t step, uint8_t direction);
 uint32_t _LED_change_brightness_all_perc(uint8_t perc);
+
+void _LED_change_brightness_limit(uint8_t brightness);
+
+void _LED_blink_on(uint8_t led_number); 
+void _LED_blink_off(uint8_t led_number); 
 
 void _LED_refresh(uint16_t delay_ms);
 void _LED_animate(void);

@@ -6,6 +6,11 @@ volatile uint16_t temp_value[led_bits];
 volatile uint16_t led[led_length*led_bits];
 volatile	uint32_t led_state[led_length];
 
+volatile uint32_t led_blink_led_state;
+volatile uint8_t led_blink_status;
+
+volatile uint8_t	led_brightness_coeff;
+
 volatile uint8_t animate_mode[2];	//current [0]. old [1]
 
 // Blue, Red, Green
@@ -144,6 +149,8 @@ void _LED_init(void)
 	while (_LED_dma_flag){};
 	led_DMA_init(led_on_state);
 	led_refresh_timer_init();	
+	led_brightness_coeff = 100;
+	led_blink_status = led_blink_off;
 }
 
 void _LED_off(void)
@@ -215,9 +222,9 @@ void _LED_set_color(uint8_t led_number, uint8_t blue, uint8_t red, uint8_t green
 {
 	uint32_t temp_state =	0;
 	uint8_t i = 0;
-	uint8_t red_set = (uint8_t)(red *led_limit_max/100);
-	uint8_t blue_set =  (uint8_t)(blue *led_limit_max/100);
-	uint8_t green_set = (uint8_t)(green *led_limit_max/100);
+	uint8_t red_set = (uint8_t)((led_brightness_coeff)*red *led_limit_max/10000);
+	uint8_t blue_set =  (uint8_t)((led_brightness_coeff)*blue *led_limit_max/10000);
+	uint8_t green_set = (uint8_t)((led_brightness_coeff)*green *led_limit_max/10000);
 	
 	LED_set_values(led_number,blue_set,red_set,green_set);
 }
@@ -237,7 +244,7 @@ uint8_t  _LED_change_color(uint8_t led_number, uint8_t color, uint8_t step, uint
 
 	if(direction == led_increment)
 	{
-		if((color_temp+change)>=led_limit_max){color_temp = led_limit_max; return_value = led_brightness_max;}
+		if((color_temp+change)>=(led_limit_max*led_brightness_coeff/100)){color_temp = (led_limit_max*led_brightness_coeff/100); return_value = led_brightness_max;}
 		else{color_temp += change; }
 	}
 	else if(direction == led_decrement)
@@ -288,13 +295,13 @@ uint32_t _LED_change_brightness(uint8_t led_n, uint8_t step, uint8_t direction)
 	uint8_t change = step;
 	if(direction == led_increment)
 	{
-		if((red_set+change)>=led_limit_max){red_set = led_limit_max; return_value = led_brightness_max;}
+		if((red_set+change)>=(led_limit_max*led_brightness_coeff/100)){red_set = (led_limit_max*led_brightness_coeff/100); return_value = led_brightness_max;}
 		else{red_set += change; }
 		
-		if((blue_set+change)>=led_limit_max){blue_set = led_limit_max; return_value = led_brightness_max;}
+		if((blue_set+change)>=(led_limit_max*led_brightness_coeff/100)){blue_set = (led_limit_max*led_brightness_coeff/100); return_value = led_brightness_max;}
 		else{blue_set += change; }		
 		
-		if((green_set+change)>=led_limit_max){green_set = led_limit_max; return_value = led_brightness_max;}
+		if((green_set+change)>=(led_limit_max*led_brightness_coeff/100)){green_set = (led_limit_max*led_brightness_coeff/100); return_value = led_brightness_max;}
 		else{green_set += change; }		
 	}
 	else if(direction == led_decrement)
@@ -357,6 +364,13 @@ uint32_t _LED_change_brightness_all_perc(uint8_t perc)
 	return 0;	
 }
 
+void _LED_change_brightness_limit(uint8_t brightness)	// set limit for brightness in %
+{
+	led_brightness_coeff = brightness;
+	_LED_change_brightness_all(0, led_increment);
+	_LED_set();
+}
+
 void led_refresh_timer_init(void)
 {
 	RCC->APB2ENR |= RCC_APB2ENR_TIM10EN;
@@ -386,6 +400,38 @@ void led_refresh_timer_init(void)
 	TIM10->EGR |= TIM_EGR_UG;                               // Initialize all registers
 	TIM10->SR &= ~ TIM_SR_UIF;				// czyszczenie flagi	
 	
+}
+
+void _LED_blink_on(uint8_t led_number)		//start blinking
+{
+	if(led_blink_status == led_blink_off)
+	{
+		led_blink_led_state = led_state[led_number-1];
+		led_blink_status = led_blink_on;
+		_LED_refresh_flag = 1;
+	}
+	else if(_LED_refresh_flag && led_blink_status == led_blink_on)
+	{
+		if(led_state[led_number-1] == 0)		//jesli jest off
+		{
+			led_state[led_number-1] = led_blink_led_state;
+		}
+		else if(led_state[led_number-1] == led_blink_led_state)
+		{
+			led_state[led_number-1] = 0;
+		}
+		_LED_refresh_flag = 0;
+		_LED_on();
+		_LED_refresh(400);
+	}
+}
+
+void _LED_blink_off(uint8_t led_number)		// stop blinking
+{
+	led_state[led_number-1] = led_blink_led_state;
+	led_blink_status = led_blink_off;
+	_LED_on();
+	_LED_refresh_flag = 0;
 }
 
 void _LED_refresh(uint16_t delay_ms)
@@ -418,6 +464,7 @@ void _LED_animate(void)
 					animate_mode[1] = animate_mode[0];
 					animate_mode[0] = animate_mode_delay;
 				}
+				
 			}
 			_LED_refresh_flag = 0;
 			_LED_on();
