@@ -24,12 +24,12 @@ volatile uint8_t led_colors[led_colors_qnt][3] = {
 };
 
 volatile uint8_t led_brightness[led_brightness_qnt] = {
-	0,
-	20,
-	30,
-	40,
-	60,
-	80,
+	5,
+	15,
+	25,
+	35,
+	55,
+	75,
 	100
 };
 
