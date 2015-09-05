@@ -71,7 +71,9 @@ uint8_t _LED_change_color(uint8_t led_number, uint8_t color, uint8_t step, uint8
 uint32_t _LED_change_brightness(uint8_t led_number, uint8_t step, uint8_t direction);
 uint32_t _LED_change_brightness_perc(uint8_t led_n, uint8_t perc);
 uint32_t _LED_change_brightness_all(uint8_t step, uint8_t direction);
-void _LED_change_brightness_all_perc_list(uint8_t index);
+
+void _LED_change_brightness_limit_list(uint8_t index);
+
 uint32_t _LED_change_brightness_all_perc(uint8_t perc);
 
 void _LED_change_brightness_limit(uint8_t brightness);

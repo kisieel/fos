@@ -196,7 +196,7 @@ void menu_4_fun(unsigned int key)
 				System.ActBrightness = 0;
 			else
 				System.ActBrightness++;
-			_LED_change_brightness_all_perc_list(System.ActBrightness);
+			_LED_change_brightness_limit_list(System.ActBrightness);
 			_LED_on();
 		
 			break;

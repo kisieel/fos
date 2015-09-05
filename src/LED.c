@@ -353,9 +353,9 @@ uint32_t _LED_change_brightness_all(uint8_t step, uint8_t direction)
 	return 0;
 }
 
-void _LED_change_brightness_all_perc_list(uint8_t index)
+void _LED_change_brightness_limit_list(uint8_t index)
 {
-	_LED_change_brightness_all_perc(led_brightness[index]);
+	_LED_change_brightness_limit(led_brightness[index]);
 }
 
 uint32_t _LED_change_brightness_all_perc(uint8_t perc)
