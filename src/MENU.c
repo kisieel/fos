@@ -255,7 +255,7 @@ void menu_5_fun(unsigned int key)
 void menu_6_fun(unsigned int key)
 {
 	_BUZZER_alarm_start();
-	
+	_LED_blink_on(4);		//sample of use
 	switch (key) {
 //		case (KEY_1):
 //			ClrKeyb( KBD_LOCK );
@@ -270,7 +270,6 @@ void menu_6_fun(unsigned int key)
 //			break;
 		case (KEY_2):
 			ClrKeyb( KBD_LOCK );
-		
 			if (System.ActAlarmVol == buzzer_vols_qnt - 1)
 				System.ActAlarmVol = 0;
 			else
@@ -280,7 +279,8 @@ void menu_6_fun(unsigned int key)
 			break;
 		case (KEY_1):
 			ClrKeyb( KBD_LOCK );
-		
+			_LED_blink_off(4);		//sample of use 
+			
 			EEPROM_32_write(EEPROM_ConfAddress1, (EEPROM_32_read(EEPROM_ConfAddress1) & ~EEPROM_1_ActAlarmVol) | (System.ActAlarmVol << EEPROM_1_ActAlarmVolPosition));
 			_LED_set_color_list(4, 5);
 			_LED_on();
@@ -309,7 +309,7 @@ void menu_7_fun(unsigned int key)
 //			break;
 		case (KEY_2):
 			ClrKeyb( KBD_LOCK );
-		
+					_LED_change_brightness_limit(20);		//sample of use (%)
 			if (System.ActAlarmTempo == buzzer_tempos_qnt - 1)
 				System.ActAlarmTempo = 0;
 			else

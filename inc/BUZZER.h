@@ -10,8 +10,8 @@
 #define buzzer_tempos_qnt  10
 
 #define vol_max 	DAC->DHR8R1 = 0xFF;	//vref * (dor/4095) = vout	
-#define vol_mid 	DAC->DHR8R1 = 47;	//vref * (dor/4095) = vout
-#define vol_min 	DAC->DHR8R1 = 44;	//vref * (dor/4095) = vout
+#define vol_mid 	DAC->DHR8R1 = 52;	//vref * (dor/4095) = vout
+#define vol_min 	DAC->DHR8R1 = 49;	//vref * (dor/4095) = vout
 #define vol_off		DAC->DHR8R1 = 0x00;
 
 #define nominal_freuqency 79
@@ -55,6 +55,7 @@ struct alarm_struct
 	uint16_t tempo;
 	uint16_t tone[2];
 	uint8_t position;
+	uint16_t volume;
 };
 
 struct beep_struct
