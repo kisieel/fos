@@ -185,9 +185,9 @@ void _LED_set(void)
 	while (_LED_dma_flag){};
 	for(j = 0; j<led_length; j ++)
 	{
-	red_s = reverse((uint8_t)((led_state[j] >> color_red) & 0xFF));
-	blue_s = reverse((uint8_t)((led_state[j] >> color_blue) & 0xFF));
-	green_s = reverse((uint8_t)((led_state[j] >> color_green) & 0xFF));
+	red_s = reverse(((uint8_t)((led_state[j] >> color_red) & 0xFF)*led_brightness_coeff/100));
+	blue_s = reverse(((uint8_t)((led_state[j] >> color_blue) & 0xFF))*led_brightness_coeff/100);
+	green_s = reverse(((uint8_t)((led_state[j] >> color_green) & 0xFF)*led_brightness_coeff/100));
 	temp_state[j] = green_s<<16 | (red_s) <<8 | (blue_s);
 		
 		for(i = 0; i<led_bits; i++)
@@ -223,9 +223,9 @@ void _LED_set_color(uint8_t led_number, uint8_t blue, uint8_t red, uint8_t green
 {
 	uint32_t temp_state =	0;
 	uint8_t i = 0;
-	uint8_t red_set = (uint8_t)((led_brightness_coeff)*red *led_limit_max/10000);
-	uint8_t blue_set =  (uint8_t)((led_brightness_coeff)*blue *led_limit_max/10000);
-	uint8_t green_set = (uint8_t)((led_brightness_coeff)*green *led_limit_max/10000);
+	uint8_t red_set = (uint8_t)(red *led_limit_max/100);
+	uint8_t blue_set =  (uint8_t)(blue *led_limit_max/100);
+	uint8_t green_set = (uint8_t)(green *led_limit_max/100);
 	
 	LED_set_values(led_number,blue_set,red_set,green_set);
 }
@@ -245,7 +245,7 @@ uint8_t  _LED_change_color(uint8_t led_number, uint8_t color, uint8_t step, uint
 
 	if(direction == led_increment)
 	{
-		if((color_temp+change)>=(led_limit_max*led_brightness_coeff/100)){color_temp = (led_limit_max*led_brightness_coeff/100); return_value = led_brightness_max;}
+		if((color_temp+change)>=(led_limit_max)){color_temp = (led_limit_max); return_value = led_brightness_max;}
 		else{color_temp += change; }
 	}
 	else if(direction == led_decrement)
@@ -296,13 +296,13 @@ uint32_t _LED_change_brightness(uint8_t led_n, uint8_t step, uint8_t direction)
 	uint8_t change = step;
 	if(direction == led_increment)
 	{
-		if((red_set+change)>=(led_limit_max*led_brightness_coeff/100)){red_set = (led_limit_max*led_brightness_coeff/100); return_value = led_brightness_max;}
+		if((red_set+change)>=(led_limit_max)){red_set = (led_limit_max); return_value = led_brightness_max;}
 		else{red_set += change; }
 		
-		if((blue_set+change)>=(led_limit_max*led_brightness_coeff/100)){blue_set = (led_limit_max*led_brightness_coeff/100); return_value = led_brightness_max;}
+		if((blue_set+change)>=(led_limit_max)){blue_set = (led_limit_max); return_value = led_brightness_max;}
 		else{blue_set += change; }		
 		
-		if((green_set+change)>=(led_limit_max*led_brightness_coeff/100)){green_set = (led_limit_max*led_brightness_coeff/100); return_value = led_brightness_max;}
+		if((green_set+change)>=(led_limit_max)){green_set = (led_limit_max); return_value = led_brightness_max;}
 		else{green_set += change; }		
 	}
 	else if(direction == led_decrement)
@@ -353,11 +353,6 @@ uint32_t _LED_change_brightness_all(uint8_t step, uint8_t direction)
 	return 0;
 }
 
-void _LED_change_brightness_limit_list(uint8_t index)
-{
-	_LED_change_brightness_limit(led_brightness[index]);
-}
-
 uint32_t _LED_change_brightness_all_perc(uint8_t perc)
 {
 	uint8_t led_number = 0;
@@ -370,10 +365,15 @@ uint32_t _LED_change_brightness_all_perc(uint8_t perc)
 	return 0;	
 }
 
+void _LED_change_brightness_limit_list(uint8_t index)
+{
+	_LED_change_brightness_limit(led_brightness[index]);
+}
+
 void _LED_change_brightness_limit(uint8_t brightness)	// set limit for brightness in %
 {
 	led_brightness_coeff = brightness;
-	_LED_change_brightness_all(0, led_increment);
+	_LED_change_brightness_all(0,led_increment);
 	_LED_set();
 }
 
