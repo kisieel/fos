@@ -86,6 +86,7 @@ int main()
 
 	// Enter System values
 	_LED_set_color_list(5, System.ActColor);
+	_LED_change_brightness_all_perc_list(System.ActBrightness);
 	_LED_on();
 	_BUZZER_alarm_set_tone_list(System.ActAlarmTone);
 	_BUZZER_alarm_set_vol_list(System.ActAlarmVol);

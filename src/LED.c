@@ -18,11 +18,14 @@ volatile uint8_t led_colors[led_colors_qnt][3] = {
 	{100, 100, 0}    // HOW KNOWS?!
 };
 
-volatile uint8_t led_brightness[4] = {
+volatile uint8_t led_brightness[led_brightness_qnt] = {
 	0,
-	1,
-	2,
-	3
+	20,
+	30,
+	40,
+	60,
+	80,
+	100
 };
 
 volatile uint8_t _LED_dma_flag;
@@ -39,8 +42,6 @@ void led_gpio_init(void)
 	
 	GPIOB->AFR[1] |= (GPIO_AFRH_AFRH10 & (1 << 4*2));
 }
-
-
 
 void led_timer_init(void)
 {
@@ -343,6 +344,11 @@ uint32_t _LED_change_brightness_all(uint8_t step, uint8_t direction)
 	}
 	
 	return 0;
+}
+
+void _LED_change_brightness_all_perc_list(uint8_t index)
+{
+	_LED_change_brightness_all_perc(led_brightness[index]);
 }
 
 uint32_t _LED_change_brightness_all_perc(uint8_t perc)

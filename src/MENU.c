@@ -191,6 +191,14 @@ void menu_4_fun(unsigned int key)
 		case (KEY_2):
 			_BUZZER_single_beep();
 			ClrKeyb( KBD_LOCK );
+		
+			if (System.ActBrightness == led_brightness_qnt - 1)
+				System.ActBrightness = 0;
+			else
+				System.ActBrightness++;
+			_LED_change_brightness_all_perc_list(System.ActBrightness);
+			_LED_on();
+		
 			break;
 		case (KEY_1):
 			ClrKeyb( KBD_LOCK );

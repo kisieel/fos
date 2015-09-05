@@ -1,7 +1,10 @@
 #include "stm32l1xx.h"
 
 // Maximum number of colors available to set
-#define led_colors_qnt  6
+#define led_colors_qnt     6
+
+// Maximum number of brightness available to set
+#define led_brightness_qnt 7
 
 #define led_length			5
 #define led_bits				24
@@ -62,6 +65,7 @@ uint32_t _LED_change_brightness(uint8_t led_number, uint8_t step, uint8_t direct
 uint32_t _LED_change_brightness_perc(uint8_t led_n, uint8_t perc);
  
 uint32_t _LED_change_brightness_all(uint8_t step, uint8_t direction);
+void _LED_change_brightness_all_perc_list(uint8_t index);
 uint32_t _LED_change_brightness_all_perc(uint8_t perc);
 
 void _LED_refresh(uint16_t delay_ms);
