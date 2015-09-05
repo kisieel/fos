@@ -100,6 +100,7 @@ void BUZZER_reset_timer(void)
 	TIM9->ARR = 0;
 	TIM9->CCR1 =  0;
 	TIM3->ARR = 1;
+	TIM3->CNT = 0;
 	TIM9->CR1 &= ~TIM_CR1_CEN;	
 	TIM3->CR1 &= ~TIM_CR1_CEN;
 }
@@ -113,7 +114,7 @@ void _BUZZER_off(void)
 	TIM3->CR1 &= ~TIM_CR1_CEN;
 	TIM9->CR1 &= ~TIM_CR1_CEN;
 	
-	TIM3->ARR = 0;
+	TIM3->ARR = 1;
 	TIM9->ARR = 0;
 	
 	vol_off;	
@@ -123,6 +124,7 @@ void _BUZZER_alarm_set_tone_list(uint8_t index)
 {
 	alarm.tone[0] = BUZZER_AlarmTones[index][0];
 	alarm.tone[1] = BUZZER_AlarmTones[index][1];
+	BUZZER_reset_timer();
 }
 
 void _BUZZER_alarm_set_vol_list(uint8_t index)
@@ -132,15 +134,19 @@ void _BUZZER_alarm_set_vol_list(uint8_t index)
 
 void _BUZZER_alarm_set_tempo_list(uint8_t index)
 {
-	TIM3->ARR = BUZZER_AlarmTempos[index];
+	alarm.tempo = BUZZER_AlarmTempos[index];
+	BUZZER_reset_timer();
 }
 
 void _BUZZER_alarm_start(void)
 {
 	BUZZER_mode = buzzer_mode_alarm;
 	TIM3->ARR = alarm.tempo;
-	TIM9->CR1 |= TIM_CR1_CEN;
-	TIM3->CR1 |= TIM_CR1_CEN;
+	if(!(TIM9->CR1 &= TIM_CR1_CEN)){
+		TIM9->CR1 |= TIM_CR1_CEN;}
+	if(!(TIM3->CR1 &= TIM_CR1_CEN)){
+		TIM3->CR1 |= TIM_CR1_CEN;}
+		
 }
 
 void _BUZZER_alarm_stop(void)
@@ -201,7 +207,7 @@ void _BUZZER_init(void)
 	TIM3->DIER |= TIM_DIER_UIE;		// wlacz przerwanie	
 	TIM3->EGR |= TIM_EGR_UG;                               // Initialize all registers	
 	TIM3->SR &= ~ TIM_SR_UIF;				// czyszczenie flagi
-	
+	BUZZER_reset_timer();
 	vol_mid;
 }
 

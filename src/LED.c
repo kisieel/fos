@@ -10,11 +10,12 @@ volatile uint8_t animate_mode[2];	//current [0]. old [1]
 
 // Blue, Red, Green
 volatile uint8_t led_colors[led_colors_qnt][3] = {
-	{255, 0, 0},     // Niebieski
-	{0, 255, 0},     // Czerwony
-	{0, 0, 255},     // Zielony
-	{0, 255, 255},   // Zolty
-	{255, 184, 3}    // Fioletowy
+	{100, 0, 0},     // Niebieski
+	{0, 100, 0},     // Czerwony
+	{0, 0, 100},     // Zielony
+	{0, 100, 100},   // Zolty
+	{100, 55, 0},   // Fioletowy
+	{100, 100, 0}    // HOW KNOWS?!
 };
 
 volatile uint8_t led_brightness[4] = {
@@ -214,9 +215,9 @@ void _LED_set_color(uint8_t led_number, uint8_t blue, uint8_t red, uint8_t green
 {
 	uint32_t temp_state =	0;
 	uint8_t i = 0;
-	uint8_t red_set = (uint8_t)(red *255/100);
-	uint8_t blue_set = (uint8_t)(blue *255/100);
-	uint8_t green_set = (uint8_t)(green *255/100);
+	uint8_t red_set = (uint8_t)(red *led_limit_max/100);
+	uint8_t blue_set =  (uint8_t)(blue *led_limit_max/100);
+	uint8_t green_set = (uint8_t)(green *led_limit_max/100);
 	
 	LED_set_values(led_number,blue_set,red_set,green_set);
 }
@@ -284,7 +285,6 @@ uint32_t _LED_change_brightness(uint8_t led_n, uint8_t step, uint8_t direction)
 	uint8_t red_set = (uint8_t)((led_state[led_n - 1] >> color_red) & 0xFF);
 	uint8_t blue_set = (uint8_t)((led_state[led_n - 1] >> color_blue) & 0xFF);
 	uint8_t green_set = (uint8_t)((led_state[led_n - 1] >> color_green) & 0xFF);
-	//uint8_t change =  (uint8_t)(255*step/100);
 	uint8_t change = step;
 	if(direction == led_increment)
 	{
@@ -313,6 +313,49 @@ uint32_t _LED_change_brightness(uint8_t led_n, uint8_t step, uint8_t direction)
 		return return_value;
 }
 
+uint32_t _LED_change_brightness_perc(uint8_t led_n, uint8_t perc)
+{
+	uint32_t temp_state =	0;
+	uint32_t return_value = 0;
+	uint8_t i = 0;
+	uint8_t red = (uint8_t)((led_state[led_n - 1] >> color_red) & 0xFF);
+	uint8_t blue = (uint8_t)((led_state[led_n - 1] >> color_blue) & 0xFF);
+	uint8_t green = (uint8_t)((led_state[led_n - 1] >> color_green) & 0xFF);
+	uint8_t red_set = 0;
+	uint8_t blue_set = 0;
+	uint8_t green_set = 0;
+	
+	red_set = (uint8_t)(red*perc/100);
+	blue_set = (uint8_t)(blue*perc/100);
+	green_set = (uint8_t)(red*perc/100);
+	
+	LED_set_values(led_n,blue_set,red_set,green_set);
+		return return_value;
+}
+
+uint32_t _LED_change_brightness_all(uint8_t step, uint8_t direction)
+{
+	uint8_t led_number = 0;
+	
+	for(led_number = 1; led_number<=led_length; led_number++)
+	{
+		_LED_change_brightness(led_number, step, direction);
+	}
+	
+	return 0;
+}
+
+uint32_t _LED_change_brightness_all_perc(uint8_t perc)
+{
+	uint8_t led_number = 0;
+	
+	for(led_number = 1; led_number<=led_length; led_number++)
+	{
+		_LED_change_brightness_perc(led_number,perc);
+	}
+	
+	return 0;	
+}
 
 void led_refresh_timer_init(void)
 {
