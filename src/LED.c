@@ -10,11 +10,11 @@ volatile uint8_t animate_mode[2];	//current [0]. old [1]
 
 // Blue, Red, Green
 volatile uint8_t led_colors[led_colors_qnt][3] = {
-	{255, 0, 0},     // Niebieski
-	{0, 255, 0},     // Czerwony
-	{0, 0, 255},     // Zielony
-	{0, 255, 255},   // Zolty
-	{255, 184, 3}    // Fioletowy
+	{100, 0, 0},     // Niebieski
+	{0, 100, 0},     // Czerwony
+	{0, 0, 100},     // Zielony
+	{0, 100, 100},   // Zolty
+	{100, 55, 0}    // Fioletowy
 };
 
 volatile uint8_t led_brightness[4] = {
@@ -214,9 +214,9 @@ void _LED_set_color(uint8_t led_number, uint8_t blue, uint8_t red, uint8_t green
 {
 	uint32_t temp_state =	0;
 	uint8_t i = 0;
-	uint8_t red_set = (uint8_t)(red *255/100);
-	uint8_t blue_set = (uint8_t)(blue *255/100);
-	uint8_t green_set = (uint8_t)(green *255/100);
+	uint8_t red_set = (uint8_t)(red *led_limit_max/100);
+	uint8_t blue_set =  (uint8_t)(blue *led_limit_max/100);
+	uint8_t green_set = (uint8_t)(green *led_limit_max/100);
 	
 	LED_set_values(led_number,blue_set,red_set,green_set);
 }
