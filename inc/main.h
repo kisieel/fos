@@ -32,7 +32,8 @@ typedef struct {
 	uint8_t ActBrightness;
 	uint8_t ActAlarmTone;
 	uint8_t ActAlarmVol;
-	uint8_t ActAlarmTempo;	
+	uint8_t ActAlarmTempo;
+	uint8_t ActMusic;
 } SystemType;
 
 extern SystemType System;

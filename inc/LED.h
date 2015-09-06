@@ -1,5 +1,8 @@
 #include "stm32l1xx.h"
 
+// Maximum number of animations available to set
+#define led_amimations_qnt 1
+
 // Maximum number of colors available to set
 #define led_colors_qnt     6
 

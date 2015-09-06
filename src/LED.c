@@ -13,6 +13,10 @@ volatile uint8_t	led_brightness_coeff;
 
 volatile uint8_t animate_mode[2];	//current [0]. old [1]
 
+//volatile uint8_t led_animations[led_amimations_qnt] = {
+//	
+//};
+
 // Blue, Red, Green
 volatile uint8_t led_colors[led_colors_qnt][3] = {
 	{100, 0, 0},     // Niebieski

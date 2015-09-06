@@ -9,6 +9,9 @@
 // Maximum number of alarm tempos available to set
 #define buzzer_tempos_qnt  10
 
+// Maximum number of musics available to set
+#define buzzer_musics_qnt  10
+
 #define vol_max 	DAC->DHR8R1 = 0xFF;	//vref * (dor/4095) = vout	
 #define vol_mid 	DAC->DHR8R1 = 52;	//vref * (dor/4095) = vout
 #define vol_min 	DAC->DHR8R1 = 49;	//vref * (dor/4095) = vout
@@ -26,8 +29,6 @@
 #define CT	nominal_freuqency + 20
 
 #define music_length 10
-#define max_music_samples 10
-
 
 #define alarm_high nominal_freuqency + 10
 #define alarm_low	 nominal_freuqency - 10
@@ -39,14 +40,14 @@
 
 struct music_struct
 {
-	uint16_t tempo[music_length];
-	uint16_t tone[music_length];
+	uint16_t *tempo;
+	uint8_t *tone;
 	uint8_t position;
 };
 
 struct music_library_struct
 {
-	struct music_struct samples[max_music_samples];
+	struct music_struct samples[buzzer_musics_qnt];
 	uint8_t current_music_number;
 };
 
@@ -79,6 +80,7 @@ void DAC_LOGIC_init(void);
 void BUZZER_DMA_MELODY_init(void);
 void BUZZER_TIMER_change_config_last(void);
 void BUZZER_reset_timer(void);
+void BUZZER_music_init(void);
 
 void _BUZZER_off(void);
 void _BUZZER_play_music(uint8_t music_number);

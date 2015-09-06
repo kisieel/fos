@@ -9,7 +9,6 @@ MENU *_5_menu;
 MENU *_6_menu;
 MENU *_7_menu;
 MENU *_8_menu;
-MENU *_9_menu;
 
 MENU *_actual;
 
@@ -22,7 +21,6 @@ void menu_5_fun(unsigned int);
 void menu_6_fun(unsigned int);
 void menu_7_fun(unsigned int);
 void menu_8_fun(unsigned int);
-void menu_9_fun(unsigned int);
 
 void MENU_init()
 {
@@ -34,7 +32,6 @@ void MENU_init()
 	_6_menu = malloc(sizeof(MENU));
 	_7_menu = malloc(sizeof(MENU));
 	_8_menu = malloc(sizeof(MENU));
-	_9_menu = malloc(sizeof(MENU));
 	
 // 0 level
 	_1_menu->next = _2_menu;
@@ -67,20 +64,15 @@ void MENU_init()
 	_6_menu->sub = NULL;
 	_6_menu->menu_fun = menu_6_fun;
 	
-	_7_menu->next = _1_menu;
+	_7_menu->next = _8_menu;
 	_7_menu->par = NULL;
 	_7_menu->sub = NULL;
 	_7_menu->menu_fun = menu_7_fun;
 	
-//	_8_menu->next = _9_menu;
-//	_8_menu->par = NULL;
-//	_8_menu->sub = NULL;
-//	_8_menu->menu_fun = menu_8_fun;
-//	
-//	_9_menu->next = _1_menu;
-//	_9_menu->par = NULL;
-//	_9_menu->sub = NULL;
-//	_9_menu->menu_fun = menu_9_fun;
+	_8_menu->next = _1_menu;
+	_8_menu->par = NULL;
+	_8_menu->sub = NULL;
+	_8_menu->menu_fun = menu_8_fun;
 	
 	_actual = _1_menu;
 }
@@ -91,11 +83,6 @@ void menu_1_fun(unsigned int key)
 	HALL_Data.HuntTime = TRUE;
 	
 	switch (key) {
-//		case (KEY_1):
-//			
-//			ClrKeyb( KBD_LOCK );
-//			_actual = _actual->next;
-//			break;
 		case (KEY_2):
 			ClrKeyb( KBD_LOCK );
 			break;
@@ -115,13 +102,17 @@ void menu_1_fun(unsigned int key)
 // Wybor animacji brania
 void menu_2_fun(unsigned int key)
 {
+	_LED_animate();
+	
 	switch (key) {
-//		case (KEY_1):
-//			_BUZZER_single_beep();
-//			ClrKeyb( KBD_LOCK );
-//			break;
 		case (KEY_2):
 			_BUZZER_single_beep();
+		
+			if (System.ActAnimation == led_colors_qnt - 1)
+				System.ActAnimation = 0;
+			else
+				System.ActAnimation++;
+			
 			ClrKeyb( KBD_LOCK );
 			break;
 		case (KEY_1):
@@ -130,8 +121,6 @@ void menu_2_fun(unsigned int key)
 			
 			EEPROM_32_write(EEPROM_ConfAddress1, (EEPROM_32_read(EEPROM_ConfAddress1) & ~EEPROM_1_ActAnimation) | (System.ActAnimation << EEPROM_1_ActAnimationPosition));
 			_LED_set_color_list(4, 1);
-			_LED_on();
-			_LED_blink_on(5);
 			_LED_on();
 		
 			_actual = _actual->next;
@@ -142,21 +131,9 @@ void menu_2_fun(unsigned int key)
 // Regulacja koloru diody
 void menu_3_fun(unsigned int key)
 {
-	_LED_blink_on(5);		//sample of use
+	_LED_blink_on(5);
 
 	switch (key) {
-//		case (KEY_1):
-//			_BUZZER_single_beep();
-//			ClrKeyb( KBD_LOCK );
-//		
-//			if (System.ActColor == 0)
-//				System.ActColor = led_colors_qnt - 1;
-//			else
-//				System.ActColor--;
-//			_LED_set_color_list(4, System.ActColor);
-//			_LED_on();
-//			
-//			break;
 		case (KEY_2):
 			_BUZZER_single_beep();
 			ClrKeyb( KBD_LOCK );
@@ -187,14 +164,7 @@ void menu_3_fun(unsigned int key)
 // Wybor jasnosci diod
 void menu_4_fun(unsigned int key)
 {
-	
-	_LED_blink_on(4);		//sample of use
 	switch (key) {
-//		case (KEY_1):
-//			_BUZZER_single_beep();
-//			ClrKeyb( KBD_LOCK );
-//			_actual = _actual->next;
-//			break;
 		case (KEY_2):
 			_BUZZER_single_beep();
 			ClrKeyb( KBD_LOCK );
@@ -225,17 +195,6 @@ void menu_5_fun(unsigned int key)
 	_BUZZER_alarm_start();
 	
 	switch (key) {
-//		case (KEY_1):
-//			ClrKeyb( KBD_LOCK );
-//		
-//			if (System.ActAlarmTone == 0)
-//				System.ActAlarmTone = buzzer_tones_qnt - 1;
-//			else
-//				System.ActAlarmTone--;
-//			_BUZZER_alarm_set_tone_list(System.ActAlarmTone);
-//			
-//			_actual = _actual->next;
-//			break;
 		case (KEY_2):
 			ClrKeyb( KBD_LOCK );
 		
@@ -263,17 +222,6 @@ void menu_6_fun(unsigned int key)
 {
 	_BUZZER_alarm_start();
 	switch (key) {
-//		case (KEY_1):
-//			ClrKeyb( KBD_LOCK );
-//		
-//			if (System.ActAlarmVol == 0)
-//				System.ActAlarmVol = buzzer_vols_qnt - 1;
-//			else
-//				System.ActAlarmVol--;
-//			_BUZZER_alarm_set_vol_list(System.ActAlarmVol);
-//		
-//			_actual = _actual->next;
-//			break;
 		case (KEY_2):
 			ClrKeyb( KBD_LOCK );
 			if (System.ActAlarmVol == buzzer_vols_qnt - 1)
@@ -285,7 +233,6 @@ void menu_6_fun(unsigned int key)
 			break;
 		case (KEY_1):
 			ClrKeyb( KBD_LOCK );
-			_LED_blink_off(4);		//sample of use 
 			
 			EEPROM_32_write(EEPROM_ConfAddress1, (EEPROM_32_read(EEPROM_ConfAddress1) & ~EEPROM_1_ActAlarmVol) | (System.ActAlarmVol << EEPROM_1_ActAlarmVolPosition));
 			_LED_set_color_list(4, 5);
@@ -302,20 +249,9 @@ void menu_7_fun(unsigned int key)
 	_BUZZER_alarm_start();
 	
 	switch (key) {
-//		case (KEY_1):
-//			ClrKeyb( KBD_LOCK );
-//			
-//			if (System.ActAlarmTempo == 0)
-//				System.ActAlarmTempo = buzzer_tempos_qnt - 1;
-//			else
-//				System.ActAlarmTempo--;
-//			_BUZZER_alarm_set_tempo_list(System.ActAlarmTempo);
-//		
-//			_actual = _actual->next;
-//			break;
 		case (KEY_2):
 			ClrKeyb( KBD_LOCK );
-					_LED_change_brightness_limit(20);		//sample of use (%)
+		
 			if (System.ActAlarmTempo == buzzer_tempos_qnt - 1)
 				System.ActAlarmTempo = 0;
 			else
@@ -327,7 +263,7 @@ void menu_7_fun(unsigned int key)
 			ClrKeyb( KBD_LOCK );
 		
 			EEPROM_32_write(EEPROM_ConfAddress1, (EEPROM_32_read(EEPROM_ConfAddress1) & ~EEPROM_1_ActAlarmTempo) | (System.ActAlarmTempo << EEPROM_1_ActAlarmTempoPosition));
-			_LED_set_color(4, 0, 0, 0);
+			_LED_set_color_list(4, 6);
 			_LED_on();
 			_BUZZER_alarm_stop();
 		
@@ -336,50 +272,28 @@ void menu_7_fun(unsigned int key)
 	}
 }
 
-// 
+// Wybor muzyki
 void menu_8_fun(unsigned int key)
 {
 	
-	switch (key) {
-//		case (KEY_1):
-//			_BUZZER_single_beep();
-//			ClrKeyb( KBD_LOCK );
-//			_actual = _actual->next;
-//			break;
-		case (KEY_2):
-			_BUZZER_single_beep();
-			ClrKeyb( KBD_LOCK );
-			break;
-		case (KEY_1):
-			_BUZZER_single_beep();
-			ClrKeyb( KBD_LOCK );
-		
-			_actual = _actual->next;
-		
-			break;
-	}
-}
-
-// 
-void menu_9_fun(unsigned int key)
-{
 	
 	switch (key) {
-//		case (KEY_1):
-//			_BUZZER_single_beep();
-//			ClrKeyb( KBD_LOCK );
-//			_actual = _actual->next;
-//			break;
 		case (KEY_2):
-			_BUZZER_single_beep();
 			ClrKeyb( KBD_LOCK );
+		
+			if (System.ActMusic == buzzer_musics_qnt - 1)
+				System.ActMusic = 0;
+			else
+				System.ActMusic++;
+		
 			break;
 		case (KEY_1):
-			_BUZZER_single_beep();
 			ClrKeyb( KBD_LOCK );
 		
-			_actual = _actual->next;
+			_LED_set_color(4, 0, 0, 0);
+			_LED_on();
 		
+			_actual = _actual->next;
 			break;
 	}
 }

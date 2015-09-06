@@ -38,6 +38,34 @@ volatile uint16_t BUZZER_AlarmTempos[buzzer_tempos_qnt] = {
 	1000
 };
 
+uint16_t music_0_tempo[] = {
+	10,
+	30,
+	50,
+	70,
+	0xFFFF
+};
+
+uint8_t music_0_tone[] = {
+	10,
+	56,
+	55,
+	45,
+	0xFF
+};
+
+uint16_t music_1_tempo[] = {
+	10,
+	15,
+	0xFFFF
+};
+
+uint8_t music_1_tone[] = {
+	56,
+	89,
+	0xFF
+};
+
 void BUZZER_GPIO_init(void)
 {
 	RCC->AHBENR |= RCC_AHBENR_GPIOBEN;                // Clock for GPIOB 
@@ -156,6 +184,15 @@ void _BUZZER_alarm_stop(void)
 	BUZZER_reset_timer();
 }
 
+void BUZZER_music_init(void)
+{
+	music.samples[0].tempo = music_0_tempo;
+	music.samples[0].tone = music_0_tone;
+	
+	music.samples[1].tempo = music_1_tempo;
+	music.samples[1].tone = music_1_tone;
+}
+
 void _BUZZER_play_music(uint8_t music_number)
 {
 	BUZZER_mode = buzzer_mode_melody;
@@ -211,7 +248,7 @@ void _BUZZER_init(void)
 	TIM3->EGR |= TIM_EGR_UG;                               // Initialize all registers	
 	TIM3->SR &= ~ TIM_SR_UIF;				// czyszczenie flagi
 	BUZZER_reset_timer();
-	vol_mid;
+	BUZZER_music_init();
 }
 
 void TIM3_IRQHandler(void)
