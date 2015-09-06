@@ -10,6 +10,8 @@ volatile uint32_t led_state[led_length];
 volatile uint32_t led_state_temp[led_length];
 volatile uint8_t	led_current_animation;
 volatile uint8_t	animation_step;
+volatile uint8_t	led_animate_brightness;
+volatile uint8_t	led_brightness_temp;
 /* ---------- */
 
 volatile uint8_t LED_blinking_state;
@@ -169,6 +171,7 @@ void _LED_init(void)
 	}
 	animation_step = animation_off;
 	led_current_animation = 100;
+	led_animate_brightness = 5;
 }
 
 void _LED_off(void)
@@ -500,6 +503,7 @@ void _LED_animate(void)
 	uint8_t i= 0;
 	uint8_t temp_variable = 0;
 	
+	
 		if(animation_step == animation_start)
 		{
 			for(i = 0; i< led_length; i++)
@@ -510,6 +514,7 @@ void _LED_animate(void)
 			_LED_refresh_flag = 1;
 			led_number_static = 1;
 			animation_step = animation_step_0;
+			
 		}
 		
 		if(_LED_refresh_flag)		//opóznienie sie skonczylo
@@ -599,6 +604,7 @@ void _LED_animate(void)
 void _LED_animate_off(void)
 {
 	uint8_t i = 0 ;
+	led_brightness_coeff = 	led_brightness_temp;
 	for(i = 0; i< led_length; i++)
 	{
 		led_state[i] = led_state_temp[i];
@@ -624,6 +630,8 @@ void _LED_animate_change(uint8_t number)
 		}
 		led_current_animation = number;
 		animation_step = animation_start;
+		led_brightness_temp = led_brightness_coeff;
+		led_brightness_coeff = led_animate_brightness;
 	}
 }
 

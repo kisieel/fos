@@ -53,6 +53,9 @@ extern volatile	uint32_t led_state[led_length];
 /* for animation */
 extern volatile uint32_t led_state_temp[led_length];
 extern volatile uint8_t	led_current_animation;
+extern volatile uint8_t	animation_step;
+extern volatile uint8_t	led_animate_brightness;
+extern volatile uint8_t	led_brightness_temp;
 /* ---------- */
 
 extern volatile uint8_t LED_blinking_state;
