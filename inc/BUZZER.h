@@ -54,6 +54,7 @@ struct music_library_struct
 {
 	struct music_struct samples[buzzer_musics_qnt];
 	uint8_t current_music_number;
+	uint8_t volume;
 };
 
 struct alarm_struct

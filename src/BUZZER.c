@@ -415,10 +415,13 @@ void BUZZER_music_init(void)
 	
 	music.samples[2].tempo = music_2_tempo;
 	music.samples[2].tone = music_2_tone;
+	
+	music.volume = 0xFF;
 }
 
 void _BUZZER_play_music(uint8_t music_number)
 {
+	DAC->DHR8R1 = music.volume;
 	if( BUZZER_mode == buzzer_mode_melody)
 	{
 		BUZZER_reset_timer();
