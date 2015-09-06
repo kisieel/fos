@@ -96,10 +96,6 @@ void menu_1_fun(unsigned int key)
 			_LED_set_color_list(4, 0);
 			_LED_on();
 			HALL_Data.HuntTime = FALSE;
-
-#ifdef USART_debug
-			USART_send("-2- LED animation setting mode.\n");
-#endif
 		
 			_actual = _actual->next;
 			break;
@@ -108,9 +104,8 @@ void menu_1_fun(unsigned int key)
 
 // Wybor animacji brania
 void menu_2_fun(unsigned int key)
-{
+{	
 	_LED_animate();
-	
 	switch (key) {
 		case (KEY_2):
 			_BUZZER_single_beep();
@@ -119,26 +114,17 @@ void menu_2_fun(unsigned int key)
 				System.ActAnimation = 0;
 			else
 				System.ActAnimation++;
-
-#ifdef USART_debug
-			USART_send("\tLED animation #");
-			USART_write_buf(System.ActAnimation, DEC);
-			USART_send(".\n");
-#endif
-			
+			_LED_animate_change(0);
 			ClrKeyb( KBD_LOCK );
 			break;
 		case (KEY_1):
 			_BUZZER_single_beep();
 			ClrKeyb( KBD_LOCK );
-			
+			_LED_animate_off();
+		
 			EEPROM_32_write(EEPROM_ConfAddress1, (EEPROM_32_read(EEPROM_ConfAddress1) & ~EEPROM_1_ActAnimation) | (System.ActAnimation << EEPROM_1_ActAnimationPosition));
 			_LED_set_color_list(4, 1);
 			_LED_on();
-
-#ifdef USART_debug
-			USART_send("-3- LED color setting mode.\n");
-#endif
 		
 			_actual = _actual->next;
 			break;
@@ -162,12 +148,6 @@ void menu_3_fun(unsigned int key)
 			_LED_set_color_list(5, System.ActColor);
 			_LED_on();
 			
-#ifdef USART_debug
-			USART_send("\tLED color #");
-			USART_write_buf(System.ActColor, DEC);
-			USART_send(".\n");
-#endif
-			
 			break;
 		case (KEY_1):
 			_BUZZER_single_beep();
@@ -178,10 +158,6 @@ void menu_3_fun(unsigned int key)
 			EEPROM_32_write(EEPROM_ConfAddress1, (EEPROM_32_read(EEPROM_ConfAddress1) & ~EEPROM_1_ActColor) | (System.ActColor << EEPROM_1_ActColorPosition));
 			_LED_set_color_list(4, 2);
 			_LED_on();
-
-#ifdef USART_debug
-			USART_send("-4- LED brightness setting mode.\n");
-#endif
 		
 			_actual = _actual->next;
 			break;
@@ -203,12 +179,6 @@ void menu_4_fun(unsigned int key)
 			_LED_change_brightness_limit_list(System.ActBrightness);
 			_LED_on();
 		
-#ifdef USART_debug
-			USART_send("\tLED brightness #");
-			USART_write_buf(System.ActBrightness, DEC);
-			USART_send(".\n");
-#endif
-			
 			break;
 		case (KEY_1):
 			ClrKeyb( KBD_LOCK );
@@ -216,10 +186,6 @@ void menu_4_fun(unsigned int key)
 			EEPROM_32_write(EEPROM_ConfAddress1, (EEPROM_32_read(EEPROM_ConfAddress1) & ~EEPROM_1_ActBrightness) | (System.ActBrightness << EEPROM_1_ActBrightnessPosition));
 			_LED_set_color_list(4, 3);
 			_LED_on();
-
-#ifdef USART_debug
-			USART_send("-5- Alarm tone setting mode.\n");
-#endif
 		
 			_actual = _actual->next;
 			break;
@@ -241,12 +207,6 @@ void menu_5_fun(unsigned int key)
 				System.ActAlarmTone++;
 			_BUZZER_alarm_set_tone_list(System.ActAlarmTone);
 			
-#ifdef USART_debug
-			USART_send("\tAlarm tone #");
-			USART_write_buf(System.ActAlarmTone, DEC);
-			USART_send(".\n");
-#endif
-			
 			break;
 		case (KEY_1):
 			ClrKeyb( KBD_LOCK );
@@ -254,10 +214,6 @@ void menu_5_fun(unsigned int key)
 			EEPROM_32_write(EEPROM_ConfAddress1, (EEPROM_32_read(EEPROM_ConfAddress1) & ~EEPROM_1_ActAlarmTone) | (System.ActAlarmTone << EEPROM_1_ActAlarmTonePosition));
 			_LED_set_color_list(4, 4);
 			_LED_on();
-
-#ifdef USART_debug
-			USART_send("-6- Alarm volume setting mode.\n");
-#endif
 		
 			_actual = _actual->next;
 			break;
@@ -277,12 +233,6 @@ void menu_6_fun(unsigned int key)
 				System.ActAlarmVol++;
 			_BUZZER_alarm_set_vol_list(System.ActAlarmVol);
 		
-#ifdef USART_debug
-			USART_send("\tAlarm volume #");
-			USART_write_buf(System.ActAlarmVol, DEC);
-			USART_send(".\n");
-#endif
-			
 			break;
 		case (KEY_1):
 			ClrKeyb( KBD_LOCK );
@@ -290,10 +240,6 @@ void menu_6_fun(unsigned int key)
 			EEPROM_32_write(EEPROM_ConfAddress1, (EEPROM_32_read(EEPROM_ConfAddress1) & ~EEPROM_1_ActAlarmVol) | (System.ActAlarmVol << EEPROM_1_ActAlarmVolPosition));
 			_LED_set_color_list(4, 5);
 			_LED_on();
-
-#ifdef USART_debug
-			USART_send("-7- Alarm tempo setting mode.\n");
-#endif
 		
 			_actual = _actual->next;
 			break;
@@ -315,12 +261,6 @@ void menu_7_fun(unsigned int key)
 				System.ActAlarmTempo++;
 			_BUZZER_alarm_set_tempo_list(System.ActAlarmTempo);
 		
-#ifdef USART_debug
-			USART_send("\tAlarm tempo #");
-			USART_write_buf(System.ActAlarmTempo, DEC);
-			USART_send(".\n");
-#endif
-			
 			break;
 		case (KEY_1):
 			ClrKeyb( KBD_LOCK );
@@ -330,10 +270,6 @@ void menu_7_fun(unsigned int key)
 			_LED_on();
 			_BUZZER_alarm_stop();
 			_BUZZER_play_music(System.ActMusic);
-
-#ifdef USART_debug
-			USART_send("-8- Music setting mode.\n");
-#endif
 		
 			_actual = _actual->next;
 			break;
@@ -353,12 +289,6 @@ void menu_8_fun(unsigned int key)
 				System.ActMusic++;
 			_BUZZER_play_music(System.ActMusic);
 			
-#ifdef USART_debug
-			USART_send("\tMusic #");
-			USART_write_buf(System.ActMusic, DEC);
-			USART_send(".\n");
-#endif
-			
 			break;
 		
 		case (KEY_1):
@@ -367,10 +297,6 @@ void menu_8_fun(unsigned int key)
 			_LED_set_color(4, 0, 0, 0);
 			_LED_on();
 			_BUZZER_stop_music();
-
-#ifdef USART_debug
-			USART_send("-1- Hunter mode.\n");
-#endif
 		
 			_actual = _actual->next;
 			break;
