@@ -280,19 +280,20 @@ void menu_8_fun(unsigned int key)
 	switch (key) {
 		case (KEY_2):
 			ClrKeyb( KBD_LOCK );
-		
+			_BUZZER_play_music(0);		// wlaczac tylko raz! jest przerywalne przez inny play_music 
 			if (System.ActMusic == buzzer_musics_qnt - 1)
 				System.ActMusic = 0;
 			else
 				System.ActMusic++;
 		
 			break;
+		
 		case (KEY_1):
 			ClrKeyb( KBD_LOCK );
 		
 			_LED_set_color(4, 0, 0, 0);
 			_LED_on();
-		
+			_BUZZER_stop_music();	// zatrzymuje cala grana muzyczke.
 			_actual = _actual->next;
 			break;
 	}

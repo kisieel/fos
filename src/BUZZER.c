@@ -39,25 +39,25 @@ volatile uint16_t BUZZER_AlarmTempos[buzzer_tempos_qnt] = {
 };
 
 uint16_t music_0_tempo[] = {
-	10,
-	30,
-	50,
-	70,
-	0xFFFF
+	100,
+	300,
+	500,
+	700,
+	music_stop_sign
 };
 
 uint8_t music_0_tone[] = {
-	10,
-	56,
-	55,
-	45,
+	cT,
+	eT,
+	dT,
+	CT,
 	0xFF
 };
 
 uint16_t music_1_tempo[] = {
 	10,
 	15,
-	0xFFFF
+	music_stop_sign
 };
 
 uint8_t music_1_tone[] = {
@@ -195,9 +195,24 @@ void BUZZER_music_init(void)
 
 void _BUZZER_play_music(uint8_t music_number)
 {
-	BUZZER_mode = buzzer_mode_melody;
+	if( BUZZER_mode == buzzer_mode_melody)
+	{
+		BUZZER_reset_timer();
+		BUZZER_music_init();
+		BUZZER_mode = buzzer_mode_melody;
+	}
+	else
+	{
+		BUZZER_mode = buzzer_mode_melody;
+	}
 	music.current_music_number = music_number;
 	TIM3->CR1 |= TIM_CR1_CEN;
+}
+
+void _BUZZER_stop_music(void)
+{
+		BUZZER_reset_timer();
+		BUZZER_music_init();
 }
 
 void _BUZZER_beep_change(uint16_t length, uint16_t volume, uint16_t tone)
@@ -237,8 +252,7 @@ void _BUZZER_init(void)
 	TIM3->CNT = 0;
 	
 	alarm.position = 0 ;
-	music.samples[music.current_music_number].position = 0;
-	
+
 	beep.tone = nominal_freuqency;
 	beep.volume = vol_mid;
 	beep.length = 100;
@@ -259,23 +273,22 @@ void TIM3_IRQHandler(void)
 		
 		if(BUZZER_mode == buzzer_mode_melody)		//ostatni ton z melodii
 		{
-				if(music.samples[music.current_music_number].position <= music_length)
+			
+				if(*(music.samples[music.current_music_number].tempo) != music_stop_sign)
 				{
 					TIM9->CNT = 0;
-					TIM9->ARR = music.samples[music.current_music_number].tone[music.samples[music.current_music_number].position];
-					TIM9->CCR1 = (uint16_t) (music.samples[music.current_music_number].tone[music.samples[music.current_music_number].position]) /2;
-					
-					music.samples[music.current_music_number].position++;
-					TIM3->ARR = music.samples[music.current_music_number].tempo[music.samples[music.current_music_number].position];
+					TIM9->ARR = *(music.samples[music.current_music_number].tone);
+					TIM9->CCR1 = (uint16_t) *(music.samples[music.current_music_number].tone++) /2;
+					TIM3->ARR = *(music.samples[music.current_music_number].tempo++);
 					TIM3->CR1 |= TIM_CR1_CEN;
 					TIM9->CR1 |= TIM_CR1_CEN;
 				}
-				else if (music.samples[music.current_music_number].position > music_length)
+			
+				else if(*(music.samples[music.current_music_number].tempo) == music_stop_sign)
 				{
-					music.samples[music.current_music_number].position = 0 ;
+					BUZZER_music_init();
 					BUZZER_reset_timer();
 				}
-
 		}
 		else if(BUZZER_mode == buzzer_mode_alarm)
 		{

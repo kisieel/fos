@@ -29,6 +29,7 @@
 #define CT	nominal_freuqency + 20
 
 #define music_length 10
+#define music_stop_sign 0xFFFF
 
 #define alarm_high nominal_freuqency + 10
 #define alarm_low	 nominal_freuqency - 10
@@ -42,7 +43,6 @@ struct music_struct
 {
 	uint16_t *tempo;
 	uint8_t *tone;
-	uint8_t position;
 };
 
 struct music_library_struct
@@ -84,6 +84,7 @@ void BUZZER_music_init(void);
 
 void _BUZZER_off(void);
 void _BUZZER_play_music(uint8_t music_number);
+void _BUZZER_stop_music(void);
 void _BUZZER_alarm_stop(void);
 
 void _BUZZER_alarm_set_tone_list(uint8_t index);
