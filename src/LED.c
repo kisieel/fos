@@ -166,7 +166,8 @@ void _LED_init(void)
 	{
 		led_blink_status[i] = led_blink_off;
 	}
-	led_current_animation = animation_off;
+	animation_step = animation_off;
+	led_current_animation = 100;
 }
 
 void _LED_off(void)
@@ -505,6 +506,7 @@ void _LED_animate(void)
 				led_state[i] = 0;
 			}
 			_LED_on();
+			_LED_refresh_flag = 1;
 			led_number_static = 1;
 			animation_step = animation_step_0;
 		}
@@ -600,6 +602,7 @@ void _LED_animate_off(void)
 	{
 		led_state[i] = led_state_temp[i];
 	}
+	_LED_refresh_flag = 1;
 	_LED_on();			
 	animation_step = animation_off;
 }
@@ -607,12 +610,12 @@ void _LED_animate_off(void)
 void _LED_animate_change(uint8_t number)
 {
 	uint8_t i = 0;
-	if(led_current_animation != animation_off)		//interrupt in current animation
+	if(animation_step != animation_off)		//interrupt in current animation
 	{
 		led_current_animation = number;
 		animation_step = animation_start;
 	}
-	else
+	else 
 	{
 		for(i = 0; i< led_length; i++)
 		{
