@@ -24,7 +24,7 @@
 #define FALSE     0
 
 // Comment following line if you don't want to receive USART messages
-//#define USART_debug             TRUE
+#define USART_debug             TRUE
 
 typedef struct {
 	uint8_t ActAnimation;

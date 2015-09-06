@@ -22,6 +22,7 @@ void HALL_init(void)
 	TIM6->PSC = 16000;
 	TIM6->DIER |= TIM_DIER_UIE;
 	TIM6->EGR |= TIM_EGR_UG;
+	TIM6->SR &= ~(TIM_SR_UIF);
 	NVIC_SetPriority(TIM6_IRQn, 1);                // Priority set to 0
 	NVIC_EnableIRQ(TIM6_IRQn);
 }

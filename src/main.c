@@ -87,7 +87,6 @@ int main()
 	USART_send("External devices initialized.\n");
 #endif
 
-	// Enter System values
 	_LED_set_color_list(5, System.ActColor);
 	_LED_change_brightness_limit_list(System.ActBrightness);
 	_LED_on();
@@ -95,16 +94,14 @@ int main()
 	_BUZZER_alarm_set_vol_list(System.ActAlarmVol);
 	_BUZZER_alarm_set_tempo_list(System.ActAlarmTempo);
 	BUZZER_reset_timer();
-	
-//	_LED_blink_on(5);
-//	for(i=0; i<10;i++)
-//	{
-//		music.samples[0].tone[i] = temp_tone[i];
-//		music.samples[0].tempo[i] = temp_tempo[i];
-//	}
-//	music.samples[0].position = 0;
-//	
-//	_BUZZER_play_music(0);
+
+#ifdef USART_debug
+	USART_send("System values imported from EEPROM.\n\n");
+#endif
+
+#ifdef USART_debug
+	USART_send("-1- Hunter mode.\n");
+#endif
 
 	for(;;) {
 		_actual->menu_fun(GetKeys());
