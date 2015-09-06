@@ -28,7 +28,8 @@ volatile uint8_t led_colors[led_colors_qnt][3] = {
 	{0, 0, 100},     // Zielony
 	{0, 100, 100},   // Zolty
 	{100, 55, 0},   // Fioletowy
-	{100, 100, 0}    // HOW KNOWS?!
+	{100, 100, 0},    // HOW KNOWS?!
+	{100, 0, 100}    // 
 };
 
 volatile uint8_t led_brightness[led_brightness_qnt] = {

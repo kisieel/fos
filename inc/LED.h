@@ -4,7 +4,7 @@
 #define led_amimations_qnt 1
 
 // Maximum number of colors available to set
-#define led_colors_qnt     6
+#define led_colors_qnt     7
 
 // Maximum number of brightness available to set
 #define led_brightness_qnt 7
