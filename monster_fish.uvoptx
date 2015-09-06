@@ -151,7 +151,7 @@
           <Type>0</Type>
           <LineNumber>30</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>134219628</Address>
+          <Address>134219672</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
@@ -161,6 +161,22 @@
           <Filename>.\src\HALL.c</Filename>
           <ExecCommand></ExecCommand>
           <Expression>\\monster_fish\src/HALL.c\30</Expression>
+        </Bp>
+        <Bp>
+          <Number>1</Number>
+          <Type>0</Type>
+          <LineNumber>189</LineNumber>
+          <EnabledFlag>1</EnabledFlag>
+          <Address>134219076</Address>
+          <ByteObject>0</ByteObject>
+          <HtxType>0</HtxType>
+          <ManyObjects>0</ManyObjects>
+          <SizeOfObject>0</SizeOfObject>
+          <BreakByAccess>0</BreakByAccess>
+          <BreakIfRCount>1</BreakIfRCount>
+          <Filename>.\src\BUZZER.c</Filename>
+          <ExecCommand></ExecCommand>
+          <Expression>\\monster_fish\src/BUZZER.c\189</Expression>
         </Bp>
       </Breakpoint>
       <WatchWindow1>
@@ -178,6 +194,16 @@
           <count>2</count>
           <WinNumber>1</WinNumber>
           <ItemText>System</ItemText>
+        </Ww>
+        <Ww>
+          <count>3</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>music_0_tempo</ItemText>
+        </Ww>
+        <Ww>
+          <count>4</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>music.samples[0].tempo</ItemText>
         </Ww>
       </WatchWindow1>
       <WatchWindow2>

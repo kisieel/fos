@@ -23,6 +23,9 @@
 #define EEPROM_1_ActBrightness         0x00F00000
 #define EEPROM_1_ActBrightnessPosition 5*4
 
+#define EEPROM_1_ActMusic              0x0F000000
+#define EEPROM_1_ActMusicPosition      6*4
+
 // Public functions
 extern void     EEPROM_64_erase(uint32_t ADDRESS);
 extern void     EEPROM_32_erase(uint32_t ADDRESS);

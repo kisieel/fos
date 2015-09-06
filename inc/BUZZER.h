@@ -10,7 +10,7 @@
 #define buzzer_tempos_qnt  10
 
 // Maximum number of musics available to set
-#define buzzer_musics_qnt  10
+#define buzzer_musics_qnt  2
 
 #define vol_max 	DAC->DHR8R1 = 0xFF;	//vref * (dor/4095) = vout	
 #define vol_mid 	DAC->DHR8R1 = 52;	//vref * (dor/4095) = vout

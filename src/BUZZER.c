@@ -55,14 +55,26 @@ uint8_t music_0_tone[] = {
 };
 
 uint16_t music_1_tempo[] = {
-	10,
-	15,
+	300,
+	300,
+	300,
+	300,
+	300,
+	300,
+	300,
+	300,
 	music_stop_sign
 };
 
 uint8_t music_1_tone[] = {
-	56,
-	89,
+	cT,
+	dT,
+	eT,
+	fT,
+	gT,
+	aT,
+	bT,
+	CT,
 	0xFF
 };
 

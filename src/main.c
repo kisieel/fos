@@ -59,12 +59,14 @@ int main()
 	GPIOA->BSRRL |= GPIO_BSRR_BS_0;               // Output 1
 
 	buf = EEPROM_32_read(EEPROM_ConfAddress1);
+	
 	System.ActAnimation= (buf & EEPROM_1_ActAnimation) >> EEPROM_1_ActAnimationPosition;
 	System.ActColor = (buf & EEPROM_1_ActColor) >> EEPROM_1_ActColorPosition;
 	System.ActBrightness = (buf & EEPROM_1_ActBrightness) >> EEPROM_1_ActBrightnessPosition;
 	System.ActAlarmTone = (buf & EEPROM_1_ActAlarmTone) >> EEPROM_1_ActAlarmTonePosition;
 	System.ActAlarmVol = (buf & EEPROM_1_ActAlarmVol) >> EEPROM_1_ActAlarmVolPosition;
 	System.ActAlarmTempo = (buf & EEPROM_1_ActAlarmTempo) >> EEPROM_1_ActAlarmTempoPosition;
+	System.ActMusic = (buf & EEPROM_1_ActMusic) >> EEPROM_1_ActMusicPosition;
 	
 	SYS_TICK_init();
 	KEY_init();

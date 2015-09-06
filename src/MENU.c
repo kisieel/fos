@@ -266,6 +266,7 @@ void menu_7_fun(unsigned int key)
 			_LED_set_color_list(4, 6);
 			_LED_on();
 			_BUZZER_alarm_stop();
+			_BUZZER_play_music(System.ActMusic);
 		
 			_actual = _actual->next;
 			break;
@@ -275,17 +276,16 @@ void menu_7_fun(unsigned int key)
 // Wybor muzyki
 void menu_8_fun(unsigned int key)
 {
-	
-	
 	switch (key) {
 		case (KEY_2):
 			ClrKeyb( KBD_LOCK );
-			_BUZZER_play_music(0);		// wlaczac tylko raz! jest przerywalne przez inny play_music 
+			
 			if (System.ActMusic == buzzer_musics_qnt - 1)
 				System.ActMusic = 0;
 			else
 				System.ActMusic++;
-		
+			_BUZZER_play_music(System.ActMusic);
+			
 			break;
 		
 		case (KEY_1):
@@ -293,7 +293,8 @@ void menu_8_fun(unsigned int key)
 		
 			_LED_set_color(4, 0, 0, 0);
 			_LED_on();
-			_BUZZER_stop_music();	// zatrzymuje cala grana muzyczke.
+			_BUZZER_stop_music();
+		
 			_actual = _actual->next;
 			break;
 	}
