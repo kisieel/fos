@@ -27,12 +27,7 @@
 #define led_increment		10
 #define led_decrement		20
 
-#define animate_mode_1	10	// kazda z diod zapala sie osobno 
-#define animate_mode_2	20	// kazda z diod gasi sie osobno 
-#define animate_mode_3	30	// wszystkie razem przyciemniaja  sie i rozjasniaja
-#define animate_mode_4	40	// 3 razy mrugniecie
-#define	animate_mode_off	99	// off
-#define animate_mode_delay	255	// 300ms delay
+
 
 #define led_brightness_max	10
 #define led_brightness_min	20
