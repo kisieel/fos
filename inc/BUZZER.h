@@ -10,7 +10,7 @@
 #define buzzer_tempos_qnt  10
 
 // Maximum number of musics available to set
-#define buzzer_musics_qnt  2
+#define buzzer_musics_qnt  3
 
 #define vol_max 	DAC->DHR8R1 = 0xFF;	//vref * (dor/4095) = vout	
 #define vol_mid 	DAC->DHR8R1 = 52;	//vref * (dor/4095) = vout
@@ -19,6 +19,10 @@
 
 #define nominal_freuqency 79
 
+
+#define xT  nominal_freuqency - 30
+#define yT  nominal_freuqency - 25
+#define zT  nominal_freuqency - 20
 #define cT  nominal_freuqency - 15
 #define dT	nominal_freuqency - 10
 #define eT	nominal_freuqency - 5

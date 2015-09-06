@@ -38,6 +38,17 @@ volatile uint16_t BUZZER_AlarmTempos[buzzer_tempos_qnt] = {
 	1000
 };
 
+#define tempo_1s        1
+#define tempo_2s        2
+#define tempo_4s        4
+
+#define note_32         31
+#define note_16         62
+#define note_8          125
+#define note_4          250
+#define note_2          500
+#define note_1          1000
+
 uint16_t music_0_tempo[] = {
 	100,
 	300,
@@ -54,68 +65,72 @@ uint8_t music_0_tone[] = {
 	0xFF
 };
 
-#define music_1_time    125
-
 uint16_t music_1_tempo[] = {
-	2*music_1_time,
-	8*music_1_time,
+	tempo_1s*note_4,
+	tempo_1s*note_1,
 	
-	2*music_1_time,
-	2*music_1_time,
+	tempo_1s*note_4,
+	tempo_1s*note_4,
 	
-	2*music_1_time,
-	2*music_1_time,
+	tempo_1s*note_4,
+	tempo_1s*note_4,
 	
-	2*music_1_time,
-	2*music_1_time,
+	tempo_1s*note_4,
+	tempo_1s*note_4,
 	
-	10*music_1_time,
+	tempo_1s*note_1,
+	tempo_1s*note_4,
 	
-	2*music_1_time,
-	2*music_1_time,
+	tempo_1s*note_4,
+	tempo_1s*note_4,
 	
-	2*music_1_time,
-	2*music_1_time,
+	tempo_1s*note_4,
+	tempo_1s*note_4,
 	
-	2*music_1_time,
-	2*music_1_time,
+	tempo_1s*note_4,
+	tempo_1s*note_4,
 	
-	10*music_1_time,
+	tempo_1s*note_1,
+	tempo_1s*note_4,
 	
-	4*music_1_time,
-	4*music_1_time,
-	10*music_1_time,
-	4*music_1_time,
+	tempo_1s*note_2,
+	tempo_1s*note_2,
+	tempo_1s*1250,
+	tempo_1s*note_2,
 	
-	2*music_1_time,
-	8*music_1_time,
+	tempo_1s*note_4,
 	
-	2*music_1_time,
-	2*music_1_time,
+	tempo_1s*note_4,
+	tempo_1s*note_1,
 	
-	2*music_1_time,
-	2*music_1_time,
+	tempo_1s*note_4,
+	tempo_1s*note_4,
 	
-	2*music_1_time,
-	2*music_1_time,
+	tempo_1s*note_4,
+	tempo_1s*note_4,
 	
-	10*music_1_time,
+	tempo_1s*note_4,
+	tempo_1s*note_4,
 	
-	2*music_1_time,
-	2*music_1_time,
+	tempo_1s*note_1,
+	tempo_1s*note_4,
 	
-	2*music_1_time,
-	2*music_1_time,
+	tempo_1s*note_4,
+	tempo_1s*note_4,
 	
-	2*music_1_time,
-	2*music_1_time,
+	tempo_1s*note_4,
+	tempo_1s*note_4,
 	
-	10*music_1_time,
+	tempo_1s*note_4,
+	tempo_1s*note_4,
 	
-	4*music_1_time,
-	4*music_1_time,
-	10*music_1_time,
-	4*music_1_time,
+	tempo_1s*note_1,
+	tempo_1s*note_4,
+	
+	tempo_1s*note_2,
+	tempo_1s*note_2,
+	tempo_1s*1250,
+	tempo_1s*note_2,
 	
 	music_stop_sign
 };
@@ -134,6 +149,7 @@ uint8_t music_1_tone[] = {
 	0,
 	
 	0,
+	0,
 	
 	gT,
 	0,
@@ -144,6 +160,7 @@ uint8_t music_1_tone[] = {
 	gT,
 	0,
 	
+	0,
 	0,
 	
 	gT,
@@ -151,7 +168,21 @@ uint8_t music_1_tone[] = {
 	CT,
 	DT,
 	
+	0,
+	
 	gT,
+	0,
+	
+	gT,
+	0,
+	
+	aT,
+	0,
+	
+	gT,
+	0,
+	
+	0,
 	0,
 	
 	gT,
@@ -164,16 +195,6 @@ uint8_t music_1_tone[] = {
 	0,
 	
 	0,
-	
-	gT,
-	0,
-	
-	aT,
-	0,
-	
-	gT,
-	0,
-	
 	0,
 	
 	gT,
@@ -181,6 +202,88 @@ uint8_t music_1_tone[] = {
 	CT,
 	DT,
 
+	0xFF
+};
+
+uint16_t music_2_tempo[] = {
+	tempo_2s * note_32,
+	tempo_2s * note_32,
+	tempo_2s * note_32,
+	tempo_2s * note_32,
+	tempo_2s * note_32,
+	tempo_2s * note_32,
+	
+	tempo_2s * note_2,
+	tempo_2s * note_2,
+	
+	tempo_2s * note_16,
+	tempo_2s * note_16,
+	tempo_2s * note_16,
+	
+	tempo_2s * note_2,
+	tempo_2s * note_4,
+	
+	tempo_2s * note_16,
+	tempo_2s * note_16,
+	tempo_2s * note_16,
+	
+	tempo_2s * note_2,
+	tempo_2s * note_4,
+	
+	tempo_2s * note_16,
+	tempo_2s * note_16,
+	tempo_2s * note_16,
+	
+	tempo_2s * note_2,
+	
+	tempo_2s * note_32,
+	tempo_2s * note_32,
+	tempo_2s * note_32,
+	tempo_2s * note_32,
+	tempo_2s * note_32,
+	tempo_2s * note_32,
+	
+	music_stop_sign
+};
+
+uint8_t music_2_tone[] = {
+	CT,
+	0,
+	CT,
+	0,
+	CT,
+	0,
+	
+	gT,
+	cT,
+	
+	dT,
+	eT,
+	fT,
+	
+	xT,
+	cT,
+	
+	dT,
+	eT,
+	fT,
+	
+	xT,
+	cT,
+	
+	dT,
+	eT,
+	dT,
+	
+	fT,
+	
+	CT,
+	0,
+	CT,
+	0,
+	CT,
+	0,
+	
 	0xFF
 };
 
@@ -309,6 +412,9 @@ void BUZZER_music_init(void)
 	
 	music.samples[1].tempo = music_1_tempo;
 	music.samples[1].tone = music_1_tone;
+	
+	music.samples[2].tempo = music_2_tempo;
+	music.samples[2].tone = music_2_tone;
 }
 
 void _BUZZER_play_music(uint8_t music_number)
