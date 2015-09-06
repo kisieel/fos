@@ -137,7 +137,7 @@ I (.\inc\SYS_TICK.h)(0x55E2FFE4)
 I (.\inc\BUZZER.h)(0x55EC885F)
 I (.\inc\LED.h)(0x55EC8F7C)
 I (.\inc\FLOAT.h)(0x55E2FFE4)
-F (.\src\HALL.c)(0x55EC840A)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork --split_sections -I.\dev -I.\inc -I.\src-I C:\Users\Maciek\Documents\fos\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32L1xx_DFP\1.0.2\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="515" -DSTM32L1XX_MD -DSTM32L1XX_MD-o .\objects\hall.o --omf_browse .\objects\hall.crf --depend .\objects\hall.d)
+F (.\src\HALL.c)(0x55EC911C)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork --split_sections -I.\dev -I.\inc -I.\src-I C:\Users\Maciek\Documents\fos\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32L1xx_DFP\1.0.2\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="515" -DSTM32L1XX_MD -DSTM32L1XX_MD-o .\objects\hall.o --omf_browse .\objects\hall.crf --depend .\objects\hall.d)
 I (.\inc\main.h)(0x55EC825E)
 I (.\dev\stm32l1xx.h)(0x55E2FFE4)
 I (C:\Keil_v5\ARM\CMSIS\Include\core_cm3.h)(0x55099E74)

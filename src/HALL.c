@@ -39,6 +39,7 @@ void EXTI9_5_IRQHandler(void)
 						TIM6->CNT = 0;
 						TIM6->CR1 |= TIM_CR1_CEN;
 						HALL_Data.SequenceCnt = HALL_SequenceNumber;
+						_BUZZER_alarm_start();
 #ifdef USART_debug
 						USART_send("Fish caught!\n");
 #endif
@@ -75,6 +76,7 @@ void EXTI9_5_IRQHandler(void)
 void TIM6_IRQHandler()
 {
 	if (TIM6->SR & TIM_SR_UIF) {
+		_BUZZER_alarm_stop();
 #ifdef USART_debug
 			USART_send("Hunt down.\n");
 #endif
