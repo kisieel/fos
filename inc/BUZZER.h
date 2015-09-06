@@ -27,6 +27,7 @@
 #define aT	nominal_freuqency + 10
 #define bT	nominal_freuqency + 15
 #define CT	nominal_freuqency + 20
+#define DT	nominal_freuqency + 25
 
 #define music_length 10
 #define music_stop_sign 0xFFFF

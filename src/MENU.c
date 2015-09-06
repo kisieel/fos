@@ -10,6 +10,9 @@ MENU *_6_menu;
 MENU *_7_menu;
 MENU *_8_menu;
 
+#define MENU_LED_Color   5
+#define MENU_LED_Menu    4
+
 MENU *_actual;
 
 // 0 level

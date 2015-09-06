@@ -54,27 +54,133 @@ uint8_t music_0_tone[] = {
 	0xFF
 };
 
+#define music_1_time    125
+
 uint16_t music_1_tempo[] = {
-	300,
-	300,
-	300,
-	300,
-	300,
-	300,
-	300,
-	300,
+	2*music_1_time,
+	8*music_1_time,
+	
+	2*music_1_time,
+	2*music_1_time,
+	
+	2*music_1_time,
+	2*music_1_time,
+	
+	2*music_1_time,
+	2*music_1_time,
+	
+	10*music_1_time,
+	
+	2*music_1_time,
+	2*music_1_time,
+	
+	2*music_1_time,
+	2*music_1_time,
+	
+	2*music_1_time,
+	2*music_1_time,
+	
+	10*music_1_time,
+	
+	4*music_1_time,
+	4*music_1_time,
+	10*music_1_time,
+	4*music_1_time,
+	
+	2*music_1_time,
+	8*music_1_time,
+	
+	2*music_1_time,
+	2*music_1_time,
+	
+	2*music_1_time,
+	2*music_1_time,
+	
+	2*music_1_time,
+	2*music_1_time,
+	
+	10*music_1_time,
+	
+	2*music_1_time,
+	2*music_1_time,
+	
+	2*music_1_time,
+	2*music_1_time,
+	
+	2*music_1_time,
+	2*music_1_time,
+	
+	10*music_1_time,
+	
+	4*music_1_time,
+	4*music_1_time,
+	10*music_1_time,
+	4*music_1_time,
+	
 	music_stop_sign
 };
 
 uint8_t music_1_tone[] = {
-	cT,
-	dT,
-	eT,
-	fT,
+	gT,
+	0,
+	
+	gT,
+	0,
+	
+	aT,
+	0,
+	
+	gT,
+	0,
+	
+	0,
+	
+	gT,
+	0,
+	
+	aT,
+	0,
+	
+	gT,
+	0,
+	
+	0,
+	
 	gT,
 	aT,
-	bT,
 	CT,
+	DT,
+	
+	gT,
+	0,
+	
+	gT,
+	0,
+	
+	aT,
+	0,
+	
+	gT,
+	0,
+	
+	0,
+	
+	gT,
+	0,
+	
+	aT,
+	0,
+	
+	gT,
+	0,
+	
+	0,
+	
+	gT,
+	aT,
+	CT,
+	DT,
+
 	0xFF
 };
 

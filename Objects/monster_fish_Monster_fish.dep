@@ -20,7 +20,7 @@ F (.\inc\FLOAT.h)(0x55E2FFE4)()
 F (.\inc\SYS_TICK.h)(0x55E2FFE4)()
 F (.\inc\HALL.h)(0x55EAED83)()
 F (.\inc\main.h)(0x55EC066C)()
-F (.\inc\BUZZER.h)(0x55EC2EE3)()
+F (.\inc\BUZZER.h)(0x55EC417C)()
 F (.\inc\LED.h)(0x55EC00D6)()
 F (.\src\EEPROM.c)(0x55EAD741)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork --split_sections -I.\dev -I.\inc -I.\src-I C:\Users\Maciek\Documents\fos\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32L1xx_DFP\1.0.2\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="515" -DSTM32L1XX_MD -DSTM32L1XX_MD-o .\objects\eeprom.o --omf_browse .\objects\eeprom.crf --depend .\objects\eeprom.d)
 I (.\dev\stm32l1xx.h)(0x55E2FFE4)
@@ -45,7 +45,7 @@ I (.\inc\KEY.h)(0x55E8AE66)
 I (.\inc\MENU.h)(0x55E2FFE4)
 I (.\inc\HALL.h)(0x55EAED83)
 I (.\inc\SYS_TICK.h)(0x55E2FFE4)
-I (.\inc\BUZZER.h)(0x55EC2EE3)
+I (.\inc\BUZZER.h)(0x55EC417C)
 I (.\inc\LED.h)(0x55EC00D6)
 I (.\inc\FLOAT.h)(0x55E2FFE4)
 F (.\src\RFM69W.c)(0x55E49796)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork --split_sections -I.\dev -I.\inc -I.\src-I C:\Users\Maciek\Documents\fos\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32L1xx_DFP\1.0.2\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="515" -DSTM32L1XX_MD -DSTM32L1XX_MD-o .\objects\rfm69w.o --omf_browse .\objects\rfm69w.crf --depend .\objects\rfm69w.d)
@@ -63,7 +63,7 @@ I (.\inc\KEY.h)(0x55E8AE66)
 I (.\inc\MENU.h)(0x55E2FFE4)
 I (.\inc\HALL.h)(0x55EAED83)
 I (.\inc\SYS_TICK.h)(0x55E2FFE4)
-I (.\inc\BUZZER.h)(0x55EC2EE3)
+I (.\inc\BUZZER.h)(0x55EC417C)
 I (.\inc\LED.h)(0x55EC00D6)
 I (.\inc\FLOAT.h)(0x55E2FFE4)
 F (.\src\USART.c)(0x55E2FFE4)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork --split_sections -I.\dev -I.\inc -I.\src-I C:\Users\Maciek\Documents\fos\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32L1xx_DFP\1.0.2\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="515" -DSTM32L1XX_MD -DSTM32L1XX_MD-o .\objects\usart.o --omf_browse .\objects\usart.crf --depend .\objects\usart.d)
@@ -83,7 +83,7 @@ I (C:\Keil_v5\ARM\CMSIS\Include\core_cmInstr.h)(0x55099E74)
 I (C:\Keil_v5\ARM\CMSIS\Include\core_cmFunc.h)(0x55099E74)
 I (.\dev\system_stm32l1xx.h)(0x55E2FFE4)
 I (.\inc\KEY.h)(0x55E8AE66)
-F (.\src\MENU.c)(0x55EC2ED5)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork --split_sections -I.\dev -I.\inc -I.\src-I C:\Users\Maciek\Documents\fos\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32L1xx_DFP\1.0.2\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="515" -DSTM32L1XX_MD -DSTM32L1XX_MD-o .\objects\menu.o --omf_browse .\objects\menu.crf --depend .\objects\menu.d)
+F (.\src\MENU.c)(0x55EC38D7)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork --split_sections -I.\dev -I.\inc -I.\src-I C:\Users\Maciek\Documents\fos\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32L1xx_DFP\1.0.2\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="515" -DSTM32L1XX_MD -DSTM32L1XX_MD-o .\objects\menu.o --omf_browse .\objects\menu.crf --depend .\objects\menu.d)
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x54C2A828)
 I (.\inc\main.h)(0x55EC066C)
 I (.\dev\stm32l1xx.h)(0x55E2FFE4)
@@ -99,7 +99,7 @@ I (.\inc\KEY.h)(0x55E8AE66)
 I (.\inc\MENU.h)(0x55E2FFE4)
 I (.\inc\HALL.h)(0x55EAED83)
 I (.\inc\SYS_TICK.h)(0x55E2FFE4)
-I (.\inc\BUZZER.h)(0x55EC2EE3)
+I (.\inc\BUZZER.h)(0x55EC417C)
 I (.\inc\LED.h)(0x55EC00D6)
 I (.\inc\FLOAT.h)(0x55E2FFE4)
 F (.\src\LOW_MODE.c)(0x55E2FFE4)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork --split_sections -I.\dev -I.\inc -I.\src-I C:\Users\Maciek\Documents\fos\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32L1xx_DFP\1.0.2\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="515" -DSTM32L1XX_MD -DSTM32L1XX_MD-o .\objects\low_mode.o --omf_browse .\objects\low_mode.crf --depend .\objects\low_mode.d)
@@ -134,7 +134,7 @@ I (.\inc\KEY.h)(0x55E8AE66)
 I (.\inc\MENU.h)(0x55E2FFE4)
 I (.\inc\HALL.h)(0x55EAED83)
 I (.\inc\SYS_TICK.h)(0x55E2FFE4)
-I (.\inc\BUZZER.h)(0x55EC2EE3)
+I (.\inc\BUZZER.h)(0x55EC417C)
 I (.\inc\LED.h)(0x55EC00D6)
 I (.\inc\FLOAT.h)(0x55E2FFE4)
 F (.\src\HALL.c)(0x55EB04D5)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork --split_sections -I.\dev -I.\inc -I.\src-I C:\Users\Maciek\Documents\fos\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32L1xx_DFP\1.0.2\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="515" -DSTM32L1XX_MD -DSTM32L1XX_MD-o .\objects\hall.o --omf_browse .\objects\hall.crf --depend .\objects\hall.d)
@@ -152,11 +152,11 @@ I (.\inc\KEY.h)(0x55E8AE66)
 I (.\inc\MENU.h)(0x55E2FFE4)
 I (.\inc\HALL.h)(0x55EAED83)
 I (.\inc\SYS_TICK.h)(0x55E2FFE4)
-I (.\inc\BUZZER.h)(0x55EC2EE3)
+I (.\inc\BUZZER.h)(0x55EC417C)
 I (.\inc\LED.h)(0x55EC00D6)
 I (.\inc\FLOAT.h)(0x55E2FFE4)
-F (.\src\BUZZER.c)(0x55EC2FD6)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork --split_sections -I.\dev -I.\inc -I.\src-I C:\Users\Maciek\Documents\fos\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32L1xx_DFP\1.0.2\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="515" -DSTM32L1XX_MD -DSTM32L1XX_MD-o .\objects\buzzer.o --omf_browse .\objects\buzzer.crf --depend .\objects\buzzer.d)
-I (.\inc\BUZZER.h)(0x55EC2EE3)
+F (.\src\BUZZER.c)(0x55EC41DC)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork --split_sections -I.\dev -I.\inc -I.\src-I C:\Users\Maciek\Documents\fos\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32L1xx_DFP\1.0.2\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="515" -DSTM32L1XX_MD -DSTM32L1XX_MD-o .\objects\buzzer.o --omf_browse .\objects\buzzer.crf --depend .\objects\buzzer.d)
+I (.\inc\BUZZER.h)(0x55EC417C)
 I (.\dev\stm32l1xx.h)(0x55E2FFE4)
 I (C:\Keil_v5\ARM\CMSIS\Include\core_cm3.h)(0x55099E74)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x54C2A828)
