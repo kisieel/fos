@@ -1,5 +1,4 @@
-#include "stm32l1xx.h"
-#include "EEPROM.h"
+#include "main.h"
 
 /* 
 
@@ -22,6 +21,8 @@ for fast/normal operations.
 #define EEPROM_BASE           ((uint32_t)0x08080000) /*!< EEPROM base address in the alias region */
 
 // Private functions
+void     EEPROM_SystemBackup(void);
+
 void     EEPROM_64_erase(uint32_t ADDRESS);
 void     EEPROM_32_erase(uint32_t ADDRESS);
 
@@ -44,6 +45,17 @@ void     EEPROM_lock(void);
 void     EEPROM_option_unlock(void);
 void     EEPROM_option_lock(void);
 // End of private functions
+
+void EEPROM_SystemBackup(void)
+{
+	EEPROM_32_write(EEPROM_ConfAddress1, System.ActAnimation  << EEPROM_1_ActAnimationPosition
+	                                   | System.ActColor      << EEPROM_1_ActColorPosition
+	                                   | System.ActBrightness << EEPROM_1_ActBrightnessPosition
+	                                   | System.ActAlarmTone  << EEPROM_1_ActAlarmTonePosition
+	                                   | System.ActAlarmVol   << EEPROM_1_ActAlarmVolPosition
+	                                   | System.ActAlarmTempo << EEPROM_1_ActAlarmTempoPosition
+	                                   | System.ActMusic      << EEPROM_1_ActMusicPosition);
+}
 
 void EEPROM_unlock(void)
 {

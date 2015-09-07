@@ -9,14 +9,14 @@
 
 // ***********************************************************************
 static unsigned int keys;
-// Wewnetrzna zmienna w której przechowywany jest stan klawiszy
+// Wewnetrzna zmienna w kt?rej przechowywany jest stan klawiszy
 // Zawartosc tej zmiennej pobierana jest przez program za pomoca funkcji
 //  GetKeys(); jesli zmienna keycnt jest wieksza od zera.
 // ***********************************************************************
 
 // ***********************************************************************
 static unsigned int keycnt;
-// Wewnetrzna zmienna w której przechowywana jest licznik autorepetycji
+// Wewnetrzna zmienna w kt?rej przechowywana jest licznik autorepetycji
 // Zwiekszany okresowo w momencie gdy sa nacisniete klawisze i ich stan
 // nie zmienia sie przez dluzszy czas. Zmniejszana podczas kazdego
 // wywolania funkcji GetKeys();
@@ -37,8 +37,8 @@ static unsigned int prevKeybSt;
 
 // ***********************************************************************
 static unsigned int arTime;
-// Wewnetrzna zmienna reprezentujaca czas w którym ma nastapic zwiekszenie
-// licznika klawiatury. Zwiekszana o odpowiedni czas zalezny o czasów
+// Wewnetrzna zmienna reprezentujaca czas w kt?rym ma nastapic zwiekszenie
+// licznika klawiatury. Zwiekszana o odpowiedni czas zalezny o czas?w
 // autorepetycji po kazdym zwiekszeniu licznika klawiatury
 // ***********************************************************************
 
@@ -59,9 +59,9 @@ static unsigned char keyblock;
 
 
 // ***********************************************************************
-// Domyslna tablica z kolejnymi czasami autorepetycji. Ostatnia pozycja rózna
+// Domyslna tablica z kolejnymi czasami autorepetycji. Ostatnia pozycja r?zna
 // od zera jest czasem autorepetycji nieskonczonej. Ilosc pozycji dowolna,
-// ostatnia pozycja musi byc równa 0;
+// ostatnia pozycja musi byc r?wna 0;
 static const unsigned short DefaultAutoRepeatTab[] =
 {
 	PERIOD_30MS,
@@ -119,7 +119,7 @@ void KEY_init(void)
 // Funkcja dostarczajaca surowy stan klawiatury.
 // Stan wysoki dla wcisnietych klawiszy. Jesli funkcja KeybProc() 
 // bedzie wywolywana z przerwania to funkcja GetKeybSample() musi
-// trwac jak najkrócej
+// trwac jak najkr?cej
 // ***********************************************************************
 unsigned int
 GetKeybSample( void )
@@ -181,7 +181,7 @@ KeybProc( void )
 
 // ***********************************************************************
 // Funkcja zwraca stan klawiszy do programu jesli licznik autorepetycji
-// rózny od zera
+// r?zny od zera
 // ***********************************************************************
 unsigned int
 GetKeys( void )
@@ -233,7 +233,7 @@ IsKey( unsigned int mask )
 
 // ***********************************************************************
 // Funkcja resetuje stan klawiatury. Jako parametr nalezy podac stala
-// KBD_LOCK lub KBD_NOLOCK, które odpowiednio blokuja lub nie klawiature
+// KBD_LOCK lub KBD_NOLOCK, kt?re odpowiednio blokuja lub nie klawiature
 // Jesli funkcja KeybProc() bedzie wywolywana z przerwania to funkcja
 // ClrKeyb() musi byc wykonana atomowo.
 // ***********************************************************************

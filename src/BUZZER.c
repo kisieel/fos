@@ -481,7 +481,7 @@ void _BUZZER_init(void)
 	alarm.position = 0 ;
 
 	beep.tone = nominal_freuqency;
-	beep.volume = vol_mid;
+	beep.volume = 1;
 	beep.length = 100;
 	
 	NVIC_EnableIRQ(TIM3_IRQn);

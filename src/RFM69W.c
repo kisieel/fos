@@ -1,6 +1,6 @@
 #include "main.h"
 
-#define NODEID                  0x12
+#define NODEID                  0x0A
 #define NETWORKID               100
 #define ENCRYPTKEY              "FishingMonsters!" // Has to be same 16 characters/bytes on all nodes, not more not less!
 

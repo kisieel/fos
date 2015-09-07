@@ -26,6 +26,12 @@
 // Comment following line if you don't want to receive USART messages
 #define USART_debug             TRUE
 
+// Time to hold the key to turn off
+#define TurnOffTime             3000
+
+#define PowerOn                 GPIOA->BSRRL |= GPIO_BSRR_BS_0;
+#define PowerOff                GPIOA->BSRRH |= GPIO_BSRR_BR_0;
+
 typedef struct {
 	uint8_t ActAnimation;
 	uint8_t ActColor;

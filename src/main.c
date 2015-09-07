@@ -50,25 +50,28 @@ SystemType System;
 
 int main()
 {	
-	uint32_t buf;
-//	const char* key = "sampleEncryptKey";
-
+	uint32_t data;
+	
+	SYS_TICK_init();
+	
+	data = SYS_TICK_timeOut(0,0);
+	while (SYS_TICK_timeOut(1, data) < 100);
+	
 	// Keep power supply
 	RCC->AHBENR |= RCC_AHBENR_GPIOAEN;            // Clock for GPIOA
 	GPIO_config(0x0A, 0, GPIO_MODE_GP, GPIO_PULL_Floating, GPIO_TYPE_Pushpull, GPIO_SPEED_400k, 0);
 	GPIOA->BSRRL |= GPIO_BSRR_BS_0;               // Output 1
 
-	buf = EEPROM_32_read(EEPROM_ConfAddress1);
+	data = EEPROM_32_read(EEPROM_ConfAddress1);
 	
-	System.ActAnimation= (buf & EEPROM_1_ActAnimation) >> EEPROM_1_ActAnimationPosition;
-	System.ActColor = (buf & EEPROM_1_ActColor) >> EEPROM_1_ActColorPosition;
-	System.ActBrightness = (buf & EEPROM_1_ActBrightness) >> EEPROM_1_ActBrightnessPosition;
-	System.ActAlarmTone = (buf & EEPROM_1_ActAlarmTone) >> EEPROM_1_ActAlarmTonePosition;
-	System.ActAlarmVol = (buf & EEPROM_1_ActAlarmVol) >> EEPROM_1_ActAlarmVolPosition;
-	System.ActAlarmTempo = (buf & EEPROM_1_ActAlarmTempo) >> EEPROM_1_ActAlarmTempoPosition;
-	System.ActMusic = (buf & EEPROM_1_ActMusic) >> EEPROM_1_ActMusicPosition;
+	System.ActAnimation= (data & EEPROM_1_ActAnimation) >> EEPROM_1_ActAnimationPosition;
+	System.ActColor = (data & EEPROM_1_ActColor) >> EEPROM_1_ActColorPosition;
+	System.ActBrightness = (data & EEPROM_1_ActBrightness) >> EEPROM_1_ActBrightnessPosition;
+	System.ActAlarmTone = (data & EEPROM_1_ActAlarmTone) >> EEPROM_1_ActAlarmTonePosition;
+	System.ActAlarmVol = (data & EEPROM_1_ActAlarmVol) >> EEPROM_1_ActAlarmVolPosition;
+	System.ActAlarmTempo = (data & EEPROM_1_ActAlarmTempo) >> EEPROM_1_ActAlarmTempoPosition;
+	System.ActMusic = (data & EEPROM_1_ActMusic) >> EEPROM_1_ActMusicPosition;
 	
-	SYS_TICK_init();
 	KEY_init();
 	MENU_init();
 	USART_init();
@@ -78,7 +81,7 @@ int main()
 	USART_send("Peripherals initialized.\n");
 #endif
 	
-//	RFM69W_init();
+	RFM69W_init();
 	_BUZZER_init();
 	_LED_init();
 	_LED_off();
@@ -105,5 +108,19 @@ int main()
 
 	for(;;) {
 		_actual->menu_fun(GetKeys());
+		
+		if (GPIOA->IDR & GPIO_IDR_IDR_1) {
+			data = SYS_TICK_timeOut(0, 0);
+			while (GPIOA->IDR & GPIO_IDR_IDR_1) {
+				if (SYS_TICK_timeOut(1, data) > TurnOffTime) {
+					EEPROM_SystemBackup();
+					_LED_off();
+#ifdef USART_debug
+					USART_send("Power off detected. System backed up. Switching off.\n");
+#endif
+					PowerOff;
+				}
+			}
+		}
 	}
 }

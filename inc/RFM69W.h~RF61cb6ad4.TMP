@@ -9,7 +9,8 @@
 // Public functions
 
 extern void     RFM69W_init(void);
-extern uint8_t  RFM69W_sendWithRetry(uint8_t toAddress, const void* buffer, uint8_t bufferSize, uint8_t retries, uint8_t retryWaitTime);
+extern uint32_t RFM69W_getFrequency(void);
+extern uint16_t milis(uint8_t onOff);
 
 // End of public functions
 

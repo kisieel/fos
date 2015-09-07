@@ -109,7 +109,7 @@ void menu_1_fun(unsigned int key)
 // Wybor animacji brania
 void menu_2_fun(unsigned int key)
 {	
-	_LED_animate();
+//	_LED_animate();
 	switch (key) {
 		case (KEY_2):
 			_BUZZER_single_beep();
@@ -131,7 +131,7 @@ void menu_2_fun(unsigned int key)
 		case (KEY_1):
 			_BUZZER_single_beep();
 			ClrKeyb( KBD_LOCK );
-			_LED_animate_off();
+//			_LED_animate_off();
 		
 			EEPROM_32_write(EEPROM_ConfAddress1, (EEPROM_32_read(EEPROM_ConfAddress1) & ~EEPROM_1_ActAnimation) | (System.ActAnimation << EEPROM_1_ActAnimationPosition));
 			_LED_set_color_list(MENU_LED_Color, System.ActColor);

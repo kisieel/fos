@@ -27,6 +27,8 @@
 #define EEPROM_1_ActMusicPosition      6*4
 
 // Public functions
+extern void     EEPROM_SystemBackup(void);
+
 extern void     EEPROM_64_erase(uint32_t ADDRESS);
 extern void     EEPROM_32_erase(uint32_t ADDRESS);
 
