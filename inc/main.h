@@ -30,7 +30,7 @@
 #define TurnOffTime             3000
 
 #define PowerOn                 GPIOA->BSRRL |= GPIO_BSRR_BS_0;
-#define PowerOff                GPIOA->BSRRH |= GPIO_BSRR_BR_0;
+#define PowerOff                GPIOA->ODR &= ~GPIO_ODR_ODR_0;
 
 typedef struct {
 	uint8_t ActAnimation;
