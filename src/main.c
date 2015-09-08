@@ -55,7 +55,7 @@ int main()
 	SYS_TICK_init();
 	
 	data = SYS_TICK_timeOut(0,0);
-	while (SYS_TICK_timeOut(1, data) < 100);
+	while (SYS_TICK_timeOut(1, data) < 400);
 	
 	// Keep power supply
 	RCC->AHBENR |= RCC_AHBENR_GPIOAEN;            // Clock for GPIOA
@@ -90,7 +90,7 @@ int main()
 	USART_send("External devices initialized.\n");
 #endif
 
-	_LED_set_color_list(5, System.ActColor);
+	_LED_set_color_list(3, System.ActColor);
 	_LED_change_brightness_limit_list(System.ActBrightness);
 	_LED_on();
 	_BUZZER_alarm_set_tone_list(System.ActAlarmTone);

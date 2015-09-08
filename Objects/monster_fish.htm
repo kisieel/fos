@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Objects\monster_fish.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Objects\monster_fish.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050169: Last Updated: Tue Sep 08 00:23:16 2015
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050169: Last Updated: Tue Sep 08 20:18:59 2015
 <BR><P>
 <H3>Maximum Stack Usage =        272 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -619,7 +619,8 @@ Global Symbols
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32l1xx_md.o(RESET)
 </UL>
 <P><STRONG><a name="[bb]"></a>EEPROM_32_read</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, eeprom.o(i.EEPROM_32_read))
-<BR><BR>[Called By]<UL><LI><a href="#[47]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;menu_7_fun
+<BR><BR>[Called By]<UL><LI><a href="#[48]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;menu_8_fun
+<LI><a href="#[47]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;menu_7_fun
 <LI><a href="#[46]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;menu_6_fun
 <LI><a href="#[45]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;menu_5_fun
 <LI><a href="#[44]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;menu_4_fun
@@ -633,7 +634,8 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EEPROM_unlock
 </UL>
-<BR>[Called By]<UL><LI><a href="#[47]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;menu_7_fun
+<BR>[Called By]<UL><LI><a href="#[48]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;menu_8_fun
+<LI><a href="#[47]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;menu_7_fun
 <LI><a href="#[46]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;menu_6_fun
 <LI><a href="#[45]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;menu_5_fun
 <LI><a href="#[44]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;menu_4_fun
@@ -1291,7 +1293,7 @@ Global Symbols
 <LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_LED_off
 </UL>
 
-<P><STRONG><a name="[56]"></a>main</STRONG> (Thumb, 330 bytes, Stack size 16 bytes, main.o(i.main))
+<P><STRONG><a name="[56]"></a>main</STRONG> (Thumb, 332 bytes, Stack size 16 bytes, main.o(i.main))
 <BR><BR>[Stack]<UL><LI>Max Depth = 112<LI>Call Chain = main &rArr; _LED_change_brightness_limit_list &rArr; _LED_change_brightness_limit &rArr; _LED_change_brightness_all &rArr; _LED_change_brightness &rArr; LED_set_values
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_LED_set_color_list
@@ -1320,7 +1322,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[55]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_entry_main
 </UL>
 
-<P><STRONG><a name="[41]"></a>menu_1_fun</STRONG> (Thumb, 74 bytes, Stack size 8 bytes, menu.o(i.menu_1_fun))
+<P><STRONG><a name="[41]"></a>menu_1_fun</STRONG> (Thumb, 82 bytes, Stack size 8 bytes, menu.o(i.menu_1_fun))
 <BR><BR>[Stack]<UL><LI>Max Depth = 76<LI>Call Chain = menu_1_fun &rArr; _LED_set_color_list &rArr; _LED_set_color &rArr; LED_set_values
 </UL>
 <BR>[Calls]<UL><LI><a href="#[be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_BUZZER_single_beep
@@ -1331,7 +1333,7 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> menu.o(i.MENU_init)
 </UL>
-<P><STRONG><a name="[42]"></a>menu_2_fun</STRONG> (Thumb, 158 bytes, Stack size 16 bytes, menu.o(i.menu_2_fun))
+<P><STRONG><a name="[42]"></a>menu_2_fun</STRONG> (Thumb, 190 bytes, Stack size 16 bytes, menu.o(i.menu_2_fun))
 <BR><BR>[Stack]<UL><LI>Max Depth = 216<LI>Call Chain = menu_2_fun &rArr; USART_write_buf &rArr; _dbl2stri &rArr; __aeabi_dmul
 </UL>
 <BR>[Calls]<UL><LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_LED_animate_change
@@ -1346,7 +1348,7 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> menu.o(i.MENU_init)
 </UL>
-<P><STRONG><a name="[43]"></a>menu_3_fun</STRONG> (Thumb, 168 bytes, Stack size 16 bytes, menu.o(i.menu_3_fun))
+<P><STRONG><a name="[43]"></a>menu_3_fun</STRONG> (Thumb, 200 bytes, Stack size 16 bytes, menu.o(i.menu_3_fun))
 <BR><BR>[Stack]<UL><LI>Max Depth = 216<LI>Call Chain = menu_3_fun &rArr; USART_write_buf &rArr; _dbl2stri &rArr; __aeabi_dmul
 </UL>
 <BR>[Calls]<UL><LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_LED_blink_on
@@ -1362,7 +1364,7 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> menu.o(i.MENU_init)
 </UL>
-<P><STRONG><a name="[44]"></a>menu_4_fun</STRONG> (Thumb, 150 bytes, Stack size 16 bytes, menu.o(i.menu_4_fun))
+<P><STRONG><a name="[44]"></a>menu_4_fun</STRONG> (Thumb, 182 bytes, Stack size 16 bytes, menu.o(i.menu_4_fun))
 <BR><BR>[Stack]<UL><LI>Max Depth = 216<LI>Call Chain = menu_4_fun &rArr; USART_write_buf &rArr; _dbl2stri &rArr; __aeabi_dmul
 </UL>
 <BR>[Calls]<UL><LI><a href="#[be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_BUZZER_single_beep
@@ -1377,7 +1379,7 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> menu.o(i.MENU_init)
 </UL>
-<P><STRONG><a name="[45]"></a>menu_5_fun</STRONG> (Thumb, 146 bytes, Stack size 16 bytes, menu.o(i.menu_5_fun))
+<P><STRONG><a name="[45]"></a>menu_5_fun</STRONG> (Thumb, 178 bytes, Stack size 16 bytes, menu.o(i.menu_5_fun))
 <BR><BR>[Stack]<UL><LI>Max Depth = 216<LI>Call Chain = menu_5_fun &rArr; USART_write_buf &rArr; _dbl2stri &rArr; __aeabi_dmul
 </UL>
 <BR>[Calls]<UL><LI><a href="#[77]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_BUZZER_alarm_start
@@ -1392,7 +1394,7 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> menu.o(i.MENU_init)
 </UL>
-<P><STRONG><a name="[46]"></a>menu_6_fun</STRONG> (Thumb, 146 bytes, Stack size 16 bytes, menu.o(i.menu_6_fun))
+<P><STRONG><a name="[46]"></a>menu_6_fun</STRONG> (Thumb, 178 bytes, Stack size 16 bytes, menu.o(i.menu_6_fun))
 <BR><BR>[Stack]<UL><LI>Max Depth = 216<LI>Call Chain = menu_6_fun &rArr; USART_write_buf &rArr; _dbl2stri &rArr; __aeabi_dmul
 </UL>
 <BR>[Calls]<UL><LI><a href="#[77]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_BUZZER_alarm_start
@@ -1407,7 +1409,7 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> menu.o(i.MENU_init)
 </UL>
-<P><STRONG><a name="[47]"></a>menu_7_fun</STRONG> (Thumb, 158 bytes, Stack size 16 bytes, menu.o(i.menu_7_fun))
+<P><STRONG><a name="[47]"></a>menu_7_fun</STRONG> (Thumb, 190 bytes, Stack size 16 bytes, menu.o(i.menu_7_fun))
 <BR><BR>[Stack]<UL><LI>Max Depth = 216<LI>Call Chain = menu_7_fun &rArr; USART_write_buf &rArr; _dbl2stri &rArr; __aeabi_dmul
 </UL>
 <BR>[Calls]<UL><LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_BUZZER_play_music
@@ -1424,8 +1426,8 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> menu.o(i.MENU_init)
 </UL>
-<P><STRONG><a name="[48]"></a>menu_8_fun</STRONG> (Thumb, 124 bytes, Stack size 8 bytes, menu.o(i.menu_8_fun))
-<BR><BR>[Stack]<UL><LI>Max Depth = 208<LI>Call Chain = menu_8_fun &rArr; USART_write_buf &rArr; _dbl2stri &rArr; __aeabi_dmul
+<P><STRONG><a name="[48]"></a>menu_8_fun</STRONG> (Thumb, 186 bytes, Stack size 16 bytes, menu.o(i.menu_8_fun))
+<BR><BR>[Stack]<UL><LI>Max Depth = 216<LI>Call Chain = menu_8_fun &rArr; USART_write_buf &rArr; _dbl2stri &rArr; __aeabi_dmul
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_LED_set_color
 <LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_BUZZER_stop_music
@@ -1434,6 +1436,8 @@ Global Symbols
 <LI><a href="#[78]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_write_buf
 <LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_LED_on
 <LI><a href="#[70]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_send
+<LI><a href="#[6c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EEPROM_32_write
+<LI><a href="#[bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EEPROM_32_read
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> menu.o(i.MENU_init)
 </UL>
