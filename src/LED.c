@@ -11,17 +11,18 @@ volatile uint32_t led_state_temp[led_length];
 volatile uint8_t	led_current_animation;
 volatile uint8_t	animation_step;
 volatile uint8_t	led_animate_brightness;
-volatile uint8_t	led_brightness_temp;
 /* ---------- */
 
+volatile uint8_t	led_brightness_normal;
 volatile uint8_t LED_blinking_state;
 volatile uint8_t led_blink_status[led_length];
 
 volatile uint8_t	led_brightness_coeff;
 
-//volatile uint8_t led_animations[led_amimations_qnt] = {
-//	
-//};
+volatile uint8_t led_animations[led_amimations_qnt] = {
+	0,
+	1
+};
 
 // Blue, Red, Green
 volatile uint8_t led_colors[led_colors_qnt][3] = {
@@ -163,8 +164,7 @@ void _LED_init(void)
 	while (_LED_dma_flag){};
 	led_DMA_init(led_on_state);
 	led_refresh_timer_init();	
-	led_brightness_coeff = 100;
-	
+		
 	for(i = 0; i< led_length; i++)
 	{
 		led_blink_status[i] = led_blink_off;
@@ -172,6 +172,8 @@ void _LED_init(void)
 	animation_step = animation_off;
 	led_current_animation = 100;
 	led_animate_brightness = 5;
+	led_brightness_coeff = 100;
+	led_brightness_normal = 100;
 }
 
 void _LED_off(void)
@@ -255,7 +257,7 @@ void _LED_set_color(uint8_t led_number, uint8_t blue, uint8_t red, uint8_t green
 	uint8_t red_set = (uint8_t)(red *led_limit_max/100);
 	uint8_t blue_set =  (uint8_t)(blue *led_limit_max/100);
 	uint8_t green_set = (uint8_t)(green *led_limit_max/100);
-	
+	led_brightness_coeff = led_brightness_normal;
 	LED_set_values(led_number,blue_set,red_set,green_set);
 }
 
@@ -331,37 +333,34 @@ uint32_t _LED_change_brightness(uint8_t led_n, uint8_t step, uint8_t direction)
 	blue_set = (uint8_t)((led_state[led_n - 1] >> color_blue) & 0xFF);
 	green_set = (uint8_t)((led_state[led_n - 1] >> color_green) & 0xFF);
 	
-	red_set += change;
-	blue_set += change;
-	green_set += change; 
 	
-//	if(red_set == led_limit_max && blue_set == led_limit_max  && green_set == led_limit_max)
-//	{
-//			return led_brightness_max;
-//	}		
-//	
-//	if(direction == led_increment)
-//	{
-//		if((red_set+2*change)>=(led_limit_max)){red_set = (led_limit_max); return_value = led_brightness_max;}
-//		else{red_set += change; }
-//		
-//		if((blue_set+2*change)>=(led_limit_max)){blue_set = (led_limit_max); return_value = led_brightness_max;}
-//		else{blue_set += change; }		
-//		
-//		if((green_set+2*change)>=(led_limit_max)){green_set = (led_limit_max); return_value = led_brightness_max;}
-//		else{green_set += change; }		
-//	}
-//	else if(direction == led_decrement)
-//	{
-//		if((red_set-2*change)<=0x00){red_set = 0; return_value = led_brightness_min;}
-//		else{red_set -= change; }
-//		
-//		if((blue_set-2*change)<=0x00){blue_set = 0; return_value = led_brightness_min;}
-//		else{blue_set -= change; }		
-//		
-//		if((green_set-2*change)<=0x00){green_set = 0; return_value = led_brightness_min;}
-//		else{green_set -= change; }		
-//	}
+	if(red_set == led_limit_max && blue_set == led_limit_max  && green_set == led_limit_max && direction == led_increment)
+	{
+			return led_brightness_max;
+	}		
+	
+	if(direction == led_increment)
+	{
+		if((red_set+2*change)>=(led_limit_max)){red_set = (led_limit_max); return_value = led_brightness_max;}
+		else{red_set += change; }
+		
+		if((blue_set+2*change)>=(led_limit_max)){blue_set = (led_limit_max); return_value = led_brightness_max;}
+		else{blue_set += change; }		
+		
+		if((green_set+2*change)>=(led_limit_max)){green_set = (led_limit_max); return_value = led_brightness_max;}
+		else{green_set += change; }		
+	}
+	else if(direction == led_decrement)
+	{
+		if((red_set-2*change)<=0x00){red_set = 0; return_value = led_brightness_min;}
+		else{red_set -= change; }
+		
+		if((blue_set-2*change)<=0x00){blue_set = 0; return_value = led_brightness_min;}
+		else{blue_set -= change; }		
+		
+		if((green_set-2*change)<=0x00){green_set = 0; return_value = led_brightness_min;}
+		else{green_set -= change; }		
+	}
 
 
 	LED_set_values(led_n,blue_set,red_set,green_set);
@@ -421,10 +420,13 @@ void _LED_change_brightness_limit_list(uint8_t index)
 
 void _LED_change_brightness_limit(uint8_t brightness)	// set limit for brightness in %
 {
-	led_brightness_coeff = brightness;
+	led_brightness_normal = brightness;	
+	led_brightness_coeff = led_brightness_normal;
 	_LED_change_brightness_all(0,led_increment);
 	_LED_set();
 }
+
+
 
 void led_refresh_timer_init(void)
 {
@@ -459,6 +461,7 @@ void led_refresh_timer_init(void)
 
 void _LED_blink_on(uint8_t led_number)		//start blinking chuj ci w dupe i tak tego nie czytasz :)
 {
+	led_brightness_coeff = led_brightness_normal;
 	if(led_blink_status[led_number-1] == led_blink_off)
 	{
 		led_blink_status[led_number-1] = led_blink_on;
@@ -497,7 +500,7 @@ void _LED_animate_delay(uint16_t delay_ms)
 }
 
 
-void _LED_animate(void)
+void _LED_animate(uint8_t animate_mode)
 {
 	static uint8_t led_number_static = 1;
 	uint8_t i= 0;
@@ -514,7 +517,6 @@ void _LED_animate(void)
 			_LED_refresh_flag = 1;
 			led_number_static = 1;
 			animation_step = animation_step_0;
-			
 		}
 		
 		if(_LED_refresh_flag)		//opóznienie sie skonczylo
@@ -523,23 +525,25 @@ void _LED_animate(void)
 			{
 				if(animation_step == animation_step_0)
 				{
-					temp_variable = _LED_change_brightness_all(1,led_increment);
-					if(temp_variable == led_brightness_max )
+					if(_LED_change_brightness(led_number_static,1,led_increment) == led_brightness_max)
 					{
-					
+						if(led_number_static++>led_length)
+						{
+							animation_step = animation_step_1;
+						}
 					}
-					_LED_animate_delay(10);
+					_LED_animate_delay(3);
 				}
 				else if(animation_step == animation_step_1)
 				{
-					if(_LED_change_brightness(led_number_static-1,10,led_decrement) == led_brightness_min )
+					if(_LED_change_brightness(led_number_static-1,1,led_decrement) == led_brightness_min )
 					{
 						if(led_number_static--<1)
 						{
 							animation_step = animation_step_2;
 						}							
 					}
-					_LED_animate_delay(100);
+					_LED_animate_delay(3);
 				}
 				else if(animation_step == animation_step_2)
 				{
@@ -547,7 +551,7 @@ void _LED_animate(void)
 					{
 						animation_step = animation_step_3;						
 					}
-					_LED_animate_delay(10);
+					_LED_animate_delay(3);
 				}
 				else if(animation_step == animation_step_3)
 				{
@@ -555,9 +559,19 @@ void _LED_animate(void)
 					{
 						animation_step = animation_step_4;						
 					}
+					_LED_animate_delay(3);
 				}
 				else if(animation_step == animation_step_4)
 				{
+					if(animate_mode == led_animate_mode_loop)
+					{
+						led_number_static = 1;
+						animation_step = animation_step_0;
+					}
+					else if(animate_mode == led_animate_mode_single)
+					{
+						animation_step = animation_end;
+					}
 				}
 			}
 				
@@ -566,24 +580,90 @@ void _LED_animate(void)
 			{
 				if(animation_step == animation_step_0)
 				{
-					_LED_set_color(1,100,100,100);
-					_LED_set_color(2,30,30,30);
-					_LED_set_color(3,15,15,15);
-					_LED_set_color(4,3,3,3);
-					_LED_set_color(5,0,0,0);
-					_LED_animate_delay(10);
+					if(_LED_change_brightness_all(1,led_increment) == led_brightness_max )
+					{
+						animation_step = animation_step_1;
+					}
+					_LED_animate_delay(5);
 				}
 				else if(animation_step == animation_step_1)
 				{
+					if(_LED_change_brightness(led_number_static,1,led_increment) == led_brightness_max)
+					{
+						if(led_number_static++>led_length)
+						{
+							animation_step = animation_step_2;
+						}
+					}
+					_LED_animate_delay(5);
 				}
 				else if(animation_step == animation_step_2)
 				{
+					if(_LED_change_color_all(color_blue,1,led_increment) == led_brightness_max)
+					{
+						animation_step = animation_step_3;
+					}
+					_LED_animate_delay(5);
 				}
 				else if(animation_step == animation_step_3)
 				{
+					if(_LED_change_color_all(color_green,1,led_increment) == led_brightness_max)
+					{
+						animation_step = animation_step_4;
+					}
+					_LED_animate_delay(5);
 				}
 				else if(animation_step == animation_step_4)
 				{
+					if(_LED_change_color_all(color_red,1,led_decrement) == led_brightness_min)
+					{
+						animation_step = animation_step_5;
+					}
+					_LED_animate_delay(5);
+				}
+				else if(animation_step == animation_step_5)
+				{
+					if(_LED_change_color_all(color_blue,1,led_increment) == led_brightness_max)
+					{
+						animation_step = animation_step_6;
+					}
+					_LED_animate_delay(5);
+				}
+				else if(animation_step == animation_step_6)
+				{
+					if(_LED_change_color_all(color_blue,1,led_increment) == led_brightness_max  && _LED_change_color_all(color_green,1,led_decrement) == led_brightness_min)
+					{
+						animation_step = animation_step_7;
+					}
+					_LED_animate_delay(5);
+				}
+				else if(animation_step == animation_step_7)
+				{
+					if(_LED_change_color_all(color_red,1,led_increment) == led_brightness_max  && _LED_change_color_all(color_green,1,led_decrement) == led_brightness_min)
+					{
+						animation_step = animation_step_8;
+					}
+					_LED_animate_delay(5);
+				}
+				else if(animation_step == animation_step_8)
+				{
+					if(_LED_change_color_all(color_blue,1,led_increment) == led_brightness_max  && _LED_change_color_all(color_green,1,led_decrement) == led_brightness_min)
+					{
+						animation_step = animation_step_9;
+					}
+					_LED_animate_delay(5);
+				}
+				else if(animation_step == animation_step_9)
+				{
+					if(animate_mode == led_animate_mode_loop)
+					{
+						led_number_static = 1;
+						animation_step = animation_step_0;
+					}
+					else if(animate_mode == led_animate_mode_single)
+					{
+						animation_step = animation_end;
+					}					
 				}
 			}
 		}
@@ -591,12 +671,7 @@ void _LED_animate(void)
 		
 		if(animation_step == animation_end)
 		{
-			for(i = 0; i< led_length; i++)
-			{
-				led_state[i] = led_state_temp[i];
-			}
-			_LED_on();			
-			animation_step = animation_off;
+			_LED_animate_off();
 		}
 		
 }
@@ -604,7 +679,7 @@ void _LED_animate(void)
 void _LED_animate_off(void)
 {
 	uint8_t i = 0 ;
-	led_brightness_coeff = 	led_brightness_temp;
+	led_brightness_coeff = 	led_brightness_normal;
 	for(i = 0; i< led_length; i++)
 	{
 		led_state[i] = led_state_temp[i];
@@ -617,6 +692,7 @@ void _LED_animate_off(void)
 void _LED_animate_change(uint8_t number)
 {
 	uint8_t i = 0;
+	led_brightness_coeff = led_animate_brightness;
 	if(animation_step != animation_off)		//interrupt in current animation
 	{
 		led_current_animation = number;
@@ -630,9 +706,12 @@ void _LED_animate_change(uint8_t number)
 		}
 		led_current_animation = number;
 		animation_step = animation_start;
-		led_brightness_temp = led_brightness_coeff;
-		led_brightness_coeff = led_animate_brightness;
 	}
+}
+
+void _LED_change_animate_list(uint8_t index)
+{
+	_LED_animate_change(led_animations[index]);
 }
 
 

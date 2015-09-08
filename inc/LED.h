@@ -1,7 +1,7 @@
 #include "stm32l1xx.h"
 
 // Maximum number of animations available to set
-#define led_amimations_qnt 1
+#define led_amimations_qnt 2
 
 // Maximum number of colors available to set
 #define led_colors_qnt     7
@@ -43,7 +43,15 @@
 #define animation_step_2 	30
 #define animation_step_3 	40
 #define animation_step_4 	50
+#define animation_step_5 	60
+#define animation_step_6 	70
+#define animation_step_7 	80
+#define animation_step_8 	90
+#define animation_step_9 	100
 #define animation_delay 	5
+
+#define led_animate_mode_loop		10
+#define led_animate_mode_single	20
 
 
 extern volatile uint16_t led_value[led_bits];
@@ -55,9 +63,9 @@ extern volatile uint32_t led_state_temp[led_length];
 extern volatile uint8_t	led_current_animation;
 extern volatile uint8_t	animation_step;
 extern volatile uint8_t	led_animate_brightness;
-extern volatile uint8_t	led_brightness_temp;
 /* ---------- */
 
+extern volatile uint8_t	led_brightness_normal;
 extern volatile uint8_t LED_blinking_state;
 extern volatile uint8_t led_blink_status[led_length];
 
@@ -81,6 +89,7 @@ void _LED_off(void);
 void _LED_set_color(uint8_t led_number, uint8_t blue, uint8_t red, uint8_t green);
 void _LED_set_color_list(uint8_t led_number, uint8_t index);
 uint8_t _LED_change_color(uint8_t led_number, uint8_t color, uint8_t step, uint8_t direction);
+uint8_t  _LED_change_color_all( uint8_t color, uint8_t step, uint8_t direction)	;
 
 uint32_t _LED_change_brightness(uint8_t led_number, uint8_t step, uint8_t direction);
 uint32_t _LED_change_brightness_perc(uint8_t led_n, uint8_t perc);
@@ -94,10 +103,11 @@ void _LED_blink_on(uint8_t led_number);
 void _LED_blink_off(uint8_t led_number); 
 
 void _LED_refresh(uint16_t delay_ms);
-void _LED_animate(void);
+void _LED_animate(uint8_t animate_mode);
 void _LED_animate_off(void);
 void _LED_animate_delay(uint16_t delay_ms);
 void _LED_animate_change(uint8_t number);
+void _LED_change_animate_list(uint8_t index);
 
 uint8_t reverse(uint8_t b);
 void wait_(uint32_t time);

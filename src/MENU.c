@@ -114,16 +114,16 @@ void menu_2_fun(unsigned int key)
 	uint32_t buffer;
 	uint8_t buffer_send[4];
 	
-//	_LED_animate();
+	_LED_animate(led_animate_mode_single);
 	switch (key) {
 		case (KEY_2):
 			_BUZZER_single_beep();
 		
-			if (System.ActAnimation == led_colors_qnt - 1)
+			if (System.ActAnimation >= led_amimations_qnt - 1)
 				System.ActAnimation = 0;
 			else
 				System.ActAnimation++;
-			_LED_animate_change(0);
+			_LED_change_animate_list(System.ActAnimation);
 			
 #ifdef USART_debug
 			USART_send("\tLED animation #");
@@ -136,7 +136,7 @@ void menu_2_fun(unsigned int key)
 		case (KEY_1):
 			_BUZZER_single_beep();
 			ClrKeyb( KBD_LOCK );
-//			_LED_animate_off();
+			_LED_animate_off();
 		
 			buffer = EEPROM_32_read(EEPROM_ConfAddress1);
 			EEPROM_32_write(EEPROM_ConfAddress1, (buffer & ~EEPROM_1_ActAnimation) | (System.ActAnimation << EEPROM_1_ActAnimationPosition));
