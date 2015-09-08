@@ -186,10 +186,10 @@ Section Cross References
     menu.o(i.menu_2_fun) refers to usart.o(i.USART_send) for USART_send
     menu.o(i.menu_2_fun) refers to usart.o(i.USART_write_buf) for USART_write_buf
     menu.o(i.menu_2_fun) refers to key.o(i.ClrKeyb) for ClrKeyb
+    menu.o(i.menu_2_fun) refers to eeprom.o(i.EEPROM_32_read) for EEPROM_32_read
     menu.o(i.menu_2_fun) refers to eeprom.o(i.EEPROM_32_write) for EEPROM_32_write
     menu.o(i.menu_2_fun) refers to led.o(i._LED_set_color_list) for _LED_set_color_list
     menu.o(i.menu_2_fun) refers to led.o(i._LED_on) for _LED_on
-    menu.o(i.menu_2_fun) refers to eeprom.o(i.EEPROM_32_read) for EEPROM_32_read
     menu.o(i.menu_2_fun) refers to main.o(.data) for System
     menu.o(i.menu_2_fun) refers to menu.o(.data) for _actual
     menu.o(i.menu_3_fun) refers to led.o(i._LED_blink_on) for _LED_blink_on
@@ -200,8 +200,8 @@ Section Cross References
     menu.o(i.menu_3_fun) refers to usart.o(i.USART_send) for USART_send
     menu.o(i.menu_3_fun) refers to usart.o(i.USART_write_buf) for USART_write_buf
     menu.o(i.menu_3_fun) refers to led.o(i._LED_blink_off) for _LED_blink_off
-    menu.o(i.menu_3_fun) refers to eeprom.o(i.EEPROM_32_write) for EEPROM_32_write
     menu.o(i.menu_3_fun) refers to eeprom.o(i.EEPROM_32_read) for EEPROM_32_read
+    menu.o(i.menu_3_fun) refers to eeprom.o(i.EEPROM_32_write) for EEPROM_32_write
     menu.o(i.menu_3_fun) refers to main.o(.data) for System
     menu.o(i.menu_3_fun) refers to menu.o(.data) for _actual
     menu.o(i.menu_4_fun) refers to buzzer.o(i._BUZZER_single_beep) for _BUZZER_single_beep
@@ -210,9 +210,9 @@ Section Cross References
     menu.o(i.menu_4_fun) refers to led.o(i._LED_on) for _LED_on
     menu.o(i.menu_4_fun) refers to usart.o(i.USART_send) for USART_send
     menu.o(i.menu_4_fun) refers to usart.o(i.USART_write_buf) for USART_write_buf
+    menu.o(i.menu_4_fun) refers to eeprom.o(i.EEPROM_32_read) for EEPROM_32_read
     menu.o(i.menu_4_fun) refers to eeprom.o(i.EEPROM_32_write) for EEPROM_32_write
     menu.o(i.menu_4_fun) refers to led.o(i._LED_set_color_list) for _LED_set_color_list
-    menu.o(i.menu_4_fun) refers to eeprom.o(i.EEPROM_32_read) for EEPROM_32_read
     menu.o(i.menu_4_fun) refers to main.o(.data) for System
     menu.o(i.menu_4_fun) refers to menu.o(.data) for _actual
     menu.o(i.menu_5_fun) refers to buzzer.o(i._BUZZER_alarm_start) for _BUZZER_alarm_start
@@ -220,10 +220,10 @@ Section Cross References
     menu.o(i.menu_5_fun) refers to buzzer.o(i._BUZZER_alarm_set_tone_list) for _BUZZER_alarm_set_tone_list
     menu.o(i.menu_5_fun) refers to usart.o(i.USART_send) for USART_send
     menu.o(i.menu_5_fun) refers to usart.o(i.USART_write_buf) for USART_write_buf
+    menu.o(i.menu_5_fun) refers to eeprom.o(i.EEPROM_32_read) for EEPROM_32_read
     menu.o(i.menu_5_fun) refers to eeprom.o(i.EEPROM_32_write) for EEPROM_32_write
     menu.o(i.menu_5_fun) refers to led.o(i._LED_set_color_list) for _LED_set_color_list
     menu.o(i.menu_5_fun) refers to led.o(i._LED_on) for _LED_on
-    menu.o(i.menu_5_fun) refers to eeprom.o(i.EEPROM_32_read) for EEPROM_32_read
     menu.o(i.menu_5_fun) refers to main.o(.data) for System
     menu.o(i.menu_5_fun) refers to menu.o(.data) for _actual
     menu.o(i.menu_6_fun) refers to buzzer.o(i._BUZZER_alarm_start) for _BUZZER_alarm_start
@@ -231,10 +231,10 @@ Section Cross References
     menu.o(i.menu_6_fun) refers to buzzer.o(i._BUZZER_alarm_set_vol_list) for _BUZZER_alarm_set_vol_list
     menu.o(i.menu_6_fun) refers to usart.o(i.USART_send) for USART_send
     menu.o(i.menu_6_fun) refers to usart.o(i.USART_write_buf) for USART_write_buf
+    menu.o(i.menu_6_fun) refers to eeprom.o(i.EEPROM_32_read) for EEPROM_32_read
     menu.o(i.menu_6_fun) refers to eeprom.o(i.EEPROM_32_write) for EEPROM_32_write
     menu.o(i.menu_6_fun) refers to led.o(i._LED_set_color_list) for _LED_set_color_list
     menu.o(i.menu_6_fun) refers to led.o(i._LED_on) for _LED_on
-    menu.o(i.menu_6_fun) refers to eeprom.o(i.EEPROM_32_read) for EEPROM_32_read
     menu.o(i.menu_6_fun) refers to main.o(.data) for System
     menu.o(i.menu_6_fun) refers to menu.o(.data) for _actual
     menu.o(i.menu_7_fun) refers to buzzer.o(i._BUZZER_alarm_start) for _BUZZER_alarm_start
@@ -242,23 +242,23 @@ Section Cross References
     menu.o(i.menu_7_fun) refers to buzzer.o(i._BUZZER_alarm_set_tempo_list) for _BUZZER_alarm_set_tempo_list
     menu.o(i.menu_7_fun) refers to usart.o(i.USART_send) for USART_send
     menu.o(i.menu_7_fun) refers to usart.o(i.USART_write_buf) for USART_write_buf
+    menu.o(i.menu_7_fun) refers to eeprom.o(i.EEPROM_32_read) for EEPROM_32_read
     menu.o(i.menu_7_fun) refers to eeprom.o(i.EEPROM_32_write) for EEPROM_32_write
     menu.o(i.menu_7_fun) refers to led.o(i._LED_set_color_list) for _LED_set_color_list
     menu.o(i.menu_7_fun) refers to led.o(i._LED_on) for _LED_on
     menu.o(i.menu_7_fun) refers to buzzer.o(i._BUZZER_alarm_stop) for _BUZZER_alarm_stop
     menu.o(i.menu_7_fun) refers to buzzer.o(i._BUZZER_play_music) for _BUZZER_play_music
-    menu.o(i.menu_7_fun) refers to eeprom.o(i.EEPROM_32_read) for EEPROM_32_read
     menu.o(i.menu_7_fun) refers to main.o(.data) for System
     menu.o(i.menu_7_fun) refers to menu.o(.data) for _actual
     menu.o(i.menu_8_fun) refers to key.o(i.ClrKeyb) for ClrKeyb
     menu.o(i.menu_8_fun) refers to buzzer.o(i._BUZZER_play_music) for _BUZZER_play_music
     menu.o(i.menu_8_fun) refers to usart.o(i.USART_send) for USART_send
     menu.o(i.menu_8_fun) refers to usart.o(i.USART_write_buf) for USART_write_buf
+    menu.o(i.menu_8_fun) refers to eeprom.o(i.EEPROM_32_read) for EEPROM_32_read
     menu.o(i.menu_8_fun) refers to eeprom.o(i.EEPROM_32_write) for EEPROM_32_write
     menu.o(i.menu_8_fun) refers to led.o(i._LED_set_color) for _LED_set_color
     menu.o(i.menu_8_fun) refers to led.o(i._LED_on) for _LED_on
     menu.o(i.menu_8_fun) refers to buzzer.o(i._BUZZER_stop_music) for _BUZZER_stop_music
-    menu.o(i.menu_8_fun) refers to eeprom.o(i.EEPROM_32_read) for EEPROM_32_read
     menu.o(i.menu_8_fun) refers to main.o(.data) for System
     menu.o(i.menu_8_fun) refers to menu.o(.data) for _actual
     float.o(i._dbl2stri) refers to dleqf.o(x$fpl$dleqf) for __aeabi_cdcmple

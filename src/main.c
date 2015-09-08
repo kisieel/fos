@@ -64,7 +64,7 @@ int main()
 
 	data = EEPROM_32_read(EEPROM_ConfAddress1);
 	
-	System.ActAnimation= (data & EEPROM_1_ActAnimation) >> EEPROM_1_ActAnimationPosition;
+	System.ActAnimation = (data & EEPROM_1_ActAnimation) >> EEPROM_1_ActAnimationPosition;
 	System.ActColor = (data & EEPROM_1_ActColor) >> EEPROM_1_ActColorPosition;
 	System.ActBrightness = (data & EEPROM_1_ActBrightness) >> EEPROM_1_ActBrightnessPosition;
 	System.ActAlarmTone = (data & EEPROM_1_ActAlarmTone) >> EEPROM_1_ActAlarmTonePosition;

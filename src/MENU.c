@@ -138,13 +138,13 @@ void menu_2_fun(unsigned int key)
 			ClrKeyb( KBD_LOCK );
 //			_LED_animate_off();
 		
+			buffer = EEPROM_32_read(EEPROM_ConfAddress1);
 			EEPROM_32_write(EEPROM_ConfAddress1, (buffer & ~EEPROM_1_ActAnimation) | (System.ActAnimation << EEPROM_1_ActAnimationPosition));
 			_LED_set_color_list(MENU_LED_Color, System.ActColor);
 			_LED_set_color_list(MENU_LED_Menu_1, 1);
 			_LED_set_color_list(MENU_LED_Menu_2, 1);
 			_LED_on();
-		
-			buffer = EEPROM_32_read(EEPROM_ConfAddress1);
+			
 			buffer_send[0] = (buffer & 0x000000FF) >> 0;
 			buffer_send[1] = (buffer & 0x0000FF00) >> 8;
 			buffer_send[2] = (buffer & 0x00FF0000) >> 16;
@@ -191,13 +191,13 @@ void menu_3_fun(unsigned int key)
 			_BUZZER_single_beep();
 			ClrKeyb( KBD_LOCK );
 
-			_LED_blink_off(MENU_LED_Color);	
+			_LED_blink_off(MENU_LED_Color);
+			buffer = EEPROM_32_read(EEPROM_ConfAddress1);
 			EEPROM_32_write(EEPROM_ConfAddress1, (buffer & ~EEPROM_1_ActColor) | (System.ActColor << EEPROM_1_ActColorPosition));
 			_LED_set_color_list(MENU_LED_Menu_1, 2);
 			_LED_set_color_list(MENU_LED_Menu_2, 2);
 			_LED_on();
-		
-			buffer = EEPROM_32_read(EEPROM_ConfAddress1);
+			
 			buffer_send[0] = (buffer & 0x000000FF) >> 0;
 			buffer_send[1] = (buffer & 0x0000FF00) >> 8;
 			buffer_send[2] = (buffer & 0x00FF0000) >> 16;
@@ -241,12 +241,12 @@ void menu_4_fun(unsigned int key)
 		case (KEY_1):
 			ClrKeyb( KBD_LOCK );
 			
+			buffer = EEPROM_32_read(EEPROM_ConfAddress1);
 			EEPROM_32_write(EEPROM_ConfAddress1, (buffer & ~EEPROM_1_ActBrightness) | (System.ActBrightness << EEPROM_1_ActBrightnessPosition));
 			_LED_set_color_list(MENU_LED_Menu_1, 3);
 			_LED_set_color_list(MENU_LED_Menu_2, 3);
 			_LED_on();
 		
-			buffer = EEPROM_32_read(EEPROM_ConfAddress1);
 			buffer_send[0] = (buffer & 0x000000FF) >> 0;
 			buffer_send[1] = (buffer & 0x0000FF00) >> 8;
 			buffer_send[2] = (buffer & 0x00FF0000) >> 16;
@@ -290,12 +290,12 @@ void menu_5_fun(unsigned int key)
 		case (KEY_1):
 			ClrKeyb( KBD_LOCK );
 		
+			buffer = EEPROM_32_read(EEPROM_ConfAddress1);
 			EEPROM_32_write(EEPROM_ConfAddress1, (buffer & ~EEPROM_1_ActAlarmTone) | (System.ActAlarmTone << EEPROM_1_ActAlarmTonePosition));
 			_LED_set_color_list(MENU_LED_Menu_1, 4);
 			_LED_set_color_list(MENU_LED_Menu_2, 4);
 			_LED_on();
 		
-			buffer = EEPROM_32_read(EEPROM_ConfAddress1);
 			buffer_send[0] = (buffer & 0x000000FF) >> 0;
 			buffer_send[1] = (buffer & 0x0000FF00) >> 8;
 			buffer_send[2] = (buffer & 0x00FF0000) >> 16;
@@ -338,12 +338,12 @@ void menu_6_fun(unsigned int key)
 		case (KEY_1):
 			ClrKeyb( KBD_LOCK );
 			
+			buffer = EEPROM_32_read(EEPROM_ConfAddress1);
 			EEPROM_32_write(EEPROM_ConfAddress1, (buffer & ~EEPROM_1_ActAlarmVol) | (System.ActAlarmVol << EEPROM_1_ActAlarmVolPosition));
 			_LED_set_color_list(MENU_LED_Menu_1, 5);
 			_LED_set_color_list(MENU_LED_Menu_2, 5);
 			_LED_on();
 		
-			buffer = EEPROM_32_read(EEPROM_ConfAddress1);
 			buffer_send[0] = (buffer & 0x000000FF) >> 0;
 			buffer_send[1] = (buffer & 0x0000FF00) >> 8;
 			buffer_send[2] = (buffer & 0x00FF0000) >> 16;
@@ -387,6 +387,7 @@ void menu_7_fun(unsigned int key)
 		case (KEY_1):
 			ClrKeyb( KBD_LOCK );
 		
+			buffer = EEPROM_32_read(EEPROM_ConfAddress1);
 			EEPROM_32_write(EEPROM_ConfAddress1, (buffer & ~EEPROM_1_ActAlarmTempo) | (System.ActAlarmTempo << EEPROM_1_ActAlarmTempoPosition));
 			_LED_set_color_list(MENU_LED_Menu_1, 6);
 			_LED_set_color_list(MENU_LED_Menu_2, 6);
@@ -394,7 +395,6 @@ void menu_7_fun(unsigned int key)
 			_BUZZER_alarm_stop();
 			_BUZZER_play_music(System.ActMusic);
 		
-			buffer = EEPROM_32_read(EEPROM_ConfAddress1);
 			buffer_send[0] = (buffer & 0x000000FF) >> 0;
 			buffer_send[1] = (buffer & 0x0000FF00) >> 8;
 			buffer_send[2] = (buffer & 0x00FF0000) >> 16;
@@ -437,13 +437,13 @@ void menu_8_fun(unsigned int key)
 		case (KEY_1):
 			ClrKeyb( KBD_LOCK );
 			
+			buffer = EEPROM_32_read(EEPROM_ConfAddress1);
 			EEPROM_32_write(EEPROM_ConfAddress1, (buffer & ~EEPROM_1_ActAlarmTempo) | (System.ActAlarmTempo << EEPROM_1_ActAlarmTempoPosition));
 			_LED_set_color(MENU_LED_Menu_1, 0, 0, 0);
 			_LED_set_color(MENU_LED_Menu_2, 0, 0, 0);
 			_LED_on();
 			_BUZZER_stop_music();
 		
-			buffer = EEPROM_32_read(EEPROM_ConfAddress1);
 			buffer_send[0] = (buffer & 0x000000FF) >> 0;
 			buffer_send[1] = (buffer & 0x0000FF00) >> 8;
 			buffer_send[2] = (buffer & 0x00FF0000) >> 16;
