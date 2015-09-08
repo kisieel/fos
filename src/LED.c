@@ -514,9 +514,9 @@ void _LED_animate(uint8_t animate_mode)
 				led_state[i] = 0;
 			}
 			_LED_on();
-			_LED_refresh_flag = 1;
-			led_number_static = 1;
 			animation_step = animation_step_0;
+			led_number_static = 1;
+			_LED_refresh_flag = 1;
 		}
 		
 		if(_LED_refresh_flag)		//opóznienie sie skonczylo
@@ -572,6 +572,7 @@ void _LED_animate(uint8_t animate_mode)
 					{
 						animation_step = animation_end;
 					}
+					_LED_animate_delay(3);
 				}
 			}
 				
@@ -663,7 +664,8 @@ void _LED_animate(uint8_t animate_mode)
 					else if(animate_mode == led_animate_mode_single)
 					{
 						animation_step = animation_end;
-					}					
+					}
+					_LED_animate_delay(3);					
 				}
 			}
 		}
@@ -679,6 +681,7 @@ void _LED_animate(uint8_t animate_mode)
 void _LED_animate_off(void)
 {
 	uint8_t i = 0 ;
+	led_refresh_timer_init();
 	led_brightness_coeff = 	led_brightness_normal;
 	for(i = 0; i< led_length; i++)
 	{
@@ -694,9 +697,8 @@ void _LED_animate_change(uint8_t number)
 	uint8_t i = 0;
 	led_brightness_coeff = led_animate_brightness;
 	if(animation_step != animation_off)		//interrupt in current animation
-	{
-		led_current_animation = number;
-		animation_step = animation_start;
+	{	
+		led_refresh_timer_init();
 	}
 	else 
 	{
@@ -704,9 +706,9 @@ void _LED_animate_change(uint8_t number)
 		{
 			led_state_temp[i] = led_state[i];
 		}
-		led_current_animation = number;
-		animation_step = animation_start;
 	}
+	led_current_animation = number;
+	animation_step = animation_start;
 }
 
 void _LED_change_animate_list(uint8_t index)
