@@ -26,6 +26,45 @@ void menu_6_fun(unsigned int);
 void menu_7_fun(unsigned int);
 void menu_8_fun(unsigned int);
 
+void MENU_PacketInterpreter(void)
+{
+	uint32_t buffer;
+	uint8_t buffer_send[4];
+	
+	switch (RFM69W_Data.Data[0]) {
+		case (MENU_RF_GetInfo):
+			buffer = EEPROM_32_read(EEPROM_ConfAddress1);
+			buffer_send[0] = (buffer & 0x000000FF) >> 0;
+			buffer_send[1] = (buffer & 0x0000FF00) >> 8;
+			buffer_send[2] = (buffer & 0x00FF0000) >> 16;
+			buffer_send[3] = (buffer & 0xFF000000) >> 24;
+			RFM69W_sendWithRetry(RFM69W_Data.SenderID, buffer_send, 4, 15, 10);
+			break;
+		case (MENU_RF_ActColor):
+			System.ActColor = RFM69W_Data.Data[1];
+			_LED_set_color_list(MENU_LED_Color, System.ActColor);
+			_LED_on();
+			break;
+		case (MENU_RF_ActBrightness):
+			System.ActBrightness = RFM69W_Data.Data[1];
+			_LED_change_brightness_limit_list(System.ActBrightness);
+			_LED_on();
+			break;
+		case (MENU_RF_ActAlarmTone):
+			System.ActAlarmTone = RFM69W_Data.Data[1];
+			_BUZZER_alarm_set_tone_list(System.ActAlarmTone);
+			break;
+		case (MENU_RF_ActAlarmVolume):
+			System.ActAlarmVol = RFM69W_Data.Data[1];
+			_BUZZER_alarm_set_vol_list(System.ActAlarmVol);
+			break;
+		case (MENU_RF_ActAlarmTempo):
+			System.ActAlarmTempo = RFM69W_Data.Data[1];
+			_BUZZER_alarm_set_tempo_list(System.ActAlarmTempo);
+			break;
+	}
+}
+
 void MENU_init()
 {
 	_1_menu = malloc(sizeof(MENU));
@@ -149,7 +188,7 @@ void menu_2_fun(unsigned int key)
 			buffer_send[1] = (buffer & 0x0000FF00) >> 8;
 			buffer_send[2] = (buffer & 0x00FF0000) >> 16;
 			buffer_send[3] = (buffer & 0xFF000000) >> 24;
-//			RFM69W_sendWithRetry(0x00, buffer_send, 4, 10, 10);
+			RFM69W_sendWithRetry(0x00, buffer_send, 4, 15, 10);
 		
 #ifdef USART_debug
 			USART_send("-3- LED color setting mode.\n");

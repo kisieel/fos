@@ -416,7 +416,7 @@ void BUZZER_music_init(void)
 	music.samples[2].tempo = music_2_tempo;
 	music.samples[2].tone = music_2_tone;
 	
-	music.volume = 0xFF;
+	music.volume = 0x00;
 }
 
 void _BUZZER_play_music(uint8_t music_number)

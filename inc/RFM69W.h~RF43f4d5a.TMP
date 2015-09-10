@@ -6,22 +6,6 @@
 #define RFM69W_write            1
 #define RFM69W_read             0
 
-#define RF69_MAX_DATA_LEN       61
-
-typedef struct {
-	uint8_t Data[RF69_MAX_DATA_LEN];        // recv/xmit buf, including header & crc bytes
-	uint8_t DataLen;
-	uint8_t SenderID;
-	uint8_t TargetID;                       // should match _address
-	uint8_t PayloadLen;
-	uint8_t ACK_Requested;
-	uint8_t ACK_Received;                   // should be polled immediately after sending a packet with ACK request
-	int16_t RSSI;                           // most accurate RSSI during reception (closest to the reception)
-	uint8_t RFM69W_Address;
-} RFM69W;
-
-extern volatile RFM69W RFM69W_Data;
-
 // Public functions
 
 extern void     RFM69W_init(void);

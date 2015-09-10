@@ -1,6 +1,6 @@
 #include "main.h"
 
-#define NODEID                  0x0A
+#define NODEID                  0x01
 #define NETWORKID               100
 #define ENCRYPTKEY              "FishingMonsters!" // Has to be same 16 characters/bytes on all nodes, not more not less!
 
@@ -9,7 +9,6 @@
 #define FREQUENCY               RF69_868MHZ
 #define RF69_BROADCAST_ADDR     255
 
-#define RF69_MAX_DATA_LEN       61
 #define RF69_CSMA_LIMIT_MS      1000
 #define RF69_TX_LIMIT_MS        1000
 #define CSMA_LIMIT              -90 // upper RX signal sensitivity threshold in dBm for carrier sense access
@@ -133,18 +132,6 @@ volatile struct {
 	uint8_t head;
 	uint8_t tail;
 } RFM69W_FIFO;
-
-typedef struct {
-	uint8_t Data[RF69_MAX_DATA_LEN];        // recv/xmit buf, including header & crc bytes
-	uint8_t DataLen;
-	uint8_t SenderID;
-	uint8_t TargetID;                       // should match _address
-	uint8_t PayloadLen;
-	uint8_t ACK_Requested;
-	uint8_t ACK_Received;                   // should be polled immediately after sending a packet with ACK request
-	int16_t RSSI;                           // most accurate RSSI during reception (closest to the reception)
-	uint8_t RFM69W_Address;
-} RFM69W;
 
 volatile RFM69W RFM69W_Data;
 
@@ -418,7 +405,7 @@ uint8_t RFM69W_sendWithRetry(uint8_t toAddress, const void* buffer, uint8_t buff
 	
   for (i = 0; i <= retries; i++) {
     RFM69W_send(toAddress, buffer, bufferSize, 1);
-		
+		RFM69W_Data.ACK_Received = 0;
 		// Enter to RX mode to get ACK
 		RFM69W_setMode(RF69_MODE_RX);
 		// Change interrupt source to PayloadReady
@@ -599,6 +586,7 @@ void EXTI15_10_IRQHandler(void)
 				RFM69W_sendACK(0, 0);
 			
 			if (!RFM69W_Data.ACK_Received) {
+				MENU_PacketInterpreter();
 #ifdef USART_debug
 				USART_send("Interprates as:\n");
 #endif
