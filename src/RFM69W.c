@@ -303,7 +303,7 @@ uint8_t RFM69W_REG_init(void)
 	// Idle time ~100 ms = 4.1 ms * 24
 	RFM69W_SPI_send_poll(RFM69W_write, REG_LISTEN2, 24);
 	// RX time ~10 ms = 64 us * 156
-	RFM69W_SPI_send_poll(RFM69W_write, REG_LISTEN3, 156);
+	RFM69W_SPI_send_poll(RFM69W_write, REG_LISTEN3, 250);
 	
   RFM69W_Data.RFM69W_Address = NODEID;
 	
@@ -404,8 +404,9 @@ uint8_t RFM69W_sendWithRetry(uint8_t toAddress, const void* buffer, uint8_t buff
 	RFM69W_setMode(RF69_MODE_STANDBY);
 	
   for (i = 0; i <= retries; i++) {
-    RFM69W_send(toAddress, buffer, bufferSize, 1);
 		RFM69W_Data.ACK_Received = 0;
+    RFM69W_send(toAddress, buffer, bufferSize, 1);
+		
 		// Enter to RX mode to get ACK
 		RFM69W_setMode(RF69_MODE_RX);
 		// Change interrupt source to PayloadReady
@@ -538,8 +539,7 @@ uint8_t RFM69W_sendFrame(uint8_t toAddress, const void* buffer, uint8_t bufferSi
 		USART_send("It requests ACK.\n");
 #endif
 		result = true;
-	}
-	else {
+	} else {
 #ifdef USART_debug
 	USART_send("Packet sending timed out.\n");
 #endif
@@ -547,9 +547,6 @@ uint8_t RFM69W_sendFrame(uint8_t toAddress, const void* buffer, uint8_t bufferSi
 	}
 	
   RFM69W_setMode(RF69_MODE_STANDBY);
-	
-
-	
 	return result;
 }
 
@@ -658,7 +655,7 @@ void RFM69W_receiveBegin(void)
 	RFM69W_Data.TargetID = 0;
 	RFM69W_Data.PayloadLen = 0;
 	RFM69W_Data.ACK_Requested = 0;
-	RFM69W_Data.ACK_Received = 0;
+//	RFM69W_Data.ACK_Received = 0;
 	RFM69W_Data.RSSI = 0;
   
 	// Avoid RX deadlocks

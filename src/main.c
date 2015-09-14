@@ -51,6 +51,7 @@ SystemType System;
 int main()
 {	
 	uint32_t data;
+	uint8_t buffer_send[5];
 	
 	SYS_TICK_init();
 	
@@ -59,18 +60,20 @@ int main()
 	
 	// Keep power supply
 	RCC->AHBENR |= RCC_AHBENR_GPIOAEN;            // Clock for GPIOA
-	GPIO_config(0x0A, 0, GPIO_MODE_GP, GPIO_PULL_Floating, GPIO_TYPE_Pushpull, GPIO_SPEED_400k, 0);
-	GPIOA->BSRRL |= GPIO_BSRR_BS_0;               // Output 1
+	GPIO_config(0x0A, 3, GPIO_MODE_GP, GPIO_PULL_Floating, GPIO_TYPE_Pushpull, GPIO_SPEED_400k, 0);
+	GPIO_config(0x0A, 7, GPIO_MODE_GP, GPIO_PULL_Floating, GPIO_TYPE_Pushpull, GPIO_SPEED_400k, 0);
+	Power3VOn;
+	Power5VOn;
 
 	data = EEPROM_32_read(EEPROM_ConfAddress1);
 	
-	System.ActAnimation = (data & EEPROM_1_ActAnimation) >> EEPROM_1_ActAnimationPosition;
-	System.ActColor = (data & EEPROM_1_ActColor) >> EEPROM_1_ActColorPosition;
+	System.ActAnimation  = (data & EEPROM_1_ActAnimation) >> EEPROM_1_ActAnimationPosition;
+	System.ActColor      = (data & EEPROM_1_ActColor) >> EEPROM_1_ActColorPosition;
 	System.ActBrightness = (data & EEPROM_1_ActBrightness) >> EEPROM_1_ActBrightnessPosition;
-	System.ActAlarmTone = (data & EEPROM_1_ActAlarmTone) >> EEPROM_1_ActAlarmTonePosition;
-	System.ActAlarmVol = (data & EEPROM_1_ActAlarmVol) >> EEPROM_1_ActAlarmVolPosition;
+	System.ActAlarmTone  = (data & EEPROM_1_ActAlarmTone) >> EEPROM_1_ActAlarmTonePosition;
+	System.ActAlarmVol   = (data & EEPROM_1_ActAlarmVol) >> EEPROM_1_ActAlarmVolPosition;
 	System.ActAlarmTempo = (data & EEPROM_1_ActAlarmTempo) >> EEPROM_1_ActAlarmTempoPosition;
-	System.ActMusic = (data & EEPROM_1_ActMusic) >> EEPROM_1_ActMusicPosition;
+	System.ActMusic      = (data & EEPROM_1_ActMusic) >> EEPROM_1_ActMusicPosition;
 	
 	KEY_init();
 	MENU_init();
@@ -106,19 +109,35 @@ int main()
 	USART_send("-1- Hunter mode.\n");
 #endif
 
+	// Send info to central unit
+	buffer_send[0] = MENU_RF_Recruit;
+	buffer_send[1] = (data & 0x000000FF) >> 0;
+	buffer_send[2] = (data & 0x0000FF00) >> 8;
+	buffer_send[3] = (data & 0x00FF0000) >> 16;
+	buffer_send[4] = (data & 0xFF000000) >> 24;
+	RFM69W_sendWithRetry(0x00, buffer_send, 5, 15, 10);
+
+	// Block device while the power button is still pressed
+	while(GPIOA->IDR & GPIO_IDR_IDR_0);
+
 	for(;;) {
 		_actual->menu_fun(GetKeys());
 		
-		if (GPIOA->IDR & GPIO_IDR_IDR_1) {
+		if (GPIOA->IDR & GPIO_IDR_IDR_0) {
 			data = SYS_TICK_timeOut(0, 0);
-			while (GPIOA->IDR & GPIO_IDR_IDR_1) {
+			while (GPIOA->IDR & GPIO_IDR_IDR_0) {
 				if (SYS_TICK_timeOut(1, data) > TurnOffTime) {
 					EEPROM_SystemBackup();
 					_LED_off();
+					buffer_send[0] = MENU_RF_LogOff;
+					RFM69W_sendWithRetry(0x00, buffer_send, 1, 15, 10);
 #ifdef USART_debug
 					USART_send("Power off detected. System backed up. Switching off.\n");
 #endif
-					PowerOff;
+					Power3VOff;
+					Power5VOff;
+					// Preventing from further code execution
+					for (;;);
 				}
 			}
 		}

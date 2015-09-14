@@ -8,8 +8,8 @@
 // KEY_2- plus,
 // KEY_3- akceptuj
 
-#define KEY1      (1<<0)
-#define KEY2      (1<<1)
+#define KEY1      (1<<1)
+#define KEY2      (1<<0)
 #define KEY3      (1<<2)
 
 #define KEY_1      KEY1

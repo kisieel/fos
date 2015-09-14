@@ -7,7 +7,11 @@
 #define MENU_4_LED_Color 4
 #define MENU_5_LED_Color 5
 
-#define MENU_RF_GetInfo        0xFF
+#define MENU_RF_SendInfo       0x1F
+#define MENU_RF_Recruit        0x2F
+#define MENU_RF_GetInfo        0x3F
+#define MENU_RF_HallAlarm      0x4F
+#define MENU_RF_LogOff         0x5F
 
 #define MENU_RF_ActColor       3
 #define MENU_RF_ActBrightness  4

@@ -31,37 +31,40 @@ void MENU_PacketInterpreter(void)
 	uint32_t buffer;
 	uint8_t buffer_send[4];
 	
-	switch (RFM69W_Data.Data[0]) {
-		case (MENU_RF_GetInfo):
-			buffer = EEPROM_32_read(EEPROM_ConfAddress1);
-			buffer_send[0] = (buffer & 0x000000FF) >> 0;
-			buffer_send[1] = (buffer & 0x0000FF00) >> 8;
-			buffer_send[2] = (buffer & 0x00FF0000) >> 16;
-			buffer_send[3] = (buffer & 0xFF000000) >> 24;
-			RFM69W_sendWithRetry(RFM69W_Data.SenderID, buffer_send, 4, 15, 10);
-			break;
-		case (MENU_RF_ActColor):
-			System.ActColor = RFM69W_Data.Data[1];
-			_LED_set_color_list(MENU_LED_Color, System.ActColor);
-			_LED_on();
-			break;
-		case (MENU_RF_ActBrightness):
-			System.ActBrightness = RFM69W_Data.Data[1];
-			_LED_change_brightness_limit_list(System.ActBrightness);
-			_LED_on();
-			break;
-		case (MENU_RF_ActAlarmTone):
-			System.ActAlarmTone = RFM69W_Data.Data[1];
-			_BUZZER_alarm_set_tone_list(System.ActAlarmTone);
-			break;
-		case (MENU_RF_ActAlarmVolume):
-			System.ActAlarmVol = RFM69W_Data.Data[1];
-			_BUZZER_alarm_set_vol_list(System.ActAlarmVol);
-			break;
-		case (MENU_RF_ActAlarmTempo):
-			System.ActAlarmTempo = RFM69W_Data.Data[1];
-			_BUZZER_alarm_set_tempo_list(System.ActAlarmTempo);
-			break;
+	// Check if the sender is central unit (later done by hardware address's filtering)
+	if (RFM69W_Data.SenderID == 0x00) {
+		switch (RFM69W_Data.Data[0]) {
+			case (MENU_RF_GetInfo):
+				buffer = EEPROM_32_read(EEPROM_ConfAddress1);
+				buffer_send[0] = (buffer & 0x000000FF) >> 0;
+				buffer_send[1] = (buffer & 0x0000FF00) >> 8;
+				buffer_send[2] = (buffer & 0x00FF0000) >> 16;
+				buffer_send[3] = (buffer & 0xFF000000) >> 24;
+				RFM69W_sendFrame(0x00, buffer_send, 4, 0, 0);
+				break;
+			case (MENU_RF_ActColor):
+				System.ActColor = RFM69W_Data.Data[1];
+				_LED_set_color_list(MENU_LED_Color, System.ActColor);
+				_LED_on();
+				break;
+			case (MENU_RF_ActBrightness):
+				System.ActBrightness = RFM69W_Data.Data[1];
+				_LED_change_brightness_limit_list(System.ActBrightness);
+				_LED_on();
+				break;
+			case (MENU_RF_ActAlarmTone):
+				System.ActAlarmTone = RFM69W_Data.Data[1];
+				_BUZZER_alarm_set_tone_list(System.ActAlarmTone);
+				break;
+			case (MENU_RF_ActAlarmVolume):
+				System.ActAlarmVol = RFM69W_Data.Data[1];
+				_BUZZER_alarm_set_vol_list(System.ActAlarmVol);
+				break;
+			case (MENU_RF_ActAlarmTempo):
+				System.ActAlarmTempo = RFM69W_Data.Data[1];
+				_BUZZER_alarm_set_tempo_list(System.ActAlarmTempo);
+				break;
+		}
 	}
 }
 
@@ -126,10 +129,10 @@ void menu_1_fun(unsigned int key)
 	HALL_Data.HuntTime = TRUE;
 	
 	switch (key) {
-		case (KEY_2):
+		case (KEY_3):
 			ClrKeyb( KBD_LOCK );
 			break;
-		case (KEY_1):
+		case (KEY_2):
 			_BUZZER_single_beep();
 			ClrKeyb( KBD_LOCK );
 		
@@ -144,6 +147,9 @@ void menu_1_fun(unsigned int key)
 		
 			_actual = _actual->next;
 			break;
+		case (KEY_1):
+			ClrKeyb( KBD_LOCK );
+			break;
 	}
 }
 
@@ -151,11 +157,11 @@ void menu_1_fun(unsigned int key)
 void menu_2_fun(unsigned int key)
 {	
 	uint32_t buffer;
-	uint8_t buffer_send[4];
+	uint8_t buffer_send[5];
 	
 	_LED_animate(led_animate_mode_single);
 	switch (key) {
-		case (KEY_2):
+		case (KEY_3):
 			_BUZZER_single_beep();
 		
 			if (System.ActAnimation >= led_amimations_qnt - 1)
@@ -172,29 +178,48 @@ void menu_2_fun(unsigned int key)
 			
 			ClrKeyb( KBD_LOCK );
 			break;
-		case (KEY_1):
+		case (KEY_2):
 			_BUZZER_single_beep();
 			ClrKeyb( KBD_LOCK );
 			_LED_animate_off();
 		
 			buffer = EEPROM_32_read(EEPROM_ConfAddress1);
 			EEPROM_32_write(EEPROM_ConfAddress1, (buffer & ~EEPROM_1_ActAnimation) | (System.ActAnimation << EEPROM_1_ActAnimationPosition));
+			buffer = (buffer & ~EEPROM_1_ActColor) | (System.ActColor << EEPROM_1_ActColorPosition);
 			_LED_set_color_list(MENU_LED_Color, System.ActColor);
 			_LED_set_color_list(MENU_LED_Menu_1, 1);
 			_LED_set_color_list(MENU_LED_Menu_2, 1);
 			_LED_on();
 			
-			buffer_send[0] = (buffer & 0x000000FF) >> 0;
-			buffer_send[1] = (buffer & 0x0000FF00) >> 8;
-			buffer_send[2] = (buffer & 0x00FF0000) >> 16;
-			buffer_send[3] = (buffer & 0xFF000000) >> 24;
-			RFM69W_sendWithRetry(0x00, buffer_send, 4, 15, 10);
+			buffer_send[0] = MENU_RF_SendInfo;
+			buffer_send[1] = (buffer & 0x000000FF) >> 0;
+			buffer_send[2] = (buffer & 0x0000FF00) >> 8;
+			buffer_send[3] = (buffer & 0x00FF0000) >> 16;
+			buffer_send[4] = (buffer & 0xFF000000) >> 24;
+			RFM69W_sendWithRetry(0x00, buffer_send, 5, 15, 10);
 		
 #ifdef USART_debug
 			USART_send("-3- LED color setting mode.\n");
 #endif
 		
 			_actual = _actual->next;
+			break;
+		case (KEY_1):
+			_BUZZER_single_beep();
+			ClrKeyb( KBD_LOCK );
+
+			if (System.ActAnimation == 0)
+				System.ActAnimation = led_amimations_qnt - 1;
+			else
+				System.ActAnimation--;
+			_LED_change_animate_list(System.ActAnimation);
+
+#ifdef USART_debug
+			USART_send("\tLED animation #");
+			USART_write_buf(System.ActAnimation, DEC);
+			USART_send(".\n");
+#endif
+
 			break;
 	}
 }
@@ -203,12 +228,12 @@ void menu_2_fun(unsigned int key)
 void menu_3_fun(unsigned int key)
 {
 	uint32_t buffer;
-	uint8_t buffer_send[4];
+	uint8_t buffer_send[5];
 	
 	_LED_blink_on(MENU_LED_Color);
 
 	switch (key) {
-		case (KEY_2):
+		case (KEY_3):
 			_BUZZER_single_beep();
 			ClrKeyb( KBD_LOCK );
 		
@@ -226,28 +251,48 @@ void menu_3_fun(unsigned int key)
 #endif
 			
 			break;
-		case (KEY_1):
+		case (KEY_2):
 			_BUZZER_single_beep();
 			ClrKeyb( KBD_LOCK );
 
 			_LED_blink_off(MENU_LED_Color);
 			buffer = EEPROM_32_read(EEPROM_ConfAddress1);
 			EEPROM_32_write(EEPROM_ConfAddress1, (buffer & ~EEPROM_1_ActColor) | (System.ActColor << EEPROM_1_ActColorPosition));
+			buffer = (buffer & ~EEPROM_1_ActColor) | (System.ActColor << EEPROM_1_ActColorPosition);
 			_LED_set_color_list(MENU_LED_Menu_1, 2);
 			_LED_set_color_list(MENU_LED_Menu_2, 2);
 			_LED_on();
 			
-			buffer_send[0] = (buffer & 0x000000FF) >> 0;
-			buffer_send[1] = (buffer & 0x0000FF00) >> 8;
-			buffer_send[2] = (buffer & 0x00FF0000) >> 16;
-			buffer_send[3] = (buffer & 0xFF000000) >> 24;
-//			RFM69W_sendWithRetry(0x00, buffer_send, 4, 10, 10);
+			buffer_send[0] = MENU_RF_SendInfo;
+			buffer_send[1] = (buffer & 0x000000FF) >> 0;
+			buffer_send[2] = (buffer & 0x0000FF00) >> 8;
+			buffer_send[3] = (buffer & 0x00FF0000) >> 16;
+			buffer_send[4] = (buffer & 0xFF000000) >> 24;
+			RFM69W_sendWithRetry(0x00, buffer_send, 5, 15, 15);
 
 #ifdef USART_debug
 			USART_send("-4- LED brightness setting mode.\n");
 #endif
 		
 			_actual = _actual->next;
+			break;
+		case (KEY_1):
+			_BUZZER_single_beep();
+			ClrKeyb( KBD_LOCK );
+
+			if (System.ActColor == 0)
+				System.ActColor = led_colors_qnt - 1;
+			else
+				System.ActColor--;
+			_LED_set_color_list(MENU_LED_Color, System.ActColor);
+			_LED_on();
+
+#ifdef USART_debug
+			USART_send("\tLED color #");
+			USART_write_buf(System.ActColor, DEC);
+			USART_send(".\n");
+#endif
+
 			break;
 	}
 }
@@ -256,10 +301,10 @@ void menu_3_fun(unsigned int key)
 void menu_4_fun(unsigned int key)
 {
 	uint32_t buffer;
-	uint8_t buffer_send[4];
+	uint8_t buffer_send[5];
 	
 	switch (key) {
-		case (KEY_2):
+		case (KEY_3):
 			_BUZZER_single_beep();
 			ClrKeyb( KBD_LOCK );
 		
@@ -277,26 +322,46 @@ void menu_4_fun(unsigned int key)
 #endif
 			
 			break;
-		case (KEY_1):
+		case (KEY_2):
 			ClrKeyb( KBD_LOCK );
 			
 			buffer = EEPROM_32_read(EEPROM_ConfAddress1);
 			EEPROM_32_write(EEPROM_ConfAddress1, (buffer & ~EEPROM_1_ActBrightness) | (System.ActBrightness << EEPROM_1_ActBrightnessPosition));
+			buffer = (buffer & ~EEPROM_1_ActColor) | (System.ActColor << EEPROM_1_ActColorPosition);
 			_LED_set_color_list(MENU_LED_Menu_1, 3);
 			_LED_set_color_list(MENU_LED_Menu_2, 3);
 			_LED_on();
 		
-			buffer_send[0] = (buffer & 0x000000FF) >> 0;
-			buffer_send[1] = (buffer & 0x0000FF00) >> 8;
-			buffer_send[2] = (buffer & 0x00FF0000) >> 16;
-			buffer_send[3] = (buffer & 0xFF000000) >> 24;
-//			RFM69W_sendWithRetry(0x00, buffer_send, 4, 10, 10);
+			buffer_send[0] = MENU_RF_SendInfo;
+			buffer_send[1] = (buffer & 0x000000FF) >> 0;
+			buffer_send[2] = (buffer & 0x0000FF00) >> 8;
+			buffer_send[3] = (buffer & 0x00FF0000) >> 16;
+			buffer_send[4] = (buffer & 0xFF000000) >> 24;
+			RFM69W_sendWithRetry(0x00, buffer_send, 5, 15, 10);
 
 #ifdef USART_debug
 			USART_send("-5- Alarm tone setting mode.\n");
 #endif
 		
 			_actual = _actual->next;
+			break;
+		case (KEY_1):
+			_BUZZER_single_beep();
+			ClrKeyb( KBD_LOCK );
+
+			if (System.ActBrightness == 0)
+				System.ActBrightness = led_brightness_qnt - 1;
+			else
+				System.ActBrightness--;
+			_LED_change_brightness_limit_list(System.ActBrightness);
+			_LED_on();
+
+#ifdef USART_debug
+			USART_send("\tLED brightness #");
+			USART_write_buf(System.ActBrightness, DEC);
+			USART_send(".\n");
+#endif
+
 			break;
 	}
 }
@@ -305,12 +370,12 @@ void menu_4_fun(unsigned int key)
 void menu_5_fun(unsigned int key)
 {
 	uint32_t buffer;
-	uint8_t buffer_send[4];
+	uint8_t buffer_send[5];
 	
 	_BUZZER_alarm_start();
 	
 	switch (key) {
-		case (KEY_2):
+		case (KEY_3):
 			ClrKeyb( KBD_LOCK );
 		
 			if (System.ActAlarmTone == buzzer_tones_qnt - 1)
@@ -326,26 +391,44 @@ void menu_5_fun(unsigned int key)
 #endif
 			
 			break;
-		case (KEY_1):
+		case (KEY_2):
 			ClrKeyb( KBD_LOCK );
 		
 			buffer = EEPROM_32_read(EEPROM_ConfAddress1);
 			EEPROM_32_write(EEPROM_ConfAddress1, (buffer & ~EEPROM_1_ActAlarmTone) | (System.ActAlarmTone << EEPROM_1_ActAlarmTonePosition));
+			buffer = (buffer & ~EEPROM_1_ActColor) | (System.ActColor << EEPROM_1_ActColorPosition);
 			_LED_set_color_list(MENU_LED_Menu_1, 4);
 			_LED_set_color_list(MENU_LED_Menu_2, 4);
 			_LED_on();
 		
-			buffer_send[0] = (buffer & 0x000000FF) >> 0;
-			buffer_send[1] = (buffer & 0x0000FF00) >> 8;
-			buffer_send[2] = (buffer & 0x00FF0000) >> 16;
-			buffer_send[3] = (buffer & 0xFF000000) >> 24;
-//			RFM69W_sendWithRetry(0x00, buffer_send, 4, 10, 10);
+			buffer_send[0] = MENU_RF_SendInfo;
+			buffer_send[1] = (buffer & 0x000000FF) >> 0;
+			buffer_send[2] = (buffer & 0x0000FF00) >> 8;
+			buffer_send[3] = (buffer & 0x00FF0000) >> 16;
+			buffer_send[4] = (buffer & 0xFF000000) >> 24;
+			RFM69W_sendWithRetry(0x00, buffer_send, 5, 15, 10);
 
 #ifdef USART_debug
 			USART_send("-6- Alarm volume setting mode.\n");
 #endif
 		
 			_actual = _actual->next;
+			break;
+		case (KEY_1):
+			ClrKeyb( KBD_LOCK );
+
+			if (System.ActAlarmTone == 0)
+				System.ActAlarmTone = buzzer_tones_qnt - 1;
+			else
+				System.ActAlarmTone--;
+			_BUZZER_alarm_set_tone_list(System.ActAlarmTone);
+
+#ifdef USART_debug
+			USART_send("\tAlarm tone #");
+			USART_write_buf(System.ActAlarmTone, DEC);
+			USART_send(".\n");
+#endif
+
 			break;
 	}
 }
@@ -354,13 +437,14 @@ void menu_5_fun(unsigned int key)
 void menu_6_fun(unsigned int key)
 {
 	uint32_t buffer;
-	uint8_t buffer_send[4];
+	uint8_t buffer_send[5];
 	
 	_BUZZER_alarm_start();
 	
 	switch (key) {
-		case (KEY_2):
+		case (KEY_3):
 			ClrKeyb( KBD_LOCK );
+
 			if (System.ActAlarmVol == buzzer_vols_qnt - 1)
 				System.ActAlarmVol = 0;
 			else
@@ -374,26 +458,44 @@ void menu_6_fun(unsigned int key)
 #endif
 			
 			break;
-		case (KEY_1):
+		case (KEY_2):
 			ClrKeyb( KBD_LOCK );
 			
 			buffer = EEPROM_32_read(EEPROM_ConfAddress1);
 			EEPROM_32_write(EEPROM_ConfAddress1, (buffer & ~EEPROM_1_ActAlarmVol) | (System.ActAlarmVol << EEPROM_1_ActAlarmVolPosition));
+			buffer = (buffer & ~EEPROM_1_ActColor) | (System.ActColor << EEPROM_1_ActColorPosition);
 			_LED_set_color_list(MENU_LED_Menu_1, 5);
 			_LED_set_color_list(MENU_LED_Menu_2, 5);
 			_LED_on();
 		
-			buffer_send[0] = (buffer & 0x000000FF) >> 0;
-			buffer_send[1] = (buffer & 0x0000FF00) >> 8;
-			buffer_send[2] = (buffer & 0x00FF0000) >> 16;
-			buffer_send[3] = (buffer & 0xFF000000) >> 24;
-//			RFM69W_sendWithRetry(0x00, buffer_send, 4, 10, 10);
+			buffer_send[0] = MENU_RF_SendInfo;
+			buffer_send[1] = (buffer & 0x000000FF) >> 0;
+			buffer_send[2] = (buffer & 0x0000FF00) >> 8;
+			buffer_send[3] = (buffer & 0x00FF0000) >> 16;
+			buffer_send[4] = (buffer & 0xFF000000) >> 24;
+			RFM69W_sendWithRetry(0x00, buffer_send, 5, 15, 10);
 
 #ifdef USART_debug
 			USART_send("-7- Alarm tempo setting mode.\n");
 #endif
 		
 			_actual = _actual->next;
+			break;
+		case (KEY_1):
+			ClrKeyb( KBD_LOCK );
+
+			if (System.ActAlarmVol == 0)
+				System.ActAlarmVol = buzzer_vols_qnt - 1;
+			else
+				System.ActAlarmVol--;
+			_BUZZER_alarm_set_vol_list(System.ActAlarmVol);
+
+#ifdef USART_debug
+			USART_send("\tAlarm volume #");
+			USART_write_buf(System.ActAlarmVol, DEC);
+			USART_send(".\n");
+#endif
+
 			break;
 	}
 }
@@ -402,12 +504,12 @@ void menu_6_fun(unsigned int key)
 void menu_7_fun(unsigned int key)
 {
 	uint32_t buffer;
-	uint8_t buffer_send[4];
+	uint8_t buffer_send[5];
 	
 	_BUZZER_alarm_start();
 	
 	switch (key) {
-		case (KEY_2):
+		case (KEY_3):
 			ClrKeyb( KBD_LOCK );
 		
 			if (System.ActAlarmTempo == buzzer_tempos_qnt - 1)
@@ -423,28 +525,46 @@ void menu_7_fun(unsigned int key)
 #endif
 			
 			break;
-		case (KEY_1):
+		case (KEY_2):
 			ClrKeyb( KBD_LOCK );
 		
 			buffer = EEPROM_32_read(EEPROM_ConfAddress1);
 			EEPROM_32_write(EEPROM_ConfAddress1, (buffer & ~EEPROM_1_ActAlarmTempo) | (System.ActAlarmTempo << EEPROM_1_ActAlarmTempoPosition));
+			buffer = (buffer & ~EEPROM_1_ActColor) | (System.ActColor << EEPROM_1_ActColorPosition);
 			_LED_set_color_list(MENU_LED_Menu_1, 6);
 			_LED_set_color_list(MENU_LED_Menu_2, 6);
 			_LED_on();
 			_BUZZER_alarm_stop();
 			_BUZZER_play_music(System.ActMusic);
 		
-			buffer_send[0] = (buffer & 0x000000FF) >> 0;
-			buffer_send[1] = (buffer & 0x0000FF00) >> 8;
-			buffer_send[2] = (buffer & 0x00FF0000) >> 16;
-			buffer_send[3] = (buffer & 0xFF000000) >> 24;
-//			RFM69W_sendWithRetry(0x00, buffer_send, 4, 10, 10);
+			buffer_send[0] = MENU_RF_SendInfo;
+			buffer_send[1] = (buffer & 0x000000FF) >> 0;
+			buffer_send[2] = (buffer & 0x0000FF00) >> 8;
+			buffer_send[3] = (buffer & 0x00FF0000) >> 16;
+			buffer_send[4] = (buffer & 0xFF000000) >> 24;
+			RFM69W_sendWithRetry(0x00, buffer_send, 5, 15, 10);
 
 #ifdef USART_debug
 			USART_send("-8- Music setting mode.\n");
 #endif
 		
 			_actual = _actual->next;
+			break;
+		case (KEY_1):
+			ClrKeyb( KBD_LOCK );
+
+		if (System.ActAlarmTempo == 0)
+			System.ActAlarmTempo = buzzer_tempos_qnt - 1;
+		else
+			System.ActAlarmTempo--;
+		_BUZZER_alarm_set_tempo_list(System.ActAlarmTempo);
+
+#ifdef USART_debug
+		USART_send("\tAlarm tempo #");
+		USART_write_buf(System.ActAlarmTempo, DEC);
+		USART_send(".\n");
+#endif
+
 			break;
 	}
 }
@@ -453,10 +573,10 @@ void menu_7_fun(unsigned int key)
 void menu_8_fun(unsigned int key)
 {
 	uint32_t buffer;
-	uint8_t buffer_send[4];
+	uint8_t buffer_send[5];
 	
 	switch (key) {
-		case (KEY_2):
+		case (KEY_3):
 			ClrKeyb( KBD_LOCK );
 			
 			if (System.ActMusic == buzzer_musics_qnt - 1)
@@ -473,27 +593,45 @@ void menu_8_fun(unsigned int key)
 			
 			break;
 		
-		case (KEY_1):
+		case (KEY_2):
 			ClrKeyb( KBD_LOCK );
 			
 			buffer = EEPROM_32_read(EEPROM_ConfAddress1);
 			EEPROM_32_write(EEPROM_ConfAddress1, (buffer & ~EEPROM_1_ActAlarmTempo) | (System.ActAlarmTempo << EEPROM_1_ActAlarmTempoPosition));
+			buffer = (buffer & ~EEPROM_1_ActColor) | (System.ActColor << EEPROM_1_ActColorPosition);
 			_LED_set_color(MENU_LED_Menu_1, 0, 0, 0);
 			_LED_set_color(MENU_LED_Menu_2, 0, 0, 0);
 			_LED_on();
 			_BUZZER_stop_music();
 		
-			buffer_send[0] = (buffer & 0x000000FF) >> 0;
-			buffer_send[1] = (buffer & 0x0000FF00) >> 8;
-			buffer_send[2] = (buffer & 0x00FF0000) >> 16;
-			buffer_send[3] = (buffer & 0xFF000000) >> 24;
-//			RFM69W_sendWithRetry(0x00, buffer_send, 4, 10, 10);
+			buffer_send[0] = MENU_RF_SendInfo;
+			buffer_send[1] = (buffer & 0x000000FF) >> 0;
+			buffer_send[2] = (buffer & 0x0000FF00) >> 8;
+			buffer_send[3] = (buffer & 0x00FF0000) >> 16;
+			buffer_send[4] = (buffer & 0xFF000000) >> 24;
+			RFM69W_sendWithRetry(0x00, buffer_send, 5, 15, 10);
 			
 #ifdef USART_debug
 			USART_send("-1- Hunter mode.\n");
 #endif
 		
 			_actual = _actual->next;
+			break;
+		case (KEY_1):
+			ClrKeyb( KBD_LOCK );
+
+			if (System.ActMusic == 0)
+				System.ActMusic = buzzer_musics_qnt - 1;
+			else
+				System.ActMusic--;
+			_BUZZER_play_music(System.ActMusic);
+
+#ifdef USART_debug
+			USART_send("\tMusic #");
+			USART_write_buf(System.ActMusic, DEC);
+			USART_send(".\n");
+#endif
+
 			break;
 	}
 }

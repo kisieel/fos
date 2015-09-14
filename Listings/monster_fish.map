@@ -45,6 +45,7 @@ Section Cross References
     main.o(i.main) refers to menu.o(i.MENU_init) for MENU_init
     main.o(i.main) refers to usart.o(i.USART_init) for USART_init
     main.o(i.main) refers to hall.o(i.HALL_init) for HALL_init
+    main.o(i.main) refers to usart.o(i.USART_send) for USART_send
     main.o(i.main) refers to rfm69w.o(i.RFM69W_init) for RFM69W_init
     main.o(i.main) refers to buzzer.o(i._BUZZER_init) for _BUZZER_init
     main.o(i.main) refers to led.o(i._LED_init) for _LED_init
@@ -56,11 +57,13 @@ Section Cross References
     main.o(i.main) refers to buzzer.o(i._BUZZER_alarm_set_vol_list) for _BUZZER_alarm_set_vol_list
     main.o(i.main) refers to buzzer.o(i._BUZZER_alarm_set_tempo_list) for _BUZZER_alarm_set_tempo_list
     main.o(i.main) refers to buzzer.o(i.BUZZER_reset_timer) for BUZZER_reset_timer
+    main.o(i.main) refers to rfm69w.o(i.RFM69W_sendWithRetry) for RFM69W_sendWithRetry
     main.o(i.main) refers to key.o(i.GetKeys) for GetKeys
     main.o(i.main) refers to eeprom.o(i.EEPROM_SystemBackup) for EEPROM_SystemBackup
     main.o(i.main) refers to main.o(.data) for System
     main.o(i.main) refers to menu.o(.data) for _actual
     rfm69w.o(i.EXTI15_10_IRQHandler) refers to rfm69w.o(i.RFM69W_SPI_send_poll) for RFM69W_SPI_send_poll
+    rfm69w.o(i.EXTI15_10_IRQHandler) refers to usart.o(i.USART_send) for USART_send
     rfm69w.o(i.EXTI15_10_IRQHandler) refers to rfm69w.o(i.RFM69W_listenModeOFF) for RFM69W_listenModeOFF
     rfm69w.o(i.EXTI15_10_IRQHandler) refers to rfm69w.o(i.RFM69W_receiveBegin) for RFM69W_receiveBegin
     rfm69w.o(i.EXTI15_10_IRQHandler) refers to rfm69w.o(i.RFM69W_interruptHandler) for RFM69W_interruptHandler
@@ -68,6 +71,8 @@ Section Cross References
     rfm69w.o(i.EXTI15_10_IRQHandler) refers to menu.o(i.MENU_PacketInterpreter) for MENU_PacketInterpreter
     rfm69w.o(i.EXTI15_10_IRQHandler) refers to rfm69w.o(i.RFM69W_listenModeON) for RFM69W_listenModeON
     rfm69w.o(i.EXTI15_10_IRQHandler) refers to rfm69w.o(.bss) for RFM69W_Data
+    rfm69w.o(i.RFM69W_ACKReceived) refers to usart.o(i.USART_send) for USART_send
+    rfm69w.o(i.RFM69W_ACKReceived) refers to usart.o(i.USART_write_buf) for USART_write_buf
     rfm69w.o(i.RFM69W_ACKReceived) refers to rfm69w.o(.bss) for RFM69W_Data
     rfm69w.o(i.RFM69W_GPIO_init) refers to system_stm32l1xx.o(i.GPIO_config) for GPIO_config
     rfm69w.o(i.RFM69W_REG_init) refers to rfm69w.o(i.RFM69W_reset) for RFM69W_reset
@@ -92,10 +97,14 @@ Section Cross References
     rfm69w.o(i.RFM69W_init) refers to rfm69w.o(i.RFM69W_REG_init) for RFM69W_REG_init
     rfm69w.o(i.RFM69W_interruptHandler) refers to rfm69w.o(i.RFM69W_SPI_send_8poll) for RFM69W_SPI_send_8poll
     rfm69w.o(i.RFM69W_interruptHandler) refers to rfm69w.o(i.RFM69W_readRSSI) for RFM69W_readRSSI
+    rfm69w.o(i.RFM69W_interruptHandler) refers to usart.o(i.USART_send) for USART_send
+    rfm69w.o(i.RFM69W_interruptHandler) refers to usart.o(i.USART_write_buf) for USART_write_buf
     rfm69w.o(i.RFM69W_interruptHandler) refers to rfm69w.o(.bss) for RFM69W_Data
     rfm69w.o(i.RFM69W_listenModeOFF) refers to rfm69w.o(i.RFM69W_SPI_send_poll) for RFM69W_SPI_send_poll
+    rfm69w.o(i.RFM69W_listenModeOFF) refers to usart.o(i.USART_send) for USART_send
     rfm69w.o(i.RFM69W_listenModeON) refers to rfm69w.o(i.RFM69W_setMode) for RFM69W_setMode
     rfm69w.o(i.RFM69W_listenModeON) refers to rfm69w.o(i.RFM69W_SPI_send_poll) for RFM69W_SPI_send_poll
+    rfm69w.o(i.RFM69W_listenModeON) refers to usart.o(i.USART_send) for USART_send
     rfm69w.o(i.RFM69W_readAllRegs) refers to usart.o(i.USART_send) for USART_send
     rfm69w.o(i.RFM69W_readAllRegs) refers to rfm69w.o(i.RFM69W_SPI_send_poll) for RFM69W_SPI_send_poll
     rfm69w.o(i.RFM69W_readAllRegs) refers to usart.o(i.USART_write_buf) for USART_write_buf
@@ -106,17 +115,22 @@ Section Cross References
     rfm69w.o(i.RFM69W_receiveBegin) refers to rfm69w.o(.bss) for RFM69W_Data
     rfm69w.o(i.RFM69W_reset) refers to system_stm32l1xx.o(i.GPIO_config) for GPIO_config
     rfm69w.o(i.RFM69W_reset) refers to sys_tick.o(i.SYS_TICK_timeOut) for SYS_TICK_timeOut
+    rfm69w.o(i.RFM69W_reset) refers to usart.o(i.USART_send) for USART_send
     rfm69w.o(i.RFM69W_send) refers to rfm69w.o(i.RFM69W_SPI_set_bit) for RFM69W_SPI_set_bit
     rfm69w.o(i.RFM69W_send) refers to sys_tick.o(i.SYS_TICK_timeOut) for SYS_TICK_timeOut
     rfm69w.o(i.RFM69W_send) refers to rfm69w.o(i.RFM69W_canSend) for RFM69W_canSend
     rfm69w.o(i.RFM69W_send) refers to rfm69w.o(i.RFM69W_sendFrame) for RFM69W_sendFrame
     rfm69w.o(i.RFM69W_sendACK) refers to rfm69w.o(i.RFM69W_SPI_set_bit) for RFM69W_SPI_set_bit
     rfm69w.o(i.RFM69W_sendACK) refers to rfm69w.o(i.RFM69W_sendFrame) for RFM69W_sendFrame
+    rfm69w.o(i.RFM69W_sendACK) refers to usart.o(i.USART_send) for USART_send
+    rfm69w.o(i.RFM69W_sendACK) refers to usart.o(i.USART_write_buf) for USART_write_buf
     rfm69w.o(i.RFM69W_sendACK) refers to rfm69w.o(.bss) for RFM69W_Data
     rfm69w.o(i.RFM69W_sendFrame) refers to rfm69w.o(i.RFM69W_setMode) for RFM69W_setMode
     rfm69w.o(i.RFM69W_sendFrame) refers to rfm69w.o(i.RFM69W_setMap) for RFM69W_setMap
     rfm69w.o(i.RFM69W_sendFrame) refers to rfm69w.o(i.RFM69W_SPI_send_8poll) for RFM69W_SPI_send_8poll
     rfm69w.o(i.RFM69W_sendFrame) refers to sys_tick.o(i.SYS_TICK_timeOut) for SYS_TICK_timeOut
+    rfm69w.o(i.RFM69W_sendFrame) refers to usart.o(i.USART_send) for USART_send
+    rfm69w.o(i.RFM69W_sendFrame) refers to usart.o(i.USART_write_buf) for USART_write_buf
     rfm69w.o(i.RFM69W_sendFrame) refers to rfm69w.o(.bss) for RFM69W_Data
     rfm69w.o(i.RFM69W_sendWithRetry) refers to rfm69w.o(i.RFM69W_listenModeOFF) for RFM69W_listenModeOFF
     rfm69w.o(i.RFM69W_sendWithRetry) refers to rfm69w.o(i.RFM69W_setMode) for RFM69W_setMode
@@ -154,7 +168,7 @@ Section Cross References
     key.o(i.KeysTime) refers to key.o(.data) for keytime
     key.o(.data) refers to key.o(.constdata) for DefaultAutoRepeatTab
     menu.o(i.MENU_PacketInterpreter) refers to eeprom.o(i.EEPROM_32_read) for EEPROM_32_read
-    menu.o(i.MENU_PacketInterpreter) refers to rfm69w.o(i.RFM69W_sendWithRetry) for RFM69W_sendWithRetry
+    menu.o(i.MENU_PacketInterpreter) refers to rfm69w.o(i.RFM69W_sendFrame) for RFM69W_sendFrame
     menu.o(i.MENU_PacketInterpreter) refers to led.o(i._LED_set_color_list) for _LED_set_color_list
     menu.o(i.MENU_PacketInterpreter) refers to led.o(i._LED_on) for _LED_on
     menu.o(i.MENU_PacketInterpreter) refers to led.o(i._LED_change_brightness_limit_list) for _LED_change_brightness_limit_list
@@ -177,11 +191,14 @@ Section Cross References
     menu.o(i.menu_1_fun) refers to buzzer.o(i._BUZZER_single_beep) for _BUZZER_single_beep
     menu.o(i.menu_1_fun) refers to led.o(i._LED_set_color_list) for _LED_set_color_list
     menu.o(i.menu_1_fun) refers to led.o(i._LED_on) for _LED_on
+    menu.o(i.menu_1_fun) refers to usart.o(i.USART_send) for USART_send
     menu.o(i.menu_1_fun) refers to hall.o(.data) for HALL_Data
     menu.o(i.menu_1_fun) refers to menu.o(.data) for _actual
     menu.o(i.menu_2_fun) refers to led.o(i._LED_animate) for _LED_animate
     menu.o(i.menu_2_fun) refers to buzzer.o(i._BUZZER_single_beep) for _BUZZER_single_beep
     menu.o(i.menu_2_fun) refers to led.o(i._LED_change_animate_list) for _LED_change_animate_list
+    menu.o(i.menu_2_fun) refers to usart.o(i.USART_send) for USART_send
+    menu.o(i.menu_2_fun) refers to usart.o(i.USART_write_buf) for USART_write_buf
     menu.o(i.menu_2_fun) refers to key.o(i.ClrKeyb) for ClrKeyb
     menu.o(i.menu_2_fun) refers to led.o(i._LED_animate_off) for _LED_animate_off
     menu.o(i.menu_2_fun) refers to eeprom.o(i.EEPROM_32_read) for EEPROM_32_read
@@ -196,56 +213,74 @@ Section Cross References
     menu.o(i.menu_3_fun) refers to key.o(i.ClrKeyb) for ClrKeyb
     menu.o(i.menu_3_fun) refers to led.o(i._LED_set_color_list) for _LED_set_color_list
     menu.o(i.menu_3_fun) refers to led.o(i._LED_on) for _LED_on
+    menu.o(i.menu_3_fun) refers to usart.o(i.USART_send) for USART_send
+    menu.o(i.menu_3_fun) refers to usart.o(i.USART_write_buf) for USART_write_buf
     menu.o(i.menu_3_fun) refers to led.o(i._LED_blink_off) for _LED_blink_off
     menu.o(i.menu_3_fun) refers to eeprom.o(i.EEPROM_32_read) for EEPROM_32_read
     menu.o(i.menu_3_fun) refers to eeprom.o(i.EEPROM_32_write) for EEPROM_32_write
+    menu.o(i.menu_3_fun) refers to rfm69w.o(i.RFM69W_sendWithRetry) for RFM69W_sendWithRetry
     menu.o(i.menu_3_fun) refers to main.o(.data) for System
     menu.o(i.menu_3_fun) refers to menu.o(.data) for _actual
     menu.o(i.menu_4_fun) refers to buzzer.o(i._BUZZER_single_beep) for _BUZZER_single_beep
     menu.o(i.menu_4_fun) refers to key.o(i.ClrKeyb) for ClrKeyb
     menu.o(i.menu_4_fun) refers to led.o(i._LED_change_brightness_limit_list) for _LED_change_brightness_limit_list
     menu.o(i.menu_4_fun) refers to led.o(i._LED_on) for _LED_on
+    menu.o(i.menu_4_fun) refers to usart.o(i.USART_send) for USART_send
+    menu.o(i.menu_4_fun) refers to usart.o(i.USART_write_buf) for USART_write_buf
     menu.o(i.menu_4_fun) refers to eeprom.o(i.EEPROM_32_read) for EEPROM_32_read
     menu.o(i.menu_4_fun) refers to eeprom.o(i.EEPROM_32_write) for EEPROM_32_write
     menu.o(i.menu_4_fun) refers to led.o(i._LED_set_color_list) for _LED_set_color_list
+    menu.o(i.menu_4_fun) refers to rfm69w.o(i.RFM69W_sendWithRetry) for RFM69W_sendWithRetry
     menu.o(i.menu_4_fun) refers to main.o(.data) for System
     menu.o(i.menu_4_fun) refers to menu.o(.data) for _actual
     menu.o(i.menu_5_fun) refers to buzzer.o(i._BUZZER_alarm_start) for _BUZZER_alarm_start
     menu.o(i.menu_5_fun) refers to key.o(i.ClrKeyb) for ClrKeyb
     menu.o(i.menu_5_fun) refers to buzzer.o(i._BUZZER_alarm_set_tone_list) for _BUZZER_alarm_set_tone_list
+    menu.o(i.menu_5_fun) refers to usart.o(i.USART_send) for USART_send
+    menu.o(i.menu_5_fun) refers to usart.o(i.USART_write_buf) for USART_write_buf
     menu.o(i.menu_5_fun) refers to eeprom.o(i.EEPROM_32_read) for EEPROM_32_read
     menu.o(i.menu_5_fun) refers to eeprom.o(i.EEPROM_32_write) for EEPROM_32_write
     menu.o(i.menu_5_fun) refers to led.o(i._LED_set_color_list) for _LED_set_color_list
     menu.o(i.menu_5_fun) refers to led.o(i._LED_on) for _LED_on
+    menu.o(i.menu_5_fun) refers to rfm69w.o(i.RFM69W_sendWithRetry) for RFM69W_sendWithRetry
     menu.o(i.menu_5_fun) refers to main.o(.data) for System
     menu.o(i.menu_5_fun) refers to menu.o(.data) for _actual
     menu.o(i.menu_6_fun) refers to buzzer.o(i._BUZZER_alarm_start) for _BUZZER_alarm_start
     menu.o(i.menu_6_fun) refers to key.o(i.ClrKeyb) for ClrKeyb
     menu.o(i.menu_6_fun) refers to buzzer.o(i._BUZZER_alarm_set_vol_list) for _BUZZER_alarm_set_vol_list
+    menu.o(i.menu_6_fun) refers to usart.o(i.USART_send) for USART_send
+    menu.o(i.menu_6_fun) refers to usart.o(i.USART_write_buf) for USART_write_buf
     menu.o(i.menu_6_fun) refers to eeprom.o(i.EEPROM_32_read) for EEPROM_32_read
     menu.o(i.menu_6_fun) refers to eeprom.o(i.EEPROM_32_write) for EEPROM_32_write
     menu.o(i.menu_6_fun) refers to led.o(i._LED_set_color_list) for _LED_set_color_list
     menu.o(i.menu_6_fun) refers to led.o(i._LED_on) for _LED_on
+    menu.o(i.menu_6_fun) refers to rfm69w.o(i.RFM69W_sendWithRetry) for RFM69W_sendWithRetry
     menu.o(i.menu_6_fun) refers to main.o(.data) for System
     menu.o(i.menu_6_fun) refers to menu.o(.data) for _actual
     menu.o(i.menu_7_fun) refers to buzzer.o(i._BUZZER_alarm_start) for _BUZZER_alarm_start
     menu.o(i.menu_7_fun) refers to key.o(i.ClrKeyb) for ClrKeyb
     menu.o(i.menu_7_fun) refers to buzzer.o(i._BUZZER_alarm_set_tempo_list) for _BUZZER_alarm_set_tempo_list
+    menu.o(i.menu_7_fun) refers to usart.o(i.USART_send) for USART_send
+    menu.o(i.menu_7_fun) refers to usart.o(i.USART_write_buf) for USART_write_buf
     menu.o(i.menu_7_fun) refers to eeprom.o(i.EEPROM_32_read) for EEPROM_32_read
     menu.o(i.menu_7_fun) refers to eeprom.o(i.EEPROM_32_write) for EEPROM_32_write
     menu.o(i.menu_7_fun) refers to led.o(i._LED_set_color_list) for _LED_set_color_list
     menu.o(i.menu_7_fun) refers to led.o(i._LED_on) for _LED_on
     menu.o(i.menu_7_fun) refers to buzzer.o(i._BUZZER_alarm_stop) for _BUZZER_alarm_stop
     menu.o(i.menu_7_fun) refers to buzzer.o(i._BUZZER_play_music) for _BUZZER_play_music
+    menu.o(i.menu_7_fun) refers to rfm69w.o(i.RFM69W_sendWithRetry) for RFM69W_sendWithRetry
     menu.o(i.menu_7_fun) refers to main.o(.data) for System
     menu.o(i.menu_7_fun) refers to menu.o(.data) for _actual
     menu.o(i.menu_8_fun) refers to key.o(i.ClrKeyb) for ClrKeyb
     menu.o(i.menu_8_fun) refers to buzzer.o(i._BUZZER_play_music) for _BUZZER_play_music
+    menu.o(i.menu_8_fun) refers to usart.o(i.USART_send) for USART_send
+    menu.o(i.menu_8_fun) refers to usart.o(i.USART_write_buf) for USART_write_buf
     menu.o(i.menu_8_fun) refers to eeprom.o(i.EEPROM_32_read) for EEPROM_32_read
     menu.o(i.menu_8_fun) refers to eeprom.o(i.EEPROM_32_write) for EEPROM_32_write
     menu.o(i.menu_8_fun) refers to led.o(i._LED_set_color) for _LED_set_color
     menu.o(i.menu_8_fun) refers to led.o(i._LED_on) for _LED_on
     menu.o(i.menu_8_fun) refers to buzzer.o(i._BUZZER_stop_music) for _BUZZER_stop_music
+    menu.o(i.menu_8_fun) refers to rfm69w.o(i.RFM69W_sendWithRetry) for RFM69W_sendWithRetry
     menu.o(i.menu_8_fun) refers to main.o(.data) for System
     menu.o(i.menu_8_fun) refers to menu.o(.data) for _actual
     float.o(i._dbl2stri) refers to dleqf.o(x$fpl$dleqf) for __aeabi_cdcmple
@@ -262,11 +297,14 @@ Section Cross References
     sys_tick.o(i.SysTick_Handler) refers to sys_tick.o(.data) for _milis
     hall.o(i.EXTI9_5_IRQHandler) refers to sys_tick.o(i.SYS_TICK_timeOut) for SYS_TICK_timeOut
     hall.o(i.EXTI9_5_IRQHandler) refers to buzzer.o(i._BUZZER_alarm_start) for _BUZZER_alarm_start
+    hall.o(i.EXTI9_5_IRQHandler) refers to usart.o(i.USART_send) for USART_send
+    hall.o(i.EXTI9_5_IRQHandler) refers to usart.o(i.USART_write_buf) for USART_write_buf
     hall.o(i.EXTI9_5_IRQHandler) refers to hall.o(.data) for HALL_Data
     hall.o(i.HALL_init) refers to system_stm32l1xx.o(i.GPIO_config) for GPIO_config
     hall.o(i.HALL_init) refers to hall.o(i.NVIC_SetPriority) for NVIC_SetPriority
     hall.o(i.HALL_init) refers to hall.o(i.NVIC_EnableIRQ) for NVIC_EnableIRQ
     hall.o(i.TIM6_IRQHandler) refers to buzzer.o(i._BUZZER_alarm_stop) for _BUZZER_alarm_stop
+    hall.o(i.TIM6_IRQHandler) refers to usart.o(i.USART_send) for USART_send
     buzzer.o(i.BUZZER_music_init) refers to buzzer.o(.data) for music_0_tempo
     buzzer.o(i.BUZZER_music_init) refers to buzzer.o(.bss) for music
     buzzer.o(i.BUZZER_reset_timer) refers to buzzer.o(.data) for BUZZER_mode
@@ -621,10 +659,7 @@ Removing Unused input sections from the image.
     Removing usart.o(.rev16_text), (4 bytes).
     Removing usart.o(.revsh_text), (4 bytes).
     Removing usart.o(.rrx_text), (6 bytes).
-    Removing usart.o(i.USART_putchar), (28 bytes).
-    Removing usart.o(i.USART_send), (22 bytes).
     Removing usart.o(i.USART_write), (136 bytes).
-    Removing usart.o(i.USART_write_buf), (88 bytes).
     Removing key.o(.rev16_text), (4 bytes).
     Removing key.o(.revsh_text), (4 bytes).
     Removing key.o(.rrx_text), (6 bytes).
@@ -642,11 +677,6 @@ Removing Unused input sections from the image.
     Removing rtc.o(.rev16_text), (4 bytes).
     Removing rtc.o(.revsh_text), (4 bytes).
     Removing rtc.o(.rrx_text), (6 bytes).
-    Removing float.o(i._dbl2stri), (392 bytes).
-    Removing float.o(i._decimal_binary), (44 bytes).
-    Removing float.o(.bss), (128 bytes).
-    Removing float.o(.constdata), (64 bytes).
-    Removing float.o(.data), (4 bytes).
     Removing sys_tick.o(.rev16_text), (4 bytes).
     Removing sys_tick.o(.revsh_text), (4 bytes).
     Removing sys_tick.o(.rrx_text), (6 bytes).
@@ -665,7 +695,7 @@ Removing Unused input sections from the image.
     Removing led.o(i._LED_change_brightness_perc), (116 bytes).
     Removing led.o(i.wait_), (14 bytes).
 
-77 unused section(s) (total 2932 bytes) removed from the image.
+69 unused section(s) (total 2162 bytes) removed from the image.
 
 ==============================================================================
 
@@ -675,80 +705,80 @@ Image Symbol Table
 
     Symbol Name                              Value     Ov Type        Size  Object(Section)
 
-    ../clib/angel/boardlib.s                 0x00000000   Number         0  boardinit3.o ABSOLUTE
     ../clib/angel/boardlib.s                 0x00000000   Number         0  boardshut.o ABSOLUTE
-    ../clib/angel/boardlib.s                 0x00000000   Number         0  boardinit1.o ABSOLUTE
+    ../clib/angel/boardlib.s                 0x00000000   Number         0  boardinit3.o ABSOLUTE
     ../clib/angel/boardlib.s                 0x00000000   Number         0  boardinit2.o ABSOLUTE
+    ../clib/angel/boardlib.s                 0x00000000   Number         0  boardinit1.o ABSOLUTE
     ../clib/angel/dczerorl2.s                0x00000000   Number         0  __dczerorl2.o ABSOLUTE
     ../clib/angel/handlers.s                 0x00000000   Number         0  __scatter_zi.o ABSOLUTE
-    ../clib/angel/kernel.s                   0x00000000   Number         0  __rtentry.o ABSOLUTE
     ../clib/angel/kernel.s                   0x00000000   Number         0  __rtentry2.o ABSOLUTE
     ../clib/angel/kernel.s                   0x00000000   Number         0  __rtentry4.o ABSOLUTE
     ../clib/angel/kernel.s                   0x00000000   Number         0  rtexit2.o ABSOLUTE
     ../clib/angel/kernel.s                   0x00000000   Number         0  rtexit.o ABSOLUTE
+    ../clib/angel/kernel.s                   0x00000000   Number         0  __rtentry.o ABSOLUTE
+    ../clib/angel/rt.s                       0x00000000   Number         0  rt_heap_descriptor_intlibspace.o ABSOLUTE
     ../clib/angel/rt.s                       0x00000000   Number         0  rt_raise.o ABSOLUTE
     ../clib/angel/rt.s                       0x00000000   Number         0  rt_heap_descriptor.o ABSOLUTE
-    ../clib/angel/rt.s                       0x00000000   Number         0  rt_heap_descriptor_intlibspace.o ABSOLUTE
     ../clib/angel/scatter.s                  0x00000000   Number         0  __scatter.o ABSOLUTE
     ../clib/angel/startup.s                  0x00000000   Number         0  __main.o ABSOLUTE
+    ../clib/angel/sys.s                      0x00000000   Number         0  sys_stackheap_outer.o ABSOLUTE
+    ../clib/angel/sys.s                      0x00000000   Number         0  indicate_semi.o ABSOLUTE
+    ../clib/angel/sys.s                      0x00000000   Number         0  use_no_semi.o ABSOLUTE
     ../clib/angel/sys.s                      0x00000000   Number         0  libspace.o ABSOLUTE
     ../clib/angel/sys.s                      0x00000000   Number         0  mutex_dummy.o ABSOLUTE
-    ../clib/angel/sys.s                      0x00000000   Number         0  sys_stackheap_outer.o ABSOLUTE
-    ../clib/angel/sys.s                      0x00000000   Number         0  use_no_semi.o ABSOLUTE
-    ../clib/angel/sys.s                      0x00000000   Number         0  indicate_semi.o ABSOLUTE
     ../clib/angel/sysapp.c                   0x00000000   Number         0  sys_command.o ABSOLUTE
     ../clib/angel/sysapp.c                   0x00000000   Number         0  sys_wrch.o ABSOLUTE
     ../clib/angel/sysapp.c                   0x00000000   Number         0  sys_exit.o ABSOLUTE
-    ../clib/armsys.c                         0x00000000   Number         0  _get_argv_nomalloc.o ABSOLUTE
+    ../clib/armsys.c                         0x00000000   Number         0  no_argv.o ABSOLUTE
     ../clib/armsys.c                         0x00000000   Number         0  argv_veneer.o ABSOLUTE
     ../clib/armsys.c                         0x00000000   Number         0  argv_veneer.o ABSOLUTE
     ../clib/armsys.c                         0x00000000   Number         0  _get_argv.o ABSOLUTE
-    ../clib/armsys.c                         0x00000000   Number         0  no_argv.o ABSOLUTE
-    ../clib/heap1.c                          0x00000000   Number         0  h1_init_mt.o ABSOLUTE
-    ../clib/heap1.c                          0x00000000   Number         0  h1_free.o ABSOLUTE
+    ../clib/armsys.c                         0x00000000   Number         0  _get_argv_nomalloc.o ABSOLUTE
+    ../clib/heap1.c                          0x00000000   Number         0  h1_free_mt.o ABSOLUTE
     ../clib/heap1.c                          0x00000000   Number         0  h1_init.o ABSOLUTE
     ../clib/heap1.c                          0x00000000   Number         0  h1_final.o ABSOLUTE
-    ../clib/heap1.c                          0x00000000   Number         0  h1_free_mt.o ABSOLUTE
-    ../clib/heap1.c                          0x00000000   Number         0  h1_extend.o ABSOLUTE
+    ../clib/heap1.c                          0x00000000   Number         0  h1_free.o ABSOLUTE
+    ../clib/heap1.c                          0x00000000   Number         0  h1_init_mt.o ABSOLUTE
+    ../clib/heap1.c                          0x00000000   Number         0  h1_final_mt.o ABSOLUTE
     ../clib/heap1.c                          0x00000000   Number         0  h1_alloc.o ABSOLUTE
     ../clib/heap1.c                          0x00000000   Number         0  h1_alloc_mt.o ABSOLUTE
-    ../clib/heap1.c                          0x00000000   Number         0  h1_final_mt.o ABSOLUTE
+    ../clib/heap1.c                          0x00000000   Number         0  h1_extend.o ABSOLUTE
     ../clib/heap1.c                          0x00000000   Number         0  h1_extend_mt.o ABSOLUTE
-    ../clib/heap2.c                          0x00000000   Number         0  heap2.o ABSOLUTE
     ../clib/heap2.c                          0x00000000   Number         0  fdtree.o ABSOLUTE
+    ../clib/heap2.c                          0x00000000   Number         0  heap2.o ABSOLUTE
     ../clib/heap2.c                          0x00000000   Number         0  heap2mt.o ABSOLUTE
+    ../clib/heapalloc.c                      0x00000000   Number         0  malloc.o ABSOLUTE
+    ../clib/heapalloc.c                      0x00000000   Number         0  free.o ABSOLUTE
     ../clib/heapalloc.c                      0x00000000   Number         0  term_alloc.o ABSOLUTE
+    ../clib/heapalloc.c                      0x00000000   Number         0  init_alloc.o ABSOLUTE
+    ../clib/heapalloc.c                      0x00000000   Number         0  heapstubs.o ABSOLUTE
+    ../clib/heapalloc.c                      0x00000000   Number         0  hguard.o ABSOLUTE
     ../clib/heapalloc.c                      0x00000000   Number         0  maybetermalloc1.o ABSOLUTE
+    ../clib/heapalloc.c                      0x00000000   Number         0  maybetermalloc2.o ABSOLUTE
+    ../clib/heapalloc.c                      0x00000000   Number         0  maybetermalloc2.o ABSOLUTE
     ../clib/heapalloc.c                      0x00000000   Number         0  maybetermalloc1.o ABSOLUTE
     ../clib/heapalloc.c                      0x00000000   Number         0  hrguard.o ABSOLUTE
-    ../clib/heapalloc.c                      0x00000000   Number         0  maybetermalloc2.o ABSOLUTE
-    ../clib/heapalloc.c                      0x00000000   Number         0  heapstubs.o ABSOLUTE
-    ../clib/heapalloc.c                      0x00000000   Number         0  free.o ABSOLUTE
-    ../clib/heapalloc.c                      0x00000000   Number         0  malloc.o ABSOLUTE
-    ../clib/heapalloc.c                      0x00000000   Number         0  maybetermalloc2.o ABSOLUTE
-    ../clib/heapalloc.c                      0x00000000   Number         0  hguard.o ABSOLUTE
-    ../clib/heapalloc.c                      0x00000000   Number         0  init_alloc.o ABSOLUTE
     ../clib/heapaux.c                        0x00000000   Number         0  heapauxa.o ABSOLUTE
     ../clib/heapaux.c                        0x00000000   Number         0  heapauxi.o ABSOLUTE
     ../clib/libinit.s                        0x00000000   Number         0  libshutdown2.o ABSOLUTE
-    ../clib/libinit.s                        0x00000000   Number         0  libinit2.o ABSOLUTE
     ../clib/libinit.s                        0x00000000   Number         0  libinit.o ABSOLUTE
     ../clib/libinit.s                        0x00000000   Number         0  libshutdown.o ABSOLUTE
+    ../clib/libinit.s                        0x00000000   Number         0  libinit2.o ABSOLUTE
     ../clib/memcpset.s                       0x00000000   Number         0  rt_memcpy_w.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_rtmem_outer.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_rtmem_formal.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_rtred_inner.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_fpe_inner.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_rtmem_inner.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_abrt_inner.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_pvfn_inner.o ABSOLUTE
     ../clib/signal.c                         0x00000000   Number         0  defsig_general.o ABSOLUTE
     ../clib/signal.c                         0x00000000   Number         0  __raise.o ABSOLUTE
     ../clib/signal.c                         0x00000000   Number         0  defsig_exit.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_rtmem_inner.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_abrt_inner.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_fpe_inner.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_rtred_inner.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_stak_inner.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_pvfn_inner.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_cppl_inner.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_segv_inner.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_rtmem_outer.o ABSOLUTE
     ../clib/signal.c                         0x00000000   Number         0  defsig_other.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_rtmem_formal.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_segv_inner.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_cppl_inner.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_stak_inner.o ABSOLUTE
     ../clib/signal.s                         0x00000000   Number         0  defsig.o ABSOLUTE
     ../clib/stdlib.c                         0x00000000   Number         0  exit.o ABSOLUTE
     ../fplib/daddsub.s                       0x00000000   Number         0  daddsub_clz.o ABSOLUTE
@@ -849,8 +879,8 @@ Image Symbol Table
     .text                                    0x08000378   Section        0  h1_extend.o(.text)
     .text                                    0x080003ac   Section        0  defsig_rtmem_outer.o(.text)
     .text                                    0x080003ba   Section        2  use_no_semi.o(.text)
-    .text                                    0x080003bc   Section       74  sys_stackheap_outer.o(.text)
     .text                                    0x080003bc   Section        0  indicate_semi.o(.text)
+    .text                                    0x080003bc   Section       74  sys_stackheap_outer.o(.text)
     .text                                    0x08000406   Section        0  exit.o(.text)
     .text                                    0x08000412   Section        0  defsig_exit.o(.text)
     .text                                    0x0800041c   Section        0  defsig_rtmem_inner.o(.text)
@@ -870,103 +900,124 @@ Image Symbol Table
     i.EEPROM_SystemBackup                    0x0800076c   Section        0  eeprom.o(i.EEPROM_SystemBackup)
     i.EEPROM_unlock                          0x080007b0   Section        0  eeprom.o(i.EEPROM_unlock)
     i.EXTI15_10_IRQHandler                   0x080007d8   Section        0  rfm69w.o(i.EXTI15_10_IRQHandler)
-    i.EXTI9_5_IRQHandler                     0x0800083c   Section        0  hall.o(i.EXTI9_5_IRQHandler)
-    i.GPIO_config                            0x080008dc   Section        0  system_stm32l1xx.o(i.GPIO_config)
-    i.GetKeybSample                          0x08000a80   Section        0  key.o(i.GetKeybSample)
-    i.GetKeys                                0x08000aa8   Section        0  key.o(i.GetKeys)
-    i.HALL_init                              0x08000acc   Section        0  hall.o(i.HALL_init)
-    i.KEY_init                               0x08000b88   Section        0  key.o(i.KEY_init)
-    i.KeybProc                               0x08000bd8   Section        0  key.o(i.KeybProc)
-    i.LED_set_values                         0x08000c88   Section        0  led.o(i.LED_set_values)
-    i.MENU_PacketInterpreter                 0x08000cac   Section        0  menu.o(i.MENU_PacketInterpreter)
-    i.MENU_init                              0x08000d6c   Section        0  menu.o(i.MENU_init)
-    i.NVIC_EnableIRQ                         0x08000f0c   Section        0  hall.o(i.NVIC_EnableIRQ)
-    NVIC_EnableIRQ                           0x08000f0d   Thumb Code    22  hall.o(i.NVIC_EnableIRQ)
-    i.NVIC_EnableIRQ                         0x08000f22   Section        0  led.o(i.NVIC_EnableIRQ)
-    NVIC_EnableIRQ                           0x08000f23   Thumb Code    22  led.o(i.NVIC_EnableIRQ)
-    i.NVIC_SetPriority                       0x08000f38   Section        0  hall.o(i.NVIC_SetPriority)
-    NVIC_SetPriority                         0x08000f39   Thumb Code    32  hall.o(i.NVIC_SetPriority)
-    i.RFM69W_ACKReceived                     0x08000f60   Section        0  rfm69w.o(i.RFM69W_ACKReceived)
-    i.RFM69W_GPIO_init                       0x08000f80   Section        0  rfm69w.o(i.RFM69W_GPIO_init)
-    i.RFM69W_REG_init                        0x08001024   Section        0  rfm69w.o(i.RFM69W_REG_init)
-    i.RFM69W_SPI_init                        0x080012b0   Section        0  rfm69w.o(i.RFM69W_SPI_init)
-    i.RFM69W_SPI_send_8poll                  0x080012d4   Section        0  rfm69w.o(i.RFM69W_SPI_send_8poll)
-    i.RFM69W_SPI_send_poll                   0x08001328   Section        0  rfm69w.o(i.RFM69W_SPI_send_poll)
-    i.RFM69W_SPI_set_bit                     0x0800144c   Section        0  rfm69w.o(i.RFM69W_SPI_set_bit)
-    i.RFM69W_canSend                         0x0800146c   Section        0  rfm69w.o(i.RFM69W_canSend)
-    i.RFM69W_encrypt                         0x08001494   Section        0  rfm69w.o(i.RFM69W_encrypt)
-    i.RFM69W_init                            0x0800150c   Section        0  rfm69w.o(i.RFM69W_init)
-    i.RFM69W_interruptHandler                0x0800151c   Section        0  rfm69w.o(i.RFM69W_interruptHandler)
-    i.RFM69W_listenModeOFF                   0x080015ec   Section        0  rfm69w.o(i.RFM69W_listenModeOFF)
-    i.RFM69W_listenModeON                    0x08001622   Section        0  rfm69w.o(i.RFM69W_listenModeON)
-    i.RFM69W_readRSSI                        0x08001636   Section        0  rfm69w.o(i.RFM69W_readRSSI)
-    i.RFM69W_receiveBegin                    0x08001670   Section        0  rfm69w.o(i.RFM69W_receiveBegin)
-    i.RFM69W_reset                           0x080016b0   Section        0  rfm69w.o(i.RFM69W_reset)
-    i.RFM69W_send                            0x08001714   Section        0  rfm69w.o(i.RFM69W_send)
-    i.RFM69W_sendACK                         0x0800175c   Section        0  rfm69w.o(i.RFM69W_sendACK)
-    i.RFM69W_sendFrame                       0x08001790   Section        0  rfm69w.o(i.RFM69W_sendFrame)
-    i.RFM69W_sendWithRetry                   0x08001884   Section        0  rfm69w.o(i.RFM69W_sendWithRetry)
-    i.RFM69W_setMap                          0x0800190c   Section        0  rfm69w.o(i.RFM69W_setMap)
-    i.RFM69W_setMode                         0x080019d8   Section        0  rfm69w.o(i.RFM69W_setMode)
-    i.SPI1_IRQHandler                        0x08001a94   Section        0  rfm69w.o(i.SPI1_IRQHandler)
-    i.SYS_TICK_init                          0x08001b70   Section        0  sys_tick.o(i.SYS_TICK_init)
-    i.SYS_TICK_timeOut                       0x08001bc0   Section        0  sys_tick.o(i.SYS_TICK_timeOut)
-    i.SetSysClock                            0x08001bf4   Section        0  system_stm32l1xx.o(i.SetSysClock)
-    SetSysClock                              0x08001bf5   Thumb Code   258  system_stm32l1xx.o(i.SetSysClock)
-    i.SysTick_Handler                        0x08001d04   Section        0  sys_tick.o(i.SysTick_Handler)
-    i.SystemInit                             0x08001d38   Section        0  system_stm32l1xx.o(i.SystemInit)
-    i.TIM10_IRQHandler                       0x08001da0   Section        0  led.o(i.TIM10_IRQHandler)
-    i.TIM3_IRQHandler                        0x08001ddc   Section        0  buzzer.o(i.TIM3_IRQHandler)
-    i.TIM6_IRQHandler                        0x08001f80   Section        0  hall.o(i.TIM6_IRQHandler)
-    i.USART1_IRQHandler                      0x08001fa4   Section        0  usart.o(i.USART1_IRQHandler)
-    i.USART_init                             0x0800200c   Section        0  usart.o(i.USART_init)
-    i._BUZZER_alarm_set_tempo_list           0x08002080   Section        0  buzzer.o(i._BUZZER_alarm_set_tempo_list)
-    i._BUZZER_alarm_set_tone_list            0x0800209c   Section        0  buzzer.o(i._BUZZER_alarm_set_tone_list)
-    i._BUZZER_alarm_set_vol_list             0x080020c4   Section        0  buzzer.o(i._BUZZER_alarm_set_vol_list)
-    i._BUZZER_alarm_start                    0x080020e4   Section        0  buzzer.o(i._BUZZER_alarm_start)
-    i._BUZZER_alarm_stop                     0x08002144   Section        0  buzzer.o(i._BUZZER_alarm_stop)
-    i._BUZZER_init                           0x0800214c   Section        0  buzzer.o(i._BUZZER_init)
-    i._BUZZER_play_music                     0x08002208   Section        0  buzzer.o(i._BUZZER_play_music)
-    i._BUZZER_single_beep                    0x08002254   Section        0  buzzer.o(i._BUZZER_single_beep)
-    i._BUZZER_stop_music                     0x08002288   Section        0  buzzer.o(i._BUZZER_stop_music)
-    i._LED_animate                           0x08002294   Section        0  led.o(i._LED_animate)
-    i._LED_animate_change                    0x08002590   Section        0  led.o(i._LED_animate_change)
-    i._LED_animate_delay                     0x080025e8   Section        0  led.o(i._LED_animate_delay)
-    i._LED_animate_off                       0x08002604   Section        0  led.o(i._LED_animate_off)
-    i._LED_blink_off                         0x08002658   Section        0  led.o(i._LED_blink_off)
-    i._LED_blink_on                          0x08002678   Section        0  led.o(i._LED_blink_on)
-    i._LED_change_animate_list               0x080026d4   Section        0  led.o(i._LED_change_animate_list)
-    i._LED_change_brightness                 0x080026e8   Section        0  led.o(i._LED_change_brightness)
-    i._LED_change_brightness_all             0x080027f8   Section        0  led.o(i._LED_change_brightness_all)
-    i._LED_change_brightness_limit           0x08002824   Section        0  led.o(i._LED_change_brightness_limit)
-    i._LED_change_brightness_limit_list      0x08002848   Section        0  led.o(i._LED_change_brightness_limit_list)
-    i._LED_change_color                      0x0800285c   Section        0  led.o(i._LED_change_color)
-    i._LED_change_color_all                  0x08002900   Section        0  led.o(i._LED_change_color_all)
-    i._LED_init                              0x0800294c   Section        0  led.o(i._LED_init)
-    i._LED_off                               0x080029c4   Section        0  led.o(i._LED_off)
-    i._LED_on                                0x080029e8   Section        0  led.o(i._LED_on)
-    i._LED_refresh                           0x08002a0c   Section        0  led.o(i._LED_refresh)
-    i._LED_set                               0x08002a38   Section        0  led.o(i._LED_set)
-    i._LED_set_color                         0x08002b50   Section        0  led.o(i._LED_set_color)
-    i._LED_set_color_list                    0x08002bb4   Section        0  led.o(i._LED_set_color_list)
-    i.led_DMA_init                           0x08002be0   Section        0  led.o(i.led_DMA_init)
-    i.led_bus_reset                          0x08002c80   Section        0  led.o(i.led_bus_reset)
-    i.led_gpio_init                          0x08002cc0   Section        0  led.o(i.led_gpio_init)
-    i.led_refresh_timer_init                 0x08002d14   Section        0  led.o(i.led_refresh_timer_init)
-    i.led_timer_init                         0x08002db8   Section        0  led.o(i.led_timer_init)
-    i.led_timer_on                           0x08002e1c   Section        0  led.o(i.led_timer_on)
-    i.main                                   0x08002e40   Section        0  main.o(i.main)
-    i.menu_1_fun                             0x08002f80   Section        0  menu.o(i.menu_1_fun)
-    i.menu_2_fun                             0x08002fd4   Section        0  menu.o(i.menu_2_fun)
-    i.menu_3_fun                             0x0800309c   Section        0  menu.o(i.menu_3_fun)
-    i.menu_4_fun                             0x08003150   Section        0  menu.o(i.menu_4_fun)
-    i.menu_5_fun                             0x080031f4   Section        0  menu.o(i.menu_5_fun)
-    i.menu_6_fun                             0x08003294   Section        0  menu.o(i.menu_6_fun)
-    i.menu_7_fun                             0x08003334   Section        0  menu.o(i.menu_7_fun)
-    i.menu_8_fun                             0x080033e0   Section        0  menu.o(i.menu_8_fun)
-    i.reverse                                0x08003488   Section        0  led.o(i.reverse)
-    .constdata                               0x080034b0   Section       22  key.o(.constdata)
-    DefaultAutoRepeatTab                     0x080034b0   Data          22  key.o(.constdata)
+    i.EXTI9_5_IRQHandler                     0x08000874   Section        0  hall.o(i.EXTI9_5_IRQHandler)
+    i.GPIO_config                            0x08000990   Section        0  system_stm32l1xx.o(i.GPIO_config)
+    i.GetKeybSample                          0x08000b34   Section        0  key.o(i.GetKeybSample)
+    i.GetKeys                                0x08000b58   Section        0  key.o(i.GetKeys)
+    i.HALL_init                              0x08000b7c   Section        0  hall.o(i.HALL_init)
+    i.KEY_init                               0x08000c38   Section        0  key.o(i.KEY_init)
+    i.KeybProc                               0x08000c88   Section        0  key.o(i.KeybProc)
+    i.LED_set_values                         0x08000d38   Section        0  led.o(i.LED_set_values)
+    i.MENU_PacketInterpreter                 0x08000d5c   Section        0  menu.o(i.MENU_PacketInterpreter)
+    i.MENU_init                              0x08000e20   Section        0  menu.o(i.MENU_init)
+    i.NVIC_EnableIRQ                         0x08000fc0   Section        0  hall.o(i.NVIC_EnableIRQ)
+    NVIC_EnableIRQ                           0x08000fc1   Thumb Code    22  hall.o(i.NVIC_EnableIRQ)
+    i.NVIC_EnableIRQ                         0x08000fd6   Section        0  led.o(i.NVIC_EnableIRQ)
+    NVIC_EnableIRQ                           0x08000fd7   Thumb Code    22  led.o(i.NVIC_EnableIRQ)
+    i.NVIC_SetPriority                       0x08000fec   Section        0  hall.o(i.NVIC_SetPriority)
+    NVIC_SetPriority                         0x08000fed   Thumb Code    32  hall.o(i.NVIC_SetPriority)
+    i.RFM69W_ACKReceived                     0x08001014   Section        0  rfm69w.o(i.RFM69W_ACKReceived)
+    i.RFM69W_GPIO_init                       0x08001064   Section        0  rfm69w.o(i.RFM69W_GPIO_init)
+    i.RFM69W_REG_init                        0x08001108   Section        0  rfm69w.o(i.RFM69W_REG_init)
+    i.RFM69W_SPI_init                        0x08001394   Section        0  rfm69w.o(i.RFM69W_SPI_init)
+    i.RFM69W_SPI_send_8poll                  0x080013b8   Section        0  rfm69w.o(i.RFM69W_SPI_send_8poll)
+    i.RFM69W_SPI_send_poll                   0x0800140c   Section        0  rfm69w.o(i.RFM69W_SPI_send_poll)
+    i.RFM69W_SPI_set_bit                     0x08001530   Section        0  rfm69w.o(i.RFM69W_SPI_set_bit)
+    i.RFM69W_canSend                         0x08001550   Section        0  rfm69w.o(i.RFM69W_canSend)
+    i.RFM69W_encrypt                         0x08001578   Section        0  rfm69w.o(i.RFM69W_encrypt)
+    i.RFM69W_init                            0x080015f0   Section        0  rfm69w.o(i.RFM69W_init)
+    i.RFM69W_interruptHandler                0x08001600   Section        0  rfm69w.o(i.RFM69W_interruptHandler)
+    i.RFM69W_listenModeOFF                   0x08001798   Section        0  rfm69w.o(i.RFM69W_listenModeOFF)
+    i.RFM69W_listenModeON                    0x080017e8   Section        0  rfm69w.o(i.RFM69W_listenModeON)
+    i.RFM69W_readRSSI                        0x08001818   Section        0  rfm69w.o(i.RFM69W_readRSSI)
+    i.RFM69W_receiveBegin                    0x08001850   Section        0  rfm69w.o(i.RFM69W_receiveBegin)
+    i.RFM69W_reset                           0x0800188c   Section        0  rfm69w.o(i.RFM69W_reset)
+    i.RFM69W_send                            0x0800190c   Section        0  rfm69w.o(i.RFM69W_send)
+    i.RFM69W_sendACK                         0x08001954   Section        0  rfm69w.o(i.RFM69W_sendACK)
+    i.RFM69W_sendFrame                       0x080019b0   Section        0  rfm69w.o(i.RFM69W_sendFrame)
+    i.RFM69W_sendWithRetry                   0x08001b64   Section        0  rfm69w.o(i.RFM69W_sendWithRetry)
+    i.RFM69W_setMap                          0x08001bec   Section        0  rfm69w.o(i.RFM69W_setMap)
+    i.RFM69W_setMode                         0x08001cb8   Section        0  rfm69w.o(i.RFM69W_setMode)
+    i.SPI1_IRQHandler                        0x08001d74   Section        0  rfm69w.o(i.SPI1_IRQHandler)
+    i.SYS_TICK_init                          0x08001e50   Section        0  sys_tick.o(i.SYS_TICK_init)
+    i.SYS_TICK_timeOut                       0x08001ea0   Section        0  sys_tick.o(i.SYS_TICK_timeOut)
+    i.SetSysClock                            0x08001ed4   Section        0  system_stm32l1xx.o(i.SetSysClock)
+    SetSysClock                              0x08001ed5   Thumb Code   258  system_stm32l1xx.o(i.SetSysClock)
+    i.SysTick_Handler                        0x08001fe4   Section        0  sys_tick.o(i.SysTick_Handler)
+    i.SystemInit                             0x08002018   Section        0  system_stm32l1xx.o(i.SystemInit)
+    i.TIM10_IRQHandler                       0x08002080   Section        0  led.o(i.TIM10_IRQHandler)
+    i.TIM3_IRQHandler                        0x080020bc   Section        0  buzzer.o(i.TIM3_IRQHandler)
+    i.TIM6_IRQHandler                        0x08002260   Section        0  hall.o(i.TIM6_IRQHandler)
+    i.USART1_IRQHandler                      0x08002294   Section        0  usart.o(i.USART1_IRQHandler)
+    i.USART_init                             0x080022fc   Section        0  usart.o(i.USART_init)
+    i.USART_putchar                          0x08002370   Section        0  usart.o(i.USART_putchar)
+    i.USART_send                             0x0800238c   Section        0  usart.o(i.USART_send)
+    i.USART_write_buf                        0x080023a2   Section        0  usart.o(i.USART_write_buf)
+    i._BUZZER_alarm_set_tempo_list           0x080023fc   Section        0  buzzer.o(i._BUZZER_alarm_set_tempo_list)
+    i._BUZZER_alarm_set_tone_list            0x08002418   Section        0  buzzer.o(i._BUZZER_alarm_set_tone_list)
+    i._BUZZER_alarm_set_vol_list             0x08002440   Section        0  buzzer.o(i._BUZZER_alarm_set_vol_list)
+    i._BUZZER_alarm_start                    0x08002460   Section        0  buzzer.o(i._BUZZER_alarm_start)
+    i._BUZZER_alarm_stop                     0x080024c0   Section        0  buzzer.o(i._BUZZER_alarm_stop)
+    i._BUZZER_init                           0x080024c8   Section        0  buzzer.o(i._BUZZER_init)
+    i._BUZZER_play_music                     0x08002584   Section        0  buzzer.o(i._BUZZER_play_music)
+    i._BUZZER_single_beep                    0x080025d0   Section        0  buzzer.o(i._BUZZER_single_beep)
+    i._BUZZER_stop_music                     0x08002604   Section        0  buzzer.o(i._BUZZER_stop_music)
+    i._LED_animate                           0x08002610   Section        0  led.o(i._LED_animate)
+    i._LED_animate_change                    0x0800290c   Section        0  led.o(i._LED_animate_change)
+    i._LED_animate_delay                     0x08002964   Section        0  led.o(i._LED_animate_delay)
+    i._LED_animate_off                       0x08002980   Section        0  led.o(i._LED_animate_off)
+    i._LED_blink_off                         0x080029d4   Section        0  led.o(i._LED_blink_off)
+    i._LED_blink_on                          0x080029f4   Section        0  led.o(i._LED_blink_on)
+    i._LED_change_animate_list               0x08002a50   Section        0  led.o(i._LED_change_animate_list)
+    i._LED_change_brightness                 0x08002a64   Section        0  led.o(i._LED_change_brightness)
+    i._LED_change_brightness_all             0x08002b74   Section        0  led.o(i._LED_change_brightness_all)
+    i._LED_change_brightness_limit           0x08002ba0   Section        0  led.o(i._LED_change_brightness_limit)
+    i._LED_change_brightness_limit_list      0x08002bc4   Section        0  led.o(i._LED_change_brightness_limit_list)
+    i._LED_change_color                      0x08002bd8   Section        0  led.o(i._LED_change_color)
+    i._LED_change_color_all                  0x08002c7c   Section        0  led.o(i._LED_change_color_all)
+    i._LED_init                              0x08002cc8   Section        0  led.o(i._LED_init)
+    i._LED_off                               0x08002d40   Section        0  led.o(i._LED_off)
+    i._LED_on                                0x08002d64   Section        0  led.o(i._LED_on)
+    i._LED_refresh                           0x08002d88   Section        0  led.o(i._LED_refresh)
+    i._LED_set                               0x08002db4   Section        0  led.o(i._LED_set)
+    i._LED_set_color                         0x08002ecc   Section        0  led.o(i._LED_set_color)
+    i._LED_set_color_list                    0x08002f30   Section        0  led.o(i._LED_set_color_list)
+    i._dbl2stri                              0x08002f5c   Section        0  float.o(i._dbl2stri)
+    i._decimal_binary                        0x080030e4   Section        0  float.o(i._decimal_binary)
+    i.led_DMA_init                           0x08003110   Section        0  led.o(i.led_DMA_init)
+    i.led_bus_reset                          0x080031b0   Section        0  led.o(i.led_bus_reset)
+    i.led_gpio_init                          0x080031f0   Section        0  led.o(i.led_gpio_init)
+    i.led_refresh_timer_init                 0x08003244   Section        0  led.o(i.led_refresh_timer_init)
+    i.led_timer_init                         0x080032e8   Section        0  led.o(i.led_timer_init)
+    i.led_timer_on                           0x0800334c   Section        0  led.o(i.led_timer_on)
+    i.main                                   0x08003370   Section        0  main.o(i.main)
+    i.menu_1_fun                             0x080035fc   Section        0  menu.o(i.menu_1_fun)
+    i.menu_2_fun                             0x08003688   Section        0  menu.o(i.menu_2_fun)
+    i.menu_3_fun                             0x080037fc   Section        0  menu.o(i.menu_3_fun)
+    i.menu_4_fun                             0x08003974   Section        0  menu.o(i.menu_4_fun)
+    i.menu_5_fun                             0x08003ad8   Section        0  menu.o(i.menu_5_fun)
+    i.menu_6_fun                             0x08003c2c   Section        0  menu.o(i.menu_6_fun)
+    i.menu_7_fun                             0x08003d80   Section        0  menu.o(i.menu_7_fun)
+    i.menu_8_fun                             0x08003edc   Section        0  menu.o(i.menu_8_fun)
+    i.reverse                                0x08004028   Section        0  led.o(i.reverse)
+    x$fpl$dadd                               0x08004050   Section      336  daddsub_clz.o(x$fpl$dadd)
+    _dadd1                                   0x08004061   Thumb Code     0  daddsub_clz.o(x$fpl$dadd)
+    x$fpl$dcmpinf                            0x080041a0   Section       24  dcmpi.o(x$fpl$dcmpinf)
+    x$fpl$dfixu                              0x080041b8   Section       90  dfixu.o(x$fpl$dfixu)
+    x$fpl$dflt                               0x08004212   Section       46  dflt_clz.o(x$fpl$dflt)
+    x$fpl$dfltu                              0x08004240   Section       38  dflt_clz.o(x$fpl$dfltu)
+    x$fpl$dleqf                              0x08004268   Section      120  dleqf.o(x$fpl$dleqf)
+    x$fpl$dmul                               0x080042e0   Section      340  dmul.o(x$fpl$dmul)
+    x$fpl$dnaninf                            0x08004434   Section      156  dnaninf.o(x$fpl$dnaninf)
+    x$fpl$dretinf                            0x080044d0   Section       12  dretinf.o(x$fpl$dretinf)
+    x$fpl$drsb                               0x080044dc   Section       22  daddsub_clz.o(x$fpl$drsb)
+    x$fpl$dsub                               0x080044f4   Section      468  daddsub_clz.o(x$fpl$dsub)
+    _dsub1                                   0x08004505   Thumb Code     0  daddsub_clz.o(x$fpl$dsub)
+    .constdata                               0x080046c8   Section       22  key.o(.constdata)
+    x$fpl$usenofp                            0x080046c8   Section        0  usenofp.o(x$fpl$usenofp)
+    DefaultAutoRepeatTab                     0x080046c8   Data          22  key.o(.constdata)
+    .constdata                               0x080046e0   Section       64  float.o(.constdata)
+    round_nums                               0x080046e0   Data          64  float.o(.constdata)
     .data                                    0x20000000   Section       29  system_stm32l1xx.o(.data)
     .data                                    0x2000001d   Section        7  main.o(.data)
     .data                                    0x20000024   Section       32  key.o(.data)
@@ -980,21 +1031,25 @@ Image Symbol Table
     _art                                     0x2000003c   Data           4  key.o(.data)
     art                                      0x20000040   Data           4  key.o(.data)
     .data                                    0x20000044   Section       36  menu.o(.data)
-    .data                                    0x20000068   Section        5  sys_tick.o(.data)
-    .data                                    0x20000070   Section        8  hall.o(.data)
-    .data                                    0x20000078   Section      289  buzzer.o(.data)
-    .data                                    0x20000199   Section       45  led.o(.data)
-    led_number_static                        0x200001c5   Data           1  led.o(.data)
-    .bss                                     0x200001c8   Section      154  rfm69w.o(.bss)
-    .bss                                     0x20000262   Section     1002  usart.o(.bss)
-    .bss                                     0x2000064c   Section       38  buzzer.o(.bss)
-    .bss                                     0x20000674   Section      328  led.o(.bss)
-    .bss                                     0x200007bc   Section       96  libspace.o(.bss)
-    HEAP                                     0x20000820   Section      512  startup_stm32l1xx_md.o(HEAP)
-    Heap_Mem                                 0x20000820   Data         512  startup_stm32l1xx_md.o(HEAP)
-    STACK                                    0x20000a20   Section     1024  startup_stm32l1xx_md.o(STACK)
-    Stack_Mem                                0x20000a20   Data        1024  startup_stm32l1xx_md.o(STACK)
-    __initial_sp                             0x20000e20   Data           0  startup_stm32l1xx_md.o(STACK)
+    .data                                    0x20000068   Section        4  float.o(.data)
+    use_leading_plus                         0x20000068   Data           4  float.o(.data)
+    .data                                    0x2000006c   Section        5  sys_tick.o(.data)
+    .data                                    0x20000074   Section        8  hall.o(.data)
+    .data                                    0x2000007c   Section      289  buzzer.o(.data)
+    .data                                    0x2000019d   Section       45  led.o(.data)
+    led_number_static                        0x200001c9   Data           1  led.o(.data)
+    .bss                                     0x200001cc   Section      154  rfm69w.o(.bss)
+    .bss                                     0x20000266   Section     1002  usart.o(.bss)
+    .bss                                     0x20000650   Section      128  float.o(.bss)
+    local_bfr                                0x20000650   Data         128  float.o(.bss)
+    .bss                                     0x200006d0   Section       38  buzzer.o(.bss)
+    .bss                                     0x200006f8   Section      328  led.o(.bss)
+    .bss                                     0x20000840   Section       96  libspace.o(.bss)
+    HEAP                                     0x200008a0   Section      512  startup_stm32l1xx_md.o(HEAP)
+    Heap_Mem                                 0x200008a0   Data         512  startup_stm32l1xx_md.o(HEAP)
+    STACK                                    0x20000aa0   Section     1024  startup_stm32l1xx_md.o(STACK)
+    Stack_Mem                                0x20000aa0   Data        1024  startup_stm32l1xx_md.o(STACK)
+    __initial_sp                             0x20000ea0   Data           0  startup_stm32l1xx_md.o(STACK)
 
     Global Symbols
 
@@ -1172,96 +1227,122 @@ Image Symbol Table
     EEPROM_32_write                          0x08000725   Thumb Code    62  eeprom.o(i.EEPROM_32_write)
     EEPROM_SystemBackup                      0x0800076d   Thumb Code    62  eeprom.o(i.EEPROM_SystemBackup)
     EEPROM_unlock                            0x080007b1   Thumb Code    28  eeprom.o(i.EEPROM_unlock)
-    EXTI15_10_IRQHandler                     0x080007d9   Thumb Code    90  rfm69w.o(i.EXTI15_10_IRQHandler)
-    EXTI9_5_IRQHandler                       0x0800083d   Thumb Code   146  hall.o(i.EXTI9_5_IRQHandler)
-    GPIO_config                              0x080008dd   Thumb Code   402  system_stm32l1xx.o(i.GPIO_config)
-    GetKeybSample                            0x08000a81   Thumb Code    34  key.o(i.GetKeybSample)
-    GetKeys                                  0x08000aa9   Thumb Code    26  key.o(i.GetKeys)
-    HALL_init                                0x08000acd   Thumb Code   170  hall.o(i.HALL_init)
-    KEY_init                                 0x08000b89   Thumb Code    76  key.o(i.KEY_init)
-    KeybProc                                 0x08000bd9   Thumb Code   138  key.o(i.KeybProc)
-    LED_set_values                           0x08000c89   Thumb Code    32  led.o(i.LED_set_values)
-    MENU_PacketInterpreter                   0x08000cad   Thumb Code   184  menu.o(i.MENU_PacketInterpreter)
-    MENU_init                                0x08000d6d   Thumb Code   348  menu.o(i.MENU_init)
-    RFM69W_ACKReceived                       0x08000f61   Thumb Code    28  rfm69w.o(i.RFM69W_ACKReceived)
-    RFM69W_GPIO_init                         0x08000f81   Thumb Code   152  rfm69w.o(i.RFM69W_GPIO_init)
-    RFM69W_REG_init                          0x08001025   Thumb Code   606  rfm69w.o(i.RFM69W_REG_init)
-    RFM69W_SPI_init                          0x080012b1   Thumb Code    28  rfm69w.o(i.RFM69W_SPI_init)
-    RFM69W_SPI_send_8poll                    0x080012d5   Thumb Code    78  rfm69w.o(i.RFM69W_SPI_send_8poll)
-    RFM69W_SPI_send_poll                     0x08001329   Thumb Code   282  rfm69w.o(i.RFM69W_SPI_send_poll)
-    RFM69W_SPI_set_bit                       0x0800144d   Thumb Code    32  rfm69w.o(i.RFM69W_SPI_set_bit)
-    RFM69W_canSend                           0x0800146d   Thumb Code    40  rfm69w.o(i.RFM69W_canSend)
-    RFM69W_encrypt                           0x08001495   Thumb Code   112  rfm69w.o(i.RFM69W_encrypt)
-    RFM69W_init                              0x0800150d   Thumb Code    16  rfm69w.o(i.RFM69W_init)
-    RFM69W_interruptHandler                  0x0800151d   Thumb Code   194  rfm69w.o(i.RFM69W_interruptHandler)
-    RFM69W_listenModeOFF                     0x080015ed   Thumb Code    54  rfm69w.o(i.RFM69W_listenModeOFF)
-    RFM69W_listenModeON                      0x08001623   Thumb Code    20  rfm69w.o(i.RFM69W_listenModeON)
-    RFM69W_readRSSI                          0x08001637   Thumb Code    56  rfm69w.o(i.RFM69W_readRSSI)
-    RFM69W_receiveBegin                      0x08001671   Thumb Code    60  rfm69w.o(i.RFM69W_receiveBegin)
-    RFM69W_reset                             0x080016b1   Thumb Code    96  rfm69w.o(i.RFM69W_reset)
-    RFM69W_send                              0x08001715   Thumb Code    72  rfm69w.o(i.RFM69W_send)
-    RFM69W_sendACK                           0x0800175d   Thumb Code    48  rfm69w.o(i.RFM69W_sendACK)
-    RFM69W_sendFrame                         0x08001791   Thumb Code   228  rfm69w.o(i.RFM69W_sendFrame)
-    RFM69W_sendWithRetry                     0x08001885   Thumb Code   130  rfm69w.o(i.RFM69W_sendWithRetry)
-    RFM69W_setMap                            0x0800190d   Thumb Code   204  rfm69w.o(i.RFM69W_setMap)
-    RFM69W_setMode                           0x080019d9   Thumb Code   184  rfm69w.o(i.RFM69W_setMode)
-    SPI1_IRQHandler                          0x08001a95   Thumb Code   206  rfm69w.o(i.SPI1_IRQHandler)
-    SYS_TICK_init                            0x08001b71   Thumb Code    70  sys_tick.o(i.SYS_TICK_init)
-    SYS_TICK_timeOut                         0x08001bc1   Thumb Code    46  sys_tick.o(i.SYS_TICK_timeOut)
-    SysTick_Handler                          0x08001d05   Thumb Code    42  sys_tick.o(i.SysTick_Handler)
-    SystemInit                               0x08001d39   Thumb Code    88  system_stm32l1xx.o(i.SystemInit)
-    TIM10_IRQHandler                         0x08001da1   Thumb Code    46  led.o(i.TIM10_IRQHandler)
-    TIM3_IRQHandler                          0x08001ddd   Thumb Code   396  buzzer.o(i.TIM3_IRQHandler)
-    TIM6_IRQHandler                          0x08001f81   Thumb Code    30  hall.o(i.TIM6_IRQHandler)
-    USART1_IRQHandler                        0x08001fa5   Thumb Code    94  usart.o(i.USART1_IRQHandler)
-    USART_init                               0x0800200d   Thumb Code   104  usart.o(i.USART_init)
-    _BUZZER_alarm_set_tempo_list             0x08002081   Thumb Code    20  buzzer.o(i._BUZZER_alarm_set_tempo_list)
-    _BUZZER_alarm_set_tone_list              0x0800209d   Thumb Code    32  buzzer.o(i._BUZZER_alarm_set_tone_list)
-    _BUZZER_alarm_set_vol_list               0x080020c5   Thumb Code    18  buzzer.o(i._BUZZER_alarm_set_vol_list)
-    _BUZZER_alarm_start                      0x080020e5   Thumb Code    76  buzzer.o(i._BUZZER_alarm_start)
-    _BUZZER_alarm_stop                       0x08002145   Thumb Code     8  buzzer.o(i._BUZZER_alarm_stop)
-    _BUZZER_init                             0x0800214d   Thumb Code   170  buzzer.o(i._BUZZER_init)
-    _BUZZER_play_music                       0x08002209   Thumb Code    60  buzzer.o(i._BUZZER_play_music)
-    _BUZZER_single_beep                      0x08002255   Thumb Code    34  buzzer.o(i._BUZZER_single_beep)
-    _BUZZER_stop_music                       0x08002289   Thumb Code    12  buzzer.o(i._BUZZER_stop_music)
-    _LED_animate                             0x08002295   Thumb Code   744  led.o(i._LED_animate)
-    _LED_animate_change                      0x08002591   Thumb Code    64  led.o(i._LED_animate_change)
-    _LED_animate_delay                       0x080025e9   Thumb Code    22  led.o(i._LED_animate_delay)
-    _LED_animate_off                         0x08002605   Thumb Code    58  led.o(i._LED_animate_off)
-    _LED_blink_off                           0x08002659   Thumb Code    24  led.o(i._LED_blink_off)
-    _LED_blink_on                            0x08002679   Thumb Code    74  led.o(i._LED_blink_on)
-    _LED_change_animate_list                 0x080026d5   Thumb Code    14  led.o(i._LED_change_animate_list)
-    _LED_change_brightness                   0x080026e9   Thumb Code   268  led.o(i._LED_change_brightness)
-    _LED_change_brightness_all               0x080027f9   Thumb Code    44  led.o(i._LED_change_brightness_all)
-    _LED_change_brightness_limit             0x08002825   Thumb Code    28  led.o(i._LED_change_brightness_limit)
-    _LED_change_brightness_limit_list        0x08002849   Thumb Code    14  led.o(i._LED_change_brightness_limit_list)
-    _LED_change_color                        0x0800285d   Thumb Code   160  led.o(i._LED_change_color)
-    _LED_change_color_all                    0x08002901   Thumb Code    74  led.o(i._LED_change_color_all)
-    _LED_init                                0x0800294d   Thumb Code    90  led.o(i._LED_init)
-    _LED_off                                 0x080029c5   Thumb Code    30  led.o(i._LED_off)
-    _LED_on                                  0x080029e9   Thumb Code    32  led.o(i._LED_on)
-    _LED_refresh                             0x08002a0d   Thumb Code    34  led.o(i._LED_refresh)
-    _LED_set                                 0x08002a39   Thumb Code   256  led.o(i._LED_set)
-    _LED_set_color                           0x08002b51   Thumb Code    90  led.o(i._LED_set_color)
-    _LED_set_color_list                      0x08002bb5   Thumb Code    38  led.o(i._LED_set_color_list)
-    led_DMA_init                             0x08002be1   Thumb Code   138  led.o(i.led_DMA_init)
-    led_bus_reset                            0x08002c81   Thumb Code    54  led.o(i.led_bus_reset)
-    led_gpio_init                            0x08002cc1   Thumb Code    74  led.o(i.led_gpio_init)
-    led_refresh_timer_init                   0x08002d15   Thumb Code   152  led.o(i.led_refresh_timer_init)
-    led_timer_init                           0x08002db9   Thumb Code    96  led.o(i.led_timer_init)
-    led_timer_on                             0x08002e1d   Thumb Code    32  led.o(i.led_timer_on)
-    main                                     0x08002e41   Thumb Code   302  main.o(i.main)
-    menu_1_fun                               0x08002f81   Thumb Code    76  menu.o(i.menu_1_fun)
-    menu_2_fun                               0x08002fd5   Thumb Code   190  menu.o(i.menu_2_fun)
-    menu_3_fun                               0x0800309d   Thumb Code   172  menu.o(i.menu_3_fun)
-    menu_4_fun                               0x08003151   Thumb Code   154  menu.o(i.menu_4_fun)
-    menu_5_fun                               0x080031f5   Thumb Code   150  menu.o(i.menu_5_fun)
-    menu_6_fun                               0x08003295   Thumb Code   150  menu.o(i.menu_6_fun)
-    menu_7_fun                               0x08003335   Thumb Code   162  menu.o(i.menu_7_fun)
-    menu_8_fun                               0x080033e1   Thumb Code   158  menu.o(i.menu_8_fun)
-    reverse                                  0x08003489   Thumb Code    40  led.o(i.reverse)
-    Region$$Table$$Base                      0x080034c8   Number         0  anon$$obj.o(Region$$Table)
-    Region$$Table$$Limit                     0x080034e8   Number         0  anon$$obj.o(Region$$Table)
+    EXTI15_10_IRQHandler                     0x080007d9   Thumb Code   112  rfm69w.o(i.EXTI15_10_IRQHandler)
+    EXTI9_5_IRQHandler                       0x08000875   Thumb Code   206  hall.o(i.EXTI9_5_IRQHandler)
+    GPIO_config                              0x08000991   Thumb Code   402  system_stm32l1xx.o(i.GPIO_config)
+    GetKeybSample                            0x08000b35   Thumb Code    30  key.o(i.GetKeybSample)
+    GetKeys                                  0x08000b59   Thumb Code    26  key.o(i.GetKeys)
+    HALL_init                                0x08000b7d   Thumb Code   170  hall.o(i.HALL_init)
+    KEY_init                                 0x08000c39   Thumb Code    76  key.o(i.KEY_init)
+    KeybProc                                 0x08000c89   Thumb Code   138  key.o(i.KeybProc)
+    LED_set_values                           0x08000d39   Thumb Code    32  led.o(i.LED_set_values)
+    MENU_PacketInterpreter                   0x08000d5d   Thumb Code   188  menu.o(i.MENU_PacketInterpreter)
+    MENU_init                                0x08000e21   Thumb Code   348  menu.o(i.MENU_init)
+    RFM69W_ACKReceived                       0x08001015   Thumb Code    50  rfm69w.o(i.RFM69W_ACKReceived)
+    RFM69W_GPIO_init                         0x08001065   Thumb Code   152  rfm69w.o(i.RFM69W_GPIO_init)
+    RFM69W_REG_init                          0x08001109   Thumb Code   606  rfm69w.o(i.RFM69W_REG_init)
+    RFM69W_SPI_init                          0x08001395   Thumb Code    28  rfm69w.o(i.RFM69W_SPI_init)
+    RFM69W_SPI_send_8poll                    0x080013b9   Thumb Code    78  rfm69w.o(i.RFM69W_SPI_send_8poll)
+    RFM69W_SPI_send_poll                     0x0800140d   Thumb Code   282  rfm69w.o(i.RFM69W_SPI_send_poll)
+    RFM69W_SPI_set_bit                       0x08001531   Thumb Code    32  rfm69w.o(i.RFM69W_SPI_set_bit)
+    RFM69W_canSend                           0x08001551   Thumb Code    40  rfm69w.o(i.RFM69W_canSend)
+    RFM69W_encrypt                           0x08001579   Thumb Code   112  rfm69w.o(i.RFM69W_encrypt)
+    RFM69W_init                              0x080015f1   Thumb Code    16  rfm69w.o(i.RFM69W_init)
+    RFM69W_interruptHandler                  0x08001601   Thumb Code   300  rfm69w.o(i.RFM69W_interruptHandler)
+    RFM69W_listenModeOFF                     0x08001799   Thumb Code    60  rfm69w.o(i.RFM69W_listenModeOFF)
+    RFM69W_listenModeON                      0x080017e9   Thumb Code    26  rfm69w.o(i.RFM69W_listenModeON)
+    RFM69W_readRSSI                          0x08001819   Thumb Code    56  rfm69w.o(i.RFM69W_readRSSI)
+    RFM69W_receiveBegin                      0x08001851   Thumb Code    56  rfm69w.o(i.RFM69W_receiveBegin)
+    RFM69W_reset                             0x0800188d   Thumb Code   102  rfm69w.o(i.RFM69W_reset)
+    RFM69W_send                              0x0800190d   Thumb Code    72  rfm69w.o(i.RFM69W_send)
+    RFM69W_sendACK                           0x08001955   Thumb Code    68  rfm69w.o(i.RFM69W_sendACK)
+    RFM69W_sendFrame                         0x080019b1   Thumb Code   308  rfm69w.o(i.RFM69W_sendFrame)
+    RFM69W_sendWithRetry                     0x08001b65   Thumb Code   130  rfm69w.o(i.RFM69W_sendWithRetry)
+    RFM69W_setMap                            0x08001bed   Thumb Code   204  rfm69w.o(i.RFM69W_setMap)
+    RFM69W_setMode                           0x08001cb9   Thumb Code   184  rfm69w.o(i.RFM69W_setMode)
+    SPI1_IRQHandler                          0x08001d75   Thumb Code   206  rfm69w.o(i.SPI1_IRQHandler)
+    SYS_TICK_init                            0x08001e51   Thumb Code    70  sys_tick.o(i.SYS_TICK_init)
+    SYS_TICK_timeOut                         0x08001ea1   Thumb Code    46  sys_tick.o(i.SYS_TICK_timeOut)
+    SysTick_Handler                          0x08001fe5   Thumb Code    42  sys_tick.o(i.SysTick_Handler)
+    SystemInit                               0x08002019   Thumb Code    88  system_stm32l1xx.o(i.SystemInit)
+    TIM10_IRQHandler                         0x08002081   Thumb Code    46  led.o(i.TIM10_IRQHandler)
+    TIM3_IRQHandler                          0x080020bd   Thumb Code   396  buzzer.o(i.TIM3_IRQHandler)
+    TIM6_IRQHandler                          0x08002261   Thumb Code    36  hall.o(i.TIM6_IRQHandler)
+    USART1_IRQHandler                        0x08002295   Thumb Code    94  usart.o(i.USART1_IRQHandler)
+    USART_init                               0x080022fd   Thumb Code   104  usart.o(i.USART_init)
+    USART_putchar                            0x08002371   Thumb Code    22  usart.o(i.USART_putchar)
+    USART_send                               0x0800238d   Thumb Code    22  usart.o(i.USART_send)
+    USART_write_buf                          0x080023a3   Thumb Code    88  usart.o(i.USART_write_buf)
+    _BUZZER_alarm_set_tempo_list             0x080023fd   Thumb Code    20  buzzer.o(i._BUZZER_alarm_set_tempo_list)
+    _BUZZER_alarm_set_tone_list              0x08002419   Thumb Code    32  buzzer.o(i._BUZZER_alarm_set_tone_list)
+    _BUZZER_alarm_set_vol_list               0x08002441   Thumb Code    18  buzzer.o(i._BUZZER_alarm_set_vol_list)
+    _BUZZER_alarm_start                      0x08002461   Thumb Code    76  buzzer.o(i._BUZZER_alarm_start)
+    _BUZZER_alarm_stop                       0x080024c1   Thumb Code     8  buzzer.o(i._BUZZER_alarm_stop)
+    _BUZZER_init                             0x080024c9   Thumb Code   170  buzzer.o(i._BUZZER_init)
+    _BUZZER_play_music                       0x08002585   Thumb Code    60  buzzer.o(i._BUZZER_play_music)
+    _BUZZER_single_beep                      0x080025d1   Thumb Code    34  buzzer.o(i._BUZZER_single_beep)
+    _BUZZER_stop_music                       0x08002605   Thumb Code    12  buzzer.o(i._BUZZER_stop_music)
+    _LED_animate                             0x08002611   Thumb Code   744  led.o(i._LED_animate)
+    _LED_animate_change                      0x0800290d   Thumb Code    64  led.o(i._LED_animate_change)
+    _LED_animate_delay                       0x08002965   Thumb Code    22  led.o(i._LED_animate_delay)
+    _LED_animate_off                         0x08002981   Thumb Code    58  led.o(i._LED_animate_off)
+    _LED_blink_off                           0x080029d5   Thumb Code    24  led.o(i._LED_blink_off)
+    _LED_blink_on                            0x080029f5   Thumb Code    74  led.o(i._LED_blink_on)
+    _LED_change_animate_list                 0x08002a51   Thumb Code    14  led.o(i._LED_change_animate_list)
+    _LED_change_brightness                   0x08002a65   Thumb Code   268  led.o(i._LED_change_brightness)
+    _LED_change_brightness_all               0x08002b75   Thumb Code    44  led.o(i._LED_change_brightness_all)
+    _LED_change_brightness_limit             0x08002ba1   Thumb Code    28  led.o(i._LED_change_brightness_limit)
+    _LED_change_brightness_limit_list        0x08002bc5   Thumb Code    14  led.o(i._LED_change_brightness_limit_list)
+    _LED_change_color                        0x08002bd9   Thumb Code   160  led.o(i._LED_change_color)
+    _LED_change_color_all                    0x08002c7d   Thumb Code    74  led.o(i._LED_change_color_all)
+    _LED_init                                0x08002cc9   Thumb Code    90  led.o(i._LED_init)
+    _LED_off                                 0x08002d41   Thumb Code    30  led.o(i._LED_off)
+    _LED_on                                  0x08002d65   Thumb Code    32  led.o(i._LED_on)
+    _LED_refresh                             0x08002d89   Thumb Code    34  led.o(i._LED_refresh)
+    _LED_set                                 0x08002db5   Thumb Code   256  led.o(i._LED_set)
+    _LED_set_color                           0x08002ecd   Thumb Code    90  led.o(i._LED_set_color)
+    _LED_set_color_list                      0x08002f31   Thumb Code    38  led.o(i._LED_set_color_list)
+    _dbl2stri                                0x08002f5d   Thumb Code   374  float.o(i._dbl2stri)
+    _decimal_binary                          0x080030e5   Thumb Code    44  float.o(i._decimal_binary)
+    led_DMA_init                             0x08003111   Thumb Code   138  led.o(i.led_DMA_init)
+    led_bus_reset                            0x080031b1   Thumb Code    54  led.o(i.led_bus_reset)
+    led_gpio_init                            0x080031f1   Thumb Code    74  led.o(i.led_gpio_init)
+    led_refresh_timer_init                   0x08003245   Thumb Code   152  led.o(i.led_refresh_timer_init)
+    led_timer_init                           0x080032e9   Thumb Code    96  led.o(i.led_timer_init)
+    led_timer_on                             0x0800334d   Thumb Code    32  led.o(i.led_timer_on)
+    main                                     0x08003371   Thumb Code   458  main.o(i.main)
+    menu_1_fun                               0x080035fd   Thumb Code    94  menu.o(i.menu_1_fun)
+    menu_2_fun                               0x08003689   Thumb Code   306  menu.o(i.menu_2_fun)
+    menu_3_fun                               0x080037fd   Thumb Code   310  menu.o(i.menu_3_fun)
+    menu_4_fun                               0x08003975   Thumb Code   290  menu.o(i.menu_4_fun)
+    menu_5_fun                               0x08003ad9   Thumb Code   278  menu.o(i.menu_5_fun)
+    menu_6_fun                               0x08003c2d   Thumb Code   278  menu.o(i.menu_6_fun)
+    menu_7_fun                               0x08003d81   Thumb Code   290  menu.o(i.menu_7_fun)
+    menu_8_fun                               0x08003edd   Thumb Code   286  menu.o(i.menu_8_fun)
+    reverse                                  0x08004029   Thumb Code    40  led.o(i.reverse)
+    __aeabi_dadd                             0x08004051   Thumb Code     0  daddsub_clz.o(x$fpl$dadd)
+    _dadd                                    0x08004051   Thumb Code   332  daddsub_clz.o(x$fpl$dadd)
+    __fpl_dcmp_Inf                           0x080041a1   Thumb Code    24  dcmpi.o(x$fpl$dcmpinf)
+    __aeabi_d2uiz                            0x080041b9   Thumb Code     0  dfixu.o(x$fpl$dfixu)
+    _dfixu                                   0x080041b9   Thumb Code    90  dfixu.o(x$fpl$dfixu)
+    __aeabi_i2d                              0x08004213   Thumb Code     0  dflt_clz.o(x$fpl$dflt)
+    _dflt                                    0x08004213   Thumb Code    46  dflt_clz.o(x$fpl$dflt)
+    __aeabi_ui2d                             0x08004241   Thumb Code     0  dflt_clz.o(x$fpl$dfltu)
+    _dfltu                                   0x08004241   Thumb Code    38  dflt_clz.o(x$fpl$dfltu)
+    __aeabi_cdcmple                          0x08004269   Thumb Code     0  dleqf.o(x$fpl$dleqf)
+    _dcmple                                  0x08004269   Thumb Code   120  dleqf.o(x$fpl$dleqf)
+    __fpl_dcmple_InfNaN                      0x080042cb   Thumb Code     0  dleqf.o(x$fpl$dleqf)
+    __aeabi_dmul                             0x080042e1   Thumb Code     0  dmul.o(x$fpl$dmul)
+    _dmul                                    0x080042e1   Thumb Code   332  dmul.o(x$fpl$dmul)
+    __fpl_dnaninf                            0x08004435   Thumb Code   156  dnaninf.o(x$fpl$dnaninf)
+    __fpl_dretinf                            0x080044d1   Thumb Code    12  dretinf.o(x$fpl$dretinf)
+    __aeabi_drsub                            0x080044dd   Thumb Code     0  daddsub_clz.o(x$fpl$drsb)
+    _drsb                                    0x080044dd   Thumb Code    22  daddsub_clz.o(x$fpl$drsb)
+    __aeabi_dsub                             0x080044f5   Thumb Code     0  daddsub_clz.o(x$fpl$dsub)
+    _dsub                                    0x080044f5   Thumb Code   464  daddsub_clz.o(x$fpl$dsub)
+    __I$use$fp                               0x080046c8   Number         0  usenofp.o(x$fpl$usenofp)
+    Region$$Table$$Base                      0x08004720   Number         0  anon$$obj.o(Region$$Table)
+    Region$$Table$$Limit                     0x08004740   Number         0  anon$$obj.o(Region$$Table)
     SystemCoreClock                          0x20000000   Data           4  system_stm32l1xx.o(.data)
     PLLMulTable                              0x20000004   Data           9  system_stm32l1xx.o(.data)
     AHBPrescTable                            0x2000000d   Data          16  system_stm32l1xx.o(.data)
@@ -1275,44 +1356,44 @@ Image Symbol Table
     _7_menu                                  0x2000005c   Data           4  menu.o(.data)
     _8_menu                                  0x20000060   Data           4  menu.o(.data)
     _actual                                  0x20000064   Data           4  menu.o(.data)
-    _milis                                   0x20000068   Data           4  sys_tick.o(.data)
-    _cnt                                     0x2000006c   Data           1  sys_tick.o(.data)
-    HALL_Data                                0x20000070   Data           8  hall.o(.data)
-    beep                                     0x20000078   Data           8  buzzer.o(.data)
-    BUZZER_mode                              0x20000080   Data           1  buzzer.o(.data)
-    BUZZER_AlarmTones                        0x20000081   Data          12  buzzer.o(.data)
-    BUZZER_AlarmVols                         0x2000008d   Data           6  buzzer.o(.data)
-    BUZZER_AlarmTempos                       0x20000094   Data          20  buzzer.o(.data)
-    music_0_tempo                            0x200000a8   Data          10  buzzer.o(.data)
-    music_0_tone                             0x200000b2   Data           5  buzzer.o(.data)
-    music_1_tempo                            0x200000b8   Data          92  buzzer.o(.data)
-    music_1_tone                             0x20000114   Data          46  buzzer.o(.data)
-    music_2_tempo                            0x20000142   Data          58  buzzer.o(.data)
-    music_2_tone                             0x2000017c   Data          29  buzzer.o(.data)
-    i                                        0x20000199   Data           1  led.o(.data)
-    led_current_animation                    0x2000019a   Data           1  led.o(.data)
-    animation_step                           0x2000019b   Data           1  led.o(.data)
-    led_animate_brightness                   0x2000019c   Data           1  led.o(.data)
-    led_brightness_normal                    0x2000019d   Data           1  led.o(.data)
-    LED_blinking_state                       0x2000019e   Data           1  led.o(.data)
-    led_blink_status                         0x2000019f   Data           5  led.o(.data)
-    led_brightness_coeff                     0x200001a4   Data           1  led.o(.data)
-    led_animations                           0x200001a5   Data           2  led.o(.data)
-    led_colors                               0x200001a7   Data          21  led.o(.data)
-    led_brightness                           0x200001bc   Data           7  led.o(.data)
-    _LED_dma_flag                            0x200001c3   Data           1  led.o(.data)
-    _LED_refresh_flag                        0x200001c4   Data           1  led.o(.data)
-    RFM69W_FIFO                              0x200001c8   Data          82  rfm69w.o(.bss)
-    RFM69W_Data                              0x2000021a   Data          72  rfm69w.o(.bss)
-    USART_FIFO                               0x20000262   Data        1002  usart.o(.bss)
-    music                                    0x2000064c   Data          28  buzzer.o(.bss)
-    alarm                                    0x20000668   Data          10  buzzer.o(.bss)
-    temp_value                               0x20000674   Data          48  led.o(.bss)
-    led                                      0x200006a4   Data         240  led.o(.bss)
-    led_state                                0x20000794   Data          20  led.o(.bss)
-    led_state_temp                           0x200007a8   Data          20  led.o(.bss)
-    __libspace_start                         0x200007bc   Data          96  libspace.o(.bss)
-    __temporary_stack_top$libspace           0x2000081c   Data           0  libspace.o(.bss)
+    _milis                                   0x2000006c   Data           4  sys_tick.o(.data)
+    _cnt                                     0x20000070   Data           1  sys_tick.o(.data)
+    HALL_Data                                0x20000074   Data           8  hall.o(.data)
+    beep                                     0x2000007c   Data           8  buzzer.o(.data)
+    BUZZER_mode                              0x20000084   Data           1  buzzer.o(.data)
+    BUZZER_AlarmTones                        0x20000085   Data          12  buzzer.o(.data)
+    BUZZER_AlarmVols                         0x20000091   Data           6  buzzer.o(.data)
+    BUZZER_AlarmTempos                       0x20000098   Data          20  buzzer.o(.data)
+    music_0_tempo                            0x200000ac   Data          10  buzzer.o(.data)
+    music_0_tone                             0x200000b6   Data           5  buzzer.o(.data)
+    music_1_tempo                            0x200000bc   Data          92  buzzer.o(.data)
+    music_1_tone                             0x20000118   Data          46  buzzer.o(.data)
+    music_2_tempo                            0x20000146   Data          58  buzzer.o(.data)
+    music_2_tone                             0x20000180   Data          29  buzzer.o(.data)
+    i                                        0x2000019d   Data           1  led.o(.data)
+    led_current_animation                    0x2000019e   Data           1  led.o(.data)
+    animation_step                           0x2000019f   Data           1  led.o(.data)
+    led_animate_brightness                   0x200001a0   Data           1  led.o(.data)
+    led_brightness_normal                    0x200001a1   Data           1  led.o(.data)
+    LED_blinking_state                       0x200001a2   Data           1  led.o(.data)
+    led_blink_status                         0x200001a3   Data           5  led.o(.data)
+    led_brightness_coeff                     0x200001a8   Data           1  led.o(.data)
+    led_animations                           0x200001a9   Data           2  led.o(.data)
+    led_colors                               0x200001ab   Data          21  led.o(.data)
+    led_brightness                           0x200001c0   Data           7  led.o(.data)
+    _LED_dma_flag                            0x200001c7   Data           1  led.o(.data)
+    _LED_refresh_flag                        0x200001c8   Data           1  led.o(.data)
+    RFM69W_FIFO                              0x200001cc   Data          82  rfm69w.o(.bss)
+    RFM69W_Data                              0x2000021e   Data          72  rfm69w.o(.bss)
+    USART_FIFO                               0x20000266   Data        1002  usart.o(.bss)
+    music                                    0x200006d0   Data          28  buzzer.o(.bss)
+    alarm                                    0x200006ec   Data          10  buzzer.o(.bss)
+    temp_value                               0x200006f8   Data          48  led.o(.bss)
+    led                                      0x20000728   Data         240  led.o(.bss)
+    led_state                                0x20000818   Data          20  led.o(.bss)
+    led_state_temp                           0x2000082c   Data          20  led.o(.bss)
+    __libspace_start                         0x20000840   Data          96  libspace.o(.bss)
+    __temporary_stack_top$libspace           0x200008a0   Data           0  libspace.o(.bss)
 
 
 
@@ -1322,9 +1403,9 @@ Memory Map of the image
 
   Image Entry point : 0x080001d9
 
-  Load Region LR_1 (Base: 0x08000000, Size: 0x000036b0, Max: 0xffffffff, ABSOLUTE, COMPRESSED[0x000035b0])
+  Load Region LR_1 (Base: 0x08000000, Size: 0x0000490c, Max: 0xffffffff, ABSOLUTE, COMPRESSED[0x00004808])
 
-    Execution Region ER_RO (Base: 0x08000000, Size: 0x000034e8, Max: 0xffffffff, ABSOLUTE)
+    Execution Region ER_RO (Base: 0x08000000, Size: 0x00004740, Max: 0xffffffff, ABSOLUTE)
 
     Base Addr    Size         Type   Attr      Idx    E Section Name        Object
 
@@ -1410,106 +1491,126 @@ Memory Map of the image
     0x08000724   0x00000048   Code   RO           83    i.EEPROM_32_write   eeprom.o
     0x0800076c   0x00000044   Code   RO           90    i.EEPROM_SystemBackup  eeprom.o
     0x080007b0   0x00000028   Code   RO           94    i.EEPROM_unlock     eeprom.o
-    0x080007d8   0x00000064   Code   RO          283    i.EXTI15_10_IRQHandler  rfm69w.o
-    0x0800083c   0x000000a0   Code   RO          810    i.EXTI9_5_IRQHandler  hall.o
-    0x080008dc   0x000001a4   Code   RO           13    i.GPIO_config       system_stm32l1xx.o
-    0x08000a80   0x00000028   Code   RO          537    i.GetKeybSample     key.o
-    0x08000aa8   0x00000024   Code   RO          538    i.GetKeys           key.o
-    0x08000acc   0x000000bc   Code   RO          811    i.HALL_init         hall.o
-    0x08000b88   0x00000050   Code   RO          541    i.KEY_init          key.o
-    0x08000bd8   0x000000b0   Code   RO          543    i.KeybProc          key.o
-    0x08000c88   0x00000024   Code   RO         1004    i.LED_set_values    led.o
-    0x08000cac   0x000000c0   Code   RO          617    i.MENU_PacketInterpreter  menu.o
-    0x08000d6c   0x000001a0   Code   RO          618    i.MENU_init         menu.o
-    0x08000f0c   0x00000016   Code   RO          812    i.NVIC_EnableIRQ    hall.o
-    0x08000f22   0x00000016   Code   RO         1005    i.NVIC_EnableIRQ    led.o
-    0x08000f38   0x00000028   Code   RO          813    i.NVIC_SetPriority  hall.o
-    0x08000f60   0x00000020   Code   RO          284    i.RFM69W_ACKReceived  rfm69w.o
-    0x08000f80   0x000000a4   Code   RO          285    i.RFM69W_GPIO_init  rfm69w.o
-    0x08001024   0x0000028c   Code   RO          286    i.RFM69W_REG_init   rfm69w.o
-    0x080012b0   0x00000024   Code   RO          288    i.RFM69W_SPI_init   rfm69w.o
-    0x080012d4   0x00000054   Code   RO          290    i.RFM69W_SPI_send_8poll  rfm69w.o
-    0x08001328   0x00000124   Code   RO          291    i.RFM69W_SPI_send_poll  rfm69w.o
-    0x0800144c   0x00000020   Code   RO          292    i.RFM69W_SPI_set_bit  rfm69w.o
-    0x0800146c   0x00000028   Code   RO          294    i.RFM69W_canSend    rfm69w.o
-    0x08001494   0x00000078   Code   RO          295    i.RFM69W_encrypt    rfm69w.o
-    0x0800150c   0x00000010   Code   RO          296    i.RFM69W_init       rfm69w.o
-    0x0800151c   0x000000d0   Code   RO          297    i.RFM69W_interruptHandler  rfm69w.o
-    0x080015ec   0x00000036   Code   RO          298    i.RFM69W_listenModeOFF  rfm69w.o
-    0x08001622   0x00000014   Code   RO          299    i.RFM69W_listenModeON  rfm69w.o
-    0x08001636   0x00000038   Code   RO          301    i.RFM69W_readRSSI   rfm69w.o
-    0x0800166e   0x00000002   PAD
-    0x08001670   0x00000040   Code   RO          302    i.RFM69W_receiveBegin  rfm69w.o
-    0x080016b0   0x00000064   Code   RO          303    i.RFM69W_reset      rfm69w.o
-    0x08001714   0x00000048   Code   RO          304    i.RFM69W_send       rfm69w.o
-    0x0800175c   0x00000034   Code   RO          305    i.RFM69W_sendACK    rfm69w.o
-    0x08001790   0x000000f4   Code   RO          306    i.RFM69W_sendFrame  rfm69w.o
-    0x08001884   0x00000088   Code   RO          307    i.RFM69W_sendWithRetry  rfm69w.o
-    0x0800190c   0x000000cc   Code   RO          308    i.RFM69W_setMap     rfm69w.o
-    0x080019d8   0x000000bc   Code   RO          309    i.RFM69W_setMode    rfm69w.o
-    0x08001a94   0x000000dc   Code   RO          310    i.SPI1_IRQHandler   rfm69w.o
-    0x08001b70   0x00000050   Code   RO          767    i.SYS_TICK_init     sys_tick.o
-    0x08001bc0   0x00000034   Code   RO          768    i.SYS_TICK_timeOut  sys_tick.o
-    0x08001bf4   0x00000110   Code   RO           14    i.SetSysClock       system_stm32l1xx.o
-    0x08001d04   0x00000034   Code   RO          769    i.SysTick_Handler   sys_tick.o
-    0x08001d38   0x00000068   Code   RO           16    i.SystemInit        system_stm32l1xx.o
-    0x08001da0   0x0000003c   Code   RO         1006    i.TIM10_IRQHandler  led.o
-    0x08001ddc   0x000001a4   Code   RO          872    i.TIM3_IRQHandler   buzzer.o
-    0x08001f80   0x00000024   Code   RO          814    i.TIM6_IRQHandler   hall.o
-    0x08001fa4   0x00000068   Code   RO          479    i.USART1_IRQHandler  usart.o
-    0x0800200c   0x00000074   Code   RO          480    i.USART_init        usart.o
-    0x08002080   0x0000001c   Code   RO          873    i._BUZZER_alarm_set_tempo_list  buzzer.o
-    0x0800209c   0x00000028   Code   RO          874    i._BUZZER_alarm_set_tone_list  buzzer.o
-    0x080020c4   0x00000020   Code   RO          875    i._BUZZER_alarm_set_vol_list  buzzer.o
-    0x080020e4   0x00000060   Code   RO          876    i._BUZZER_alarm_start  buzzer.o
-    0x08002144   0x00000008   Code   RO          877    i._BUZZER_alarm_stop  buzzer.o
-    0x0800214c   0x000000bc   Code   RO          879    i._BUZZER_init      buzzer.o
-    0x08002208   0x0000004c   Code   RO          881    i._BUZZER_play_music  buzzer.o
-    0x08002254   0x00000034   Code   RO          882    i._BUZZER_single_beep  buzzer.o
-    0x08002288   0x0000000c   Code   RO          883    i._BUZZER_stop_music  buzzer.o
-    0x08002294   0x000002fc   Code   RO         1007    i._LED_animate      led.o
-    0x08002590   0x00000058   Code   RO         1008    i._LED_animate_change  led.o
-    0x080025e8   0x0000001c   Code   RO         1009    i._LED_animate_delay  led.o
-    0x08002604   0x00000054   Code   RO         1010    i._LED_animate_off  led.o
-    0x08002658   0x00000020   Code   RO         1011    i._LED_blink_off    led.o
-    0x08002678   0x0000005c   Code   RO         1012    i._LED_blink_on     led.o
-    0x080026d4   0x00000014   Code   RO         1013    i._LED_change_animate_list  led.o
-    0x080026e8   0x00000110   Code   RO         1014    i._LED_change_brightness  led.o
-    0x080027f8   0x0000002c   Code   RO         1015    i._LED_change_brightness_all  led.o
-    0x08002824   0x00000024   Code   RO         1017    i._LED_change_brightness_limit  led.o
-    0x08002848   0x00000014   Code   RO         1018    i._LED_change_brightness_limit_list  led.o
-    0x0800285c   0x000000a4   Code   RO         1020    i._LED_change_color  led.o
-    0x08002900   0x0000004a   Code   RO         1021    i._LED_change_color_all  led.o
-    0x0800294a   0x00000002   PAD
-    0x0800294c   0x00000078   Code   RO         1022    i._LED_init         led.o
-    0x080029c4   0x00000024   Code   RO         1023    i._LED_off          led.o
-    0x080029e8   0x00000024   Code   RO         1024    i._LED_on           led.o
-    0x08002a0c   0x0000002c   Code   RO         1025    i._LED_refresh      led.o
-    0x08002a38   0x00000118   Code   RO         1026    i._LED_set          led.o
-    0x08002b50   0x00000064   Code   RO         1027    i._LED_set_color    led.o
-    0x08002bb4   0x0000002c   Code   RO         1028    i._LED_set_color_list  led.o
-    0x08002be0   0x000000a0   Code   RO         1029    i.led_DMA_init      led.o
-    0x08002c80   0x00000040   Code   RO         1030    i.led_bus_reset     led.o
-    0x08002cc0   0x00000054   Code   RO         1031    i.led_gpio_init     led.o
-    0x08002d14   0x000000a4   Code   RO         1032    i.led_refresh_timer_init  led.o
-    0x08002db8   0x00000064   Code   RO         1033    i.led_timer_init    led.o
-    0x08002e1c   0x00000024   Code   RO         1034    i.led_timer_on      led.o
-    0x08002e40   0x00000140   Code   RO          253    i.main              main.o
-    0x08002f80   0x00000054   Code   RO          619    i.menu_1_fun        menu.o
-    0x08002fd4   0x000000c8   Code   RO          620    i.menu_2_fun        menu.o
-    0x0800309c   0x000000b4   Code   RO          621    i.menu_3_fun        menu.o
-    0x08003150   0x000000a4   Code   RO          622    i.menu_4_fun        menu.o
-    0x080031f4   0x000000a0   Code   RO          623    i.menu_5_fun        menu.o
-    0x08003294   0x000000a0   Code   RO          624    i.menu_6_fun        menu.o
-    0x08003334   0x000000ac   Code   RO          625    i.menu_7_fun        menu.o
-    0x080033e0   0x000000a8   Code   RO          626    i.menu_8_fun        menu.o
-    0x08003488   0x00000028   Code   RO         1035    i.reverse           led.o
-    0x080034b0   0x00000016   Data   RO          546    .constdata          key.o
-    0x080034c6   0x00000002   PAD
-    0x080034c8   0x00000020   Data   RO         1522    Region$$Table       anon$$obj.o
+    0x080007d8   0x0000009c   Code   RO          283    i.EXTI15_10_IRQHandler  rfm69w.o
+    0x08000874   0x0000011c   Code   RO          810    i.EXTI9_5_IRQHandler  hall.o
+    0x08000990   0x000001a4   Code   RO           13    i.GPIO_config       system_stm32l1xx.o
+    0x08000b34   0x00000024   Code   RO          537    i.GetKeybSample     key.o
+    0x08000b58   0x00000024   Code   RO          538    i.GetKeys           key.o
+    0x08000b7c   0x000000bc   Code   RO          811    i.HALL_init         hall.o
+    0x08000c38   0x00000050   Code   RO          541    i.KEY_init          key.o
+    0x08000c88   0x000000b0   Code   RO          543    i.KeybProc          key.o
+    0x08000d38   0x00000024   Code   RO         1004    i.LED_set_values    led.o
+    0x08000d5c   0x000000c4   Code   RO          617    i.MENU_PacketInterpreter  menu.o
+    0x08000e20   0x000001a0   Code   RO          618    i.MENU_init         menu.o
+    0x08000fc0   0x00000016   Code   RO          812    i.NVIC_EnableIRQ    hall.o
+    0x08000fd6   0x00000016   Code   RO         1005    i.NVIC_EnableIRQ    led.o
+    0x08000fec   0x00000028   Code   RO          813    i.NVIC_SetPriority  hall.o
+    0x08001014   0x00000050   Code   RO          284    i.RFM69W_ACKReceived  rfm69w.o
+    0x08001064   0x000000a4   Code   RO          285    i.RFM69W_GPIO_init  rfm69w.o
+    0x08001108   0x0000028c   Code   RO          286    i.RFM69W_REG_init   rfm69w.o
+    0x08001394   0x00000024   Code   RO          288    i.RFM69W_SPI_init   rfm69w.o
+    0x080013b8   0x00000054   Code   RO          290    i.RFM69W_SPI_send_8poll  rfm69w.o
+    0x0800140c   0x00000124   Code   RO          291    i.RFM69W_SPI_send_poll  rfm69w.o
+    0x08001530   0x00000020   Code   RO          292    i.RFM69W_SPI_set_bit  rfm69w.o
+    0x08001550   0x00000028   Code   RO          294    i.RFM69W_canSend    rfm69w.o
+    0x08001578   0x00000078   Code   RO          295    i.RFM69W_encrypt    rfm69w.o
+    0x080015f0   0x00000010   Code   RO          296    i.RFM69W_init       rfm69w.o
+    0x08001600   0x00000198   Code   RO          297    i.RFM69W_interruptHandler  rfm69w.o
+    0x08001798   0x00000050   Code   RO          298    i.RFM69W_listenModeOFF  rfm69w.o
+    0x080017e8   0x00000030   Code   RO          299    i.RFM69W_listenModeON  rfm69w.o
+    0x08001818   0x00000038   Code   RO          301    i.RFM69W_readRSSI   rfm69w.o
+    0x08001850   0x0000003c   Code   RO          302    i.RFM69W_receiveBegin  rfm69w.o
+    0x0800188c   0x00000080   Code   RO          303    i.RFM69W_reset      rfm69w.o
+    0x0800190c   0x00000048   Code   RO          304    i.RFM69W_send       rfm69w.o
+    0x08001954   0x0000005c   Code   RO          305    i.RFM69W_sendACK    rfm69w.o
+    0x080019b0   0x000001b4   Code   RO          306    i.RFM69W_sendFrame  rfm69w.o
+    0x08001b64   0x00000088   Code   RO          307    i.RFM69W_sendWithRetry  rfm69w.o
+    0x08001bec   0x000000cc   Code   RO          308    i.RFM69W_setMap     rfm69w.o
+    0x08001cb8   0x000000bc   Code   RO          309    i.RFM69W_setMode    rfm69w.o
+    0x08001d74   0x000000dc   Code   RO          310    i.SPI1_IRQHandler   rfm69w.o
+    0x08001e50   0x00000050   Code   RO          767    i.SYS_TICK_init     sys_tick.o
+    0x08001ea0   0x00000034   Code   RO          768    i.SYS_TICK_timeOut  sys_tick.o
+    0x08001ed4   0x00000110   Code   RO           14    i.SetSysClock       system_stm32l1xx.o
+    0x08001fe4   0x00000034   Code   RO          769    i.SysTick_Handler   sys_tick.o
+    0x08002018   0x00000068   Code   RO           16    i.SystemInit        system_stm32l1xx.o
+    0x08002080   0x0000003c   Code   RO         1006    i.TIM10_IRQHandler  led.o
+    0x080020bc   0x000001a4   Code   RO          872    i.TIM3_IRQHandler   buzzer.o
+    0x08002260   0x00000034   Code   RO          814    i.TIM6_IRQHandler   hall.o
+    0x08002294   0x00000068   Code   RO          479    i.USART1_IRQHandler  usart.o
+    0x080022fc   0x00000074   Code   RO          480    i.USART_init        usart.o
+    0x08002370   0x0000001c   Code   RO          481    i.USART_putchar     usart.o
+    0x0800238c   0x00000016   Code   RO          482    i.USART_send        usart.o
+    0x080023a2   0x00000058   Code   RO          484    i.USART_write_buf   usart.o
+    0x080023fa   0x00000002   PAD
+    0x080023fc   0x0000001c   Code   RO          873    i._BUZZER_alarm_set_tempo_list  buzzer.o
+    0x08002418   0x00000028   Code   RO          874    i._BUZZER_alarm_set_tone_list  buzzer.o
+    0x08002440   0x00000020   Code   RO          875    i._BUZZER_alarm_set_vol_list  buzzer.o
+    0x08002460   0x00000060   Code   RO          876    i._BUZZER_alarm_start  buzzer.o
+    0x080024c0   0x00000008   Code   RO          877    i._BUZZER_alarm_stop  buzzer.o
+    0x080024c8   0x000000bc   Code   RO          879    i._BUZZER_init      buzzer.o
+    0x08002584   0x0000004c   Code   RO          881    i._BUZZER_play_music  buzzer.o
+    0x080025d0   0x00000034   Code   RO          882    i._BUZZER_single_beep  buzzer.o
+    0x08002604   0x0000000c   Code   RO          883    i._BUZZER_stop_music  buzzer.o
+    0x08002610   0x000002fc   Code   RO         1007    i._LED_animate      led.o
+    0x0800290c   0x00000058   Code   RO         1008    i._LED_animate_change  led.o
+    0x08002964   0x0000001c   Code   RO         1009    i._LED_animate_delay  led.o
+    0x08002980   0x00000054   Code   RO         1010    i._LED_animate_off  led.o
+    0x080029d4   0x00000020   Code   RO         1011    i._LED_blink_off    led.o
+    0x080029f4   0x0000005c   Code   RO         1012    i._LED_blink_on     led.o
+    0x08002a50   0x00000014   Code   RO         1013    i._LED_change_animate_list  led.o
+    0x08002a64   0x00000110   Code   RO         1014    i._LED_change_brightness  led.o
+    0x08002b74   0x0000002c   Code   RO         1015    i._LED_change_brightness_all  led.o
+    0x08002ba0   0x00000024   Code   RO         1017    i._LED_change_brightness_limit  led.o
+    0x08002bc4   0x00000014   Code   RO         1018    i._LED_change_brightness_limit_list  led.o
+    0x08002bd8   0x000000a4   Code   RO         1020    i._LED_change_color  led.o
+    0x08002c7c   0x0000004a   Code   RO         1021    i._LED_change_color_all  led.o
+    0x08002cc6   0x00000002   PAD
+    0x08002cc8   0x00000078   Code   RO         1022    i._LED_init         led.o
+    0x08002d40   0x00000024   Code   RO         1023    i._LED_off          led.o
+    0x08002d64   0x00000024   Code   RO         1024    i._LED_on           led.o
+    0x08002d88   0x0000002c   Code   RO         1025    i._LED_refresh      led.o
+    0x08002db4   0x00000118   Code   RO         1026    i._LED_set          led.o
+    0x08002ecc   0x00000064   Code   RO         1027    i._LED_set_color    led.o
+    0x08002f30   0x0000002c   Code   RO         1028    i._LED_set_color_list  led.o
+    0x08002f5c   0x00000188   Code   RO          743    i._dbl2stri         float.o
+    0x080030e4   0x0000002c   Code   RO          744    i._decimal_binary   float.o
+    0x08003110   0x000000a0   Code   RO         1029    i.led_DMA_init      led.o
+    0x080031b0   0x00000040   Code   RO         1030    i.led_bus_reset     led.o
+    0x080031f0   0x00000054   Code   RO         1031    i.led_gpio_init     led.o
+    0x08003244   0x000000a4   Code   RO         1032    i.led_refresh_timer_init  led.o
+    0x080032e8   0x00000064   Code   RO         1033    i.led_timer_init    led.o
+    0x0800334c   0x00000024   Code   RO         1034    i.led_timer_on      led.o
+    0x08003370   0x0000028c   Code   RO          253    i.main              main.o
+    0x080035fc   0x0000008c   Code   RO          619    i.menu_1_fun        menu.o
+    0x08003688   0x00000174   Code   RO          620    i.menu_2_fun        menu.o
+    0x080037fc   0x00000178   Code   RO          621    i.menu_3_fun        menu.o
+    0x08003974   0x00000164   Code   RO          622    i.menu_4_fun        menu.o
+    0x08003ad8   0x00000154   Code   RO          623    i.menu_5_fun        menu.o
+    0x08003c2c   0x00000154   Code   RO          624    i.menu_6_fun        menu.o
+    0x08003d80   0x0000015c   Code   RO          625    i.menu_7_fun        menu.o
+    0x08003edc   0x0000014c   Code   RO          626    i.menu_8_fun        menu.o
+    0x08004028   0x00000028   Code   RO         1035    i.reverse           led.o
+    0x08004050   0x00000150   Code   RO         1291    x$fpl$dadd          fz_ws.l(daddsub_clz.o)
+    0x080041a0   0x00000018   Code   RO         1394    x$fpl$dcmpinf       fz_ws.l(dcmpi.o)
+    0x080041b8   0x0000005a   Code   RO         1297    x$fpl$dfixu         fz_ws.l(dfixu.o)
+    0x08004212   0x0000002e   Code   RO         1302    x$fpl$dflt          fz_ws.l(dflt_clz.o)
+    0x08004240   0x00000026   Code   RO         1301    x$fpl$dfltu         fz_ws.l(dflt_clz.o)
+    0x08004266   0x00000002   PAD
+    0x08004268   0x00000078   Code   RO         1307    x$fpl$dleqf         fz_ws.l(dleqf.o)
+    0x080042e0   0x00000154   Code   RO         1309    x$fpl$dmul          fz_ws.l(dmul.o)
+    0x08004434   0x0000009c   Code   RO         1396    x$fpl$dnaninf       fz_ws.l(dnaninf.o)
+    0x080044d0   0x0000000c   Code   RO         1398    x$fpl$dretinf       fz_ws.l(dretinf.o)
+    0x080044dc   0x00000016   Code   RO         1292    x$fpl$drsb          fz_ws.l(daddsub_clz.o)
+    0x080044f2   0x00000002   PAD
+    0x080044f4   0x000001d4   Code   RO         1293    x$fpl$dsub          fz_ws.l(daddsub_clz.o)
+    0x080046c8   0x00000000   Code   RO         1400    x$fpl$usenofp       fz_ws.l(usenofp.o)
+    0x080046c8   0x00000016   Data   RO          546    .constdata          key.o
+    0x080046de   0x00000002   PAD
+    0x080046e0   0x00000040   Data   RO          746    .constdata          float.o
+    0x08004720   0x00000020   Data   RO         1522    Region$$Table       anon$$obj.o
 
 
-    Execution Region ER_RW (Base: 0x20000000, Size: 0x000001c8, Max: 0xffffffff, ABSOLUTE, COMPRESSED[0x000000c8])
+    Execution Region ER_RW (Base: 0x20000000, Size: 0x000001cc, Max: 0xffffffff, ABSOLUTE, COMPRESSED[0x000000c8])
 
     Base Addr    Size         Type   Attr      Idx    E Section Name        Object
 
@@ -1517,26 +1618,27 @@ Memory Map of the image
     0x2000001d   0x00000007   Data   RW          254    .data               main.o
     0x20000024   0x00000020   Data   RW          547    .data               key.o
     0x20000044   0x00000024   Data   RW          627    .data               menu.o
-    0x20000068   0x00000005   Data   RW          770    .data               sys_tick.o
-    0x2000006d   0x00000003   PAD
-    0x20000070   0x00000008   Data   RW          815    .data               hall.o
-    0x20000078   0x00000121   Data   RW          885    .data               buzzer.o
-    0x20000199   0x0000002d   Data   RW         1038    .data               led.o
+    0x20000068   0x00000004   Data   RW          747    .data               float.o
+    0x2000006c   0x00000005   Data   RW          770    .data               sys_tick.o
+    0x20000071   0x00000003   PAD
+    0x20000074   0x00000008   Data   RW          815    .data               hall.o
+    0x2000007c   0x00000121   Data   RW          885    .data               buzzer.o
+    0x2000019d   0x0000002d   Data   RW         1038    .data               led.o
 
 
-    Execution Region ER_ZI (Base: 0x200001c8, Size: 0x00000c58, Max: 0xffffffff, ABSOLUTE)
+    Execution Region ER_ZI (Base: 0x200001cc, Size: 0x00000cd4, Max: 0xffffffff, ABSOLUTE)
 
     Base Addr    Size         Type   Attr      Idx    E Section Name        Object
 
-    0x200001c8   0x0000009a   Zero   RW          311    .bss                rfm69w.o
-    0x20000262   0x000003ea   Zero   RW          485    .bss                usart.o
-    0x2000064c   0x00000026   Zero   RW          884    .bss                buzzer.o
-    0x20000672   0x00000002   PAD
-    0x20000674   0x00000148   Zero   RW         1037    .bss                led.o
-    0x200007bc   0x00000060   Zero   RW         1404    .bss                c_w.l(libspace.o)
-    0x2000081c   0x00000004   PAD
-    0x20000820   0x00000200   Zero   RW            2    HEAP                startup_stm32l1xx_md.o
-    0x20000a20   0x00000400   Zero   RW            1    STACK               startup_stm32l1xx_md.o
+    0x200001cc   0x0000009a   Zero   RW          311    .bss                rfm69w.o
+    0x20000266   0x000003ea   Zero   RW          485    .bss                usart.o
+    0x20000650   0x00000080   Zero   RW          745    .bss                float.o
+    0x200006d0   0x00000026   Zero   RW          884    .bss                buzzer.o
+    0x200006f6   0x00000002   PAD
+    0x200006f8   0x00000148   Zero   RW         1037    .bss                led.o
+    0x20000840   0x00000060   Zero   RW         1404    .bss                c_w.l(libspace.o)
+    0x200008a0   0x00000200   Zero   RW            2    HEAP                startup_stm32l1xx_md.o
+    0x20000aa0   0x00000400   Zero   RW            1    STACK               startup_stm32l1xx_md.o
 
 
 ==============================================================================
@@ -1548,19 +1650,20 @@ Image component sizes
 
       1408        204          0        289         38      32850   buzzer.o
        196         34          0          0          0     176285   eeprom.o
-       446         46          0          8          0      26154   hall.o
-       416         92         22         32          0       2950   key.o
+       436         18         64          4        128       1966   float.o
+       586        120          0          8          0      26190   hall.o
+       412         92         22         32          0       2950   key.o
       3208        308          0         45        328      17617   led.o
-       320         18          0          7          0       1496   main.o
-      1896        152          0         36          0       6991   menu.o
-      3186        182          0          0        154      62982   rfm69w.o
+       652        194          0          7          0       1708   main.o
+      3216        548          0         36          0       7555   menu.o
+      3800        532          0          0        154      63194   rfm69w.o
         64         26        244          0       1536        792   startup_stm32l1xx_md.o
        184         26          0          5          0      25318   sys_tick.o
        796         48          0         29          0     181143   system_stm32l1xx.o
-       220         22          0          0       1002       1458   usart.o
+       358         28          0          0       1002       2913   usart.o
 
     ----------------------------------------------------------------------
-     12344       1158        300        456       3060     536036   Object Totals
+     15320       2178        364        460       3188     540481   Object Totals
          0          0         32          0          0          0   (incl. Generated)
          4          0          2          5          2          0   (incl. Padding)
 
@@ -1601,19 +1704,29 @@ Image component sizes
         74          0          0          0          0         80   sys_stackheap_outer.o
         14          0          0          0          0         76   sys_wrch.o
          2          0          0          0          0         68   use_no_semi.o
+       826         16          0          0          0        348   daddsub_clz.o
+        24          0          0          0          0         68   dcmpi.o
+        90          4          0          0          0         92   dfixu.o
+        84          0          0          0          0        136   dflt_clz.o
+       120          4          0          0          0         92   dleqf.o
+       340         12          0          0          0        104   dmul.o
+       156          4          0          0          0         92   dnaninf.o
+        12          0          0          0          0         68   dretinf.o
+         0          0          0          0          0          0   usenofp.o
 
     ----------------------------------------------------------------------
-       900         78          0          0        100       1648   Library Totals
-         6          0          0          0          4          0   (incl. Padding)
+      2556        118          0          0         96       2648   Library Totals
+        10          0          0          0          0          0   (incl. Padding)
 
     ----------------------------------------------------------------------
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Library Name
 
        894         78          0          0         96       1648   c_w.l
+      1652         40          0          0          0       1000   fz_ws.l
 
     ----------------------------------------------------------------------
-       900         78          0          0        100       1648   Library Totals
+      2556        118          0          0         96       2648   Library Totals
 
     ----------------------------------------------------------------------
 
@@ -1622,15 +1735,15 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-     13244       1236        300        456       3160     531596   Grand Totals
-     13244       1236        300        200       3160     531596   ELF Image Totals (compressed)
-     13244       1236        300        200          0          0   ROM Totals
+     17876       2296        364        460       3284     536209   Grand Totals
+     17876       2296        364        200       3284     536209   ELF Image Totals (compressed)
+     17876       2296        364        200          0          0   ROM Totals
 
 ==============================================================================
 
-    Total RO  Size (Code + RO Data)                13544 (  13.23kB)
-    Total RW  Size (RW Data + ZI Data)              3616 (   3.53kB)
-    Total ROM Size (Code + RO Data + RW Data)      13744 (  13.42kB)
+    Total RO  Size (Code + RO Data)                18240 (  17.81kB)
+    Total RW  Size (RW Data + ZI Data)              3744 (   3.66kB)
+    Total ROM Size (Code + RO Data + RW Data)      18440 (  18.01kB)
 
 ==============================================================================
 

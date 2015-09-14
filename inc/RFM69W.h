@@ -26,6 +26,7 @@ extern volatile RFM69W RFM69W_Data;
 
 extern void     RFM69W_init(void);
 extern uint8_t  RFM69W_sendWithRetry(uint8_t toAddress, const void* buffer, uint8_t bufferSize, uint8_t retries, uint8_t retryWaitTime);
+extern uint8_t  RFM69W_sendFrame(uint8_t toAddress, const void* buffer, uint8_t bufferSize, uint8_t requestACK, uint8_t sendACK);
 
 // End of public functions
 

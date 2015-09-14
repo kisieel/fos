@@ -94,10 +94,11 @@ void KEY_init(void)
 //	RCC->APB1ENR |= RCC_APB1ENR_TIM6EN;
 	RCC->AHBENR |= RCC_AHBENR_GPIOAEN;
 	
+	GPIO_config(0x0A, 0, GPIO_MODE_Input, GPIO_PULL_Floating, 0, 0, 0);
 	GPIO_config(0x0A, 1, GPIO_MODE_Input, GPIO_PULL_Floating, 0, 0, 0);
 	GPIO_config(0x0A, 2, GPIO_MODE_Input, GPIO_PULL_Floating, 0, 0, 0);
-	GPIO_config(0x0A, 3, GPIO_MODE_Input, GPIO_PULL_Floating, 0, 0, 0);
 	
+
 //	TIM6->ARR = 10000;
 //	TIM6->PSC = 32;
 //	
@@ -124,9 +125,9 @@ void KEY_init(void)
 unsigned int
 GetKeybSample( void )
 {	
-  return (((GPIOA->IDR & GPIO_IDR_IDR_1) >> 1) 
-		    | ((GPIOA->IDR & GPIO_IDR_IDR_2) >> 1)
-	      | ((GPIOA->IDR & GPIO_IDR_IDR_3) >> 1)) & ANYKEY;   
+	return (((GPIOA->IDR & GPIO_IDR_IDR_0) >> 0)
+		    | ((GPIOA->IDR & GPIO_IDR_IDR_1) >> 0)
+	      | ((GPIOA->IDR & GPIO_IDR_IDR_2) >> 0)) & ANYKEY;
 }
 
 // ***********************************************************************
