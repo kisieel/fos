@@ -12,6 +12,7 @@
 #define MENU_RF_GetInfo        0x3F
 #define MENU_RF_HallAlarm      0x4F
 #define MENU_RF_LogOff         0x5F
+#define MENU_RF_HallAlarmStop  0x6F
 
 #define MENU_RF_ActColor       3
 #define MENU_RF_ActBrightness  4

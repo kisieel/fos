@@ -13,7 +13,7 @@ void HALL_init(void)
 	SYSCFG->EXTICR[1] |= SYSCFG_EXTICR2_EXTI6_PA;     // A block for EXTI6
 	EXTI->IMR |= EXTI_IMR_MR6;                        // Input line 13 selection (unmasking)
 	EXTI->FTSR |= EXTI_FTSR_TR6;                      // Falling edge selection
-	NVIC_SetPriority(EXTI9_5_IRQn, 1);                // Priority set
+	NVIC_SetPriority(EXTI9_5_IRQn, 2);                // Priority set
 	NVIC_EnableIRQ(EXTI9_5_IRQn);                     // Interrupt enable
 	
 	RCC->APB1ENR |= RCC_APB1ENR_TIM6EN;
@@ -23,12 +23,14 @@ void HALL_init(void)
 	TIM6->DIER |= TIM_DIER_UIE;
 	TIM6->EGR |= TIM_EGR_UG;
 	TIM6->SR &= ~(TIM_SR_UIF);
-	NVIC_SetPriority(TIM6_IRQn, 1);                // Priority set to 0
+	NVIC_SetPriority(TIM6_IRQn, 2);                // Priority set to 0
 	NVIC_EnableIRQ(TIM6_IRQn);
 }
 
 void EXTI9_5_IRQHandler(void)
 {
+	uint8_t buffer_send[1];
+	
 	if (EXTI->PR & EXTI_PR_PR6) {
 		if (HALL_Data.HuntTime) {
 			if (HALL_Data.SequenceCnt) {
@@ -39,10 +41,17 @@ void EXTI9_5_IRQHandler(void)
 						TIM6->CNT = 0;
 						TIM6->CR1 |= TIM_CR1_CEN;
 						HALL_Data.SequenceCnt = HALL_SequenceNumber;
-						_BUZZER_alarm_start();
+						// Prevent from sending packets too often
+						if (HALL_Data.TimeOut == 0 || SYS_TICK_timeOut(1, HALL_Data.TimeOut) > 500) {
+							HALL_Data.TimeOut = SYS_TICK_timeOut(0, 0);
+							_BUZZER_alarm_start();
+							HALL_Data.Result = TRUE;
+							buffer_send[0] = MENU_RF_HallAlarm;
+							RFM69W_sendWithRetry(0x00, buffer_send, 1, 15, 10);
 #ifdef USART_debug
-						USART_send("Fish caught!\n");
+							USART_send("Fish caught!\n");
 #endif
+						}
 					} else {
 #ifdef USART_debug
 						USART_send("Roller moved with #");
@@ -75,12 +84,16 @@ void EXTI9_5_IRQHandler(void)
 
 void TIM6_IRQHandler()
 {
+	uint8_t buffer_send[1];
+	
 	if (TIM6->SR & TIM_SR_UIF) {
 		_BUZZER_alarm_stop();
+		HALL_Data.Result = FALSE;
+		buffer_send[0] = MENU_RF_HallAlarmStop;
+		RFM69W_sendWithRetry(0x00, buffer_send, 1, 15, 10);
 #ifdef USART_debug
 			USART_send("Hunt down.\n");
 #endif
-//		}
 		
 		TIM6->SR &= ~(TIM_SR_UIF);
 	}

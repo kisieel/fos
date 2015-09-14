@@ -121,7 +121,10 @@ int main()
 	while(GPIOA->IDR & GPIO_IDR_IDR_0);
 
 	for(;;) {
-		_actual->menu_fun(GetKeys());
+		if (HALL_Data.Result)
+			_LED_animate(System.ActAnimation);
+		else
+			_actual->menu_fun(GetKeys());
 		
 		if (GPIOA->IDR & GPIO_IDR_IDR_0) {
 			data = SYS_TICK_timeOut(0, 0);
