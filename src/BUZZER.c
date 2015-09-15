@@ -416,7 +416,7 @@ void BUZZER_music_init(void)
 	music.samples[2].tempo = music_2_tempo;
 	music.samples[2].tone = music_2_tone;
 	
-	music.volume = 0x00;
+	music.volume = vol_mid;
 }
 
 void _BUZZER_play_music(uint8_t music_number)
@@ -481,7 +481,7 @@ void _BUZZER_init(void)
 	alarm.position = 0 ;
 
 	beep.tone = nominal_freuqency;
-	beep.volume = 1;
+	beep.volume = vol_mid;
 	beep.length = 100;
 	
 	NVIC_EnableIRQ(TIM3_IRQn);

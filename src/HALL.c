@@ -42,39 +42,39 @@ void EXTI9_5_IRQHandler(void)
 						TIM6->CR1 |= TIM_CR1_CEN;
 						HALL_Data.SequenceCnt = HALL_SequenceNumber;
 						// Prevent from sending packets too often
-						if (HALL_Data.TimeOut == 0 || SYS_TICK_timeOut(1, HALL_Data.TimeOut) > 500) {
+						if (SYS_TICK_timeOut(1, HALL_Data.TimeOut) > 500) {
 							HALL_Data.TimeOut = SYS_TICK_timeOut(0, 0);
 							_BUZZER_alarm_start();
 							HALL_Data.Result = TRUE;
 							buffer_send[0] = MENU_RF_HallAlarm;
 							RFM69W_sendWithRetry(0x00, buffer_send, 1, 15, 10);
-#ifdef USART_debug
-							USART_send("Fish caught!\n");
-#endif
+//#ifdef USART_debug
+//							USART_send("Fish caught!\n");
+//#endif
 						}
 					} else {
-#ifdef USART_debug
-						USART_send("Roller moved with #");
-						USART_write_buf(HALL_Data.SequenceCnt, DEC);
-						USART_send(".\n");
-#endif						
+//#ifdef USART_debug
+//						USART_send("Roller moved with #");
+//						USART_write_buf(HALL_Data.SequenceCnt, DEC);
+//						USART_send(".\n");
+//#endif						
 					}
 					HALL_Data.Time = SYS_TICK_timeOut(0, 0);
 				} else {
 					HALL_Data.SequenceCnt = 0;
-#ifdef USART_debug
-					USART_send("Roller moved with #0.\n");
-#endif
+//#ifdef USART_debug
+//					USART_send("Roller moved with #0.\n");
+//#endif
 				}
 			} else {
 				HALL_Data.SequenceCnt++;
 				HALL_Data.Time = SYS_TICK_timeOut(0, 0);
 
-#ifdef USART_debug
-				USART_send("Roller moved with #");
-				USART_write_buf(HALL_Data.SequenceCnt, DEC);
-				USART_send(".\n");
-#endif
+//#ifdef USART_debug
+//				USART_send("Roller moved with #");
+//				USART_write_buf(HALL_Data.SequenceCnt, DEC);
+//				USART_send(".\n");
+//#endif
 			}
 		}
 		
@@ -91,9 +91,9 @@ void TIM6_IRQHandler()
 		HALL_Data.Result = FALSE;
 		buffer_send[0] = MENU_RF_HallAlarmStop;
 		RFM69W_sendWithRetry(0x00, buffer_send, 1, 15, 10);
-#ifdef USART_debug
-			USART_send("Hunt down.\n");
-#endif
+//#ifdef USART_debug
+//			USART_send("Hunt down.\n");
+//#endif
 		
 		TIM6->SR &= ~(TIM_SR_UIF);
 	}

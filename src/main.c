@@ -122,7 +122,7 @@ int main()
 
 	for(;;) {
 		if (HALL_Data.Result)
-			_LED_animate(System.ActAnimation);
+			_LED_animate(led_animate_mode_single);
 		else
 			_actual->menu_fun(GetKeys());
 		
